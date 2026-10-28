@@ -1,0 +1,9 @@
+archive/
+# Old root reference folder; contents copied to projects/esp32-pebble-stand/reference/.
+# Delete after closing the PDF viewer.
+ESP32-S3-Touch-AMOLED-1.75-B-3D/
+*.FCBak
+*.FCStd1
+*.FCStd.lock
+__pycache__/
+*.pyc
