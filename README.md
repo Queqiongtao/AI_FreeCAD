@@ -10,12 +10,20 @@
 
 ![ESP32 鹅卵石底座](projects/esp32-pebble-stand/output/preview_front.png)
 
+## 文档
+
+- [AGENT.md](AGENT.md) — AI/协作者工作约定
+- [LOG.md](LOG.md) — 工作日志
+
 ## 目录约定
 
 ```text
 .
 ├─ README.md                     # 本文件：项目索引 + 通用约定
+├─ AGENT.md                      # AI/协作者工作约定
+├─ LOG.md                        # 工作日志
 ├─ .gitignore
+├─ .gitattributes
 └─ projects/
    └─ <project-slug>/
       ├─ README.md               # 项目自己的说明
@@ -39,9 +47,11 @@
 3. 建 `output/`、`reference/`、`archive/`。
 4. 写项目 `README.md`。
 5. 在上面的项目表里加一行。
-6. 跑脚本、提交、打 tag。
+6. 跑脚本、展示改动；经用户同意后提交、打 tag。
 
 ## Git
+
+提交前需用户明确同意，详见 [AGENT.md](AGENT.md)。
 
 远程：
 
