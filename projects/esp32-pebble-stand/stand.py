@@ -1,600 +1,516 @@
-"""Pebble desk stand for the ESP32-S3-Touch-AMOLED-1.75-B.
+"""ESP32-S3-Touch-AMOLED-1.75-B 成品模块的鹅卵石桌面底座。
 
-Front cap + rear body:
-  * the thin front cap carries the board, the three through-openings and
-    the external thread; it never touches the desk
-  * the rear body is the whole pebble shell, the internal thread and the
-    entire bottom plate; it is the only desktop contact
-  * the battery cradle is attached to the front cap (hidden inside the
-    rear body) so the battery does not rotate with the threaded cover
-
-Single-file parametric source.  Outputs to ./output/:
-  front_shell.stl, rear_cover.stl, stand.step, stand.FCStd
-
-Run with freecadcmd stand.py, or in the FreeCAD GUI console from the
-project directory:
-
-    exec(open(r"stand.py", encoding="utf-8").read())
+模块背面的三颗原厂螺丝固定薄支架；封闭后壳从背面卡到支架上。
+在 FreeCAD 控制台或 freecadcmd 中运行，输出固定到 ./output/。
 """
 
 import math
 import os
+import json
 
 import FreeCAD as App
-import Part
 import MeshPart
+import Part
+
 
 DOC_NAME = "Pebble_Stand"
-
-try:
-    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-except NameError:
-    SCRIPT_DIR = os.getcwd()
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
 OUT_DIR = os.path.join(SCRIPT_DIR, "output")
 
-BOARD_D = 51.0
-BOARD_R = BOARD_D / 2.0
-TILT_DEG = 50.0
-# A: the front cap is completely uncut and floats above the rear ring.
-BOTTOM_GAP = 7.2
+# 模块是带原厂外壳的成品，不是裸 PCB。
+MODULE_R = 25.5
+MODULE_DEPTH = 12.1
+TILT_DEG = 40.0
+MODULE_BOTTOM_CLEARANCE = 5.1
+SCREWS_2D = [(0.0, 20.50), (13.75, -14.70), (-13.75, -14.70)]
+SCREW_CLEARANCE_R = 1.15  # M2 初始值，打印前用原厂螺丝核对
 
-FRONT_R = 25.5
-SEAM_R = 25.1
+BATTERY_W = 36.0
+BATTERY_H = 26.0
+BATTERY_T = 8.0
+BATTERY_CORNER_R = 3.0
+BATTERY_OFFSET_S = 1.0
+CONNECTOR_X = 6.5
+CONNECTOR_S = 17.25
+CONNECTOR_W = 5.8
+CONNECTOR_H = 5.0
 
-# Thin front cap: front face + seam + full thread neck.
-CAP_SEAM_N = 2.0
-CAP_NECK_N = 9.5
+CARRIER_FRONT_N = MODULE_DEPTH
+CARRIER_BACK_N = 17.1
+CARRIER_PAD_FRONT_N = 14.7
+CARRIER_INNER_R = 21.5
+CARRIER_OUTER_R = 22.8
+CARRIER_BOSS_R = 2.6
+SHELL_MOUTH_N = MODULE_DEPTH + 0.3
+SHELL_PROJECTION_R = 25.2
+SHELL_INNER_R = 23.2
+SHELL_FLOOR_T = 2.6
+FOOT_CENTER_Y = 14.0
+FOOT_OUTER_RX = 20.5
+FOOT_OUTER_RY = 20.0
+FOOT_INNER_RX = 15.5
+FOOT_INNER_RY = 15.0
+FOOT_RECESS = 0.6
 
-# Battery cradle: attached to the front cap, hidden inside the rear body.
-POCKET_R = 21.3
-CRADLE_R_OUT = 22.3
-CRADLE_N = 10.0
-
-# Rear body: whole outer shell, 5 mm bottom nut ring and open centre
-# for installing the battery after the cap is screwed on.
-REAR_CAVITY_R = 22.8
-REAR_CAVITY_N = 15.0
-REAR_BACK_N = 28.0
-REAR_FRONT_RELIEF_R = 23.5
-REAR_FRONT_RELIEF_N = 4.0
-REAR_RING_HEIGHT = 5.0
-BOTTOM_PLATE_TOP = 2.0
-
-# Two full turns, 3 mm pitch: the cap starts and finishes upright.
-THREAD_PITCH = 3.0
-THREAD_TURNS = 2.0
-THREAD_START_N = 3.0
-THREAD_ROOT_R = 22.3        # front-cap external minor
-THREAD_CREST_R = 23.0       # front-cap external major
-THREAD_ROOT_HALF = 1.0
-THREAD_CREST_HALF = 0.4
-THREAD_EDGE_RADIUS = 0.2
-THREAD_STEPS_PER_TURN = 48
-THREAD_START_ANGLE_DEG = 10.0  # phase the anti-loosening crest at the stop
-
-REAR_GROOVE_CREST_R = 23.6  # rear-body internal major
-REAR_GROOVE_ROOT_HALF = 1.2
-REAR_GROOVE_CREST_HALF = 0.6
-THREAD_END_CREST_R = 23.05   # last 0.25 turn: +0.05 mm anti-loosening
-THREAD_END_TURNS = 0.25
-
-SCREW_BOSS_R = 2.5
-SCREW_BOSS_N = 2.5
-SCREW_HEAD_R = 2.2
-SCREW_HEAD_DEPTH = 1.5
-SCREW_HOLE_R = 1.15
-ACCESS_R = 2.3
-ACCESS_N_FRONT = 2.5
-ACCESS_N_REAR = 3.0
-
-SCREWS_2D = [
-    (0.0, 20.50),
-    (13.75, -14.70),
-    (-13.75, -14.70),
-]
-
-CONN_X = 6.5
-CONN_Y = 17.25
-CONN_OPENING_W = 5.0
-CONN_OPENING_H = 4.0
-HEADER_X = 0.0
-HEADER_Y = -18.70
-HEADER_WINDOW_W = 14.0
-HEADER_WINDOW_H = 4.0
+SNAP_ANGLES_DEG = (30.0, 150.0, 225.0)
+SNAP_N = 16.2
+SNAP_TIP_R = 23.0
+SNAP_BUMP_R = 0.8
+SNAP_POCKET_R = 1.0
 
 TILT = math.radians(TILT_DEG)
 SIN = math.sin(TILT)
 COS = math.cos(TILT)
-N = App.Vector(0.0, -SIN, COS)
-S = App.Vector(0.0, COS, SIN)
-X = App.Vector(1.0, 0.0, 0.0)
-Z = App.Vector(0.0, 0.0, 1.0)
-P = App.Vector(0.0, 0.0, BOTTOM_GAP + BOARD_R * SIN)
+X = App.Vector(1, 0, 0)
+Y = App.Vector(0, 1, 0)
+Z = App.Vector(0, 0, 1)
+N = App.Vector(0, -SIN, COS)
+S = App.Vector(0, COS, SIN)
+P = App.Vector(0, 0, MODULE_BOTTOM_CLEARANCE + MODULE_R * SIN + MODULE_DEPTH * COS)
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-def add_feature(name, shape):
+def plate_point(x, s, n):
+    return P + X * x + S * s - N * n
+
+
+def polygon_face(points):
+    return Part.Face(Part.makePolygon(points + [points[0]]))
+
+
+def rectangle_face(x0, x1, s0, s1, n):
+    return polygon_face([
+        plate_point(x0, s0, n), plate_point(x1, s0, n),
+        plate_point(x1, s1, n), plate_point(x0, s1, n),
+    ])
+
+
+def rounded_rectangle_face(width, height, radius, center_s, n):
+    points = []
+    for cx, cy, start in (
+        (width / 2 - radius, height / 2 - radius, 0),
+        (-width / 2 + radius, height / 2 - radius, 90),
+        (-width / 2 + radius, -height / 2 + radius, 180),
+        (width / 2 - radius, -height / 2 + radius, 270),
+    ):
+        for i in range(9):
+            angle = math.radians(start + i * 90.0 / 8)
+            points.append(plate_point(
+                cx + radius * math.cos(angle),
+                center_s + cy + radius * math.sin(angle), n
+            ))
+    return polygon_face(points)
+
+
+def ellipse_wire(z, rx, ry, cy, steps=48):
+    points = [
+        App.Vector(rx * math.cos(2 * math.pi * i / steps),
+                   cy + ry * math.sin(2 * math.pi * i / steps), z)
+        for i in range(steps)
+    ]
+    return Part.makePolygon(points + [points[0]])
+
+
+def radial_strip(angle, r0, r1, width, n):
+    u = X * math.cos(angle) + S * math.sin(angle)
+    v = -X * math.sin(angle) + S * math.cos(angle)
+    origin = P - N * n
+    return polygon_face([
+        origin + u * r0 - v * width / 2,
+        origin + u * r1 - v * width / 2,
+        origin + u * r1 + v * width / 2,
+        origin + u * r0 + v * width / 2,
+    ])
+
+
+def add_feature(doc, name, shape, color, visible=True):
     obj = doc.addObject("Part::Feature", name)
     obj.Shape = shape
+    try:
+        obj.ViewObject.ShapeColor = color
+        obj.ViewObject.Visibility = visible
+    except Exception:
+        pass
     return obj
 
 
-def export_stl(shape, filename):
+def export_stl(shape, filename, lay_flat=False):
+    export_shape = shape.copy()
+    if lay_flat:
+        export_shape.Placement = App.Placement(
+            App.Vector(), App.Rotation(N, Z)
+        ).multiply(export_shape.Placement)
+        export_shape.translate(App.Vector(0, 0, -export_shape.BoundBox.ZMin))
     mesh = MeshPart.meshFromShape(
-        Shape=shape, LinearDeflection=0.05, AngularDeflection=0.30, Relative=False
+        Shape=export_shape, LinearDeflection=0.05,
+        AngularDeflection=0.30, Relative=False,
     )
-    components = mesh.getSeparateComponents()
-    if len(components) > 1:
-        components.sort(key=lambda c: c.Volume, reverse=True)
-        mesh = components[0]
-    # Small OCC tessellation holes at the cavity floor are filled so the
-    # exported STL is a closed solid.
-    try:
-        mesh.fillupHoles(100, 1000)
-    except Exception:
-        pass
     mesh.write(os.path.join(OUT_DIR, filename))
-
-
-def solid_of(shape):
-    if len(shape.Solids) == 1:
-        return shape.Solids[0]
-    if len(shape.Solids) > 1:
-        fused = shape.Solids[0]
-        for s in shape.Solids[1:]:
-            fused = fused.fuse(s)
-        if len(fused.Solids) == 1:
-            return fused.Solids[0]
-        return fused
-    return shape
-
-
-def try_chamfer(shape, radius, predicate):
-    """Chamfer selected edges; keep the original shape if OCC refuses."""
-    edges = [e for e in shape.Edges if predicate(e)]
-    if not edges:
-        return shape
-    try:
-        return shape.makeChamfer(radius, edges)
-    except Exception as exc:
-        print("chamfer %.2f skipped: %s" % (radius, exc))
-        return shape
-
-
-def try_fillet(shape, radius, predicate):
-    """Fillet selected edges; keep the original shape if OCC refuses."""
-    edges = [e for e in shape.Edges if predicate(e)]
-    if not edges:
-        return shape
-    try:
-        return shape.makeFillet(radius, edges)
-    except Exception as exc:
-        print("fillet %.2f skipped: %s" % (radius, exc))
-        return shape
-
-
-def axial_n(point):
-    return -((point - P).dot(N))
-
-
-def axis_radius(point):
-    n = axial_n(point)
-    return ((point - P) + N * n).Length
-
-
-def plate_rect_face(center, width, height):
-    pts = [
-        center + X * (-width / 2.0) + S * (-height / 2.0),
-        center + X * (width / 2.0) + S * (-height / 2.0),
-        center + X * (width / 2.0) + S * (height / 2.0),
-        center + X * (-width / 2.0) + S * (height / 2.0),
+    steep_overhangs = [
+        facet for facet in mesh.Facets
+        if facet.Normal.z < -0.707
+        and min(point[2] for point in facet.Points) > SHELL_FLOOR_T + 1.0
     ]
-    return Part.Face(Part.makePolygon(pts + [pts[0]]))
-
-
-def side_rect_face(center, width_s, height_n):
-    pts = [
-        center - S * (width_s / 2.0) - N * (height_n / 2.0),
-        center + S * (width_s / 2.0) - N * (height_n / 2.0),
-        center + S * (width_s / 2.0) + N * (height_n / 2.0),
-        center - S * (width_s / 2.0) + N * (height_n / 2.0),
-    ]
-    return Part.Face(Part.makePolygon(pts + [pts[0]]))
-
-
-def thread_point(theta, r, n):
-    return P - N * n + (X * math.cos(theta) + S * math.sin(theta)) * r
-
-
-def fillet_ring(points, radius=0.2, arc_steps=5):
-    """Round every sharp corner of a closed profile with a true arc."""
-    out = []
-    count = len(points)
-    for i in range(count):
-        a = points[i - 1]
-        b = points[i]
-        c = points[(i + 1) % count]
-        u = (b - a).normalize()
-        v = (c - b).normalize()
-        cross = u.cross(v)
-        dot = max(-1.0, min(1.0, u.dot(v)))
-        turn = math.atan2(cross.Length, dot)
-        if turn < 1e-4 or turn > math.pi - 1e-4:
-            out.append(b)
-            continue
-        # Tangent distance; clamp so neighbouring fillets cannot overlap.
-        t = radius * math.tan(turn / 2.0)
-        t = min(t, (b - a).Length * 0.45, (c - b).Length * 0.45)
-        t1 = b - u * t
-        t2 = b + v * t
-        w = v - u
-        if w.Length < 1e-9:
-            out.append(b)
-            continue
-        w.normalize()
-        center = b + w * (radius / math.cos(turn / 2.0))
-        v1 = t1 - center
-        v2 = t2 - center
-        nrm = v1.cross(v2)
-        if nrm.Length < 1e-9:
-            out.append(t1)
-            out.append(t2)
-            continue
-        nrm.normalize()
-        angle = v1.getAngle(v2)
-        out.append(t1)
-        for k in range(1, arc_steps):
-            rot = App.Rotation(nrm, angle * k / float(arc_steps))
-            out.append(center + rot.multVec(v1))
-        out.append(t2)
-    return out
-
-
-def thread_sector(t0, t1, n0, n1, r_root, r_crest, root_half, crest_half):
-    p = [
-        thread_point(t0, r_root, n0 - root_half),
-        thread_point(t0, r_root, n0 + root_half),
-        thread_point(t0, r_crest, n0 + crest_half),
-        thread_point(t0, r_crest, n0 - crest_half),
-    ]
-    q = [
-        thread_point(t1, r_root, n1 - root_half),
-        thread_point(t1, r_root, n1 + root_half),
-        thread_point(t1, r_crest, n1 + crest_half),
-        thread_point(t1, r_crest, n1 - crest_half),
-    ]
-    p = fillet_ring(p, THREAD_EDGE_RADIUS)
-    q = fillet_ring(q, THREAD_EDGE_RADIUS)
-    f0 = Part.Face(Part.makePolygon(p + [p[0]]))
-    f1 = Part.Face(Part.makePolygon(q + [q[0]]))
-    return Part.makeLoft([f0, f1], True)
-
-
-def thread_rib(n_start, r_root, r_crest, root_half, crest_half,
-               turns=THREAD_TURNS, steps_per_turn=THREAD_STEPS_PER_TURN,
-               end_root_r=None, end_crest_r=None,
-               start_crest_r=None, start_turns=0.2,
-               start_angle_deg=THREAD_START_ANGLE_DEG):
-    total = int(round(turns * steps_per_turn))
-    end_steps = int(round(THREAD_END_TURNS * steps_per_turn)) if (end_root_r is not None or end_crest_r is not None) else 0
-    start_steps = int(round(start_turns * steps_per_turn)) if start_crest_r is not None else 0
-    start_angle = math.radians(start_angle_deg)
-    sectors = []
-    for i in range(total):
-        t0 = start_angle + 2.0 * math.pi * i / steps_per_turn
-        t1 = start_angle + 2.0 * math.pi * (i + 1) / steps_per_turn
-        n0 = n_start + THREAD_PITCH * i / steps_per_turn
-        n1 = n_start + THREAD_PITCH * (i + 1) / steps_per_turn
-        rr = r_root
-        cr = r_crest
-        if start_steps and i < start_steps:
-            f = (i + 0.5) / float(start_steps)
-            cr = start_crest_r + (r_crest - start_crest_r) * f
-        if end_steps and i >= total - end_steps:
-            f = (i - (total - end_steps) + 0.5) / float(end_steps)
-            if end_root_r is not None:
-                rr = r_root + (end_root_r - r_root) * f
-            if end_crest_r is not None:
-                cr = r_crest + (end_crest_r - r_crest) * f
-        sectors.append(
-            thread_sector(t0, t1, n0, n1, rr, cr, root_half, crest_half)
-        )
-    rib = sectors[0]
-    for s in sectors[1:]:
-        rib = rib.fuse(s)
-    return solid_of(rib)
+    steep_area = sum(
+        (App.Vector(*facet.Points[1]) - App.Vector(*facet.Points[0])).cross(
+            App.Vector(*facet.Points[2]) - App.Vector(*facet.Points[0])
+        ).Length / 2.0
+        for facet in steep_overhangs
+    )
+    print("%s: mesh solids=%d, closed=%s, steep overhang=%d facets/%.1f mm2" % (
+        filename, len(mesh.getSeparateComponents()), mesh.isSolid(),
+        len(steep_overhangs), steep_area,
+    ))
+    assert len(mesh.getSeparateComponents()) == 1 and mesh.isSolid()
 
 
 os.makedirs(OUT_DIR, exist_ok=True)
-
-if DOC_NAME in [d.Name for d in App.listDocuments().values()]:
+if DOC_NAME in App.listDocuments():
     App.closeDocument(DOC_NAME)
 doc = App.newDocument(DOC_NAME)
 
-
-# ---------------------------------------------------------------------------
-# 1. Thin front cap
-# ---------------------------------------------------------------------------
-cap_profile = [P, P + X * FRONT_R]
-steps = 16
-for i in range(1, steps + 1):
-    u = i / float(steps)
-    n = CAP_SEAM_N * u
-    r = FRONT_R - (FRONT_R - SEAM_R) * (u ** 1.2)
-    cap_profile.append(P + X * r - N * n)
-cap_profile.append(P + X * THREAD_ROOT_R - N * CAP_SEAM_N)
-cap_profile.append(P + X * THREAD_ROOT_R - N * CAP_NECK_N)
-cap_profile.append(P - N * CAP_NECK_N)
-
-cap_face = Part.Face(Part.makePolygon(cap_profile + [cap_profile[0]]))
-front_cap = solid_of(cap_face.revolve(P, N, 360.0))
-
-# Hollow the cap; the 0.5 mm front wall stays.
-cap_cavity = Part.makeCylinder(
-    POCKET_R, CAP_NECK_N - 0.5, P - N * CAP_NECK_N, N
-)
-front_cap = front_cap.cut(cap_cavity)
-
-# Battery cradle attached to the front cap; hidden inside the rear body.
-cradle_outer = Part.makeCylinder(
-    CRADLE_R_OUT, CRADLE_N - 0.5, P - N * CRADLE_N, N
-)
-cradle_inner = Part.makeCylinder(
-    POCKET_R, CRADLE_N - 0.5, P - N * CRADLE_N, N
-)
-front_cap = front_cap.fuse(cradle_outer.cut(cradle_inner))
-
-# Board screw bosses.
+# 周边开口框连接三个螺丝座，中央不再有电池贴板。
+carrier = Part.makeCylinder(
+    CARRIER_OUTER_R, CARRIER_BACK_N - CARRIER_PAD_FRONT_N,
+    plate_point(0, 0, CARRIER_BACK_N), N,
+).cut(Part.makeCylinder(
+    CARRIER_INNER_R, CARRIER_BACK_N - CARRIER_PAD_FRONT_N + 1,
+    plate_point(0, 0, CARRIER_BACK_N + 0.5), N,
+))
 for sx, sy in SCREWS_2D:
-    boss_center = P - N * SCREW_BOSS_N + X * sx + S * sy
-    boss = Part.makeCylinder(SCREW_BOSS_R, SCREW_BOSS_N - 0.5, boss_center, N)
-    front_cap = front_cap.fuse(boss)
+    boss = Part.makeCylinder(
+        CARRIER_BOSS_R, 15.5 - CARRIER_FRONT_N,
+        plate_point(sx, sy, 15.5), N,
+    )
+    carrier = carrier.fuse(boss)
+    angle = math.atan2(sy, sx)
+    rib = radial_strip(
+        angle, math.hypot(sx, sy) - 1.0, CARRIER_OUTER_R,
+        4.0, CARRIER_BACK_N
+    ).extrude(N * (CARRIER_BACK_N - CARRIER_PAD_FRONT_N))
+    carrier = carrier.fuse(rib)
 
-# Counterbores, screw holes, screw access holes.
+for angle_deg in SNAP_ANGLES_DEG:
+    angle = math.radians(angle_deg)
+    beam = radial_strip(
+        angle, 21.0, 23.0, 2.8, CARRIER_BACK_N
+    ).extrude(N * (CARRIER_BACK_N - CARRIER_PAD_FRONT_N))
+    carrier = carrier.fuse(beam)
+    bump = Part.makeSphere(
+        SNAP_BUMP_R,
+        plate_point(SNAP_TIP_R * math.cos(angle),
+                    SNAP_TIP_R * math.sin(angle), SNAP_N)
+    )
+    carrier = carrier.fuse(bump)
+
 for sx, sy in SCREWS_2D:
-    pt = P - N * SCREW_BOSS_N + X * sx + S * sy
-    front_cap = front_cap.cut(
-        Part.makeCylinder(SCREW_HEAD_R, SCREW_HEAD_DEPTH, pt, N)
+    carrier = carrier.cut(Part.makeCylinder(
+        SCREW_CLEARANCE_R, CARRIER_BACK_N - CARRIER_FRONT_N + 1.0,
+        plate_point(sx, sy, CARRIER_BACK_N + 0.5), N
+    ))
+for sx in (-CONNECTOR_X, CONNECTOR_X):
+    carrier = carrier.cut(rectangle_face(
+        sx - CONNECTOR_W / 2, sx + CONNECTOR_W / 2,
+        CONNECTOR_S - CONNECTOR_H / 2, CONNECTOR_S + CONNECTOR_H / 2,
+        CARRIER_BACK_N + 0.5
+    ).extrude(N * (CARRIER_BACK_N - CARRIER_FRONT_N + 1.0)))
+carrier = carrier.removeSplitter()
+# 去掉下方无用圆弧，让出底板上方的空间；两侧下螺丝座仍由上方弧段连接。
+carrier = carrier.cut(rectangle_face(-50, 50, -60, -18, 25).extrude(N * 20)).removeSplitter()
+
+# 单一水平截面放样成壳，底层本身就是完整实体，避免斜壳与补环仅相切。
+sections = [
+    (0.0, FOOT_OUTER_RX, FOOT_OUTER_RY, FOOT_CENTER_Y),
+    (2.0, FOOT_OUTER_RX + 0.5, FOOT_OUTER_RY + 0.5, FOOT_CENTER_Y),
+    (6.0, 24.0, 22.0, 12.0),
+    (12.0, 26.0, 25.0, 11.0),
+    (20.0, 27.0, 27.0, 10.0),
+    (28.0, 26.5, 24.0, 11.0),
+    (35.0, 23.0, 19.0, 12.0),
+    (40.0, 16.0, 13.0, 14.0),
+    (43.0, 1.0, 1.0, 16.0),
+]
+rear = Part.makeLoft(
+    [ellipse_wire(*section) for section in sections], True, False
+)
+# 从正面投影约束整个壳体，后方及底面也不能超出屏幕轮廓。
+def projection_envelope(radius):
+    return Part.makeCylinder(radius, 80, plate_point(0, 0, SHELL_MOUTH_N), -N)
+
+
+rear = rear.common(projection_envelope(SHELL_PROJECTION_R))
+outer_envelope = rear.copy()
+above_floor = Part.makeBox(200, 200, 100, App.Vector(-100, -100, SHELL_FLOOR_T))
+# 内腔跟随外壳，而非电池形状；截面退让约 3 mm 以补偿倾斜壁面。
+inner_sections = [
+    (SHELL_FLOOR_T, 18.0, 17.5, FOOT_CENTER_Y),
+    (6.0, 21.0, 19.0, 12.0),
+    (12.0, 23.0, 22.0, 11.0),
+    (20.0, 24.0, 24.0, 10.0),
+    (28.0, 23.5, 21.0, 11.0),
+    (35.0, 20.0, 16.0, 12.0),
+    (39.0, 13.0, 10.0, 14.0),
+    (40.0, 1.0, 1.0, 16.0),
+]
+cavity = Part.makeLoft([ellipse_wire(*v) for v in inner_sections], True, False)
+cavity = cavity.common(projection_envelope(SHELL_INNER_R)).common(above_floor)
+mount_clearance = Part.makeCylinder(23.2, 6.6, plate_point(0, 0, SHELL_MOUTH_N), -N)
+cavity = cavity.fuse(mount_clearance.common(above_floor)).removeSplitter()
+assert cavity.cut(outer_envelope).Volume < 0.01
+rear = rear.cut(cavity)
+print("connected cavity: solids=%d volume=%.1f mm3 bbox=%s" % (
+    len(cavity.Solids), cavity.Volume, cavity.BoundBox))
+assert len(cavity.Solids) == 1
+
+# 检查常规侧壁的法向距离；前口开放面和底面不算侧壁。
+skin_faces = []
+for face in outer_envelope.Faces:
+    points = [v.Point for v in face.Vertexes]
+    on_mouth = all(abs((P - p).dot(N) - SHELL_MOUTH_N) < 0.01 for p in points)
+    on_base = all(abs(p.z) < 0.01 for p in points)
+    if not on_mouth and not on_base:
+        skin_faces.append(face)
+outer_skin = Part.makeCompound(skin_faces)
+wall_samples = []
+for z, rx, ry, cy in inner_sections[1:-1]:
+    for i in range(0, 48, 3):
+        a = 2 * math.pi * i / 48
+        point = App.Vector(rx * math.cos(a), cy + ry * math.sin(a), z)
+        if cavity.isInside(point, 0.01, True):
+            wall_samples.append(outer_skin.distToShape(Part.Vertex(point))[0])
+print("regular side wall sampled minimum=%.3f mm (%d points)" % (min(wall_samples), len(wall_samples)))
+assert min(wall_samples) >= 1.95
+
+# 卡扣凹位是内侧盲槽，外观面没有解锁孔。
+pocket_wall_samples = []
+for angle_deg in SNAP_ANGLES_DEG:
+    angle = math.radians(angle_deg)
+    pocket = Part.makeSphere(
+        SNAP_POCKET_R,
+        plate_point(SNAP_TIP_R * math.cos(angle),
+                    SNAP_TIP_R * math.sin(angle), SNAP_N)
     )
-    front_cap = front_cap.cut(
-        Part.makeCylinder(SCREW_HOLE_R, SCREW_BOSS_N, pt, N)
-    )
-    access_pt = P - N * ACCESS_N_REAR + X * sx + S * sy
-    front_cap = front_cap.cut(
-        Part.makeCylinder(ACCESS_R, ACCESS_N_REAR - ACCESS_N_FRONT, access_pt, N)
-    )
+    assert pocket.cut(outer_envelope).Volume < 0.01
+    pocket_center = plate_point(SNAP_TIP_R * math.cos(angle),
+                                SNAP_TIP_R * math.sin(angle), SNAP_N)
+    pocket_wall_samples.append(outer_skin.distToShape(Part.Vertex(pocket_center))[0] - SNAP_POCKET_R)
+    rear = rear.cut(pocket)
+print("snap pocket wall minimum=%.3f mm" % min(pocket_wall_samples))
+assert min(pocket_wall_samples) >= 1.19
 
-# Two top openings for the MX1.25 2P battery/speaker connectors.
-for sx in (-CONN_X, CONN_X):
-    opening_face = plate_rect_face(
-        P - N * 0.6 + X * sx + S * CONN_Y,
-        CONN_OPENING_W, CONN_OPENING_H
-    )
-    front_cap = front_cap.cut(opening_face.extrude(N * 0.6))
+# 中央只浅凹，不打穿；外侧保留 5 mm 宽的 360 度水平接触带。
+underside_recess = Part.Face(ellipse_wire(
+    -1.0, FOOT_INNER_RX, FOOT_INNER_RY, FOOT_CENTER_Y
+)).extrude(Z * (1.0 + FOOT_RECESS))
+rear = rear.cut(underside_recess)
+rear = rear.removeSplitter()
 
-# 10-pin header opening through the front wall into the battery cradle.
-header_opening = plate_rect_face(
-    P - N * 0.6 + X * HEADER_X + S * HEADER_Y,
-    HEADER_WINDOW_W, HEADER_WINDOW_H
-).extrude(N * 3.1)
-front_cap = front_cap.cut(header_opening)
-
-
-def reinforcement_frame(center, outer_w, outer_h, inner_w, inner_h, n0=0.6, n1=1.1):
-    outer = plate_rect_face(center - N * n1, outer_w, outer_h).extrude(N * (n1 - n0))
-    inner = plate_rect_face(center - N * n1, inner_w, inner_h).extrude(N * (n1 - n0))
-    return outer.cut(inner)
-
-
-for sx in (-CONN_X, CONN_X):
-    frame = reinforcement_frame(P + X * sx + S * CONN_Y, 8.0, 7.0, 6.0, 5.0)
-    trim = Part.makeCylinder(3.5, 1.2, P - N * 1.2 + S * 20.5, N)
-    frame = frame.cut(trim)
-    front_cap = front_cap.fuse(frame)
-
-header_frame = reinforcement_frame(P + S * HEADER_Y, 16.0, 6.0, 15.0, 5.0)
-front_cap = front_cap.fuse(header_frame)
-
-# External thread near the board.
-front_thread = thread_rib(
-    THREAD_START_N,
-    THREAD_ROOT_R,
-    THREAD_CREST_R,
-    THREAD_ROOT_HALF,
-    THREAD_CREST_HALF,
-    end_crest_r=THREAD_END_CREST_R,
-    start_crest_r=THREAD_ROOT_R + 0.45,
+module_ref = Part.makeCylinder(
+    MODULE_R, MODULE_DEPTH, plate_point(0, 0, MODULE_DEPTH), N
 )
-front_cap = front_cap.fuse(front_thread)
+battery_ref = rounded_rectangle_face(
+    BATTERY_W, BATTERY_H, BATTERY_CORNER_R,
+    BATTERY_OFFSET_S, 17.6
+).extrude(-N * BATTERY_T)
+connector_refs = [
+    rectangle_face(
+        sx - 2.5, sx + 2.5,
+        CONNECTOR_S - 2.0, CONNECTOR_S + 2.0,
+        CARRIER_FRONT_N
+    ).extrude(-N * 5.0)
+    for sx in (-CONNECTOR_X, CONNECTOR_X)
+]
 
-# The front cap is completely uncut: the whole lower band/cradle stays
-# round.  It floats above the rear-body 5 mm nut ring, so no local
-# clearance cut is needed.
-front_cap = solid_of(front_cap)
-
-# Print-friendly edge breaks: cradle mouth, seam shoulder, front face,
-# thread crest.  Failures are non-fatal and leave the edge as-is.
-front_cap = try_chamfer(
-    front_cap, 0.5,
-    lambda e: all(
-        abs(axial_n(v.Point) - CRADLE_N) < 0.2 for v in e.Vertexes
-    ),
-)
-front_cap = try_chamfer(
-    front_cap, 0.3,
-    lambda e: all(
-        abs(axial_n(v.Point) - CAP_SEAM_N) < 0.15
-        and axis_radius(v.Point) > 24.8
-        for v in e.Vertexes
-    ),
-)
-front_cap = try_chamfer(
-    front_cap, 0.3,
-    lambda e: all(
-        axial_n(v.Point) < 0.1 and axis_radius(v.Point) > 25.2
-        for v in e.Vertexes
-    ),
-)
-
-print("Front cap: volume=%.1f bbox=%s" % (front_cap.Volume, front_cap.BoundBox))
-print("Front cap valid:", front_cap.isValid(), "solids:", len(front_cap.Solids))
-
-
-# ---------------------------------------------------------------------------
-# 2. Rear body: whole shell, internal thread, bottom plate
-# ---------------------------------------------------------------------------
-rear_profile = [P + X * SEAM_R - N * CAP_SEAM_N]
-rear_profile.append(P + X * SEAM_R - N * CAP_NECK_N)
-for i in range(1, 25):
-    u = i / 24.0
-    n = CAP_NECK_N + (REAR_BACK_N - CAP_NECK_N) * u
-    r = SEAM_R * math.sqrt(max(0.0, 1.0 - u * u))
-    rear_profile.append(P + X * r - N * n)
-rear_profile.append(P - N * CAP_SEAM_N)
-
-rear_face = Part.Face(Part.makePolygon(rear_profile + [rear_profile[0]]))
-rear_body = solid_of(rear_face.revolve(P, N, 360.0))
-
-# Counterbore / cavity clears the front-cap thread and cradle.
-rear_cavity = Part.makeCylinder(
-    REAR_CAVITY_R,
-    REAR_CAVITY_N - CAP_SEAM_N,
-    P - N * REAR_CAVITY_N,
-    N,
-)
-above_floor = Part.makeBox(
-    140.0, 140.0, 100.0, App.Vector(-70.0, -70.0, BOTTOM_PLATE_TOP)
-)
-rear_body = rear_body.cut(rear_cavity.common(above_floor))
-
-# Short front relief for the screw bosses; the thread starts 1 mm behind it.
-front_relief = Part.makeCylinder(
-    REAR_FRONT_RELIEF_R,
-    REAR_FRONT_RELIEF_N - CAP_SEAM_N,
-    P - N * REAR_FRONT_RELIEF_N,
-    N,
-)
-rear_body = rear_body.cut(front_relief.common(above_floor))
-
-# Internal thread: 2 turns, cut into the 5 mm nut ring and the wall above.
-rear_thread = thread_rib(
-    THREAD_START_N,
-    REAR_CAVITY_R,
-    REAR_GROOVE_CREST_R,
-    REAR_GROOVE_ROOT_HALF,
-    REAR_GROOVE_CREST_HALF,
-    start_angle_deg=0.0,
-    start_crest_r=REAR_CAVITY_R + 0.45,
-)
-rear_body = rear_body.cut(rear_thread.common(above_floor))
-
-# Open the centre under the cap; keep a 5 mm full-circle outer nut ring.
-# The opening is also the battery insertion path.
-bottom_open = Part.makeCylinder(
-    REAR_CAVITY_R, 30.0, P - N * 15.0, N
-).common(
-    Part.makeBox(
-        200.0, 200.0, REAR_RING_HEIGHT, App.Vector(-100.0, -100.0, 0.0)
-    )
-)
-rear_body = rear_body.cut(bottom_open)
-
-# Flat bottom at z=0; the 5 mm ring is the only desk contact.
-rear_bottom_cut = Part.makeBox(
-    140.0, 140.0, 50.0, App.Vector(-70.0, -70.0, -50.0)
-)
-rear_body = rear_body.cut(rear_bottom_cut)
-rear_body = rear_body.common(
-    Part.makeBox(200.0, 200.0, 200.0, App.Vector(-100.0, -100.0, 0.0))
-)
-
-rear_body = solid_of(rear_body)
-
-# Print-friendly nut ring: keep the front rim edge break.  The bottom/ring
-# chamfers are applied only if OCC keeps the solid valid (see below).
-rear_body = try_chamfer(
-    rear_body, 0.3,
-    lambda e: all(
-        abs(axial_n(v.Point) - CAP_SEAM_N) < 0.15
-        and axis_radius(v.Point) > 24.8
-        for v in e.Vertexes
-    ),
-)
-
-print("Rear body: volume=%.1f bbox=%s" % (rear_body.Volume, rear_body.BoundBox))
-print("Rear body valid:", rear_body.isValid(), "solids:", len(rear_body.Solids))
-
-
-# ---------------------------------------------------------------------------
-# 3. Board reference
-# ---------------------------------------------------------------------------
-board_ref = Part.makeCylinder(BOARD_R, 12.1, P, N)
-board_ref_obj = add_feature("Board_Reference", board_ref)
-
-
-def add_connector_ref(name, sx, sy, width, height, n_front, n_rear, color):
-    face = plate_rect_face(P - N * n_front + X * sx + S * sy, width, height)
-    shape = face.extrude(-N * (n_rear - n_front))
-    obj = add_feature(name, shape)
-    try:
-        obj.ViewObject.ShapeColor = color
-        obj.ViewObject.Visibility = False
-    except Exception:
-        pass
-    return obj
-
-
-add_connector_ref("Board_Connector_Battery", -CONN_X, CONN_Y, 4.0, 3.0, 0.6, 3.6, (0.95, 0.55, 0.15))
-add_connector_ref("Board_Connector_Speaker", CONN_X, CONN_Y, 4.0, 3.0, 0.6, 3.6, (0.15, 0.55, 0.95))
-add_connector_ref("Board_Header_10Pin", HEADER_X, HEADER_Y, 12.7, 2.5, 0.6, 3.1, (0.55, 0.85, 0.35))
-
-
-def add_side_ref(name, sx, sy, width_s, height_n, depth_x, color):
-    face = side_rect_face(
-        P - N * 0.6 + X * sx + S * sy, width_s, height_n
-    )
-    shape = face.extrude(X * depth_x)
-    obj = add_feature(name, shape)
-    try:
-        obj.ViewObject.ShapeColor = color
-        obj.ViewObject.Visibility = False
-    except Exception:
-        pass
-    return obj
-
-
-add_side_ref("Board_USB_C", 25.0, 4.0, 9.0, 4.0, 2.0, (0.35, 0.35, 0.35))
-add_side_ref("Board_Button_1", -25.0, -8.0, 3.0, 2.0, -2.0, (0.45, 0.45, 0.45))
-add_side_ref("Board_Button_2", -25.0, -2.0, 3.0, 2.0, -2.0, (0.45, 0.45, 0.45))
-try:
-    board_ref_obj.ViewObject.ShapeColor = (0.10, 0.10, 0.12)
-    board_ref_obj.ViewObject.Transparency = 10
-    board_ref_obj.ViewObject.Visibility = True
-except Exception:
-    pass
-
-front_obj = add_feature("Front_Shell", front_cap)
-rear_obj = add_feature("Rear_Cover", rear_body)
-
-try:
-    front_obj.ViewObject.ShapeColor = (0.82, 0.82, 0.82)
-    rear_obj.ViewObject.ShapeColor = (0.72, 0.72, 0.72)
-except Exception:
-    pass
-
+# 插头插入包络和朝内收线空间，实际线束弯曲半径须实物确认。
+connector_sweeps = [
+    rectangle_face(sx - 2.9, sx + 2.9, CONNECTOR_S - 2.5,
+                   CONNECTOR_S + 2.5, MODULE_DEPTH).extrude(-N * 10.0)
+    for sx in (-CONNECTOR_X, CONNECTOR_X)
+]
+wire_refs = [
+    rectangle_face(sx - 1.4, sx + 1.4, 15.0, CONNECTOR_S + 1.0,
+                   18.0).extrude(-N * 3.0)
+    for sx in (-CONNECTOR_X, CONNECTOR_X)
+]
+adhesive_ref = Part.makeBox(24, 16, 0.4, App.Vector(-12, 2, SHELL_FLOOR_T))
+carrier_obj = add_feature(doc, "Mount_Carrier", carrier, (0.83, 0.84, 0.82))
+rear_obj = add_feature(doc, "Rear_Cover", rear, (0.66, 0.69, 0.69))
+add_feature(doc, "Module_Reference", module_ref, (0.08, 0.09, 0.10))
+add_feature(doc, "Battery_Reference", battery_ref, (0.28, 0.65, 0.40), False)
+for prefix, shapes, color in (
+    ("Connector", connector_refs, (0.9, 0.75, 0.3)),
+    ("Insertion", connector_sweeps, (0.95, 0.55, 0.2)),
+    ("Wire", wire_refs, (0.8, 0.3, 0.2)),
+):
+    for index, shape in enumerate(shapes):
+        add_feature(doc, "%s_%d_Reference" % (prefix, index + 1), shape, color, False)
+add_feature(doc, "Adhesive_Area_Reference", adhesive_ref, (0.3, 0.6, 0.9), False)
 doc.recompute()
 
+for name, shape in (("carrier", carrier), ("rear", rear)):
+    print("%s: valid=%s solids=%d volume=%.1f bbox=%s" % (
+        name, shape.isValid(), len(shape.Solids), shape.Volume, shape.BoundBox
+    ))
+overlap = carrier.common(rear)
+print("common: carrier/rear=%.3f module/rear=%.3f battery/rear=%.3f battery/carrier=%.3f" % (
+    overlap.Volume, module_ref.common(rear).Volume,
+    battery_ref.common(rear).Volume, battery_ref.common(carrier).Volume,
+))
+print("connector clearance:", [
+    round(connector.common(carrier).Volume + connector.common(rear).Volume, 3)
+    for connector in connector_refs
+])
+ring_samples = [
+    rear.isInside(
+        App.Vector(
+            (FOOT_INNER_RX + 2.5) * math.cos(2 * math.pi * i / 72),
+            FOOT_CENTER_Y + (FOOT_INNER_RY + 2.5) * math.sin(2 * math.pi * i / 72),
+            0.1,
+        ), 0.01, False
+    )
+    for i in range(72)
+]
+print("bottom: z_min=%.3f ring=%d/72 battery_z_min=%.3f" % (
+    rear.BoundBox.ZMin, sum(ring_samples), battery_ref.BoundBox.ZMin
+))
 
-# ---------------------------------------------------------------------------
-# 4. Export
-# ---------------------------------------------------------------------------
-export_stl(front_cap, "front_shell.stl")
-export_stl(rear_body, "rear_cover.stl")
+# 以模块 50 g、电池 15 g、PETG 1.27 g/cm3 估算重心和接触椭圆切线倾覆角。
+petg_g_per_mm3 = 0.00127
+parts = (
+    (module_ref.Solids[0].CenterOfMass, 50.0),
+    (battery_ref.Solids[0].CenterOfMass, 15.0),
+    (carrier.Solids[0].CenterOfMass, carrier.Volume * petg_g_per_mm3),
+    (rear.Solids[0].CenterOfMass, rear.Volume * petg_g_per_mm3),
+)
+total_mass = sum(mass for _, mass in parts)
+center_of_mass = sum(
+    (center * mass for center, mass in parts), App.Vector()
+) / total_mass
+tip_degrees = [
+    math.degrees(math.atan2(margin, center_of_mass.z))
+    for margin in (
+        FOOT_OUTER_RY + center_of_mass.y - FOOT_CENTER_Y,
+        FOOT_OUTER_RY - center_of_mass.y + FOOT_CENTER_Y,
+        FOOT_OUTER_RX - abs(center_of_mass.x),
+    )
+]
+tip_all_directions = [
+    math.degrees(math.atan2(
+        math.hypot(
+            FOOT_OUTER_RX * math.cos(2 * math.pi * i / 72),
+            FOOT_OUTER_RY * math.sin(2 * math.pi * i / 72),
+        )
+        - center_of_mass.x * math.cos(2 * math.pi * i / 72)
+        - (center_of_mass.y - FOOT_CENTER_Y) * math.sin(2 * math.pi * i / 72),
+        center_of_mass.z,
+    ))
+    for i in range(72)
+]
+print("mass=%.1f g center=%s tip(front/rear/side)=%s" % (
+    total_mass, center_of_mass,
+    "/".join("%.1f" % angle for angle in tip_degrees)
+))
+print("minimum tip angle (72 directions)=%.1f" % min(tip_all_directions))
 
-Part.export([front_obj, rear_obj], os.path.join(OUT_DIR, "stand.step"))
+assert carrier.isValid() and len(carrier.Solids) == 1
+assert rear.isValid() and len(rear.Solids) == 1
+print("actual bottom", min(v.z for v in rear.tessellate(0.05)[0]))
+assert abs(min(v.z for v in rear.tessellate(0.05)[0])) < 0.01 and all(ring_samples)
+assert rear.isInside(App.Vector(0, FOOT_CENTER_Y, 1.0), 0.01, False)
+assert overlap.Volume < 0.01
+assert module_ref.common(rear).Volume < 0.01
+assert battery_ref.common(rear).Volume < 0.01
+assert battery_ref.common(carrier).Volume < 0.01
+assert all(
+    connector.common(carrier).Volume + connector.common(rear).Volume < 0.01
+    for connector in connector_refs
+)
+assert min(tip_all_directions) >= 30.0
+
+for shape in connector_sweeps + wire_refs:
+    print("insertion/wire common", shape.common(carrier).Volume, shape.common(rear).Volume)
+    assert shape.common(carrier).Volume + shape.common(rear).Volume < 0.01
+    assert shape.common(battery_ref).Volume < 0.01
+# 壳从背后沿轴线压合；弹性卡扣碰到壳壁属于必要的弹性变形，单独检查。
+elastic_zones = Part.makeCompound([
+    radial_strip(math.radians(a), 20.8, 25.0, 4.0, 18.0).extrude(N * 4.5)
+    for a in SNAP_ANGLES_DEG
+])
+rigid_carrier = carrier.cut(elastic_zones)
+for travel in (0.5, 1.0, 2.0, 4.0, 8.0, 12.0):
+    moving_cover = rear.copy()
+    moving_cover.translate(-N * travel)
+    assert all(moving_cover.common(v).Volume < 0.01 for v in connector_refs + wire_refs)
+    rigid_overlap = moving_cover.common(rigid_carrier).Volume
+    print("closing travel=%.1f rigid carrier common=%.3f" % (travel, rigid_overlap))
+    assert rigid_overlap < 0.01
+print("insertion and closing connector clearance: passed")
+assert adhesive_ref.common(rear).Volume < 0.01
+
+# 检查前口真实截线；BRep 的控制点包围盒会偏大，尺寸用离散表面计算。
+mouth_section = outer_envelope.section(rectangle_face(-80, 80, -80, 80, SHELL_MOUTH_N))
+mouth_radii = []
+for edge in mouth_section.Edges:
+    for point in edge.discretize(60):
+        delta = point - plate_point(0, 0, SHELL_MOUTH_N)
+        mouth_radii.append(math.hypot(delta.dot(X), delta.dot(S)))
+assert mouth_radii and max(mouth_radii) <= MODULE_R + 0.01
+rear_points = rear.tessellate(0.02)[0]
+cavity_points = cavity.tessellate(0.02)[0]
+projection_radii = [
+    math.hypot((point - P).dot(X), (point - P).dot(S))
+    for point in rear_points + carrier.tessellate(0.02)[0]
+]
+assert max(projection_radii) <= SHELL_PROJECTION_R + 0.001
+assert rear.cut(projection_envelope(SHELL_PROJECTION_R)).Volume < 0.01
+print("entire stand front projection maximum radius=%.4f mm" % max(projection_radii))
+actual_box = App.BoundBox()
+cavity_box = App.BoundBox()
+for point in rear_points:
+    actual_box.add(point)
+for point in cavity_points:
+    cavity_box.add(point)
+print("actual shell bbox", actual_box)
+print("actual cavity bbox", cavity_box)
+print("mouth maximum radius=%.4f mm" % max(mouth_radii))
+metrics = {
+    "stand_front_projection_max_radius_mm": max(projection_radii),
+    "front_occlusion_margin_mm": MODULE_R - max(projection_radii),
+    "snap_pocket_min_wall_mm": min(pocket_wall_samples),
+    "mouth_max_radius_mm": max(mouth_radii),
+    "axial_joint_clearance_mm": SHELL_MOUTH_N - MODULE_DEPTH,
+    "cavity_volume_cm3": cavity.Volume / 1000,
+    "cavity_after_carrier_cm3": cavity.cut(carrier).Volume / 1000,
+    "shell_bbox_mm": [actual_box.XLength, actual_box.YLength, actual_box.ZLength],
+    "cavity_bbox_mm": [cavity_box.XLength, cavity_box.YLength, cavity_box.ZLength],
+    "sampled_side_wall_min_mm": min(wall_samples),
+    "side_wall_sample_count": len(wall_samples),
+    "bottom_z_mm": actual_box.ZMin,
+    "bottom_contact_samples_passed": sum(ring_samples),
+    "minimum_tip_angle_without_speaker_deg": min(tip_all_directions),
+    "speaker_fitted": False,
+    "wire_bend_requires_physical_check": True,
+}
+
+# 预览辅助网格只存在本地 archive，参考体不混入打印文件。
+preview_dir = os.path.join(SCRIPT_DIR, "archive", "preview_meshes")
+os.makedirs(preview_dir, exist_ok=True)
+section_shape = rear.common(Part.makeBox(100, 200, 100, App.Vector(0, -100, 0)))
+for name, shape in (("section", section_shape), ("battery_reference", battery_ref),
+                    ("connector_reference", Part.makeCompound(connector_refs)),
+                    ("wire_reference", Part.makeCompound(wire_refs)),
+                    ("carrier_reference", carrier), ("adhesive_reference", adhesive_ref)):
+    mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=0.1, AngularDeflection=0.3)
+    mesh.write(os.path.join(preview_dir, name + ".stl"))
+
+export_stl(carrier, "mount_carrier.stl", lay_flat=True)
+export_stl(rear, "rear_cover.stl")
+Part.export([carrier_obj, rear_obj], os.path.join(OUT_DIR, "stand.step"))
+step_shape = Part.read(os.path.join(OUT_DIR, "stand.step"))
+print("STEP: valid=%s solids=%d" % (
+    step_shape.isValid(), len(step_shape.Solids)
+))
+assert step_shape.isValid() and len(step_shape.Solids) == 2
+with open(os.path.join(OUT_DIR, "validation.json"), "w", encoding="utf-8") as stream:
+    json.dump(metrics, stream, ensure_ascii=False, indent=2)
 doc.saveAs(os.path.join(OUT_DIR, "stand.FCStd"))
-
 print("Exported to:", OUT_DIR)
-print("P=%s" % P)

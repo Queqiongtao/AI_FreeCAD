@@ -1,0 +1,26 @@
+{
+  "stand_front_projection_max_radius_mm": 25.200000012758615,
+  "front_occlusion_margin_mm": 0.2999999872413852,
+  "snap_pocket_min_wall_mm": 1.199999999999998,
+  "mouth_max_radius_mm": 25.200000000000003,
+  "axial_joint_clearance_mm": 0.3000000000000007,
+  "cavity_volume_cm3": 30.235257925351455,
+  "cavity_after_carrier_cm3": 29.703675669333656,
+  "shell_bbox_mm": [
+    50.39892213593218,
+    47.40441500598037,
+    37.45951847817185
+  ],
+  "cavity_bbox_mm": [
+    46.39947958467066,
+    43.84281594111795,
+    33.57394325879877
+  ],
+  "sampled_side_wall_min_mm": 2.1389666175824447,
+  "side_wall_sample_count": 29,
+  "bottom_z_mm": 0.0,
+  "bottom_contact_samples_passed": 72,
+  "minimum_tip_angle_without_speaker_deg": 34.34272618016023,
+  "speaker_fitted": false,
+  "wire_bend_requires_physical_check": true
+}
