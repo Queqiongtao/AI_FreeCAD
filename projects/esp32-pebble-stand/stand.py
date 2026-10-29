@@ -55,7 +55,7 @@ CRADLE_N = 10.0
 REAR_CAVITY_R = 22.8
 REAR_CAVITY_N = 15.0
 REAR_BACK_N = 28.0
-REAR_FRONT_RELIEF_R = 23.2
+REAR_FRONT_RELIEF_R = 23.5
 REAR_FRONT_RELIEF_N = 4.0
 REAR_RING_HEIGHT = 5.0
 BOTTOM_PLATE_TOP = 2.0
@@ -68,7 +68,7 @@ THREAD_ROOT_R = 22.3        # front-cap external minor
 THREAD_CREST_R = 23.0       # front-cap external major
 THREAD_ROOT_HALF = 1.0
 THREAD_CREST_HALF = 0.4
-THREAD_EDGE_CHAMFER = 0.2
+THREAD_EDGE_RADIUS = 0.2
 THREAD_STEPS_PER_TURN = 48
 THREAD_START_ANGLE_DEG = 10.0  # phase the anti-loosening crest at the stop
 
@@ -78,7 +78,7 @@ REAR_GROOVE_CREST_HALF = 0.6
 THREAD_END_CREST_R = 23.05   # last 0.25 turn: +0.05 mm anti-loosening
 THREAD_END_TURNS = 0.25
 
-SCREW_BOSS_R = 2.7
+SCREW_BOSS_R = 2.5
 SCREW_BOSS_N = 2.5
 SCREW_HEAD_R = 2.2
 SCREW_HEAD_DEPTH = 1.5
@@ -208,18 +208,47 @@ def thread_point(theta, r, n):
     return P - N * n + (X * math.cos(theta) + S * math.sin(theta)) * r
 
 
-def chamfer_ring(points, c=0.2):
-    """Replace each sharp corner of a closed profile with a small flat."""
+def fillet_ring(points, radius=0.2, arc_steps=5):
+    """Round every sharp corner of a closed profile with a true arc."""
     out = []
     count = len(points)
     for i in range(count):
         a = points[i - 1]
         b = points[i]
-        d = points[(i + 1) % count]
+        c = points[(i + 1) % count]
         u = (b - a).normalize()
-        v = (d - b).normalize()
-        out.append(b - u * c)
-        out.append(b + v * c)
+        v = (c - b).normalize()
+        cross = u.cross(v)
+        dot = max(-1.0, min(1.0, u.dot(v)))
+        turn = math.atan2(cross.Length, dot)
+        if turn < 1e-4 or turn > math.pi - 1e-4:
+            out.append(b)
+            continue
+        # Tangent distance; clamp so neighbouring fillets cannot overlap.
+        t = radius * math.tan(turn / 2.0)
+        t = min(t, (b - a).Length * 0.45, (c - b).Length * 0.45)
+        t1 = b - u * t
+        t2 = b + v * t
+        w = v - u
+        if w.Length < 1e-9:
+            out.append(b)
+            continue
+        w.normalize()
+        center = b + w * (radius / math.cos(turn / 2.0))
+        v1 = t1 - center
+        v2 = t2 - center
+        nrm = v1.cross(v2)
+        if nrm.Length < 1e-9:
+            out.append(t1)
+            out.append(t2)
+            continue
+        nrm.normalize()
+        angle = v1.getAngle(v2)
+        out.append(t1)
+        for k in range(1, arc_steps):
+            rot = App.Rotation(nrm, angle * k / float(arc_steps))
+            out.append(center + rot.multVec(v1))
+        out.append(t2)
     return out
 
 
@@ -236,8 +265,8 @@ def thread_sector(t0, t1, n0, n1, r_root, r_crest, root_half, crest_half):
         thread_point(t1, r_crest, n1 + crest_half),
         thread_point(t1, r_crest, n1 - crest_half),
     ]
-    p = chamfer_ring(p, THREAD_EDGE_CHAMFER)
-    q = chamfer_ring(q, THREAD_EDGE_CHAMFER)
+    p = fillet_ring(p, THREAD_EDGE_RADIUS)
+    q = fillet_ring(q, THREAD_EDGE_RADIUS)
     f0 = Part.Face(Part.makePolygon(p + [p[0]]))
     f1 = Part.Face(Part.makePolygon(q + [q[0]]))
     return Part.makeLoft([f0, f1], True)
@@ -376,7 +405,7 @@ front_thread = thread_rib(
     THREAD_ROOT_HALF,
     THREAD_CREST_HALF,
     end_crest_r=THREAD_END_CREST_R,
-    start_crest_r=THREAD_ROOT_R + 0.05,
+    start_crest_r=THREAD_ROOT_R + 0.45,
 )
 front_cap = front_cap.fuse(front_thread)
 
@@ -457,7 +486,7 @@ rear_thread = thread_rib(
     REAR_GROOVE_ROOT_HALF,
     REAR_GROOVE_CREST_HALF,
     start_angle_deg=0.0,
-    start_crest_r=REAR_CAVITY_R + 0.05,
+    start_crest_r=REAR_CAVITY_R + 0.45,
 )
 rear_body = rear_body.cut(rear_thread.common(above_floor))
 
