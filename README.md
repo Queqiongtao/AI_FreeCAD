@@ -6,7 +6,7 @@
 
 | 项目 | 说明 | 状态 |
 | --- | --- | --- |
-| [ESP32 鹅卵石底座](projects/esp32-pebble-stand/) | ESP32-S3-Touch-AMOLED-1.75-B 桌面底座，50° 屏幕 | active |
+| [ESP32 鹅卵石底座](projects/esp32-pebble-stand/) | ESP32-S3-Touch-AMOLED-1.75-B 桌面底座，50° 屏幕，前薄盖 + 后整机身螺纹 | active |
 
 ![ESP32 鹅卵石底座](projects/esp32-pebble-stand/output/preview_front.png)
 
