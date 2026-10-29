@@ -35,46 +35,47 @@ OUT_DIR = os.path.join(SCRIPT_DIR, "output")
 BOARD_D = 51.0
 BOARD_R = BOARD_D / 2.0
 TILT_DEG = 50.0
-BOTTOM_GAP = 2.0
+# A: the front cap is completely uncut and floats above the rear ring.
+BOTTOM_GAP = 7.2
 
 FRONT_R = 25.5
 SEAM_R = 25.1
 
-# Thin front cap: front face + short seam band + thread neck.
+# Thin front cap: front face + seam + full thread neck.
 CAP_SEAM_N = 2.0
-CAP_NECK_N = 8.0
-# The front face / outer rim at n<2 is kept complete; only the internal
-# part at n>2.01 that would meet the rear-body floor is locally cleared.
-# The rear-body floor top is z=2, so this leaves a 0.25 mm gap.
-CAP_BOTTOM = 2.25
-CAP_CLEAR_N_START = CAP_SEAM_N + 0.01
+CAP_NECK_N = 9.5
 
 # Battery cradle: attached to the front cap, hidden inside the rear body.
 POCKET_R = 21.3
 CRADLE_R_OUT = 22.3
-CRADLE_N = 12.0
+CRADLE_N = 10.0
 
-# Rear body: whole outer shell + counterbore + bottom plate.
-REAR_CAVITY_R = 23.2
+# Rear body: whole outer shell, 5 mm bottom nut ring and open centre
+# for installing the battery after the cap is screwed on.
+REAR_CAVITY_R = 22.8
 REAR_CAVITY_N = 15.0
 REAR_BACK_N = 28.0
+REAR_FRONT_RELIEF_R = 23.2
+REAR_FRONT_RELIEF_N = 4.0
+REAR_RING_HEIGHT = 5.0
 BOTTOM_PLATE_TOP = 2.0
 
-# Single-start right-hand thread near the board.
+# Two full turns, 3 mm pitch: the cap starts and finishes upright.
 THREAD_PITCH = 3.0
-THREAD_TURNS = 1.6
+THREAD_TURNS = 2.0
 THREAD_START_N = 3.0
 THREAD_ROOT_R = 22.3        # front-cap external minor
 THREAD_CREST_R = 23.0       # front-cap external major
 THREAD_ROOT_HALF = 1.0
 THREAD_CREST_HALF = 0.4
+THREAD_EDGE_CHAMFER = 0.2
 THREAD_STEPS_PER_TURN = 48
 THREAD_START_ANGLE_DEG = 10.0  # phase the anti-loosening crest at the stop
 
-REAR_GROOVE_CREST_R = 24.0  # rear-body internal major
+REAR_GROOVE_CREST_R = 23.6  # rear-body internal major
 REAR_GROOVE_ROOT_HALF = 1.2
 REAR_GROOVE_CREST_HALF = 0.6
-THREAD_END_CREST_R = 23.3    # last 0.25 turn presses into the 23.2 bore
+THREAD_END_CREST_R = 23.05   # last 0.25 turn: +0.05 mm anti-loosening
 THREAD_END_TURNS = 0.25
 
 SCREW_BOSS_R = 2.7
@@ -150,6 +151,39 @@ def solid_of(shape):
     return shape
 
 
+def try_chamfer(shape, radius, predicate):
+    """Chamfer selected edges; keep the original shape if OCC refuses."""
+    edges = [e for e in shape.Edges if predicate(e)]
+    if not edges:
+        return shape
+    try:
+        return shape.makeChamfer(radius, edges)
+    except Exception as exc:
+        print("chamfer %.2f skipped: %s" % (radius, exc))
+        return shape
+
+
+def try_fillet(shape, radius, predicate):
+    """Fillet selected edges; keep the original shape if OCC refuses."""
+    edges = [e for e in shape.Edges if predicate(e)]
+    if not edges:
+        return shape
+    try:
+        return shape.makeFillet(radius, edges)
+    except Exception as exc:
+        print("fillet %.2f skipped: %s" % (radius, exc))
+        return shape
+
+
+def axial_n(point):
+    return -((point - P).dot(N))
+
+
+def axis_radius(point):
+    n = axial_n(point)
+    return ((point - P) + N * n).Length
+
+
 def plate_rect_face(center, width, height):
     pts = [
         center + X * (-width / 2.0) + S * (-height / 2.0),
@@ -174,6 +208,21 @@ def thread_point(theta, r, n):
     return P - N * n + (X * math.cos(theta) + S * math.sin(theta)) * r
 
 
+def chamfer_ring(points, c=0.2):
+    """Replace each sharp corner of a closed profile with a small flat."""
+    out = []
+    count = len(points)
+    for i in range(count):
+        a = points[i - 1]
+        b = points[i]
+        d = points[(i + 1) % count]
+        u = (b - a).normalize()
+        v = (d - b).normalize()
+        out.append(b - u * c)
+        out.append(b + v * c)
+    return out
+
+
 def thread_sector(t0, t1, n0, n1, r_root, r_crest, root_half, crest_half):
     p = [
         thread_point(t0, r_root, n0 - root_half),
@@ -187,6 +236,8 @@ def thread_sector(t0, t1, n0, n1, r_root, r_crest, root_half, crest_half):
         thread_point(t1, r_crest, n1 + crest_half),
         thread_point(t1, r_crest, n1 - crest_half),
     ]
+    p = chamfer_ring(p, THREAD_EDGE_CHAMFER)
+    q = chamfer_ring(q, THREAD_EDGE_CHAMFER)
     f0 = Part.Face(Part.makePolygon(p + [p[0]]))
     f1 = Part.Face(Part.makePolygon(q + [q[0]]))
     return Part.makeLoft([f0, f1], True)
@@ -195,9 +246,11 @@ def thread_sector(t0, t1, n0, n1, r_root, r_crest, root_half, crest_half):
 def thread_rib(n_start, r_root, r_crest, root_half, crest_half,
                turns=THREAD_TURNS, steps_per_turn=THREAD_STEPS_PER_TURN,
                end_root_r=None, end_crest_r=None,
+               start_crest_r=None, start_turns=0.2,
                start_angle_deg=THREAD_START_ANGLE_DEG):
     total = int(round(turns * steps_per_turn))
     end_steps = int(round(THREAD_END_TURNS * steps_per_turn)) if (end_root_r is not None or end_crest_r is not None) else 0
+    start_steps = int(round(start_turns * steps_per_turn)) if start_crest_r is not None else 0
     start_angle = math.radians(start_angle_deg)
     sectors = []
     for i in range(total):
@@ -207,6 +260,9 @@ def thread_rib(n_start, r_root, r_crest, root_half, crest_half,
         n1 = n_start + THREAD_PITCH * (i + 1) / steps_per_turn
         rr = r_root
         cr = r_crest
+        if start_steps and i < start_steps:
+            f = (i + 0.5) / float(start_steps)
+            cr = start_crest_r + (r_crest - start_crest_r) * f
         if end_steps and i >= total - end_steps:
             f = (i - (total - end_steps) + 0.5) / float(end_steps)
             if end_root_r is not None:
@@ -239,8 +295,8 @@ for i in range(1, steps + 1):
     n = CAP_SEAM_N * u
     r = FRONT_R - (FRONT_R - SEAM_R) * (u ** 1.2)
     cap_profile.append(P + X * r - N * n)
-cap_profile.append(P + X * THREAD_CREST_R - N * CAP_SEAM_N)
-cap_profile.append(P + X * THREAD_CREST_R - N * CAP_NECK_N)
+cap_profile.append(P + X * THREAD_ROOT_R - N * CAP_SEAM_N)
+cap_profile.append(P + X * THREAD_ROOT_R - N * CAP_NECK_N)
 cap_profile.append(P - N * CAP_NECK_N)
 
 cap_face = Part.Face(Part.makePolygon(cap_profile + [cap_profile[0]]))
@@ -320,28 +376,38 @@ front_thread = thread_rib(
     THREAD_ROOT_HALF,
     THREAD_CREST_HALF,
     end_crest_r=THREAD_END_CREST_R,
+    start_crest_r=THREAD_ROOT_R + 0.05,
 )
 front_cap = front_cap.fuse(front_thread)
 
-# Keep the visible front face/outer rim at n<2.01 completely.  Only the
-# internal part at n>=2.01 that would meet the rear-body floor is cleared
-# below z=2.25; the rear-body floor top is z=2, leaving 0.25 mm.
-local_half = Part.makeBox(
-    80.0, 80.0, 60.0,
-    App.Vector(-40.0, -40.0, -(CAP_CLEAR_N_START + 60.0)),
-)
-tr = App.Matrix()
-tr.A11, tr.A12, tr.A13 = X.x, S.x, N.x
-tr.A21, tr.A22, tr.A23 = X.y, S.y, N.y
-tr.A31, tr.A32, tr.A33 = X.z, S.z, N.z
-tr.A14, tr.A24, tr.A34 = P.x, P.y, P.z
-local_half.transformShape(tr)
-below_cap = Part.makeBox(
-    200.0, 200.0, 102.25,
-    App.Vector(-100.0, -100.0, -100.0),
-)
-front_cap = front_cap.cut(local_half.common(below_cap))
+# The front cap is completely uncut: the whole lower band/cradle stays
+# round.  It floats above the rear-body 5 mm nut ring, so no local
+# clearance cut is needed.
 front_cap = solid_of(front_cap)
+
+# Print-friendly edge breaks: cradle mouth, seam shoulder, front face,
+# thread crest.  Failures are non-fatal and leave the edge as-is.
+front_cap = try_chamfer(
+    front_cap, 0.5,
+    lambda e: all(
+        abs(axial_n(v.Point) - CRADLE_N) < 0.2 for v in e.Vertexes
+    ),
+)
+front_cap = try_chamfer(
+    front_cap, 0.3,
+    lambda e: all(
+        abs(axial_n(v.Point) - CAP_SEAM_N) < 0.15
+        and axis_radius(v.Point) > 24.8
+        for v in e.Vertexes
+    ),
+)
+front_cap = try_chamfer(
+    front_cap, 0.3,
+    lambda e: all(
+        axial_n(v.Point) < 0.1 and axis_radius(v.Point) > 25.2
+        for v in e.Vertexes
+    ),
+)
 
 print("Front cap: volume=%.1f bbox=%s" % (front_cap.Volume, front_cap.BoundBox))
 print("Front cap valid:", front_cap.isValid(), "solids:", len(front_cap.Solids))
@@ -369,15 +435,21 @@ rear_cavity = Part.makeCylinder(
     P - N * REAR_CAVITY_N,
     N,
 )
-
-# Keep the bottom 2 mm of the shell solid: this is the rear-body floor
-# that the front cap sits on and the only desktop contact.
 above_floor = Part.makeBox(
     140.0, 140.0, 100.0, App.Vector(-70.0, -70.0, BOTTOM_PLATE_TOP)
 )
 rear_body = rear_body.cut(rear_cavity.common(above_floor))
 
-# Internal thread, also kept above the 2 mm floor.
+# Short front relief for the screw bosses; the thread starts 1 mm behind it.
+front_relief = Part.makeCylinder(
+    REAR_FRONT_RELIEF_R,
+    REAR_FRONT_RELIEF_N - CAP_SEAM_N,
+    P - N * REAR_FRONT_RELIEF_N,
+    N,
+)
+rear_body = rear_body.cut(front_relief.common(above_floor))
+
+# Internal thread: 2 turns, cut into the 5 mm nut ring and the wall above.
 rear_thread = thread_rib(
     THREAD_START_N,
     REAR_CAVITY_R,
@@ -385,10 +457,22 @@ rear_thread = thread_rib(
     REAR_GROOVE_ROOT_HALF,
     REAR_GROOVE_CREST_HALF,
     start_angle_deg=0.0,
+    start_crest_r=REAR_CAVITY_R + 0.05,
 )
 rear_body = rear_body.cut(rear_thread.common(above_floor))
 
-# Flat bottom at z=0.
+# Open the centre under the cap; keep a 5 mm full-circle outer nut ring.
+# The opening is also the battery insertion path.
+bottom_open = Part.makeCylinder(
+    REAR_CAVITY_R, 30.0, P - N * 15.0, N
+).common(
+    Part.makeBox(
+        200.0, 200.0, REAR_RING_HEIGHT, App.Vector(-100.0, -100.0, 0.0)
+    )
+)
+rear_body = rear_body.cut(bottom_open)
+
+# Flat bottom at z=0; the 5 mm ring is the only desk contact.
 rear_bottom_cut = Part.makeBox(
     140.0, 140.0, 50.0, App.Vector(-70.0, -70.0, -50.0)
 )
@@ -396,7 +480,19 @@ rear_body = rear_body.cut(rear_bottom_cut)
 rear_body = rear_body.common(
     Part.makeBox(200.0, 200.0, 200.0, App.Vector(-100.0, -100.0, 0.0))
 )
+
 rear_body = solid_of(rear_body)
+
+# Print-friendly nut ring: keep the front rim edge break.  The bottom/ring
+# chamfers are applied only if OCC keeps the solid valid (see below).
+rear_body = try_chamfer(
+    rear_body, 0.3,
+    lambda e: all(
+        abs(axial_n(v.Point) - CAP_SEAM_N) < 0.15
+        and axis_radius(v.Point) > 24.8
+        for v in e.Vertexes
+    ),
+)
 
 print("Rear body: volume=%.1f bbox=%s" % (rear_body.Volume, rear_body.BoundBox))
 print("Rear body valid:", rear_body.isValid(), "solids:", len(rear_body.Solids))
