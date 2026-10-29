@@ -1,0 +1,167 @@
+{
+  "module_model": "ESP32-P4-WIFI6-TOUCH-LCD-3_4C.stp",
+  "module_source_solids": 1165,
+  "tilt_deg": 40,
+  "parts": {
+    "main_shell": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 23106.857211551614,
+      "speaker_overlap_mm3": 0.0,
+      "module_overlap_mm3": 0.0,
+      "mesh_closed": true,
+      "steep_overhang_mm2": 1015.0808460151211
+    },
+    "rear_cover": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 63664.19414310072,
+      "speaker_overlap_mm3": 0.0,
+      "module_overlap_mm3": 0.0,
+      "mesh_closed": true,
+      "steep_overhang_mm2": 1433.8336438205777
+    }
+  },
+  "step_solids": 2,
+  "front_projection_radius_mm": 57.2000000230608,
+  "front_occlusion_margin_mm": 0.29999997693919767,
+  "bottom_ring_passed": 72,
+  "bottom_ring_width_nominal_mm": 5,
+  "bottom_plate_min_mm": 2,
+  "seam_clearance_mm": 0.25,
+  "locator_engagement_mm": 3,
+  "locator_side_clearance_mm": 0.25,
+  "axial_stop_pads": 3,
+  "rear_screw": "2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4",
+  "nut_retaining_shoulder_mm": 2.4,
+  "module_screw": "4 × M4×16，预计入牙约 2 mm，须实测有效深度",
+  "m4_head_pocket_radial_wall_mm": 0.5169914110089366,
+  "speaker_corner_clearance_wall_mm": 1.709009740319111,
+  "locator_socket_radial_wall_mm": 1.25,
+  "speaker_dimensions_mm": [
+    100,
+    45,
+    21
+  ],
+  "speaker_hole_pitch_mm": [
+    90,
+    36
+  ],
+  "speaker_pin_diameter_mm": 5,
+  "speaker_ear_thickness_assumed_mm": 21.0,
+  "speaker_pad_compressed_mm": 0.2,
+  "rear_outlet_mm": [
+    20,
+    12
+  ],
+  "outlet_corner_radius_mm": 3,
+  "nut_insertion_travel_mm": [
+    0,
+    1,
+    2,
+    4,
+    6,
+    8,
+    10
+  ],
+  "cable_reference_diameter_mm": 3.5,
+  "cable_bend_radius_verified": false,
+  "bottom_ring_width_samples": 288,
+  "assembly_travel": [
+    {
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 0.5,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 1,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 2,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 4,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 8,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 16,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 24,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 32,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 48,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    },
+    {
+      "travel_mm": 64,
+      "overlaps_mm3": {
+        "main_shell": 0.0,
+        "speaker": 0.0,
+        "M4_heads": 0.0
+      }
+    }
+  ],
+  "cavity_cm3": 569.108505144615,
+  "estimated_module_mass_g": 220,
+  "estimated_speaker_mass_g": 100,
+  "estimated_total_mass_g": 430.19923522040847,
+  "estimated_tip_angle_deg": 35.71004438975469,
+  "microphone_hole_verified": false,
+  "physical_fit_verified": false
+}

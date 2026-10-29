@@ -7,6 +7,7 @@
 | 项目 | 说明 | 状态 |
 | --- | --- | --- |
 | [ESP32 鹅卵石底座](projects/esp32-pebble-stand/) | 成品模块桌面底座，40° 屏幕，薄支架 + 封闭卡扣后壳 | active |
+| [微雪 ESP32-P4-WIFI6-Touch-LCD-3.4C 桌面外壳](projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/) | 两件式：M4 主壳＋两颗 M3 后盖，40° 屏幕、正面隐藏、背面出线 | active |
 
 ![ESP32 鹅卵石底座](projects/esp32-pebble-stand/output/preview_iso.png)
 
@@ -59,9 +60,4 @@
 https://github.com/Queqiongtao/AI_FreeCAD.git
 ```
 
-当前输出约 4–5 MB，未启用 LFS。以后二进制文件多了再加：
-
-```powershell
-git lfs install
-git lfs track "*.FCStd" "*.step" "*.stl"
-```
+沿用普通 Git 存储模型和图纸，不启用 Git LFS。

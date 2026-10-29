@@ -7,3 +7,7 @@ ESP32-S3-Touch-AMOLED-1.75-B-3D/
 *.FCStd.lock
 __pycache__/
 *.pyc
+
+# P4 原始资料已复制并校验至项目 reference，根目录副本仅在本地保留。
+/ESP32-P4-WIFI6-TOUCH-LCD-3_4C.pdf
+/ESP32-P4-WIFI6-TOUCH-LCD-3_4C.stp

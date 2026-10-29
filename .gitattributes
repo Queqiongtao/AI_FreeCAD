@@ -1,6 +1,7 @@
 *.stl binary
 *.FCStd binary
 *.step binary
+*.stp binary
 *.dwg binary
 *.pdf binary
 *.png binary
