@@ -19,6 +19,19 @@ class PrintAuditTests(unittest.TestCase):
         self.assertEqual(transform['rotation_deg'], 90)
         self.assertEqual(aligned[.2][0][:2], ((0, 0), (5, 0)))
 
+        # 包围框对称外扩不能改变实际模型尺寸或平移；仍须吻合墙线。
+        padded = {'x': 26.9, 'y': 39.9, 'width': 3.2, 'depth': 5.2}
+        aligned, transform = align_extrusions(triangles, layers, padded)
+        self.assertTrue(transform['bbox_center_alignment'])
+        self.assertAlmostEqual(aligned[.2][0][0][0], 0)
+        self.assertAlmostEqual(aligned[.2][0][1][0], 5)
+        self.assertAlmostEqual(aligned[.2][0][1][1], 0)
+
+        # 报告框中心若与实际路径不符，不能靠放宽包围框误差通过。
+        padded['x'] += 1
+        with self.assertRaises(AssertionError):
+            align_extrusions(triangles, layers, padded)
+
     def test_support_filament_modes(self):
         text = '''; Z_HEIGHT:0.2
 ; FEATURE:Support

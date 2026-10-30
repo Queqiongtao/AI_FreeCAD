@@ -91,7 +91,7 @@ def main():
         feature_checks,feature_failures=audit_features(triangles,layers,manifest,args.part)
     report={'stl_sha256':hashlib.sha256(data).hexdigest(), 'slicer':'Bambu Studio',
             'printer_profile':names[0][1], 'filament_profile':names[2][1],
-            'nozzle_mm':0.4, 'layer_height_mm':0.2, 'wall_loops':4,
+            'nozzle_mm':0.4, 'layer_height_mm':0.2, 'wall_loops':4,'wall_generator':'classic',
             'support_type':'normal(auto)', 'support_threshold_angle_deg':45,
             'support_top_gap_mm':0.24 if args.material=='PETG' else 0.2,
             'support_extrusion_volume_mm3':support_volume,'baseline_only':args.baseline,

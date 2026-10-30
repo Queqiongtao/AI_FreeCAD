@@ -1,7 +1,7 @@
 {
   "radial_wall_audit": {
     "ordinary": {
-      "sample_count": 325,
+      "sample_count": 353,
       "minimum_radial_segment_mm": 2.0750397227866664,
       "lowest_samples": [
         {
@@ -33,42 +33,6 @@
           "n_mm": 24,
           "angle_deg": 260,
           "radial_segment_mm": 2.2146046661338588
-        }
-      ]
-    },
-    "m4_head": {
-      "sample_count": 28,
-      "minimum_radial_segment_mm": 1.2169914110084115,
-      "lowest_samples": [
-        {
-          "kind": "m4_head",
-          "n_mm": 24,
-          "angle_deg": 135,
-          "radial_segment_mm": 1.2169914110084115
-        },
-        {
-          "kind": "m4_head",
-          "n_mm": 10,
-          "angle_deg": 135,
-          "radial_segment_mm": 1.2169914110086673
-        },
-        {
-          "kind": "m4_head",
-          "n_mm": 6.6,
-          "angle_deg": 135,
-          "radial_segment_mm": 1.216991411008685
-        },
-        {
-          "kind": "m4_head",
-          "n_mm": 7.2,
-          "angle_deg": 135,
-          "radial_segment_mm": 1.216991411008685
-        },
-        {
-          "kind": "m4_head",
-          "n_mm": 7.6,
-          "angle_deg": 135,
-          "radial_segment_mm": 1.2169914110087063
         }
       ]
     },
@@ -127,358 +91,23 @@
       ]
     }
   },
-  "carrier_rear_bed_contact_area_mm2": 727.5174197299223,
+  "carrier_rear_bed_contact_area_mm2": 725.6926207476353,
   "stl_sha256": {
-    "main_shell": "ab73e8cf3e4d0d0048a800747cb8cc398de53a3a82dc050187ffe88c5844d9cd",
-    "rear_cover": "b007fb9033176e96d4af52cfa48cd0701ef8bd397e53968ee9bcfaeeb0937142"
+    "main_shell": "ca181c4f534f74ce27e619e8c96aac1a5d668b7ab45a16c49b83392f995b34cd",
+    "rear_cover": "80aa8fe8c8e388629b4475624e143faef4f18515e19b8e58c7f40c82afdaae02"
   },
   "reinforcement_sections": {
-    "m4_solid_spans": [
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 7,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 7,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 7,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999974
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 12,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 12,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 12,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 16,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 16,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 16,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 19.9,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 19.9,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": -37.5,
-        "n_mm": 19.9,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999997
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 7,
-        "direction": "inward",
-        "solid_span_mm": 2.697999999999998
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 7,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999974
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 7,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 12,
-        "direction": "inward",
-        "solid_span_mm": 2.698
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 12,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 12,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 16,
-        "direction": "inward",
-        "solid_span_mm": 2.698
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 16,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 16,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 19.9,
-        "direction": "inward",
-        "solid_span_mm": 2.698
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 19.9,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": -37.5,
-        "s_mm": 37.5,
-        "n_mm": 19.9,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 7,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 7,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999974
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 7,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 12,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 12,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 12,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 16,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 16,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 16,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 19.9,
-        "direction": "inward",
-        "solid_span_mm": 2.6979999999999973
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 19.9,
-        "direction": "side_positive",
-        "solid_span_mm": 1.498999999999997
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": -37.5,
-        "n_mm": 19.9,
-        "direction": "side_negative",
-        "solid_span_mm": 1.498999999999999
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 7,
-        "direction": "inward",
-        "solid_span_mm": 2.697999999999998
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 7,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 7,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999974
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 12,
-        "direction": "inward",
-        "solid_span_mm": 2.698
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 12,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 12,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 16,
-        "direction": "inward",
-        "solid_span_mm": 2.698
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 16,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 16,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 19.9,
-        "direction": "inward",
-        "solid_span_mm": 2.698
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 19.9,
-        "direction": "side_positive",
-        "solid_span_mm": 1.4989999999999954
-      },
-      {
-        "x_mm": 37.5,
-        "s_mm": 37.5,
-        "n_mm": 19.9,
-        "direction": "side_negative",
-        "solid_span_mm": 1.4989999999999954
-      }
+    "module_seat_probe_volumes_mm3": [
+      136.09138101035185,
+      136.0913810103519,
+      136.0913810103519,
+      136.09138101035194
     ],
-    "m4_inward_wall_nominal_mm": 2.6999999999999993,
-    "m4_side_wall_nominal_mm": 1.6019731719200752,
-    "m4_outward_side_open": true,
-    "m4_head_bearing_areas_mm2": [
-      4.2764929997003485,
-      4.276492999700462,
-      4.276492999699909,
-      4.276492999697494
+    "module_head_bearing_areas_mm2": [
+      10.744246875276803,
+      10.744246875276636,
+      10.744246875276636,
+      10.74424687527637
     ],
     "locator_back_thickness_mm": 1.8000000000000043,
     "locator_back_probe_volumes_mm3": [
@@ -487,24 +116,81 @@
       30.96
     ],
     "speaker_base_probe_volumes_mm3": [
-      144.75453638092594,
-      144.7545363809259,
-      144.75453638092594,
-      144.7545363809259
+      5.163490269513366,
+      5.163490269513314,
+      5.163490269513366,
+      5.163490269513314
     ],
-    "speaker_base_thickness_mm": 2.4,
+    "speaker_seat_shoulder_mm": 2.3999999999999986,
     "note": "截面连续性检查，不是有限元、极限载荷或实物强度试验。"
   },
-  "pressure_blind_floor_nominal_mm": 1.2,
-  "pressure_floor_probe_volumes_mm3": [
-    25.059856279155063,
-    25.059856279155078,
-    25.059856279155063,
-    25.059856279155078
+  "speaker_mount_part": "rear_cover",
+  "speaker_locator_probe_volumes_mm3": [
+    13.74132626680176,
+    13.741326266801728,
+    13.74132626680176,
+    13.741326266801728
   ],
+  "speaker_nut_wall_probe_spans_mm": [
+    2.0456863804981538,
+    2.0456863804981418,
+    2.0456863804981493,
+    2.045686380498146,
+    2.0456863804981493,
+    2.0456863804981418,
+    2.0456863804981538,
+    2.0456863804981436,
+    2.0456863804981444,
+    2.0456863804981467,
+    2.0456863804981484,
+    2.0456863804981493,
+    2.0456863804981538,
+    2.0456863804981436,
+    2.0456863804981507,
+    2.045686380498149,
+    2.0456863804981507,
+    2.0456863804981436,
+    2.0456863804981538,
+    2.045686380498141,
+    2.0456863804981467,
+    2.045686380498149,
+    2.0456863804981507,
+    2.0456863804981498,
+    2.0456863804981538,
+    2.0456863804981418,
+    2.0456863804981493,
+    2.045686380498146,
+    2.0456863804981493,
+    2.0456863804981418,
+    2.0456863804981538,
+    2.0456863804981436,
+    2.0456863804981444,
+    2.0456863804981467,
+    2.0456863804981484,
+    2.0456863804981493,
+    2.0456863804981538,
+    2.0456863804981436,
+    2.0456863804981507,
+    2.045686380498149,
+    2.0456863804981507,
+    2.0456863804981436,
+    2.0456863804981538,
+    2.045686380498141,
+    2.0456863804981467,
+    2.045686380498149,
+    2.0456863804981507,
+    2.0456863804981498
+  ],
+  "module_head_clearance_checks": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "module_engagement_mm": 1.9999999999999982,
   "cable_tie_opening_clear": true,
   "cable_tie_bridge_probe_mm3": 12.311999999999987,
   "method": "从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。",
-  "limitations": "离散径向检查不等于全局法向最薄壁；格栅、压耳、定位舌和锁盖座未纳入此壁厚统计。",
+  "limitations": "离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌和锁盖座未纳入此壁厚统计。",
   "physical_fit_verified": false
 }

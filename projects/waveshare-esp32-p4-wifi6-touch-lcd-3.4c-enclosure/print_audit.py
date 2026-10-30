@@ -96,8 +96,15 @@ def align_extrusions(triangles,layers,box):
         points=[(c*v[0]-s*v[1],s*v[0]+c*v[1]) for v in vertices]
         xmin,xmax=min(p[0] for p in points),max(p[0] for p in points)
         ymin,ymax=min(p[1] for p in points),max(p[1] for p in points)
-        if abs(xmax-xmin-box['width'])>0.05 or abs(ymax-ymin-box['depth'])>0.05:continue
+        error=max(abs(xmax-xmin-box['width']),abs(ymax-ymin-box['depth']))
+        if error>0.25:continue
+        # 新后盖的报告包围框比网格宽约 0.19 mm；其中心可用于平移初值。
+        # 不缩放网格；此分支必须通过三高度实际墙线的更严格校准。
+        centered=error>0.05
         dx,dy=box['x']-xmin,box['y']-ymin
+        if centered:
+            dx+=(box['width']-(xmax-xmin))/2
+            dy+=(box['depth']-(ymax-ymin))/2
         total=found=0
         for z in selected:
             wall_index=grid([v for v in layers[z] if 'wall' in v[2].lower()])
@@ -106,15 +113,18 @@ def align_extrusions(triangles,layers,box):
                 x,y=(a[0]+b[0])/2,(a[1]+b[1])/2
                 total+=1
                 if covered((c*x-s*y+dx,s*x+c*y+dy),wall_index,0.10):found+=1
-        candidates.append((found/(total or 1),angle,c,s,dx,dy))
+        score=found/(total or 1)
+        if centered and score<=0.95:continue
+        candidates.append((score,angle,c,s,dx,dy,centered,error))
     assert candidates,'自动排版姿态无法与 STL 包围尺寸匹配'
-    score,angle,c,s,dx,dy=max(candidates)
+    score,angle,c,s,dx,dy,centered,error=max(candidates)
     assert score>0.75,'自动排版截面校准失败：'+str([(r[0],r[1]) for r in candidates])
     def inverse(p):
         x,y=p[0]-dx,p[1]-dy
         return (c*x+s*y,-s*x+c*y)
     aligned={z:[(inverse(a),inverse(b),kind,width) for a,b,kind,width in segments] for z,segments in layers.items()}
-    return aligned,{'rotation_deg':angle,'translation_mm':[dx,dy],'section_alignment_score':score}
+    return aligned,{'rotation_deg':angle,'translation_mm':[dx,dy],'section_alignment_score':score,
+                    'bbox_center_alignment':centered,'bbox_dimension_error_mm':error}
 
 
 def audit_features(triangles,layers,manifest,part):
@@ -213,10 +223,7 @@ def audit_features(triangles,layers,manifest,part):
             cross=f.get('cross')
             n=back-(z-0.1)
             line=None
-            if cross and cross['kind']=='m4' and 7<=n<=19.9:
-                x,s=cross['x'],cross['s'];radius=math.hypot(x,s)
-                line=((x-x/radius*2.05,s+yoffset-s/radius*2.05),(x-x/radius*5.05,s+yoffset-s/radius*5.05))
-            elif cross and cross['kind']=='slot' and 23<=n<=25.5:
+            if cross and cross['kind']=='slot' and 23<=n<=25.5:
                 a=math.radians(cross['angle'])
                 line=((50.9*math.cos(a),50.9*math.sin(a)+yoffset),(52.95*math.cos(a),52.95*math.sin(a)+yoffset))
             if line:

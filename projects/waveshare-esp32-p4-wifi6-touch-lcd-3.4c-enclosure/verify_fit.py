@@ -17,7 +17,7 @@ def main():
     doc=App.openDocument(os.path.join(OUT,'enclosure.FCStd'))
     rear=doc.getObject('rear_cover').Shape
     frame=doc.getObject('main_shell').Shape
-    mesh_write(doc.getObject('Speaker_Pads_Reference').Shape,os.path.join(CACHE,'pads.stl'))
+    assert doc.getObject('Speaker_Pads_Reference') is None,'旧压耳软垫参考体未移除'
     wall_samples=[]
     corner_angle=math.degrees(math.atan2(SPEAKER_H/2+0.5,SPEAKER_W/2+0.5))
     angles=set(range(0,360,10))
@@ -39,13 +39,11 @@ def main():
             kind='ordinary'
             if any(abs(p.z-top_z)<0.02 for p in ends):
                 kind='cap_edge'
-            elif n<=24.5 and any(math.hypot(x-hx,s-hs)<M4_HEAD_R+M4_HEAD_CLEARANCE+0.02 for hx,hs in SCREWS):
-                kind='m4_head'
             elif math.hypot(x,s)>INNER_R+0.02 and abs(x)<=SPEAKER_W/2+0.52 and abs(s)<=SPEAKER_H/2+0.52:
                 kind='speaker_corner'
             wall_samples.append({'kind':kind,'n_mm':n,'angle_deg':angle,'radial_segment_mm':outer.Length})
     wall_report={}
-    for kind,minimum in (('ordinary',1.95),('m4_head',1.2),('speaker_corner',1.6),('cap_edge',1.2)):
+    for kind,minimum in (('ordinary',1.95),('speaker_corner',1.6),('cap_edge',1.2)):
         values=[v for v in wall_samples if v['kind']==kind]
         assert values,kind+'无壁厚样本'
         lowest=min(v['radial_segment_mm'] for v in values)
@@ -60,24 +58,18 @@ def main():
     # 检查生成实体中的实心截面，避免仅凭参数认定加强区存在。
     boss_spans=[]
     bearing_areas=[]
+    head_clearance_checks=[]
     for x,s in SCREWS:
-        angle=math.atan2(s,x)
-        inward=-X*math.cos(angle)-S*math.sin(angle)
-        tangent=-X*math.sin(angle)+S*math.cos(angle)
-        for n in (7,12,16,19.9):
-            for label,direction,end in (('inward',inward,4.899),
-                                         ('side_positive',tangent,3.7),('side_negative',-tangent,3.7)):
-                start=2.201
-                origin=pt(x,s,n)+(inward*0.1 if label!='inward' else App.Vector())
-                probe=Part.makeLine(origin+direction*start,origin+direction*end)
-                length=frame.common(probe).Length
-                assert length>=(end-start)*0.999,'M4 加强座截面不连续'
-                boss_spans.append({'x_mm':x,'s_mm':s,'n_mm':n,'direction':label,'solid_span_mm':length})
-        opening=local_rectangle(x,s,0.05,3.2,-2,2,7,19.9)
-        assert frame.common(opening).Volume<0.001,'M4 外侧开口残留薄皮'
-        bearing=frame.common(cyl(M4_HEAD_R,19.98,20,x,s)).Volume/0.02
-        assert bearing>=4.0,'M4 螺丝头承压面积不足'
+        bearing=frame.common(cyl(MODULE_HEAD_R,MODULE_SEAT_N-0.02,MODULE_SEAT_N,x,s)).Volume/0.02
+        assert bearing>=8.0
         bearing_areas.append(bearing)
+        probe=cyl(MODULE_BOSS_R-0.1,MODULE_MOUNT_FRONT_N+0.01,MODULE_SEAT_N-0.01,x,s).cut(cyl(MODULE_HOLE_R+0.01,15,18,x,s))
+        assert frame.common(probe).Volume>=probe.Volume*0.999
+        boss_spans.append(frame.common(probe).Volume)
+        for travel in (0,0.5,1,2,4,8,16):
+            head=cyl(MODULE_HEAD_R+MODULE_HEAD_CLEARANCE,MODULE_SEAT_N+travel,MODULE_SEAT_N+travel+MODULE_HEAD_H,x,s)
+            assert frame.common(head).Volume<0.001
+        head_clearance_checks.append(True)
     slot_volumes=[]
     for a in (0,90,180):
         probe=locator(a,LOCATOR_BACK_INNER_R,53.1-FIT_SIDE_CLEARANCE,8+2*FIT_SIDE_CLEARANCE,23.5,25.5)
@@ -85,36 +77,47 @@ def main():
         assert actual>=probe.Volume*0.999,'定位槽背部加强区不足'
         slot_volumes.append(actual)
     seat_volumes=[]
+    locator_volumes=[]
+    nut_wall_spans=[]
     for x,s in PINS:
-        probe=cyl(PRESSURE_R-0.1,SPEAKER_FRONT_N-SPEAKER_BASE_T+0.01,SPEAKER_FRONT_N-0.01,x,s)
-        actual=frame.common(probe).Volume
+        probe=cyl(SPEAKER_EAR_R-0.1,SPEAKER_SEAT_N+0.02,SPEAKER_SEAT_N+0.12,x,s).cut(
+            cyl(1.71,SPEAKER_SEAT_N,SPEAKER_SEAT_N+0.2,x,s))
+        actual=rear.common(probe).Volume
         assert actual>=probe.Volume*0.999,'喇叭承托底座不足'
         seat_volumes.append(actual)
+        probe=cyl(PIN_R-0.01,SPEAKER_SEAT_N-1,SPEAKER_SEAT_N-0.1,x,s).cut(
+            cyl(1.71,SPEAKER_SEAT_N-1.1,SPEAKER_SEAT_N,x,s))
+        assert rear.common(probe).Volume>=probe.Volume*0.999,'喇叭定位环缺失'
+        locator_volumes.append(rear.common(probe).Volume)
+        old=cyl(2.4,SPEAKER_FRONT_N,SPEAKER_FRONT_N+3.9,x,s)
+        assert frame.common(old).Volume<0.001,'承托架残留旧喇叭柱'
+        for angle in range(0,360,30):
+            a=math.radians(angle)
+            direction=X*math.cos(a)+S*math.sin(a)
+            origin=pt(x,s,SPEAKER_NUT_FRONT_N+1)
+            line=Part.makeLine(origin+direction*(math.hypot(3,3.4)+0.01),
+                               origin+direction*(SPEAKER_BOSS_R-0.01))
+            span=rear.common(line).Length
+            assert span>=line.Length*0.999,'喇叭螺母袋承力壁不连续'
+            nut_wall_spans.append(span)
     print('加固截面通过',len(boss_spans),'固定座截线',len(slot_volumes),'槽背',len(seat_volumes),'承托面',flush=True)
-    pressure_floors=[]
-    for x,s in PINS:
-        probe=cyl(2.6,STRIP_FRONT_N+0.61,STRIP_FRONT_N+1.79,x,s)
-        volume=rear.common(probe).Volume
-        assert volume>=probe.Volume*0.999,'压耳中心盲孔后方实心顶不足'
-        pressure_floors.append(volume)
     tie_open=Part.makeBox(3.8,1.8,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,16.1))
     tie_bridge=Part.makeBox(3.8,1.8,1.8,App.Vector(21.1,TIE_FRONT_Y+0.1,22.1))
     assert rear.common(tie_open).Volume<0.001,'扎带穿入口被堵塞'
     assert rear.common(tie_bridge).Volume>=tie_bridge.Volume*0.999,'扎带横桥缺失'
     report={'radial_wall_audit':wall_report,'carrier_rear_bed_contact_area_mm2':bed_area,
             'stl_sha256':{name:hashlib.sha256(Path(OUT,name+'.stl').read_bytes()).hexdigest() for name in ('main_shell','rear_cover')},
-            'reinforcement_sections':{'m4_solid_spans':boss_spans,
-                'm4_inward_wall_nominal_mm':M4_REINFORCE_R+M4_REINFORCE_OFFSET-2.2,
-                'm4_side_wall_nominal_mm':math.sqrt(M4_REINFORCE_R**2-M4_REINFORCE_OFFSET**2)-2.2,
-                'm4_outward_side_open':True,'m4_head_bearing_areas_mm2':bearing_areas,
+            'reinforcement_sections':{'module_seat_probe_volumes_mm3':boss_spans,'module_head_bearing_areas_mm2':bearing_areas,
                 'locator_back_thickness_mm':53.1-FIT_SIDE_CLEARANCE-LOCATOR_BACK_INNER_R,
                 'locator_back_probe_volumes_mm3':slot_volumes,'speaker_base_probe_volumes_mm3':seat_volumes,
-                'speaker_base_thickness_mm':SPEAKER_BASE_T,
+                'speaker_seat_shoulder_mm':SPEAKER_NUT_FRONT_N-SPEAKER_SEAT_N,
                 'note':'截面连续性检查，不是有限元、极限载荷或实物强度试验。'},
-            'pressure_blind_floor_nominal_mm':1.2,'pressure_floor_probe_volumes_mm3':pressure_floors,
+            'speaker_mount_part':'rear_cover','speaker_locator_probe_volumes_mm3':locator_volumes,
+            'speaker_nut_wall_probe_spans_mm':nut_wall_spans,
+            'module_head_clearance_checks':head_clearance_checks,'module_engagement_mm':MODULE_THREAD_ENTRY_N-(MODULE_SEAT_N-MODULE_SCREW_L),
             'cable_tie_opening_clear':True,'cable_tie_bridge_probe_mm3':rear.common(tie_bridge).Volume,
             'method':'从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。',
-            'limitations':'离散径向检查不等于全局法向最薄壁；格栅、压耳、定位舌和锁盖座未纳入此壁厚统计。',
+            'limitations':'离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌和锁盖座未纳入此壁厚统计。',
             'physical_fit_verified':False}
     with open(os.path.join(OUT,'fit_validation.json'),'w',encoding='utf-8') as f:
         json.dump(report,f,ensure_ascii=False,indent=2)

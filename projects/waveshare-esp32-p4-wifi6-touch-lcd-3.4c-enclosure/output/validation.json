@@ -6,20 +6,20 @@
     "main_shell": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 12200.607731606233,
+      "volume_mm3": 12441.679580586317,
       "speaker_overlap_mm3": 0.0,
       "module_overlap_mm3": 0.0,
       "mesh_closed": true,
-      "steep_overhang_mm2": 257.4546894563122
+      "steep_overhang_mm2": 684.8939863435875
     },
     "rear_cover": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 78061.26286094279,
+      "volume_mm3": 81459.71308011995,
       "speaker_overlap_mm3": 0.0,
       "module_overlap_mm3": 0.0,
       "mesh_closed": true,
-      "steep_overhang_mm2": 1417.3095267172264
+      "steep_overhang_mm2": 1841.7424025900477
     }
   },
   "step_solids": 2,
@@ -33,20 +33,56 @@
   "locator_side_clearance_mm": 0.3,
   "axial_stop_pads": 3,
   "axial_stop_contact_areas_mm2": [
-    15.817080112648016,
-    15.8170801129614,
+    15.817080112973303,
+    15.817080113280785,
     15.817080112973814
   ],
-  "speaker_pad_contact_areas_mm2": [
-    31.44734246243629,
-    31.447342462433518,
-    31.44734246243629,
-    31.447342462433518
+  "speaker_ear_bearing_areas_mm2": [
+    35.34291735289003,
+    35.34291735288955,
+    35.34291735289002,
+    35.34291735288955
   ],
   "rear_screw": "2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4",
   "nut_retaining_shoulder_mm": 2.4,
-  "module_screw": "4 × M4×16 缩小头，头径≤5.5、头高≤3；预计入牙约 2 mm，须实测及确认采购",
-  "m4_head_pocket_radial_wall_mm": 1.2169914110089366,
+  "module_screw": "4 × M2.5×6 内六角圆柱头，头径≤4.7 mm、头高≤2.5 mm",
+  "module_mount_points_mm": [
+    [
+      39.25,
+      -10.0
+    ],
+    [
+      39.25,
+      17.0
+    ],
+    [
+      -39.25,
+      17.0
+    ],
+    [
+      -39.25,
+      -17.0
+    ]
+  ],
+  "module_mount_thickness_mm": 2.0000000000000018,
+  "module_engagement_mm": 1.9999999999999982,
+  "module_tip_n_mm": 11.100000000000001,
+  "module_original_tip_n_mm": 11.1,
+  "removed_original_screw_indices": [
+    1161,
+    1162,
+    1163,
+    1164
+  ],
+  "module_retained_solids": 1161,
+  "module_head_bearing_areas_mm2": [
+    10.744246875276705,
+    10.744246875276636,
+    10.744246875276636,
+    10.744246875276371
+  ],
+  "module_head_clearance_diameter_mm": 5.3,
+  "front_hidden_required": true,
   "speaker_corner_clearance_wall_mm": 1.709009740319111,
   "locator_socket_radial_wall_mm": null,
   "speaker_dimensions_mm": [
@@ -58,13 +94,26 @@
     90.0,
     36.0
   ],
-  "speaker_pin_diameter_mm": 5.0,
-  "speaker_pin_height_mm": 4.0,
-  "speaker_ear_thickness_assumed_mm": 21.0,
-  "speaker_pad_compressed_mm": 0.2,
-  "speaker_pad_uncompressed_mm": 0.5,
-  "speaker_pressure_diameter_mm": 9.0,
-  "speaker_pin_lead_mm": 0.6,
+  "speaker_pin_diameter_mm": 5.6,
+  "speaker_pin_height_mm": 1.6,
+  "speaker_ear_thickness_mm": 2.0,
+  "speaker_ear_outer_diameter_mm": 9.0,
+  "speaker_hole_diameter_mm": 6,
+  "speaker_pin_lead_mm": 0.4,
+  "speaker_fasteners": "4 × M3×8，垫片外径 9、内径 3.4、厚 0.5；普通螺母对边 5.5、厚 2.4",
+  "speaker_nut_insertion_checks": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "speaker_nut_pocket_mm": [
+    6.0,
+    6.8
+  ],
+  "speaker_nut_pocket_wall_min_nominal_mm": 2.0656863804981462,
+  "speaker_screw_thread_engagement_mm": 2.4,
+  "speaker_service_radius_mm": 7.0,
   "frame_radial_clearance_mm": 0.5,
   "carrier_print_bed": "后侧框架平面朝下",
   "continuous_cover": true,
@@ -76,7 +125,7 @@
     ],
     "minimum_wall_target_mm": 1.2,
     "minimum_load_wall_target_mm": 1.6,
-    "m4_open_seat": true,
+    "module_mount_closed_holes": true,
     "nut_pocket_across_flats_mm": 6.0,
     "nut_pocket_depth_mm": 2.8000000000000007,
     "nut_entry_width_mm": 6.2,
@@ -85,13 +134,10 @@
     "rear_flat_top_z_mm": 91.71570017343012
   },
   "carrier_reinforcement": {
-    "m4_radius_mm": 3.925,
-    "m4_inward_offset_mm": 0.975,
-    "m4_radial_limit_mm": 54.5,
+    "module_boss_radius_mm": 5.0,
+    "module_rib_width_mm": 8.0,
     "locator_back_inner_radius_mm": 51.0,
-    "locator_back_width_mm": 12.5,
-    "speaker_base_thickness_mm": 2.4,
-    "speaker_rib_width_mm": 8.0
+    "locator_back_width_mm": 12.5
   },
   "rear_outlet_mm": [
     20,
@@ -114,97 +160,102 @@
     {
       "travel_mm": 0,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 0.5,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 1,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 2,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 4,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 8,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 16,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 24,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 32,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 48,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     },
     {
       "travel_mm": 64,
       "overlaps_mm3": {
-        "main_shell": 0.0,
-        "speaker": 0.0,
-        "M4_heads": 0.0
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
       }
     }
   ],
-  "cavity_cm3": 526.3219808751929,
+  "cavity_cm3": 526.0315558892031,
   "estimated_module_mass_g": 220,
   "estimated_speaker_mass_g": 100,
-  "estimated_total_mass_g": 434.6325756525373,
-  "estimated_tip_angle_deg": 35.07001121740841,
+  "estimated_total_mass_g": 439.25476867909697,
+  "estimated_tip_angle_deg": 35.23340780538255,
+  "speaker_actual_ear_thickness_mm": 2.0,
+  "speaker_actual_ear_center_offset_mm": 10.5,
+  "speaker_mount_location": "后盖独立四支座，拆盖时喇叭随盖移动",
+  "speaker_body_shape_verified": false,
+  "speaker_mount_status": "中部圆耳及紧固件按确认尺寸建模；总外形扣除耳周安装操作区作为条件包络，真实箱体耳根形状及工具空间需局部试装。",
   "microphone_hole_verified": false,
   "physical_fit_verified": false
 }

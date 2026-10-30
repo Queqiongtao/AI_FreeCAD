@@ -24,27 +24,37 @@ SPEAKER_H = 45.0
 SPEAKER_T = 21.0
 SPEAKER_FRONT_N = 22.0
 SPEAKER_BACK_N = SPEAKER_FRONT_N + SPEAKER_T
-PIN_R = 2.5
-PIN_H = 4.0
-SPEAKER_EAR_T = 21.0  # 未单独测量耳厚，先按整箱厚度；后盖压紧面随此参数调整。
+PIN_R = 2.8
+PIN_H = 1.6
+SPEAKER_EAR_T = 2.0  # 用户已确认：安装耳厚 2 mm，位于箱体厚度中部。
+SPEAKER_EAR_CENTER_OFFSET = SPEAKER_T/2
+SPEAKER_EAR_R = 4.5
+SPEAKER_EAR_FRONT_N = SPEAKER_FRONT_N+SPEAKER_EAR_CENTER_OFFSET-SPEAKER_EAR_T/2
+SPEAKER_SEAT_N = SPEAKER_EAR_FRONT_N+SPEAKER_EAR_T
+SPEAKER_BOSS_R = 6.6
+SPEAKER_NUT_FRONT_N = SPEAKER_SEAT_N+2.4
+SPEAKER_BOSS_BACK_N = SPEAKER_NUT_FRONT_N+3.2
+SPEAKER_WASHER_T = 0.5
+SPEAKER_SCREW_L = 8.0
+SPEAKER_SERVICE_R = 7.0  # 未知真实箱体在耳根处的形状，此范围是待实物复核的安装操作区。
 HOLE_X = 45.0
 HOLE_S = 18.0
-PAD_T = 0.5
-PAD_COMPRESSED_T = 0.2
 PRESSURE_R = 4.5
-PIN_LEAD_H = 0.6
-STRIP_FRONT_N = SPEAKER_FRONT_N + SPEAKER_EAR_T + PAD_COMPRESSED_T
-M4_HEAD_R = 2.75  # 需采购头径不超过 5.5、头高不超过 3 mm 的 M4 缩小头。
-M4_HEAD_H = 3.0
-M4_HEAD_CLEARANCE = 0.2
+PIN_LEAD_H = 0.4
+MODULE_HEAD_R = 2.35
+MODULE_HEAD_H = 2.5
+MODULE_HEAD_CLEARANCE = 0.3
+MODULE_SEAT_N = 17.1
+MODULE_MOUNT_FRONT_N = 15.1
+MODULE_SCREW_L = 6.0
+MODULE_HOLE_R = 1.45
+MODULE_BOSS_R = 5.0
+MODULE_THREAD_ENTRY_N = 13.1
+MODULE_ORIGINAL_TIP_N = 11.1  # 保持原厂螺丝尖端位置，不额外加深入牙。
+MODULE_RIB_W = 8.0
 FRAME_R = 54.3
-M4_REINFORCE_R = 3.925
-M4_REINFORCE_OFFSET = 0.975
-M4_REINFORCE_LIMIT_R = 54.5
 LOCATOR_BACK_INNER_R = 51.0
 LOCATOR_BACK_WIDTH = 12.5
-SPEAKER_BASE_T = 2.4
-SPEAKER_RIB_WIDTH = 8.0
 FIT_SIDE_CLEARANCE = 0.30
 FIT_TIP_CLEARANCE = 0.30
 FIT_LEAD = 0.6
@@ -69,7 +79,7 @@ X, Z = App.Vector(1, 0, 0), App.Vector(0, 0, 1)
 N = App.Vector(0, -SIN, COS)
 S = App.Vector(0, COS, SIN)
 P = App.Vector(0, 0, FRONT_Z)
-SCREWS = [(x, s) for x in (-37.5, 37.5) for s in (-37.5, 37.5)]
+SCREWS = [(39.25,-10.0),(39.25,17.0),(-39.25,17.0),(-39.25,-17.0)]
 PINS = [(x, s) for x in (-HOLE_X, HOLE_X) for s in (-HOLE_S, HOLE_S)]
 
 
@@ -202,10 +212,11 @@ def locator_lead(angle):
     a=math.radians(angle)
     u,v=X*math.cos(a)+S*math.sin(a),-X*math.sin(a)+S*math.cos(a)
     wires=[]
-    for n,r0,r1,w in [(23,53.1+FIT_LEAD,56.3-FIT_LEAD,8-2*FIT_LEAD),(23+FIT_LEAD,53.1,56.3,8)]:
+    lead=0.4  # 缩短收尖段，让侧舌在 0.2 mm 层高下尽早形成完整截面。
+    for n,r0,r1,w in [(23,53.1+lead,56.3-lead,8-2*lead),(23+lead,53.1,56.3,8)]:
         points=[pt(0,0,n)+u*r+v*t for r,t in [(r0,-w/2),(r1,-w/2),(r1,w/2),(r0,w/2)]]
         wires.append(Part.makePolygon(points+[points[0]]))
-    return Part.makeLoft(wires,True,True).fuse(locator(angle,53.1,56.3,8,23+FIT_LEAD,26.1))
+    return Part.makeLoft(wires,True,True).fuse(locator(angle,53.1,56.3,8,23+lead,26.1))
 
 
 def locator_entry(angle):
@@ -237,16 +248,23 @@ def write_print_features():
         features.append({'name':name,'part':part,'bounds':bounds,'space':space,'cross':cross,
                          'contact_annulus':contact_annulus})
     for i,(x,s) in enumerate(SCREWS):
-        add('m4_seat_'+str(i),'main_shell',[x-5.6,x+5.6,s-5.6,s+5.6,6.4,19.95],cross={'kind':'m4','x':x,'s':s})
+        add('module_seat_'+str(i),'main_shell',[x-5.1,x+5.1,s-5.1,s+5.1,
+            MODULE_MOUNT_FRONT_N+0.05,MODULE_SEAT_N-0.05],contact_annulus=[x,s,MODULE_HOLE_R,MODULE_BOSS_R])
+        r=math.hypot(x,s)
+        add('module_arm_'+str(i),'main_shell',[min(x,x/r*54)-4,max(x,x/r*54)+4,
+            min(s,s/r*54)-4,max(s,s/r*54)+4,MODULE_MOUNT_FRONT_N+0.05,20.45])
     for i,(x,s) in enumerate(BOLT_POINTS):
         add('nut_pocket_'+str(i),'main_shell',[x-5.6,x+5.6,s-3.7,s+9.1,16.05,26.01])
         # 锁紧承压座止于 n=35；后方大头孔和斜撑的交线另由全局承托检查覆盖。
         add('m3_seat_'+str(i),'rear_cover',[x-5.7,x+5.7,s-5.7,s+5.7,29.55,34.95])
     for i,(x,s) in enumerate(PINS):
-        add('speaker_pin_'+str(i),'main_shell',[x-2.7,x+2.7,s-2.7,s+2.7,SPEAKER_FRONT_N+0.05,SPEAKER_FRONT_N+PIN_H-0.2])
-        add('speaker_base_'+str(i),'main_shell',[x-4.7,x+4.7,s-4.7,s+4.7,SPEAKER_FRONT_N-SPEAKER_BASE_T+0.05,SPEAKER_FRONT_N-0.05])
-        add('speaker_pressure_'+str(i),'rear_cover',[x-5,x+5,s-5,s+5,STRIP_FRONT_N-0.05,STRIP_FRONT_N+1.8],
-            contact_annulus=[x,s,3.2,4.5])  # 与软垫实际接触的环面，中心盲孔不承担压紧。
+        add('speaker_locator_'+str(i),'rear_cover',[x-2.9,x+2.9,s-2.9,s+2.9,
+            SPEAKER_SEAT_N-PIN_H+0.05,SPEAKER_SEAT_N-0.05],contact_annulus=[x,s,1.7,2.8])
+        add('speaker_seat_'+str(i),'rear_cover',[x-4.6,x+4.6,s-4.6,s+4.6,
+            SPEAKER_SEAT_N+0.05,SPEAKER_NUT_FRONT_N-0.05])
+        add('speaker_nut_'+str(i),'rear_cover',[x-SPEAKER_BOSS_R-0.1,x+SPEAKER_BOSS_R+0.1,
+            s-SPEAKER_BOSS_R-0.1,s+SPEAKER_BOSS_R+0.1,
+            SPEAKER_NUT_FRONT_N+0.05,SPEAKER_BOSS_BACK_N-0.05])
     for a in (0,90,180):
         c,s=math.cos(math.radians(a)),math.sin(math.radians(a))
         points=[(r*c-t*s,r*s+t*c) for r,t in [(50.8,-8.2),(57.1,-8.2),(57.1,8.2),(50.8,8.2)]]
@@ -292,8 +310,6 @@ def main():
            (112,20,20,0),(116,1,1,0)]
     above_floor=Part.makeBox(300,300,160,App.Vector(-150,-100,FLOOR_T))
     cavity=Part.makeLoft([ellipse(*v) for v in inner],True,False).common(cyl(INNER_R,MOUTH_N,110)).common(above_floor)
-    for x,s in SCREWS:
-        cavity=cavity.fuse(cyl(M4_HEAD_R+M4_HEAD_CLEARANCE,MOUTH_N,24.5,x,s).common(above_floor))
     cavity=cavity.fuse(box(-SPEAKER_W/2-0.5,SPEAKER_W/2+0.5,
                            -SPEAKER_H/2-0.5,SPEAKER_H/2+0.5,
                            MOUTH_N,SPEAKER_BACK_N+0.5)).removeSplitter()
@@ -306,26 +322,12 @@ def main():
     ring=ring.cut(box(-60,60,-60,-46,13,27))  # 下端开口，让开连续后盖向底板的曲面过渡。
     main_parts=[ring]
     for x,s in SCREWS:
-        radius=math.hypot(x,s)
-        # 朝外开放，取消原来 0.7 mm 的外侧薄圈，孔位及承压面保留。
-        reinforce=cyl(M4_REINFORCE_R,MOUTH_N,20,
-                      x-x/radius*M4_REINFORCE_OFFSET,s-s/radius*M4_REINFORCE_OFFSET)
-        main_parts.append(reinforce.common(local_rectangle(x,s,-6,0,-5,5,MOUTH_N,20)))
-    for x,s in PINS:
-        pin_end=SPEAKER_FRONT_N+PIN_H
-        assert pin_end<=FRAME_BACK_N,'定位柱超出框架落床面，须重新设计打印方向'
-        main_parts.extend([radial_wedge(x,s,47,54.0,13.2,SPEAKER_FRONT_N,SPEAKER_RIB_WIDTH),
-                           cyl(PRESSURE_R,SPEAKER_FRONT_N-SPEAKER_BASE_T,SPEAKER_FRONT_N,x,s),
-                           cyl(PIN_R,SPEAKER_FRONT_N,pin_end-PIN_LEAD_H,x,s),
-                           Part.makeCone(PIN_R,PIN_R-0.5,PIN_LEAD_H,pt(x,s,pin_end-PIN_LEAD_H),-N)])
-        # 安装耳外侧低止挡，留 0.5 mm 侧隙，不伸入保守音箱包络。
-        sign=1 if s>0 else -1
-        stop_s=sign*(SPEAKER_H/2+2)
-        stop_inner_s=sign*(SPEAKER_H/2+0.5)
-        main_parts.append(box(x-3,x+3,min(s,stop_s),max(s,stop_s),SPEAKER_FRONT_N-SPEAKER_BASE_T,SPEAKER_FRONT_N))
-        main_parts.append(box(x-3,x+3,min(stop_inner_s,stop_s),max(stop_inner_s,stop_s),SPEAKER_FRONT_N-SPEAKER_BASE_T,SPEAKER_FRONT_N+1))
+        r=math.hypot(x,s)
+        main_parts.append(cyl(MODULE_BOSS_R,MODULE_MOUNT_FRONT_N,20.5,x,s))
+        main_parts.append(local_rectangle(x,s,-1,54.1-r,-MODULE_RIB_W/2,MODULE_RIB_W/2,
+                                          MODULE_MOUNT_FRONT_N,20.5))
     for x,s in BOLT_POINTS:
-        main_parts.extend([radial_wedge(x,s,40,52.5,10,26,8),cyl(NUT_BOSS_R,NUT_BOSS_FRONT_N,26,x,s)])
+        main_parts.extend([radial_wedge(x,s,40,52.5,13.2,26,8),cyl(NUT_BOSS_R,NUT_BOSS_FRONT_N,26,x,s)])
     for a in (0,90,180):
         main_parts.append(locator(a,LOCATOR_BACK_INNER_R,FRAME_R,LOCATOR_BACK_WIDTH,16.8,FRAME_BACK_N).common(
             cyl(FRAME_R,16.8,FRAME_BACK_N)))
@@ -338,8 +340,8 @@ def main():
         rear=rear.fuse(shelf).fuse(ramp).fuse(locator_lead(a))
     main_shell=fuse(main_parts).common(envelope)
     for x,s in SCREWS:
-        main_shell=main_shell.cut(cyl(2.2,5.9,21,x,s)).cut(cyl(M4_HEAD_R+M4_HEAD_CLEARANCE,20,27,x,s))
-        main_shell=main_shell.cut(local_rectangle(x,s,0,8,-4.1,4.1,5.9,20))
+        main_shell=main_shell.cut(cyl(MODULE_HOLE_R,MODULE_MOUNT_FRONT_N-0.1,27,x,s))
+        main_shell=main_shell.cut(cyl(MODULE_HEAD_R+MODULE_HEAD_CLEARANCE,MODULE_SEAT_N,27,x,s))
     for a in (0,90,180):
         main_shell=main_shell.cut(locator(a,53.1-FIT_SIDE_CLEARANCE,55.1,8+2*FIT_SIDE_CLEARANCE,23-FIT_TIP_CLEARANCE,26.1))
         # 落床槽口扩张，容纳首层象脚；承力槽背在导入口以上保持 1.8 mm。
@@ -357,13 +359,34 @@ def main():
         Part.makeCone(FRAME_R,FRAME_R-ELEPHANT_RELIEF,ELEPHANT_RELIEF,pt(0,0,FRAME_BACK_N-ELEPHANT_RELIEF),-N))
     main_shell=main_shell.common(relief)
     main_shell=main_shell.removeSplitter()
-    # 后盖一体压紧耳部，0.5 mm 软垫压缩到 0.2 mm；耳厚须实测后调参。
+    # 喇叭独立固定到后盖。圆耳承压面后方扩径，保证普通六角螺母袋的壁厚。
     for x,s in PINS:
-        profile=Part.Face(Part.Wire([Part.makeCircle(PRESSURE_R,pt(x,s,STRIP_FRONT_N),-N)]))
-        pressure=down_support(profile,App.Vector(1 if x>0 else -1,0,0),18,envelope,above_floor)
-        pressure=pressure.fuse(cyl(PRESSURE_R,STRIP_FRONT_N,STRIP_FRONT_N+1.8,x,s))
-        pressure=pressure.cut(cyl(2.8,STRIP_FRONT_N-0.1,STRIP_FRONT_N+0.6,x,s))
-        rear=rear.fuse(pressure)
+        target_x=x
+        x=-abs(x)  # 对称结构在同一侧完成布尔后镜像，避免相切圆柱的方向性布尔退化。
+        seat=cyl(SPEAKER_EAR_R,SPEAKER_SEAT_N,SPEAKER_SEAT_N+0.1,x,s)
+        seat=seat.fuse(Part.makeCone(SPEAKER_EAR_R,SPEAKER_BOSS_R,2.1,
+                                   pt(x,s,SPEAKER_SEAT_N+0.1),-N))
+        seat=seat.fuse(cyl(SPEAKER_BOSS_R,SPEAKER_SEAT_N+2.2,SPEAKER_BOSS_BACK_N,x,s))
+        profile=Part.Face(Part.Wire([Part.makeCircle(SPEAKER_BOSS_R,
+                              pt(x,s,SPEAKER_SEAT_N+2.2),-N)]))
+        support=down_support(profile,App.Vector((1 if x>0 else -1)*COS,SIN,0),22,envelope,above_floor)
+        # 筋从耳孔操作区绕出总外形侧边；不侵入未确认的箱体包络。
+        keepout=box(-SPEAKER_W/2-0.3,SPEAKER_W/2+0.3,-100,100,
+                    SPEAKER_FRONT_N-0.3,SPEAKER_BACK_N+0.3)
+        support=support.cut(keepout)
+        # 连接筋从座体背段接入，去除前缘与圆座相交产生的窄尖片。
+        support=support.common(cyl(150,SPEAKER_BOSS_BACK_N-1.2,140))
+        seat=seat.fuse(support)
+        # 背面开口防转袋：先从后侧放普通螺母，再装喇叭；锁紧后轴向捕获。
+        # 方形防转袋保留对边限位，避免六角尖顶在倾斜打印时形成微小尖孔。
+        seat=seat.cut(box(x-3,x+3,s-3.4,s+3.4,SPEAKER_NUT_FRONT_N,SPEAKER_BACK_N+0.3))
+        seat=seat.fuse(cyl(PIN_R,SPEAKER_SEAT_N-PIN_H+PIN_LEAD_H-0.05,SPEAKER_SEAT_N+0.1,x,s))
+        seat=seat.fuse(Part.makeCone(PIN_R-0.4,PIN_R,PIN_LEAD_H,
+                       pt(x,s,SPEAKER_SEAT_N-PIN_H),-N))
+        seat=seat.cut(cyl(1.7,SPEAKER_SEAT_N-PIN_H-0.1,SPEAKER_BOSS_BACK_N+1,x,s))
+        if target_x>0:
+            seat=seat.mirror(App.Vector(),X)
+        rear=rear.fuse(seat)
     for x,s in BOLT_POINTS:
         seat=cyl(5.5,29.5,BOLT_SEAT_N,x,s)
         profile=Part.Face(Part.Wire([Part.makeCircle(5.5,pt(x,s,29.5),-N)]))
@@ -388,21 +411,28 @@ def main():
     rear=rear.common(Part.makeBox(300,300,top_z+1,App.Vector(-150,-100,-1))).removeSplitter()
     # 顶部收平后，把与前口相交的薄楔整个退后，避免留下不足 1.2 mm 的唇边。
     rear=rear.cut(box(-20,20,0,60,MOUTH_N,MOUTH_N+TOP_MOUTH_RELIEF)).removeSplitter()
-    # 斜扫体与圆领布尔合并会在个别方位留下孔底小缺口；最后补入独立实心芯。
-    for x,s in PINS:
-        rear=rear.fuse(cyl(2.8,STRIP_FRONT_N+0.6,STRIP_FRONT_N+1.8,x,s))
-    rear=rear.removeSplitter()
-    for x,s in PINS:
-        floor_probe=cyl(2.6,STRIP_FRONT_N+0.61,STRIP_FRONT_N+1.79,x,s)
-        assert rear.common(floor_probe).Volume>=floor_probe.Volume*0.999,'压耳盲孔实心顶不完整'
     tie_open=Part.makeBox(3.8,1.8,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,16.1))
     assert rear.common(tie_open).Volume<0.001,'扎带穿入口被壳壁堵塞'
+    # 总外形参考包络不代表真实箱体。只确认四个中部圆耳；耳周操作区独立标注待试装。
     speaker=box(-SPEAKER_W/2,SPEAKER_W/2,-SPEAKER_H/2,SPEAKER_H/2,SPEAKER_FRONT_N,SPEAKER_BACK_N)
     for x,s in PINS:
-        speaker=speaker.cut(cyl(3,SPEAKER_FRONT_N-1,SPEAKER_BACK_N+1,x,s))
+        speaker=speaker.cut(cyl(SPEAKER_SERVICE_R,SPEAKER_FRONT_N-1,SPEAKER_BACK_N+1,x,s))
+    ears=[]
+    for x,s in PINS:
+        ears.append(cyl(SPEAKER_EAR_R,SPEAKER_EAR_FRONT_N,SPEAKER_SEAT_N,x,s).cut(
+            cyl(3,SPEAKER_EAR_FRONT_N-0.1,SPEAKER_SEAT_N+0.1,x,s)))
+    speaker=fuse([speaker]+ears)
     shapes={'main_shell':main_shell,'rear_cover':rear}
     write_print_features()
-    m4_heads=[cyl(M4_HEAD_R,20,20+M4_HEAD_H,x,s) for x,s in SCREWS]
+    module_heads=[cyl(MODULE_HEAD_R,MODULE_SEAT_N,MODULE_SEAT_N+MODULE_HEAD_H,x,s) for x,s in SCREWS]
+    module_shafts=[cyl(1.25,MODULE_SEAT_N-MODULE_SCREW_L,MODULE_SEAT_N,x,s) for x,s in SCREWS]
+    module_engagement=MODULE_THREAD_ENTRY_N-(MODULE_SEAT_N-MODULE_SCREW_L)
+    assert abs(MODULE_SEAT_N-MODULE_SCREW_L-MODULE_ORIGINAL_TIP_N)<0.001,'M2.5 螺丝尖端位置改变'
+    module_bearing=[]
+    for x,s in SCREWS:
+        area=main_shell.common(cyl(MODULE_HEAD_R,MODULE_SEAT_N-0.02,MODULE_SEAT_N,x,s)).Volume/0.02
+        assert area>=8,'M2.5 实际承压面积不足'
+        module_bearing.append(area)
     m3_heads=[cyl(2.8,35,38,x,s) for x,s in BOLT_POINTS]
     m3_shafts=[cyl(1.5,19,35,x,s) for x,s in BOLT_POINTS]
     nuts=[hex_prism(x,s,21.1,23.5,5.5).cut(cyl(1.5,21,24,x,s)) for x,s in BOLT_POINTS]
@@ -434,23 +464,42 @@ def main():
         area=main_shell.common(forward).common(locator(a,51.8,56.5,16,25.9,26.1)).Volume/0.02
         assert area>12,'止挡接触不足'
         stop_areas.append(area)
-    pads=[]
-    pad_contacts=[]
+    washers=[]
+    speaker_hardware=[]
+    ear_contacts=[]
+    speaker_nut_checks=[]
     for x,s in PINS:
-        pad=cyl(PRESSURE_R,STRIP_FRONT_N-PAD_COMPRESSED_T,STRIP_FRONT_N,x,s).cut(
-            cyl(3.2,STRIP_FRONT_N-PAD_COMPRESSED_T-0.1,STRIP_FRONT_N+0.1,x,s))
-        assert pad.common(main_shell).Volume+pad.common(rear).Volume+pad.common(speaker).Volume<0.02,'软垫空间'
-        probe=pad.copy();probe.translate(N*0.02)
-        contact=probe.common(speaker).Volume/0.02
-        assert contact>0.98*math.pi*(PRESSURE_R**2-3.2**2),'软垫超出安装耳参考面'
-        pads.append(pad);pad_contacts.append(contact)
-    print('止挡/压耳接触面积',stop_areas,pad_contacts,flush=True)
+        front=SPEAKER_EAR_FRONT_N-SPEAKER_WASHER_T
+        washer=cyl(4.5,front,SPEAKER_EAR_FRONT_N,x,s).cut(cyl(1.7,front-0.1,SPEAKER_EAR_FRONT_N+0.1,x,s))
+        shaft=cyl(1.5,front,front+SPEAKER_SCREW_L,x,s)
+        head=cyl(2.85,front-3,front,x,s)
+        nut=hex_prism(x,s,SPEAKER_NUT_FRONT_N,SPEAKER_NUT_FRONT_N+2.4,5.5).cut(
+            cyl(1.5,SPEAKER_NUT_FRONT_N-0.1,SPEAKER_NUT_FRONT_N+2.5,x,s))
+        washers.append(washer)
+        speaker_hardware.extend([shaft,head,nut,washer])
+        probe=cyl(4.5,SPEAKER_SEAT_N,SPEAKER_SEAT_N+0.02,x,s).cut(
+            cyl(3,SPEAKER_SEAT_N-0.1,SPEAKER_SEAT_N+0.1,x,s))
+        contact=rear.common(probe).Volume/0.02
+        assert contact>=0.99*math.pi*(4.5**2-3**2),'喇叭圆耳承压面不足'
+        ear_contacts.append(contact)
+        for travel in (0,1,2,3.3,4):
+            moved=nut.copy();moved.translate(-N*travel)
+            print('喇叭螺母装入',x,s,travel,moved.common(rear).Volume,flush=True)
+            assert moved.common(rear).Volume<0.02,'喇叭螺母背面装入路径'
+        rotated=nut.copy()
+        rotated.rotate(pt(x,s,SPEAKER_NUT_FRONT_N),-N,30)
+        assert rotated.common(rear).Volume>0.05,'喇叭普通螺母袋不能防转'
+        tool=cyl(2,SPEAKER_EAR_FRONT_N-18,front-3,x,s)
+        assert tool.common(rear).Volume+tool.common(speaker).Volume<0.02,'喇叭螺丝工具通道'
+        speaker_nut_checks.append(True)
+    print('止挡/圆耳承压面积',stop_areas,ear_contacts,flush=True)
     assert speaker.common(wire).Volume<0.02,'线束碰音箱'
-    for hardware in m4_heads+m3_heads+m3_shafts+nuts:
+    for hardware in module_heads+module_shafts+m3_heads+m3_shafts+nuts+speaker_hardware:
         for name,shape in shapes.items():
             assert shape.common(hardware).Volume<0.02,name+'碰紧固件'
+    assert all(h.common(speaker).Volume<0.02 for h in speaker_hardware),'喇叭参考耳碰紧固件'
     for x,s in SCREWS:
-        assert main_shell.common(cyl(M4_HEAD_R,20,110,x,s)).Volume<0.02,'M4工具路径'
+        assert main_shell.common(cyl(MODULE_HEAD_R+MODULE_HEAD_CLEARANCE,MODULE_SEAT_N,110,x,s)).Volume<0.02,'M2.5 头部装入/旋转路径'
     for x,s in BOLT_POINTS:
         tool=cyl(2,38,110,x,s)
         assert tool.common(rear).Volume<0.02,'M3工具路径'
@@ -462,8 +511,12 @@ def main():
     travel_checks=[]
     for travel in (0,0.5,1,2,4,8,16,24,32,48,64):
         moved=rear.copy();moved.translate(-N*travel)
-        overlaps={name:moved.common(shape).Volume for name,shape in
-                  [('main_shell',main_shell),('speaker',speaker),('M4_heads',Part.makeCompound(m4_heads))]}
+        moving_speaker=speaker.copy();moving_speaker.translate(-N*travel)
+        moving_hardware=Part.makeCompound(speaker_hardware);moving_hardware.translate(-N*travel)
+        fixed=Part.makeCompound([main_shell]+module_heads)
+        overlaps={'cover_to_frame':moved.common(fixed).Volume,
+                  'speaker_to_frame':moving_speaker.common(fixed).Volume,
+                  'speaker_hardware_to_frame':moving_hardware.common(fixed).Volume}
         print('合盖',travel,overlaps,flush=True)
         assert max(overlaps.values())<0.02,'合盖行程干涉'
         travel_checks.append({'travel_mm':travel,'overlaps_mm3':overlaps})
@@ -474,12 +527,28 @@ def main():
         assert all(rear.isInside(App.Vector((48-inset)*math.cos(i*math.pi/36),
                    25+(42-inset)*math.sin(i*math.pi/36),0.1),0.01,False) for i in range(72)),'底环宽度采样'
     max_radius=max(math.hypot((v-P).dot(X),(v-P).dot(S)) for shape in shapes.values() for v in shape.tessellate(0.08)[0])
-    assert max_radius<=OUTER_R+0.002,'正面外露'
+    assert max_radius<=OUTER_R+0.002,'打印件超出正面隐藏轮廓'
+    for shape in shapes.values():
+        for v in shape.tessellate(0.08)[0]:
+            xx,ss=(v-P).dot(X),(v-P).dot(S)
+            assert math.hypot(xx,ss)<=OUTER_R+0.002,'正面存在打印件外扩'
     assert rear.common(outlet).Volume<0.02,'出线孔不通'
     print('快速验证通过，导入完整模块',flush=True)
     source=Part.read(os.path.join(ROOT,'reference',MODEL))
     module=source.copy()
     module.Placement=App.Placement(P-N*3.75,App.Rotation(X,TILT_DEG)).multiply(module.Placement)
+    # 根据孔位和轴向包络选择四颗被拆下的原螺丝，不能屏蔽支柱或保护板。
+    removed=[]
+    retained=[]
+    for i,solid in enumerate(module.Solids):
+        c=solid.CenterOfMass-P
+        hit=any(math.hypot(c.dot(X)-x,c.dot(S)-s)<0.1 for x,s in SCREWS)
+        ns=[-(v.Point-P).dot(N) for v in solid.Vertexes]
+        if hit and abs(min(ns)-11.1)<0.02 and abs(max(ns)-15.1)<0.02 and solid.Volume<30:
+            removed.append(i)
+        else:retained.append(solid)
+    assert len(removed)==4,'原厂待拆 M2.5 螺丝识别失败'
+    module=Part.makeCompound(retained)
     groups={}
     for i,solid in enumerate(module.Solids):
         b=solid.BoundBox
@@ -510,9 +579,12 @@ def main():
     doc.Label='微雪 ESP32-P4-WIFI6-Touch-LCD-3.4C 两件式外壳'
     objects=[feature(doc,name,shape,(0.69,0.73,0.72)) for name,shape in shapes.items()]
     for name,shape in [('Module_Reference',module),('Speaker_Reference',speaker),
-                       ('M4_Heads_Reference',Part.makeCompound(m4_heads)),('M3_Heads_Reference',Part.makeCompound(m3_heads)),
+                       ('Module_M25_Heads_Reference',Part.makeCompound(module_heads)),
+                       ('Module_M25_Shafts_Reference',Part.makeCompound(module_shafts)),('M3_Heads_Reference',Part.makeCompound(m3_heads)),
                        ('M3_Shafts_Reference',Part.makeCompound(m3_shafts)),('M3_Nuts_Reference',Part.makeCompound(nuts)),
-                       ('Speaker_Pads_Reference',Part.makeCompound(pads)),
+                       ('Speaker_Washers_Reference',Part.makeCompound(washers)),
+                       ('Speaker_Ears_Reference',Part.makeCompound(ears)),
+                       ('Speaker_Hardware_Reference',Part.makeCompound(speaker_hardware)),
                        ('Internal_USB_Plug_Reference',plug),('Cable_Route_Reference',wire)]:
         feature(doc,name,shape,(0.25,0.45,0.34),False)
     for name,shape in shapes.items():
@@ -529,9 +601,10 @@ def main():
     Part.export(objects,os.path.join(OUT,'enclosure.step'))
     imported=Part.read(os.path.join(OUT,'enclosure.step'))
     assert imported.isValid() and len(imported.Solids)==2
-    for name,shape in [('module',cyl(MODULE_R,0,6)),('speaker',speaker),('pads',Part.makeCompound(pads)),
+    for name,shape in [('module',cyl(MODULE_R,0,6)),('speaker',speaker),('washers',Part.makeCompound(washers)),
+                       ('speaker_hardware',Part.makeCompound(speaker_hardware)),
                        ('section',rear.common(Part.makeBox(150,250,160,App.Vector(0,-100,0)))),
-                       ('fasteners',Part.makeCompound(m3_heads+m3_shafts+nuts))]:
+                       ('fasteners',Part.makeCompound(m3_heads+m3_shafts+nuts+module_heads+module_shafts))]:
         mesh_write(shape,os.path.join(CACHE,name+'.stl'))
     doc.recompute();configure_display(doc);doc.saveAs(os.path.join(OUT,'enclosure.FCStd'))
     # 同尺寸螺母袋与止口的局部试装件，归档目录不混入正式打印件。
@@ -541,10 +614,10 @@ def main():
     for name,shape in [('locator_tongue',rear),('locator_socket',main_shell)]:
         sample=shape.common(box(51,58,-8,8,22,32))
         mesh_write(sample,os.path.join(fit_dir,name+'.stl'),printing=True)
-    mesh_write(main_shell.common(box(39,52,12,26,20,27)),os.path.join(fit_dir,'speaker_pin.stl'),printing=True)
-    mesh_write(rear.common(cyl(5,42.8,50,HOLE_X,HOLE_S)),os.path.join(fit_dir,'speaker_pressure.stl'),printing=True)
+    mesh_write(rear.common(box(38,58,10,27,SPEAKER_SEAT_N-2,SPEAKER_BOSS_BACK_N+2)),
+               os.path.join(fit_dir,'speaker_mount.stl'),printing=True)
     x,s=SCREWS[-1]
-    mesh_write(main_shell.common(local_rectangle(x,s,-6,6,-6,6,MOUTH_N,21)),os.path.join(fit_dir,'m4_open_seat.stl'),printing=True)
+    mesh_write(main_shell.common(local_rectangle(x,s,-6,15,-6,6,15,21)),os.path.join(fit_dir,'module_m25_mount.stl'),printing=True)
     gauge=box(-13,13,-6,6,0,2.4)
     for x,diameter in [(-7,3.4),(0,4.4),(7,6.0)]:
         gauge=gauge.cut(cyl(diameter/2,-0.1,2.5,x,0))
@@ -555,28 +628,36 @@ def main():
              'bottom_ring_width_nominal_mm':5,'bottom_plate_min_mm':2,
              'seam_clearance_mm':FIT_TIP_CLEARANCE,'locator_engagement_mm':3,'locator_side_clearance_mm':FIT_SIDE_CLEARANCE,
              'axial_stop_pads':3,
-             'axial_stop_contact_areas_mm2':stop_areas,'speaker_pad_contact_areas_mm2':pad_contacts,
+             'axial_stop_contact_areas_mm2':stop_areas,'speaker_ear_bearing_areas_mm2':ear_contacts,
              'rear_screw':'2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4',
              'nut_retaining_shoulder_mm':2.4,
-             'module_screw':'4 × M4×16 缩小头，头径≤5.5、头高≤3；预计入牙约 2 mm，须实测及确认采购',
-             'm4_head_pocket_radial_wall_mm':OUTER_R-math.hypot(37.5,37.5)-M4_HEAD_R-M4_HEAD_CLEARANCE,
+             'module_screw':'4 × M2.5×6 内六角圆柱头，头径≤4.7 mm、头高≤2.5 mm',
+             'module_mount_points_mm':SCREWS,'module_mount_thickness_mm':MODULE_SEAT_N-MODULE_MOUNT_FRONT_N,
+             'module_engagement_mm':module_engagement,'module_tip_n_mm':MODULE_SEAT_N-MODULE_SCREW_L,
+             'module_original_tip_n_mm':MODULE_ORIGINAL_TIP_N,'removed_original_screw_indices':removed,
+             'module_retained_solids':len(retained),'module_head_bearing_areas_mm2':module_bearing,
+             'module_head_clearance_diameter_mm':2*(MODULE_HEAD_R+MODULE_HEAD_CLEARANCE),
+             'front_hidden_required':True,
              'speaker_corner_clearance_wall_mm':OUTER_R-math.hypot(SPEAKER_W/2+0.5,SPEAKER_H/2+0.5),
              'locator_socket_radial_wall_mm':None,
              'speaker_dimensions_mm':[SPEAKER_W,SPEAKER_H,SPEAKER_T],'speaker_hole_pitch_mm':[2*HOLE_X,2*HOLE_S],
              'speaker_pin_diameter_mm':2*PIN_R,'speaker_pin_height_mm':PIN_H,
-             'speaker_ear_thickness_assumed_mm':SPEAKER_EAR_T,
-             'speaker_pad_compressed_mm':PAD_COMPRESSED_T,'speaker_pad_uncompressed_mm':PAD_T,
-             'speaker_pressure_diameter_mm':2*PRESSURE_R,'speaker_pin_lead_mm':PIN_LEAD_H,
+             'speaker_ear_thickness_mm':SPEAKER_EAR_T,'speaker_ear_outer_diameter_mm':2*SPEAKER_EAR_R,
+             'speaker_hole_diameter_mm':6,'speaker_pin_lead_mm':PIN_LEAD_H,
+             'speaker_fasteners':'4 × M3×8，垫片外径 9、内径 3.4、厚 0.5；普通螺母对边 5.5、厚 2.4',
+             'speaker_nut_insertion_checks':speaker_nut_checks,
+             'speaker_nut_pocket_mm':[6.0,6.8],
+             'speaker_nut_pocket_wall_min_nominal_mm':SPEAKER_BOSS_R-math.hypot(3,3.4),
+             'speaker_screw_thread_engagement_mm':2.4,
+             'speaker_service_radius_mm':SPEAKER_SERVICE_R,
              'frame_radial_clearance_mm':INNER_R-FRAME_R,
              'carrier_print_bed':'后侧框架平面朝下','continuous_cover':True,
              'fdm_design':{'nozzle_mm':0.4,'materials':['PLA','PETG'],'minimum_wall_target_mm':1.2,
-                 'minimum_load_wall_target_mm':1.6,'m4_open_seat':True,'nut_pocket_across_flats_mm':NUT_AF,
+                 'minimum_load_wall_target_mm':1.6,'module_mount_closed_holes':True,'nut_pocket_across_flats_mm':NUT_AF,
                  'nut_pocket_depth_mm':NUT_BACK_N-NUT_FRONT_N,'nut_entry_width_mm':NUT_ENTRY_W,
                  'entry_lead_mm':FIT_LEAD,'bed_edge_relief_mm':ELEPHANT_RELIEF,'rear_flat_top_z_mm':top_z},
-             'carrier_reinforcement':{'m4_radius_mm':M4_REINFORCE_R,
-                 'm4_inward_offset_mm':M4_REINFORCE_OFFSET,'m4_radial_limit_mm':M4_REINFORCE_LIMIT_R,
-                 'locator_back_inner_radius_mm':LOCATOR_BACK_INNER_R,'locator_back_width_mm':LOCATOR_BACK_WIDTH,
-                 'speaker_base_thickness_mm':SPEAKER_BASE_T,'speaker_rib_width_mm':SPEAKER_RIB_WIDTH},
+             'carrier_reinforcement':{'module_boss_radius_mm':MODULE_BOSS_R,'module_rib_width_mm':MODULE_RIB_W,
+                 'locator_back_inner_radius_mm':LOCATOR_BACK_INNER_R,'locator_back_width_mm':LOCATOR_BACK_WIDTH},
              'rear_outlet_mm':[20,12],'outlet_corner_radius_mm':3,
              'nut_insertion_travel_mm':[0,1,2,4,6,8,10],
              'cable_reference_diameter_mm':3.5,'cable_bend_radius_verified':False,
@@ -584,6 +665,11 @@ def main():
              'assembly_travel':travel_checks,'cavity_cm3':cavity.Volume/1000,
              'estimated_module_mass_g':220,'estimated_speaker_mass_g':100,
              'estimated_total_mass_g':mass,'estimated_tip_angle_deg':tip,
+             'speaker_actual_ear_thickness_mm':SPEAKER_EAR_T,
+             'speaker_actual_ear_center_offset_mm':SPEAKER_EAR_CENTER_OFFSET,
+             'speaker_mount_location':'后盖独立四支座，拆盖时喇叭随盖移动',
+             'speaker_body_shape_verified':False,
+             'speaker_mount_status':'中部圆耳及紧固件按确认尺寸建模；总外形扣除耳周安装操作区作为条件包络，真实箱体耳根形状及工具空间需局部试装。',
              'microphone_hole_verified':False,'physical_fit_verified':False}
     with open(os.path.join(OUT,'validation.json'),'w',encoding='utf-8') as f:
         json.dump(metrics,f,ensure_ascii=False,indent=2)
