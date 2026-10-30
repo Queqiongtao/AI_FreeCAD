@@ -171,7 +171,7 @@ def render(filename, triangles, camera):
 
 rear = read_stl("rear_cover.stl", (186, 194, 191))
 carrier_print = read_stl("mount_carrier.stl", (140, 153, 152))
-carrier = read_stl("mount_carrier.stl", (140, 153, 152), carrier_to_assembly)
+carrier = read_stl(ROOT / "archive" / "preview_meshes" / "carrier_reference.stl", (140, 153, 152))
 module = module_triangles()
 assembled = rear + carrier + module
 render("preview_iso.png", assembled, (1.0, -1.0, 0.75))
@@ -190,24 +190,27 @@ battery = read_stl(aux / "battery_reference.stl", (91, 168, 104))
 plugs = read_stl(aux / "connector_reference.stl", (235, 182, 65))
 wires = read_stl(aux / "wire_reference.stl", (205, 101, 65))
 adhesive = read_stl(aux / "adhesive_reference.stl", (77, 140, 210))
+fasteners = read_stl(aux / "fasteners.stl", (203, 150, 50))
 section = read_stl(aux / "section.stl", (186, 194, 191))
-render("preview_section.png", section + carrier + battery + plugs + wires + adhesive,
+render("preview_section.png", section + carrier + battery + plugs + wires + adhesive + fasteners,
        (-1.0, -0.3, 0.3))
 render("preview_installation.png", carrier + battery + plugs + wires + adhesive, NORMAL)
+render("preview_fastening.png",carrier+fasteners,tuple(-v for v in NORMAL))
 
 def shifted(triangles, delta):
     return [(tuple(tuple(p[i] + delta[i] for i in range(3)) for p in vertices), color)
             for vertices, color in triangles]
 
 render("preview_exploded.png", module + carrier + plugs + wires
-       + shifted(rear + battery + adhesive, tuple(-32 * v for v in NORMAL)),
+       + shifted(rear + battery + adhesive + fasteners, tuple(-32 * v for v in NORMAL)),
        (1.0, -0.6, 0.45))
 
 font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 20)
 for filename, caption in (
     ("preview_section.png", "剖视：绿色为电池尺寸参考，蓝色为通用粘贴区；非实际固定位置"),
     ("preview_installation.png", "接线空间：黄色为两个 2P 插头，橙色为走线预留包络"),
-    ("preview_exploded.png", "装配示意：先固定支架并接线，再固定壳内元件、收线、合壳"),
+    ("preview_exploded.png", "装配：放螺母、固定支架 → 接线 → 止口套合 → 底部两颗 M2.5 锁紧"),
+    ("preview_fastening.png", "支架背面：宽定位舌＋加宽环，下方两个捕获螺母座；顶部让开原厂螺丝"),
 ):
     canvas = Image.open(OUT / filename)
     draw = ImageDraw.Draw(canvas)

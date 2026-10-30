@@ -1,12 +1,13 @@
 """ESP32-S3-Touch-AMOLED-1.75-B 成品模块的鹅卵石桌面底座。
 
-模块背面的三颗原厂螺丝固定薄支架；封闭后壳从背面卡到支架上。
+模块背面的三颗原厂螺丝固定加宽支架；后壳由止口定位、两颗 M2.5 锁紧。
 在 FreeCAD 控制台或 freecadcmd 中运行，输出固定到 ./output/。
 """
 
 import math
 import os
 import json
+import struct
 
 import FreeCAD as App
 import MeshPart
@@ -38,13 +39,14 @@ CONNECTOR_H = 5.0
 CARRIER_FRONT_N = MODULE_DEPTH
 CARRIER_BACK_N = 17.1
 CARRIER_PAD_FRONT_N = 14.7
-CARRIER_INNER_R = 21.5
+CARRIER_INNER_R = 20.4
 CARRIER_OUTER_R = 22.8
 CARRIER_BOSS_R = 2.6
 SHELL_MOUTH_N = MODULE_DEPTH + 0.3
 SHELL_PROJECTION_R = 25.2
-SHELL_INNER_R = 23.2
+SHELL_INNER_R = 23.1
 SHELL_FLOOR_T = 2.6
+FRONT_WALL_TARGET = 2.4
 FOOT_CENTER_Y = 14.0
 FOOT_OUTER_RX = 20.5
 FOOT_OUTER_RY = 20.0
@@ -52,11 +54,14 @@ FOOT_INNER_RX = 15.5
 FOOT_INNER_RY = 15.0
 FOOT_RECESS = 0.6
 
-SNAP_ANGLES_DEG = (30.0, 150.0, 225.0)
-SNAP_N = 16.2
-SNAP_TIP_R = 23.0
-SNAP_BUMP_R = 0.8
-SNAP_POCKET_R = 1.0
+GUIDES = ((0.0, 8.0), (90.0, 8.0), (180.0, 8.0))
+GUIDE_CLEARANCE = 0.25
+GUIDE_END_N = 20.1
+LOCK_POINTS = ((-7.0, -16.0), (7.0, -16.0))
+LOCK_NUT_FRONT = 14.6
+LOCK_NUT_BACK = 16.8
+LOCK_BOSS_BACK = 19.0
+LOCK_HEAD_SEAT = 21.5
 
 TILT = math.radians(TILT_DEG)
 SIN = math.sin(TILT)
@@ -122,6 +127,28 @@ def radial_strip(angle, r0, r1, width, n):
     ])
 
 
+def axial_cylinder(radius, n0, n1, x=0, s=0):
+    return Part.makeCylinder(radius, n1-n0, plate_point(x,s,n0), -N)
+
+
+def axial_box(x0, x1, s0, s1, n0, n1):
+    return rectangle_face(x0,x1,s0,s1,n0).extrude(-N*(n1-n0))
+
+
+def hex_nut(x, s, n0, n1, across):
+    radius = across/math.sqrt(3)
+    return polygon_face([plate_point(x+radius*math.cos(i*math.pi/3),
+                                    s+radius*math.sin(i*math.pi/3),n0)
+                         for i in range(6)]).extrude(-N*(n1-n0))
+
+
+def connect_web(x0, s0, x1, s1, width, n0, n1):
+    length = math.hypot(x1-x0,s1-s0)
+    dx, ds = -(s1-s0)/length*width/2, (x1-x0)/length*width/2
+    return polygon_face([plate_point(x0+dx,s0+ds,n0),plate_point(x1+dx,s1+ds,n0),
+                         plate_point(x1-dx,s1-ds,n0),plate_point(x0-dx,s0-ds,n0)]).extrude(-N*(n1-n0))
+
+
 def add_feature(doc, name, shape, color, visible=True):
     obj = doc.addObject("Part::Feature", name)
     obj.Shape = shape
@@ -163,6 +190,87 @@ def export_stl(shape, filename, lay_flat=False):
     assert len(mesh.getSeparateComponents()) == 1 and mesh.isSolid()
 
 
+def audit_front_wall(filename):
+    """独立于稀疏 BRep 采样，直接检测交付网格的前口和下缘薄片。"""
+    data=open(filename,'rb').read(); count=struct.unpack_from('<I',data,80)[0]
+    def sub(a,b):return tuple(a[i]-b[i] for i in range(3))
+    def dot(a,b):return sum(a[i]*b[i] for i in range(3))
+    def cross(a,b):return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
+    triangles=[]
+    for i in range(count):
+        v=struct.unpack_from('<12f',data,84+i*50)
+        normal=v[:3]; a,b,c=v[3:6],v[6:9],v[9:12]
+        triangles.append((normal,a,sub(b,a),sub(c,a),tuple(min(a[k],b[k],c[k]) for k in range(3)),tuple(max(a[k],b[k],c[k]) for k in range(3)),tuple((a[k]+b[k]+c[k])/3 for k in range(3))))
+    angle=TILT; N=(0,-SIN,COS); S=(0,COS,SIN); P=(0,0,MODULE_BOTTOM_CLEARANCE+MODULE_R*SIN+MODULE_DEPTH*COS)
+    measured=[]
+    for i,(norm,a,e1,e2,lo,hi,center) in enumerate(triangles):
+        n=dot(sub(P,center),N);s=dot(sub(center,P),S)
+        if not (SHELL_MOUTH_N-0.01<=n<=20 or center[2]<14) or abs(dot(norm,N))>.99 or abs(norm[2])>.99:continue
+        direction=tuple(-v for v in norm);start=tuple(center[k]+norm[k]*.005 for k in range(3));end=tuple(start[k]+direction[k]*8 for k in range(3))
+        raylo=tuple(min(start[k],end[k]) for k in range(3));rayhi=tuple(max(start[k],end[k]) for k in range(3))
+        hits=[]
+        for _,b,f1,f2,low,high,_ in triangles:
+            if any(raylo[k]>high[k]+1e-6 or rayhi[k]<low[k]-1e-6 for k in range(3)):continue
+            h=cross(direction,f2);det=dot(f1,h)
+            if abs(det)<1e-9:continue
+            tvec=sub(start,b);u=dot(tvec,h)/det
+            if u < -1e-6 or u > 1.000001:continue
+            q=cross(tvec,f1);v=dot(direction,q)/det
+            if v < -1e-6 or u+v > 1.000001:continue
+            distance=dot(f2,q)/det
+            if 0<=distance<=8:hits.append(distance)
+        hits.sort();unique=[]
+        for h in hits:
+            if not unique or h-unique[-1]>.01:unique.append(h)
+        if len(unique)>=2 and unique[0]<.02:
+            width=unique[1]-unique[0]
+            # 定位槽、螺丝座及工具井是功能孔，其自身壁厚另作 BRep 检查。
+            # 只跳过射线确实进入功能结构包络的样本，不排除整片前口区域。
+            finish=tuple(center[k]+direction[k]*width for k in range(3))
+            local_a=(center[0],s,n)
+            local_b=(finish[0],dot(sub(finish,P),S),dot(sub(P,finish),N))
+            def crosses(bounds):
+                lo,hi=0.0,1.0
+                for k in range(3):
+                    delta=local_b[k]-local_a[k]
+                    if abs(delta)<1e-9:
+                        if not bounds[k][0]-.02<=local_a[k]<=bounds[k][1]+.02:return False
+                    else:
+                        t0=(bounds[k][0]-.02-local_a[k])/delta
+                        t1=(bounds[k][1]+.02-local_a[k])/delta
+                        lo=max(lo,min(t0,t1));hi=min(hi,max(t0,t1))
+                        if lo>hi:return False
+                return True
+            if any(crosses(zone) for zone in wall_audit_zones):continue
+            measured.append((round(width,5),tuple(round(v,3) for v in center),round(n,3),round(s,3)))
+    assert measured, '前口网格壁厚没有有效采样'
+    lower=[v for v in measured if v[3]<-18.4]
+    assert lower, '前口下缘没有有效采样'
+    minimum=min(v[0] for v in measured)
+    assert minimum>=2.0, '前口普通壳壁不足 2 mm：'+str(sorted(measured)[:5])
+    print('前口密集网格壁厚',len(measured),minimum,'下缘',min(v[0] for v in lower),flush=True)
+    return {'sample_count':len(measured),'minimum_mm':minimum,
+            'lower_sample_count':len(lower),'lower_minimum_mm':min(v[0] for v in lower),
+            'under_2mm_count':sum(v[0]<2 for v in measured),
+            'excluded':'开放端面、水平底面，以及穿过已单独验证的定位槽/紧固件包络的射线；0.01 mm 合并同一表面交点',
+            'method':'STL 三角面中心沿反法线求实体段；覆盖前口 n<=20 mm 及 z<14 mm 底部过渡',
+            'lowest_samples':[{'thickness_mm':v[0],'world_point_mm':v[1],'n_mm':v[2],'s_mm':v[3]} for v in sorted(measured)[:8]]}
+
+
+def configure_display(document):
+    """GUI 中只显示当前装配，尺寸参考体默认隐藏。"""
+    document.Label = 'ESP32-S3-Touch-AMOLED-1.75-B 桌面底座'
+    if not App.GuiUp:
+        return
+    colors = {'Mount_Carrier': (0.83, 0.84, 0.82), 'Rear_Cover': (0.66, 0.69, 0.69),
+              'Module_Reference': (0.08, 0.09, 0.10)}
+    for obj in document.Objects:
+        obj.ViewObject.Visibility = obj.Name in colors
+        if obj.Name in colors:
+            obj.ViewObject.ShapeColor = colors[obj.Name]
+    document.recompute()
+
+
 os.makedirs(OUT_DIR, exist_ok=True)
 if DOC_NAME in App.listDocuments():
     App.closeDocument(DOC_NAME)
@@ -189,19 +297,6 @@ for sx, sy in SCREWS_2D:
     ).extrude(N * (CARRIER_BACK_N - CARRIER_PAD_FRONT_N))
     carrier = carrier.fuse(rib)
 
-for angle_deg in SNAP_ANGLES_DEG:
-    angle = math.radians(angle_deg)
-    beam = radial_strip(
-        angle, 21.0, 23.0, 2.8, CARRIER_BACK_N
-    ).extrude(N * (CARRIER_BACK_N - CARRIER_PAD_FRONT_N))
-    carrier = carrier.fuse(beam)
-    bump = Part.makeSphere(
-        SNAP_BUMP_R,
-        plate_point(SNAP_TIP_R * math.cos(angle),
-                    SNAP_TIP_R * math.sin(angle), SNAP_N)
-    )
-    carrier = carrier.fuse(bump)
-
 for sx, sy in SCREWS_2D:
     carrier = carrier.cut(Part.makeCylinder(
         SCREW_CLEARANCE_R, CARRIER_BACK_N - CARRIER_FRONT_N + 1.0,
@@ -217,12 +312,38 @@ carrier = carrier.removeSplitter()
 # 去掉下方无用圆弧，让出底板上方的空间；两侧下螺丝座仍由上方弧段连接。
 carrier = carrier.cut(rectangle_face(-50, 50, -60, -18, 25).extrude(N * 20)).removeSplitter()
 
-# 单一水平截面放样成壳，底层本身就是完整实体，避免斜壳与补环仅相切。
+# 螺母座连接到原厂下方螺丝座，圆角外形和宽筋分散锁紧力。
+for x,s in LOCK_POINTS:
+    pad = rounded_rectangle_face(8.5,7.6,1.0,s,13.8).extrude(-N*(LOCK_BOSS_BACK-13.8))
+    pad.translate(X*x)
+    carrier = carrier.fuse(pad)
+    carrier = carrier.fuse(connect_web(x,s,math.copysign(13.75,x),-14.7,4.0,13.8,19.0))
+    carrier = carrier.cut(axial_cylinder(1.45,13.5,19.2,x,s))
+    carrier = carrier.cut(hex_nut(x,s,LOCK_NUT_FRONT,LOCK_NUT_BACK,5.2))
+    carrier = carrier.cut(axial_box(x-3.05,x+3.05,s,s+9,LOCK_NUT_FRONT,LOCK_NUT_BACK))
+
+guide_tongues = []
+for degrees,width in GUIDES:
+    angle=math.radians(degrees)
+    straight=radial_strip(angle,20.6,22.6,width,16.7).extrude(-N*(19.5-16.7))
+    lead=Part.makeLoft([radial_strip(angle,20.6,22.6,width,19.5).OuterWire,
+                        radial_strip(angle,21.2,22.0,width-1.2,GUIDE_END_N).OuterWire],True,True)
+    tongue=straight.fuse(lead).common(axial_cylinder(CARRIER_OUTER_R,16.7,GUIDE_END_N))
+    guide_tongues.append(tongue)
+    carrier=carrier.fuse(tongue)
+carrier=carrier.removeSplitter()
+for x,s in SCREWS_2D:
+    carrier=carrier.cut(axial_cylinder(SCREW_CLEARANCE_R,11.9,15.6,x,s))
+    carrier=carrier.cut(axial_cylinder(2.4 if x==0 else 2.1,15.5,30,x,s))
+carrier=carrier.removeSplitter()
+
+# 底面轮廓保持不变；加宽其上方过渡，避免前口下缘斜壁被内腔切成薄片。
+# 外侧仍由投影圆柱裁切，整个过渡必须藏在原模块正面轮廓后方。
 sections = [
     (0.0, FOOT_OUTER_RX, FOOT_OUTER_RY, FOOT_CENTER_Y),
-    (2.0, FOOT_OUTER_RX + 0.5, FOOT_OUTER_RY + 0.5, FOOT_CENTER_Y),
-    (6.0, 24.0, 22.0, 12.0),
-    (12.0, 26.0, 25.0, 11.0),
+    (2.0, 23.0, 24.0, FOOT_CENTER_Y),
+    (6.0, 26.0, 25.0, 12.0),
+    (12.0, 28.0, 28.0, 11.0),
     (20.0, 27.0, 27.0, 10.0),
     (28.0, 26.5, 24.0, 11.0),
     (35.0, 23.0, 19.0, 12.0),
@@ -242,9 +363,9 @@ outer_envelope = rear.copy()
 above_floor = Part.makeBox(200, 200, 100, App.Vector(-100, -100, SHELL_FLOOR_T))
 # 内腔跟随外壳，而非电池形状；截面退让约 3 mm 以补偿倾斜壁面。
 inner_sections = [
-    (SHELL_FLOOR_T, 18.0, 17.5, FOOT_CENTER_Y),
-    (6.0, 21.0, 19.0, 12.0),
-    (12.0, 23.0, 22.0, 11.0),
+    (SHELL_FLOOR_T, 17.4, 16.9, FOOT_CENTER_Y),
+    (6.0, 20.4, 18.4, 12.0),
+    (12.0, 22.4, 21.4, 11.0),
     (20.0, 24.0, 24.0, 10.0),
     (28.0, 23.5, 21.0, 11.0),
     (35.0, 20.0, 16.0, 12.0),
@@ -252,9 +373,12 @@ inner_sections = [
     (40.0, 1.0, 1.0, 16.0),
 ]
 cavity = Part.makeLoft([ellipse_wire(*v) for v in inner_sections], True, False)
-cavity = cavity.common(projection_envelope(SHELL_INNER_R)).common(above_floor)
-mount_clearance = Part.makeCylinder(23.2, 6.6, plate_point(0, 0, SHELL_MOUTH_N), -N)
-cavity = cavity.fuse(mount_clearance.common(above_floor)).removeSplitter()
+cavity = cavity.common(projection_envelope(SHELL_PROJECTION_R-FRONT_WALL_TARGET)).common(above_floor)
+# 安装让位不能越过随外形退让的内腔，否则前口下缘会被圆柱切成薄片。
+# 支架下缘为 s=-18；让位只覆盖支架实际存在的上部，保留下方斜壁。
+mount_clearance = Part.makeCylinder(SHELL_INNER_R, 6.6, plate_point(0, 0, SHELL_MOUTH_N), -N)
+mount_region = rectangle_face(-40, 40, -18.4, 40, SHELL_MOUTH_N).extrude(-N*6.6)
+cavity = cavity.fuse(mount_clearance.common(mount_region).common(above_floor)).removeSplitter()
 assert cavity.cut(outer_envelope).Volume < 0.01
 rear = rear.cut(cavity)
 print("connected cavity: solids=%d volume=%.1f mm3 bbox=%s" % (
@@ -280,29 +404,79 @@ for z, rx, ry, cy in inner_sections[1:-1]:
 print("regular side wall sampled minimum=%.3f mm (%d points)" % (min(wall_samples), len(wall_samples)))
 assert min(wall_samples) >= 1.95
 
-# 卡扣凹位是内侧盲槽，外观面没有解锁孔。
-pocket_wall_samples = []
-for angle_deg in SNAP_ANGLES_DEG:
-    angle = math.radians(angle_deg)
-    pocket = Part.makeSphere(
-        SNAP_POCKET_R,
-        plate_point(SNAP_TIP_R * math.cos(angle),
-                    SNAP_TIP_R * math.sin(angle), SNAP_N)
-    )
-    assert pocket.cut(outer_envelope).Volume < 0.01
-    pocket_center = plate_point(SNAP_TIP_R * math.cos(angle),
-                                SNAP_TIP_R * math.sin(angle), SNAP_N)
-    pocket_wall_samples.append(outer_skin.distToShape(Part.Vertex(pocket_center))[0] - SNAP_POCKET_R)
-    rear = rear.cut(pocket)
-print("snap pocket wall minimum=%.3f mm" % min(pocket_wall_samples))
-assert min(pocket_wall_samples) >= 1.19
-
 # 中央只浅凹，不打穿；外侧保留 5 mm 宽的 360 度水平接触带。
 underside_recess = Part.Face(ellipse_wire(
     -1.0, FOOT_INNER_RX, FOOT_INNER_RY, FOOT_CENTER_Y
 )).extrude(Z * (1.0 + FOOT_RECESS))
 rear = rear.cut(underside_recess)
 rear = rear.removeSplitter()
+
+# 三处定位槽的端面抵住支架，形成确定的轴向承压止挡。
+guide_sockets = []
+wall_audit_zones = []
+for degrees,width in GUIDES:
+    angle=math.radians(degrees)
+    body=radial_strip(angle,19.1,23.4,width+3.0,CARRIER_BACK_N).extrude(-N*4.5).common(outer_envelope)
+    socket=radial_strip(angle,20.35,22.85,width+0.5,16.9).extrude(-N*3.45)
+    socket=socket.common(axial_cylinder(23.05,16.9,20.35))
+    body=body.cut(socket)
+    if degrees==90:
+        # 顶部键加宽并分叉，留出原厂顶螺丝和两个插头的直线操作通路。
+        body=body.cut(axial_box(-12,12,0,20.35,16.9,22))
+        body=body.cut(axial_cylinder(2.4,15.5,30,0,20.5))
+    rear=rear.fuse(body).cut(socket)
+    guide_sockets.append(body)
+    points=[v.Point for v in socket.Vertexes]
+    local=[((v-P).dot(X),(v-P).dot(S),(P-v).dot(N)) for v in points]
+    wall_audit_zones.append(tuple((min(v[k] for v in local)-.02,max(v[k] for v in local)+.02) for k in range(3)))
+
+lock_seats=[]
+for x,s in LOCK_POINTS:
+    boss_clearance=rounded_rectangle_face(8.9,8.0,1.2,s,SHELL_MOUTH_N).extrude(-N*(19.25-SHELL_MOUTH_N))
+    boss_clearance.translate(X*x)
+    rear=rear.cut(boss_clearance)
+    seat=axial_cylinder(3.7,19.25,LOCK_HEAD_SEAT,x,s)
+    support=Part.makeBox(8,9,8,App.Vector(x-4,-2,SHELL_FLOOR_T)).common(outer_envelope)
+    support=support.common(axial_box(-40,40,-40,-12.5,19.25,70))
+    rear=rear.fuse(seat).fuse(support)
+    rear=rear.cut(axial_cylinder(1.45,18.8,LOCK_HEAD_SEAT+.1,x,s))
+    rear=rear.cut(axial_cylinder(2.65,LOCK_HEAD_SEAT,80,x,s))
+    lock_seats.append(seat)
+    wall_audit_zones.append(((x-4.2,x+4.2),(s-4.2,s+4.2),(13.8,80)))
+rear=rear.removeSplitter()
+for x,s in SCREWS_2D:
+    assert carrier.common(axial_cylinder(2.0,15.5,30,x,s)).Volume<0.01,'原厂螺丝工具路径'
+
+lock_heads=[axial_cylinder(2.25,LOCK_HEAD_SEAT,LOCK_HEAD_SEAT+2.5,x,s) for x,s in LOCK_POINTS]
+lock_shafts=[axial_cylinder(1.25,LOCK_HEAD_SEAT-8,LOCK_HEAD_SEAT,x,s) for x,s in LOCK_POINTS]
+lock_nuts=[hex_nut(x,s,14.7,16.7,5.0).cut(axial_cylinder(1.25,14.6,16.8,x,s)) for x,s in LOCK_POINTS]
+lock_tools=[axial_cylinder(2.0,LOCK_HEAD_SEAT+2.5,80,x,s) for x,s in LOCK_POINTS]
+print('完成止口和锁紧结构',flush=True)
+for name,shape in [('carrier',carrier),('rear',rear)]:
+    print('快速实体检查',name,shape.isValid(),len(shape.Solids),flush=True)
+assert carrier.common(rear).Volume<0.01, '支架与后壳干涉'
+for hardware in lock_heads+lock_shafts+lock_nuts+lock_tools:
+    for name,shape in [('carrier',carrier),('rear',rear)]:
+        assert hardware.common(shape).Volume<0.01, name+'挡紧固件或工具'
+nut_insertion=[]
+for nut in lock_nuts:
+    for distance in (0,1,2,4,6,8,10):
+        moved=nut.copy();moved.translate(S*distance)
+        volume=moved.common(carrier).Volume
+        assert volume<0.01,'螺母无法从内侧滑入'
+        nut_insertion.append(volume)
+contact=carrier.distToShape(rear)[0]
+assert contact<0.0001,'轴向止挡未接触'
+bottom_band=Part.Face(ellipse_wire(0,FOOT_OUTER_RX,FOOT_OUTER_RY,FOOT_CENTER_Y)).extrude(Z*.6)
+bottom_band=bottom_band.cut(Part.Face(ellipse_wire(0,FOOT_INNER_RX,FOOT_INNER_RY,FOOT_CENTER_Y)).extrude(Z*.6))
+for x,s in LOCK_POINTS:
+    assert axial_cylinder(2.65,LOCK_HEAD_SEAT,80,x,s).common(bottom_band).Volume<0.001,'工具井切断底环'
+assert min(v.z for head in lock_heads for v in head.tessellate(.05)[0])>FOOT_RECESS,'螺丝头碰桌面'
+original_heads=[axial_cylinder(2.0,15.5,17.5,x,s) for x,s in SCREWS_2D]
+for head in original_heads:
+    assert head.common(carrier).Volume+head.common(rear).Volume<.01,'原厂螺丝头无空间'
+stop_contacts=[carrier.distToShape(stop)[0] for stop in guide_sockets]
+assert max(stop_contacts)<.0001,'有轴向止挡没有接触'
 
 module_ref = Part.makeCylinder(
     MODULE_R, MODULE_DEPTH, plate_point(0, 0, MODULE_DEPTH), N
@@ -331,7 +505,7 @@ wire_refs = [
                    18.0).extrude(-N * 3.0)
     for sx in (-CONNECTOR_X, CONNECTOR_X)
 ]
-adhesive_ref = Part.makeBox(24, 16, 0.4, App.Vector(-12, 2, SHELL_FLOOR_T))
+adhesive_ref = Part.makeBox(24, 16, 0.4, App.Vector(-12, 8, SHELL_FLOOR_T))
 carrier_obj = add_feature(doc, "Mount_Carrier", carrier, (0.83, 0.84, 0.82))
 rear_obj = add_feature(doc, "Rear_Cover", rear, (0.66, 0.69, 0.69))
 add_feature(doc, "Module_Reference", module_ref, (0.08, 0.09, 0.10))
@@ -344,6 +518,9 @@ for prefix, shapes, color in (
     for index, shape in enumerate(shapes):
         add_feature(doc, "%s_%d_Reference" % (prefix, index + 1), shape, color, False)
 add_feature(doc, "Adhesive_Area_Reference", adhesive_ref, (0.3, 0.6, 0.9), False)
+for name,shapes in [('Lock_Heads',lock_heads),('Lock_Shafts',lock_shafts),
+                    ('Lock_Nuts',lock_nuts),('Lock_Tools',lock_tools),('Original_Heads',original_heads)]:
+    add_feature(doc,name+'_Reference',Part.makeCompound(shapes),(0.8,0.62,0.24),False)
 doc.recompute()
 
 for name, shape in (("carrier", carrier), ("rear", rear)):
@@ -372,6 +549,14 @@ ring_samples = [
 print("bottom: z_min=%.3f ring=%d/72 battery_z_min=%.3f" % (
     rear.BoundBox.ZMin, sum(ring_samples), battery_ref.BoundBox.ZMin
 ))
+ring_width_passed = 0
+for inset in (0.3, 1.25, 3.75, 4.7):
+    for i in range(72):
+        a = 2*math.pi*i/72
+        point = App.Vector((FOOT_OUTER_RX-inset)*math.cos(a),
+                           FOOT_CENTER_Y+(FOOT_OUTER_RY-inset)*math.sin(a), 0.1)
+        ring_width_passed += rear.isInside(point, 0.01, False)
+assert ring_width_passed == 288, '底部接触带宽度检查失败'
 
 # 以模块 50 g、电池 15 g、PETG 1.27 g/cm3 估算重心和接触椭圆切线倾覆角。
 petg_g_per_mm3 = 0.00127
@@ -430,19 +615,20 @@ for shape in connector_sweeps + wire_refs:
     print("insertion/wire common", shape.common(carrier).Volume, shape.common(rear).Volume)
     assert shape.common(carrier).Volume + shape.common(rear).Volume < 0.01
     assert shape.common(battery_ref).Volume < 0.01
-# 壳从背后沿轴线压合；弹性卡扣碰到壳壁属于必要的弹性变形，单独检查。
-elastic_zones = Part.makeCompound([
-    radial_strip(math.radians(a), 20.8, 25.0, 4.0, 18.0).extrude(N * 4.5)
-    for a in SNAP_ANGLES_DEG
-])
-rigid_carrier = carrier.cut(elastic_zones)
-for travel in (0.5, 1.0, 2.0, 4.0, 8.0, 12.0):
+closing_checks = []
+for travel in (0, 0.25, 0.5, 1.0, 2.0, 3.0, 4.0, 8.0, 12.0, 20.0):
     moving_cover = rear.copy()
     moving_cover.translate(-N * travel)
     assert all(moving_cover.common(v).Volume < 0.01 for v in connector_refs + wire_refs)
-    rigid_overlap = moving_cover.common(rigid_carrier).Volume
+    rigid_overlap = moving_cover.common(carrier).Volume
     print("closing travel=%.1f rigid carrier common=%.3f" % (travel, rigid_overlap))
+    if rigid_overlap>=0.01:
+        for solid in moving_cover.common(carrier).Solids:
+            c=solid.CenterOfMass-P
+            print('合盖干涉位置',solid.Volume,c.x,c.dot(S),-c.dot(N),flush=True)
     assert rigid_overlap < 0.01
+    assert moving_cover.common(battery_ref).Volume < 0.01
+    closing_checks.append({"travel_mm":travel,"carrier_overlap_mm3":rigid_overlap})
 print("insertion and closing connector clearance: passed")
 assert adhesive_ref.common(rear).Volume < 0.01
 
@@ -475,17 +661,34 @@ print("mouth maximum radius=%.4f mm" % max(mouth_radii))
 metrics = {
     "stand_front_projection_max_radius_mm": max(projection_radii),
     "front_occlusion_margin_mm": MODULE_R - max(projection_radii),
-    "snap_pocket_min_wall_mm": min(pocket_wall_samples),
+    "locking_screws": "2 × M2.5×8 内六角圆柱头",
+    "nut_across_flats_mm":5.0,
+    "nut_pocket_across_flats_mm":5.2,
+    "nut_shoulder_mm":LOCK_BOSS_BACK-LOCK_NUT_BACK,
+    "guide_engagement_mm":3.0,
+    "guide_clearance_mm":GUIDE_CLEARANCE,
+    "guide_widths_mm":[v[1] for v in GUIDES],
+    "guide_top_shape":"分叉式宽键，让开顶螺丝轴线",
+    "lock_points_mm":LOCK_POINTS,
+    "nut_slot_entry_width_mm":6.1,
+    "nut_slot_side_wall_mm":1.2,
+    "nut_insertion_max_overlap_mm3":max(nut_insertion),
+    "axial_stop_contact_distances_mm":stop_contacts,
+    "tool_well_diameter_mm":5.3,
+    "screw_head_seat_n_mm":LOCK_HEAD_SEAT,
+    "carrier_ring_width_mm":CARRIER_OUTER_R-CARRIER_INNER_R,
+    "closing_checks":closing_checks,
     "mouth_max_radius_mm": max(mouth_radii),
     "axial_joint_clearance_mm": SHELL_MOUTH_N - MODULE_DEPTH,
     "cavity_volume_cm3": cavity.Volume / 1000,
-    "cavity_after_carrier_cm3": cavity.cut(carrier).Volume / 1000,
+    "cavity_after_carrier_cm3": outer_envelope.cut(rear).cut(carrier).common(above_floor).Volume / 1000,
     "shell_bbox_mm": [actual_box.XLength, actual_box.YLength, actual_box.ZLength],
     "cavity_bbox_mm": [cavity_box.XLength, cavity_box.YLength, cavity_box.ZLength],
     "sampled_side_wall_min_mm": min(wall_samples),
     "side_wall_sample_count": len(wall_samples),
     "bottom_z_mm": actual_box.ZMin,
     "bottom_contact_samples_passed": sum(ring_samples),
+    "bottom_ring_width_samples_passed": ring_width_passed,
     "minimum_tip_angle_without_speaker_deg": min(tip_all_directions),
     "speaker_fitted": False,
     "wire_bend_requires_physical_check": True,
@@ -498,12 +701,30 @@ section_shape = rear.common(Part.makeBox(100, 200, 100, App.Vector(0, -100, 0)))
 for name, shape in (("section", section_shape), ("battery_reference", battery_ref),
                     ("connector_reference", Part.makeCompound(connector_refs)),
                     ("wire_reference", Part.makeCompound(wire_refs)),
-                    ("carrier_reference", carrier), ("adhesive_reference", adhesive_ref)):
+                    ("carrier_reference", carrier), ("adhesive_reference", adhesive_ref),
+                    ("fasteners",Part.makeCompound(lock_heads+lock_shafts+lock_nuts))):
     mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=0.1, AngularDeflection=0.3)
     mesh.write(os.path.join(preview_dir, name + ".stl"))
 
+fit_dir=os.path.join(SCRIPT_DIR,'archive','fit_samples')
+os.makedirs(fit_dir,exist_ok=True)
+samples={'nut_pocket':carrier.common(axial_box(-12,-2,-21,-7,13.8,19)),
+         'guide_tongue':carrier.common(axial_box(19,24,-6,6,12.1,20.1)),
+         'guide_socket':rear.common(axial_box(19,25.2,-6,6,16.5,22))}
+for name,shape in samples.items():
+    assert shape.isValid() and len(shape.Solids)==1,'试装件不连通：'+name
+    shape=shape.copy()
+    shape.Placement=App.Placement(App.Vector(),App.Rotation(-N,Z)).multiply(shape.Placement)
+    shape.translate(App.Vector(0,0,-min(v.z for v in shape.tessellate(.05)[0])))
+    mesh=MeshPart.meshFromShape(Shape=shape,LinearDeflection=.05,AngularDeflection=.3,Relative=False)
+    assert mesh.isSolid() and len(mesh.getSeparateComponents())==1,'试装网格不闭合：'+name
+    mesh.write(os.path.join(fit_dir,name+'.stl'))
+
 export_stl(carrier, "mount_carrier.stl", lay_flat=True)
 export_stl(rear, "rear_cover.stl")
+metrics['front_wall_mesh_audit'] = audit_front_wall(os.path.join(OUT_DIR,'rear_cover.stl'))
+metrics['front_wall_target_mm'] = FRONT_WALL_TARGET
+metrics['mounting_clearance_radial_mm'] = SHELL_INNER_R-CARRIER_OUTER_R
 Part.export([carrier_obj, rear_obj], os.path.join(OUT_DIR, "stand.step"))
 step_shape = Part.read(os.path.join(OUT_DIR, "stand.step"))
 print("STEP: valid=%s solids=%d" % (
@@ -512,5 +733,6 @@ print("STEP: valid=%s solids=%d" % (
 assert step_shape.isValid() and len(step_shape.Solids) == 2
 with open(os.path.join(OUT_DIR, "validation.json"), "w", encoding="utf-8") as stream:
     json.dump(metrics, stream, ensure_ascii=False, indent=2)
+configure_display(doc)
 doc.saveAs(os.path.join(OUT_DIR, "stand.FCStd"))
 print("Exported to:", OUT_DIR)

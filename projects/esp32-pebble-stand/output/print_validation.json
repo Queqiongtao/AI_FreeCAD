@@ -1,0 +1,337 @@
+{
+  "stl_sha256": "62027ec8dc2987d2c3f33d7ab17ecff47eeae09e257ec201762dedda7c613c4d",
+  "slicer": "Bambu Studio",
+  "printer_profile": "Prusa MK3S 0.4 nozzle",
+  "filament_profile": "Generic PETG @Prusa",
+  "nozzle_mm": 0.4,
+  "layer_height_mm": 0.2,
+  "wall_loops": 4,
+  "wall_generator": "classic",
+  "support_enabled": true,
+  "support_extrusion_moves": 2524,
+  "support_type": "normal(auto)",
+  "support_threshold_angle_deg": 30,
+  "outer_brim_width_mm": 5,
+  "layer_count": 258,
+  "object_layer_count": 186,
+  "wall_layer_count": 186,
+  "top_shortfall_mm": 0.24366,
+  "support_only_layer_count": 72,
+  "lower_edge_probe_count": 62,
+  "min_wall_crossings": 2,
+  "warning_message": "",
+  "lower_edge_probes": [
+    {
+      "x_mm": 0,
+      "z_mm": 2.8,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 3.0,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 3.2,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 3.4,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 3.6,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 3.8,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 4.0,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 4.2,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 4.4,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 4.6,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 4.8,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 5.0,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 5.2,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 5.4,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 5.6,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 5.8,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 6.0,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 6.2,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 6.4,
+      "wall_crossings": 8
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 6.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 6.8,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 7.0,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 7.2,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 7.4,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 7.6,
+      "wall_crossings": 2
+    },
+    {
+      "x_mm": 0,
+      "z_mm": 7.8,
+      "wall_crossings": 2
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 8.0,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 8.2,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 8.4,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 8.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 8.8,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 9.0,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 9.2,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 9.4,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 9.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 9.8,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 10.0,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 10.2,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 10.4,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 10.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 10.8,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 11.0,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 11.2,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": -18,
+      "z_mm": 11.4,
+      "wall_crossings": 2
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 8.0,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 8.2,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 8.4,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 8.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 8.8,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 9.0,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 9.2,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 9.4,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 9.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 9.8,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 10.0,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 10.2,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 10.4,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 10.6,
+      "wall_crossings": 6
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 10.8,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 11.0,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 11.2,
+      "wall_crossings": 4
+    },
+    {
+      "x_mm": 18,
+      "z_mm": 11.4,
+      "wall_crossings": 2
+    }
+  ],
+  "physical_print_verified": false,
+  "note": "参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。"
+}

@@ -1,26 +1,194 @@
 {
-  "stand_front_projection_max_radius_mm": 25.200000012758615,
-  "front_occlusion_margin_mm": 0.2999999872413852,
-  "snap_pocket_min_wall_mm": 1.199999999999998,
-  "mouth_max_radius_mm": 25.200000000000003,
+  "stand_front_projection_max_radius_mm": 25.20000003387431,
+  "front_occlusion_margin_mm": 0.29999996612568935,
+  "locking_screws": "2 × M2.5×8 内六角圆柱头",
+  "nut_across_flats_mm": 5.0,
+  "nut_pocket_across_flats_mm": 5.2,
+  "nut_shoulder_mm": 2.1999999999999993,
+  "guide_engagement_mm": 3.0,
+  "guide_clearance_mm": 0.25,
+  "guide_widths_mm": [
+    8.0,
+    8.0,
+    8.0
+  ],
+  "guide_top_shape": "分叉式宽键，让开顶螺丝轴线",
+  "lock_points_mm": [
+    [
+      -7.0,
+      -16.0
+    ],
+    [
+      7.0,
+      -16.0
+    ]
+  ],
+  "nut_slot_entry_width_mm": 6.1,
+  "nut_slot_side_wall_mm": 1.2,
+  "nut_insertion_max_overlap_mm3": 0.0,
+  "axial_stop_contact_distances_mm": [
+    0.0,
+    3.552713678800501e-15,
+    0.0
+  ],
+  "tool_well_diameter_mm": 5.3,
+  "screw_head_seat_n_mm": 21.5,
+  "carrier_ring_width_mm": 2.400000000000002,
+  "closing_checks": [
+    {
+      "travel_mm": 0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 0.25,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 0.5,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 1.0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 2.0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 3.0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 4.0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 8.0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 12.0,
+      "carrier_overlap_mm3": 0.0
+    },
+    {
+      "travel_mm": 20.0,
+      "carrier_overlap_mm3": 0.0
+    }
+  ],
+  "mouth_max_radius_mm": 25.200000000000006,
   "axial_joint_clearance_mm": 0.3000000000000007,
-  "cavity_volume_cm3": 30.235257925351455,
-  "cavity_after_carrier_cm3": 29.703675669333656,
+  "cavity_volume_cm3": 29.075048270103544,
+  "cavity_after_carrier_cm3": 27.20563349925602,
   "shell_bbox_mm": [
-    50.39892213593218,
-    47.40441500598037,
+    50.39890053368204,
+    50.74642191267205,
     37.45951847817185
   ],
   "cavity_bbox_mm": [
-    46.39947958467066,
-    43.84281594111795,
-    33.57394325879877
+    46.18635781004966,
+    41.69780969667297,
+    33.50966449783012
   ],
-  "sampled_side_wall_min_mm": 2.1389666175824447,
-  "side_wall_sample_count": 29,
+  "sampled_side_wall_min_mm": 2.2565023846574106,
+  "side_wall_sample_count": 33,
   "bottom_z_mm": 0.0,
   "bottom_contact_samples_passed": 72,
-  "minimum_tip_angle_without_speaker_deg": 34.34272618016023,
+  "bottom_ring_width_samples_passed": 288,
+  "minimum_tip_angle_without_speaker_deg": 37.196808786624146,
   "speaker_fitted": false,
-  "wire_bend_requires_physical_check": true
+  "wire_bend_requires_physical_check": true,
+  "front_wall_mesh_audit": {
+    "sample_count": 2512,
+    "minimum_mm": 2.08356,
+    "lower_sample_count": 221,
+    "lower_minimum_mm": 2.08913,
+    "under_2mm_count": 0,
+    "excluded": "开放端面、水平底面，以及穿过已单独验证的定位槽/紧固件包络的射线；0.01 mm 合并同一表面交点",
+    "method": "STL 三角面中心沿反法线求实体段；覆盖前口 n<=20 mm 及 z<14 mm 底部过渡",
+    "lowest_samples": [
+      {
+        "thickness_mm": 2.08356,
+        "world_point_mm": [
+          0.0,
+          29.792,
+          34.434
+        ],
+        "n_mm": 16.336,
+        "s_mm": 25.184
+      },
+      {
+        "thickness_mm": 2.08577,
+        "world_point_mm": [
+          23.843,
+          18.033,
+          21.881
+        ],
+        "n_mm": 18.394,
+        "s_mm": 8.107
+      },
+      {
+        "thickness_mm": 2.08588,
+        "world_point_mm": [
+          -23.775,
+          18.151,
+          22.045
+        ],
+        "n_mm": 18.343,
+        "s_mm": 8.302
+      },
+      {
+        "thickness_mm": 2.08666,
+        "world_point_mm": [
+          -22.965,
+          19.536,
+          23.557
+        ],
+        "n_mm": 18.076,
+        "s_mm": 10.335
+      },
+      {
+        "thickness_mm": 2.087,
+        "world_point_mm": [
+          22.994,
+          19.511,
+          23.486
+        ],
+        "n_mm": 18.114,
+        "s_mm": 10.27
+      },
+      {
+        "thickness_mm": 2.08909,
+        "world_point_mm": [
+          12.62,
+          27.279,
+          32.154
+        ],
+        "n_mm": 16.467,
+        "s_mm": 21.792
+      },
+      {
+        "thickness_mm": 2.08913,
+        "world_point_mm": [
+          -17.087,
+          -3.743,
+          6.443
+        ],
+        "n_mm": 16.222,
+        "s_mm": -18.498
+      },
+      {
+        "thickness_mm": 2.08913,
+        "world_point_mm": [
+          17.087,
+          -3.743,
+          6.443
+        ],
+        "n_mm": 16.222,
+        "s_mm": -18.498
+      }
+    ]
+  },
+  "front_wall_target_mm": 2.4,
+  "mounting_clearance_radial_mm": 0.3000000000000007
 }
