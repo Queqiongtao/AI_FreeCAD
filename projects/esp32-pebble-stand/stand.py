@@ -16,13 +16,19 @@ import Part
 
 DOC_NAME = "Pebble_Stand"
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-OUT_DIR = os.path.join(SCRIPT_DIR, "output")
+OUT_DIR = os.environ.get('S3_OUTPUT_DIR', os.path.join(SCRIPT_DIR, "output"))
+PREVIEW_DIR = os.environ.get('S3_PREVIEW_DIR', os.path.join(SCRIPT_DIR, 'archive', 'preview_meshes'))
+FIT_DIR = os.environ.get('S3_FIT_DIR', os.path.join(SCRIPT_DIR, 'archive', 'fit_samples'))
 
 # 模块是带原厂外壳的成品，不是裸 PCB。
 MODULE_R = 25.5
 MODULE_DEPTH = 12.1
 TILT_DEG = 40.0
 MODULE_BOTTOM_CLEARANCE = 5.1
+SHELL_DEPTH_EXTENSION = 4.0  # 模块沿前向法线移位，竖直抬高约 3.06 mm
+SHELL_REAR_BULGE = 8.0  # 后部曲线扩展量，实际外形仍受正面投影约束
+FRONT_TRANSITION_EXTRA = 3.0  # 前口下缘只加外侧材料，保护安装让位后的斜壁
+INNER_FRONT_RETREAT = 1.2  # 下缘内腔小幅后退，保证让位盲端与主内腔之间的实体厚度
 SCREWS_2D = [(0.0, 20.50), (13.75, -14.70), (-13.75, -14.70)]
 SCREW_CLEARANCE_R = 1.15  # M2 初始值，打印前用原厂螺丝核对
 
@@ -36,25 +42,33 @@ BATTERY_FRONT_N = 17.6
 
 # 内部布局试排参数，单位 mm；位置沿模块的 x / s / n 坐标定义。
 # 扬声器振膜位于 FRONT_N，朝向后壳；倾角为相对模块背向法线的偏转。
-SPEAKER_W = 20.0
-SPEAKER_H = 15.0
-SPEAKER_THICKNESS = 5.0
-SPEAKER_CORNER_R = 1.0
-SPEAKER_OFFSET_X = 0.0
-SPEAKER_OFFSET_S = 8.0
-SPEAKER_FRONT_N = 33.6
-SPEAKER_TILT_DEG = 20.0
+SPEAKER_W = 30.0
+SPEAKER_H = 20.0
+SPEAKER_THICKNESS = 7.0
+SPEAKER_CORNER_R = 0.2  # 未知实物圆角，近似完整矩形包络，不利用圆角挤空间
+SPEAKER_OFFSET_X = -1.5
+SPEAKER_OFFSET_S = 3.0
+SPEAKER_FRONT_N = 33.5
+SPEAKER_TILT_DEG = 0.0
 SPEAKER_TAPE_T = 0.8
-SPEAKER_TAPE_RING_W = 1.5
+SPEAKER_TAPE_RING_W = 0.8
+SPEAKER_TAPE_CORNER_LENGTH = 4.0
+SPEAKER_HARD_EDGE = 1.0
+SPEAKER_LOCATOR_GAP = 0.3
+SPEAKER_LOCATOR_T = 1.6
+SPEAKER_LOCATOR_LENGTH = 4.0
 SPEAKER_FRONT_GAP = 1.0
-SPEAKER_WIRE_GAP = 2.0
+SPEAKER_WIRE_GAP = 3.0
 SPEAKER_SIDE_GAP = 1.0
 SPEAKER_PAD_BORDER = 2.5
 SPEAKER_GRILLE_ENABLED = True
 SPEAKER_SLOT_COUNT = 5
 SPEAKER_SLOT_W = 1.6
-SPEAKER_SLOT_H = 8.0
+SPEAKER_SLOT_H = 6.0
 SPEAKER_SLOT_WEB = 1.6
+SPEAKER_SLOT_OFFSET_S = -5.8  # 声道投向底环内侧，避开连续接触带
+SPEAKER_SLOT_OFFSET_X = 1.5
+SPEAKER_CABLE_DIAMETER = 2.0  # 线束暂定包络，实际线径和弯曲半径需实物确认
 CONNECTOR_X = 6.5
 CONNECTOR_S = 17.25
 CONNECTOR_W = 5.8
@@ -66,9 +80,12 @@ CARRIER_PAD_FRONT_N = 14.7
 CARRIER_INNER_R = 20.4
 CARRIER_OUTER_R = 22.8
 CARRIER_BOSS_R = 2.6
+CARRIER_LOCK_WEB_BACK = 17.7
+CARRIER_LOCK_WEB_W = 4.4
 SHELL_MOUTH_N = MODULE_DEPTH + 0.3
 SHELL_PROJECTION_R = 25.2
 SHELL_INNER_R = 23.1
+MOUNT_CLEARANCE_DEPTH = 5.6  # 让开 n=17.7 mm 的连接筋并留 0.3 mm，避免盲端窄膜
 SHELL_FLOOR_T = 2.6
 FRONT_WALL_TARGET = 2.4
 FOOT_CENTER_Y = 14.0
@@ -96,6 +113,7 @@ Z = App.Vector(0, 0, 1)
 N = App.Vector(0, -SIN, COS)
 S = App.Vector(0, COS, SIN)
 P = App.Vector(0, 0, MODULE_BOTTOM_CLEARANCE + MODULE_R * SIN + MODULE_DEPTH * COS)
+P = P + N*SHELL_DEPTH_EXTENSION
 
 
 def plate_point(x, s, n):
@@ -137,6 +155,28 @@ def ellipse_wire(z, rx, ry, cy, steps=48):
         for i in range(steps)
     ]
     return Part.makePolygon(points + [points[0]])
+
+
+def deepen_section(section):
+    """底板保持原位，上部平滑升高，为轴向加深后的模块和内腔让位。"""
+    z,rx,ry,cy=section
+    weight=max(0.0,min(1.0,(z-SHELL_FLOOR_T)/17.4))
+    bulge=SHELL_REAR_BULGE*max(0.0,min(1.0,(z-SHELL_FLOOR_T)/9.4))/2
+    return z+SHELL_DEPTH_EXTENSION*COS*weight,rx,ry+bulge,cy+bulge
+
+
+def outer_section(section):
+    z,rx,ry,cy=deepen_section(section)
+    weight=max(0.0,min(1.0,section[0]/6.0,(28.0-section[0])/16.0))
+    delta=FRONT_TRANSITION_EXTRA*weight/2
+    return z,rx,ry+delta,cy-delta
+
+
+def inner_section(section):
+    z,rx,ry,cy=deepen_section(section)
+    weight=max(0.0,min(1.0,section[0]/6.0,(28.0-section[0])/16.0))
+    delta=INNER_FRONT_RETREAT*weight/2
+    return z,rx,ry-delta,cy+delta
 
 
 def radial_strip(angle, r0, r1, width, n):
@@ -225,7 +265,12 @@ def audit_front_wall(filename):
         v=struct.unpack_from('<12f',data,84+i*50)
         normal=v[:3]; a,b,c=v[3:6],v[6:9],v[9:12]
         triangles.append((normal,a,sub(b,a),sub(c,a),tuple(min(a[k],b[k],c[k]) for k in range(3)),tuple(max(a[k],b[k],c[k]) for k in range(3)),tuple((a[k]+b[k]+c[k])/3 for k in range(3))))
-    angle=TILT; N=(0,-SIN,COS); S=(0,COS,SIN); P=(0,0,MODULE_BOTTOM_CLEARANCE+MODULE_R*SIN+MODULE_DEPTH*COS)
+    # 高度分桶只减少候选三角形，仍执行同一包围框和精确射线判定。
+    by_height={}
+    for index,triangle in enumerate(triangles):
+        for band in range(math.floor((triangle[4][2]-1e-6)/2),math.floor((triangle[5][2]+1e-6)/2)+1):
+            by_height.setdefault(band,[]).append(index)
+    angle=TILT; N=(0,-SIN,COS); S=(0,COS,SIN); P=(0,-SIN*SHELL_DEPTH_EXTENSION,MODULE_BOTTOM_CLEARANCE+MODULE_R*SIN+MODULE_DEPTH*COS+COS*SHELL_DEPTH_EXTENSION)
     measured=[]
     for i,(norm,a,e1,e2,lo,hi,center) in enumerate(triangles):
         n=dot(sub(P,center),N);s=dot(sub(center,P),S)
@@ -233,7 +278,11 @@ def audit_front_wall(filename):
         direction=tuple(-v for v in norm);start=tuple(center[k]+norm[k]*.005 for k in range(3));end=tuple(start[k]+direction[k]*8 for k in range(3))
         raylo=tuple(min(start[k],end[k]) for k in range(3));rayhi=tuple(max(start[k],end[k]) for k in range(3))
         hits=[]
-        for _,b,f1,f2,low,high,_ in triangles:
+        candidates=set()
+        for band in range(math.floor((raylo[2]-1e-6)/2),math.floor((rayhi[2]+1e-6)/2)+1):
+            candidates.update(by_height.get(band,[]))
+        for candidate in candidates:
+            _,b,f1,f2,low,high,_=triangles[candidate]
             if any(raylo[k]>high[k]+1e-6 or rayhi[k]<low[k]-1e-6 for k in range(3)):continue
             h=cross(direction,f2);det=dot(f1,h)
             if abs(det)<1e-9:continue
@@ -276,7 +325,7 @@ def audit_front_wall(filename):
     return {'sample_count':len(measured),'minimum_mm':minimum,
             'lower_sample_count':len(lower),'lower_minimum_mm':min(v[0] for v in lower),
             'under_2mm_count':sum(v[0]<2 for v in measured),
-            'excluded':'开放端面、水平底面，以及穿过已单独验证的定位槽/紧固件包络的射线；0.01 mm 合并同一表面交点',
+            'excluded':'开放端面、水平底面，以及穿过已单独检查的定位槽、紧固件、喇叭胶框及定位墙包络的射线；0.01 mm 合并同一表面交点',
             'method':'STL 三角面中心沿反法线求实体段；覆盖前口 n<=20 mm 及 z<14 mm 底部过渡',
             'lowest_samples':[{'thickness_mm':v[0],'world_point_mm':v[1],'n_mm':v[2],'s_mm':v[3]} for v in sorted(measured)[:8]]}
 
@@ -292,6 +341,7 @@ def configure_display(document):
         obj.ViewObject.Visibility = obj.Name in colors
         if obj.Name in colors:
             obj.ViewObject.ShapeColor = colors[obj.Name]
+            obj.ViewObject.DiffuseColor = [colors[obj.Name]] * len(obj.Shape.Faces)
     document.recompute()
 
 
@@ -341,7 +391,7 @@ for x,s in LOCK_POINTS:
     pad = rounded_rectangle_face(8.5,7.6,1.0,s,13.8).extrude(-N*(LOCK_BOSS_BACK-13.8))
     pad.translate(X*x)
     carrier = carrier.fuse(pad)
-    carrier = carrier.fuse(connect_web(x,s,math.copysign(13.75,x),-14.7,4.0,13.8,19.0))
+    carrier = carrier.fuse(connect_web(x,s,math.copysign(13.75,x),-14.7,CARRIER_LOCK_WEB_W,13.8,CARRIER_LOCK_WEB_BACK))
     carrier = carrier.cut(axial_cylinder(1.45,13.5,19.2,x,s))
     carrier = carrier.cut(hex_nut(x,s,LOCK_NUT_FRONT,LOCK_NUT_BACK,5.2))
     carrier = carrier.cut(axial_box(x-3.05,x+3.05,s,s+9,LOCK_NUT_FRONT,LOCK_NUT_BACK))
@@ -375,7 +425,7 @@ sections = [
     (43.0, 1.0, 1.0, 16.0),
 ]
 rear = Part.makeLoft(
-    [ellipse_wire(*section) for section in sections], True, False
+    [ellipse_wire(*outer_section(section)) for section in sections], True, False
 )
 # 从正面投影约束整个壳体，后方及底面也不能超出屏幕轮廓。
 def projection_envelope(radius):
@@ -396,12 +446,12 @@ inner_sections = [
     (39.0, 13.0, 10.0, 14.0),
     (40.0, 1.0, 1.0, 16.0),
 ]
-cavity = Part.makeLoft([ellipse_wire(*v) for v in inner_sections], True, False)
+cavity = Part.makeLoft([ellipse_wire(*inner_section(v)) for v in inner_sections], True, True)
 cavity = cavity.common(projection_envelope(SHELL_PROJECTION_R-FRONT_WALL_TARGET)).common(above_floor)
 # 安装让位不能越过随外形退让的内腔，否则前口下缘会被圆柱切成薄片。
 # 支架下缘为 s=-18；让位只覆盖支架实际存在的上部，保留下方斜壁。
-mount_clearance = Part.makeCylinder(SHELL_INNER_R, 6.6, plate_point(0, 0, SHELL_MOUTH_N), -N)
-mount_region = rectangle_face(-40, 40, -18.4, 40, SHELL_MOUTH_N).extrude(-N*6.6)
+mount_clearance = Part.makeCylinder(SHELL_INNER_R, MOUNT_CLEARANCE_DEPTH, plate_point(0, 0, SHELL_MOUTH_N), -N)
+mount_region = rectangle_face(-40, 40, -18.4, 40, SHELL_MOUTH_N).extrude(-N*MOUNT_CLEARANCE_DEPTH)
 cavity = cavity.fuse(mount_clearance.common(mount_region).common(above_floor)).removeSplitter()
 assert cavity.cut(outer_envelope).Volume < 0.01
 rear = rear.cut(cavity)
@@ -550,17 +600,31 @@ def speaker_box(width,height,start,length,radius=None,offset_x=0):
     local.translate(speaker_face+speaker_axis*start+X*offset_x)
     return local.extrude(speaker_axis*length)
 
-speaker_open_w=SPEAKER_W-2*SPEAKER_TAPE_RING_W
-speaker_open_h=SPEAKER_H-2*SPEAKER_TAPE_RING_W
+def speaker_rect(x0,x1,y0,y1,start,length):
+    points=[speaker_face+X*x+speaker_up*y+speaker_axis*start
+            for x,y in [(x0,y0),(x1,y0),(x1,y1),(x0,y1)]]
+    return polygon_face(points).extrude(speaker_axis*length)
+
+speaker_open_w=SPEAKER_W-2*SPEAKER_HARD_EDGE
+speaker_open_h=SPEAKER_H-2*SPEAKER_HARD_EDGE
 speaker_ref = speaker_box(SPEAKER_W,SPEAKER_H,-SPEAKER_THICKNESS,SPEAKER_THICKNESS)
-speaker_tape = speaker_box(SPEAKER_W,SPEAKER_H,0,SPEAKER_TAPE_T).cut(
-    speaker_box(speaker_open_w,speaker_open_h,-.01,SPEAKER_TAPE_T+.02))
+# 仅在四角保留窄 L 形胶层，不把最大角部宽度当成整块方形贴胶面。
+tape_ring = speaker_box(SPEAKER_W,SPEAKER_H,0,SPEAKER_TAPE_T).cut(
+    speaker_box(SPEAKER_W-2*SPEAKER_TAPE_RING_W,SPEAKER_H-2*SPEAKER_TAPE_RING_W,-.01,SPEAKER_TAPE_T+.02))
+speaker_tape_patches=[]
+for sx in (-1,1):
+    for sy in (-1,1):
+        xx=sorted([sx*SPEAKER_W/2,sx*(SPEAKER_W/2-SPEAKER_TAPE_CORNER_LENGTH)])
+        yy=sorted([sy*SPEAKER_H/2,sy*(SPEAKER_H/2-SPEAKER_TAPE_CORNER_LENGTH)])
+        speaker_tape_patches.append(tape_ring.common(speaker_rect(*xx,*yy,-.01,SPEAKER_TAPE_T+.02)))
+speaker_tape=Part.makeCompound(speaker_tape_patches)
 speaker_diaphragm = speaker_box(speaker_open_w,speaker_open_h,-.1,.1)
 speaker_air = speaker_box(speaker_open_w,speaker_open_h,0,SPEAKER_FRONT_GAP)
-speaker_wire_reserve = speaker_box(SPEAKER_W,SPEAKER_H,-SPEAKER_THICKNESS-SPEAKER_WIRE_GAP,SPEAKER_WIRE_GAP)
+speaker_wire_reserve = speaker_rect(SPEAKER_W/2,SPEAKER_W/2+SPEAKER_WIRE_GAP,
+    -SPEAKER_H/2,SPEAKER_H/2,-SPEAKER_THICKNESS,SPEAKER_THICKNESS)
 # 贴边处允许胶层与粘贴面接触；空气间隙只覆盖实际振膜开口。
 speaker_envelope = speaker_box(SPEAKER_W+2*SPEAKER_SIDE_GAP,SPEAKER_H+2*SPEAKER_SIDE_GAP,
-    -SPEAKER_THICKNESS-SPEAKER_WIRE_GAP,SPEAKER_THICKNESS+SPEAKER_WIRE_GAP).fuse(speaker_air).fuse(speaker_tape)
+    -SPEAKER_THICKNESS,SPEAKER_THICKNESS).fuse(speaker_wire_reserve).fuse(speaker_air).fuse(speaker_tape)
 pad_w=speaker_open_w+2*SPEAKER_PAD_BORDER
 pad_h=speaker_open_h+2*SPEAKER_PAD_BORDER
 assert SPEAKER_PAD_BORDER>=2.0,'粘贴面框宽至少 2 mm'
@@ -568,9 +632,34 @@ speaker_pad=speaker_box(pad_w,pad_h,SPEAKER_TAPE_T,60).cut(
     speaker_box(speaker_open_w,speaker_open_h,SPEAKER_TAPE_T-.01,60.02)).common(outer_envelope).common(above_floor)
 assert speaker_pad.Volume>0,'粘贴面未连接到壳体'
 rear=rear.fuse(speaker_pad).removeSplitter()
-# 整圈胶带的背面都必须有平整承托，不能只让一小角接触弧形壁。
-speaker_glue_support=speaker_box(SPEAKER_W,SPEAKER_H,SPEAKER_TAPE_T,.05).cut(
-    speaker_box(speaker_open_w,speaker_open_h,SPEAKER_TAPE_T-.01,.07))
+# 四段长边定位和一段非出线端定位；胶带负责保持轴向贴合。
+locator_bounds=[]
+for sx in (-1,1):
+    for sy in (-1,1):
+        xx=(sx*8-SPEAKER_LOCATOR_LENGTH/2,sx*8+SPEAKER_LOCATOR_LENGTH/2)
+        yy=sorted([sy*(SPEAKER_H/2+SPEAKER_LOCATOR_GAP),
+                   sy*(SPEAKER_H/2+SPEAKER_LOCATOR_GAP+SPEAKER_LOCATOR_T)])
+        locator_bounds.append((*xx,*yy))
+locator_bounds.append((-SPEAKER_W/2-SPEAKER_LOCATOR_GAP-SPEAKER_LOCATOR_T,
+    -SPEAKER_W/2-SPEAKER_LOCATOR_GAP,-2,2))
+speaker_locators=[speaker_rect(*v,-2,3.6).common(outer_envelope) for v in locator_bounds]
+for locator in speaker_locators:
+    assert locator.isValid() and len(locator.Solids)==1
+    assert locator.distToShape(speaker_ref)[0]>=SPEAKER_LOCATOR_GAP-.001
+    rear=rear.fuse(locator)
+    local=[(v.x,(v-P).dot(S),(P-v).dot(N)) for v in locator.tessellate(.05)[0]]
+    wall_audit_zones.append(tuple((min(v[k] for v in local)-.02,max(v[k] for v in local)+.02) for k in range(3)))
+rear=rear.removeSplitter()
+# 定位区按 0.3 mm 配合间隙检查，其他周边仍按 1 mm 预留。
+for x0,x1,y0,y1 in locator_bounds:
+    window=speaker_rect(x0-.01,x1+.01,y0-.01,y1+.01,-SPEAKER_THICKNESS-.01,SPEAKER_THICKNESS+.02)
+    speaker_envelope=speaker_envelope.cut(window)
+speaker_envelope=speaker_envelope.fuse(speaker_box(SPEAKER_W+2*SPEAKER_LOCATOR_GAP,
+    SPEAKER_H+2*SPEAKER_LOCATOR_GAP,-SPEAKER_THICKNESS,SPEAKER_THICKNESS))
+# 四块胶层的背面必须全部落在平整承托上。
+speaker_glue_support=speaker_tape.copy()
+speaker_glue_support.translate(speaker_axis*SPEAKER_TAPE_T)
+speaker_glue_support=speaker_glue_support.common(speaker_box(SPEAKER_W,SPEAKER_H,SPEAKER_TAPE_T,.05))
 assert speaker_glue_support.cut(rear).Volume<.01,'当前位置无法提供完整平整粘贴面'
 speaker_sound_zone = speaker_box(speaker_open_w,speaker_open_h,0,60).common(rear)
 speaker_slots=[]
@@ -580,9 +669,12 @@ if SPEAKER_GRILLE_ENABLED:
     assert min(SPEAKER_SLOT_W,SPEAKER_SLOT_H,SPEAKER_SLOT_WEB)>0
     grille_span=SPEAKER_SLOT_COUNT*SPEAKER_SLOT_W+(SPEAKER_SLOT_COUNT-1)*SPEAKER_SLOT_WEB
     assert grille_span<=speaker_open_w-1 and SPEAKER_SLOT_H<=speaker_open_h-1,'出音孔越过振膜区域或胶粘边框'
+    assert abs(SPEAKER_SLOT_OFFSET_S)+SPEAKER_SLOT_H/2<=speaker_open_h/2-.1
+    assert abs(SPEAKER_SLOT_OFFSET_X)+grille_span/2<=speaker_open_w/2-.1
     for index in range(SPEAKER_SLOT_COUNT):
-        offset=(index-(SPEAKER_SLOT_COUNT-1)/2)*(SPEAKER_SLOT_W+SPEAKER_SLOT_WEB)
+        offset=SPEAKER_SLOT_OFFSET_X+(index-(SPEAKER_SLOT_COUNT-1)/2)*(SPEAKER_SLOT_W+SPEAKER_SLOT_WEB)
         slot=speaker_box(SPEAKER_SLOT_W,SPEAKER_SLOT_H,0,60,SPEAKER_SLOT_W/2-.001,offset)
+        slot.translate(speaker_up*SPEAKER_SLOT_OFFSET_S)
         assert slot.common(speaker_tape).Volume<.001
         assert slot.common(bottom_band).Volume<.001,'出音孔切断底环'
         speaker_slot_volumes.append(slot.common(rear).Volume)
@@ -610,6 +702,48 @@ speaker_conflicts = Part.makeCompound(speaker_conflict_shapes) if speaker_confli
 speaker_clearance = {name:round(speaker_ref.distToShape(v)[0],4) for name,v in speaker_obstacles[:4]}
 print('speaker body fits:',speaker_body_fits,'layout clearance fits:',speaker_layout_fits,flush=True)
 print('speaker envelope conflicts:',speaker_envelope_overlaps,flush=True)
+assert speaker_body_fits and speaker_layout_fits,'喇叭本体或完整安装预留存在冲突'
+# 假定 2 mm 线束的连通走线通道；末端接入已有插头收线区。
+speaker_route_points=[speaker_face+X*(SPEAKER_W/2+SPEAKER_WIRE_GAP/2)-speaker_axis*(SPEAKER_THICKNESS/2)]
+speaker_route_points += [plate_point(*v) for v in [(15,14.5,30.5),(12,15,27.5),(6.5,16.5,23.5),(6.5,16.5,20)]]
+speaker_route_shapes=[]
+for point in speaker_route_points:
+    speaker_route_shapes.append(Part.makeSphere(SPEAKER_CABLE_DIAMETER/2,point))
+for a,b in zip(speaker_route_points,speaker_route_points[1:]):
+    vector=b-a
+    speaker_route_shapes.append(Part.makeCylinder(SPEAKER_CABLE_DIAMETER/2,vector.Length,a,vector))
+speaker_wire_route=speaker_route_shapes[0].multiFuse(speaker_route_shapes[1:]).removeSplitter()
+speaker_route_overlaps={name:round(speaker_wire_route.common(v).Volume,6)
+    for name,v in [('rear',rear),('carrier',carrier),('battery',battery_ref),('module',module_ref)]}
+assert max(speaker_route_overlaps.values())<.01,'喇叭走线通道干涉：'+str(speaker_route_overlaps)
+assert speaker_wire_route.common(speaker_ref).Volume<.01,'线束通道穿过喇叭本体'
+assert all(speaker_wire_route.common(v).Volume<.01 for v in lock_heads+lock_shafts+lock_nuts+lock_tools+original_heads)
+assert speaker_wire_route.common(speaker_wire_reserve).Volume>.01
+assert speaker_wire_route.common(Part.makeCompound(wire_refs)).Volume>.01
+speaker_route_length=sum((b-a).Length for a,b in zip(speaker_route_points,speaker_route_points[1:]))
+# 实际层中心的实体见证点，用于检查细定位墙、胶面和格栅筋有无被切片省略。
+speaker_print_witnesses={}
+def add_print_witnesses(name,x,y,n0,n1):
+    center=speaker_face+X*x+speaker_up*y
+    low,high=sorted([(center+speaker_axis*n0).z,(center+speaker_axis*n1).z])
+    points=[]
+    for layer in range(max(1,int(low/.2)+1),int(high/.2)+2):
+        z=layer*.2-.1
+        n=(z-center.z)/speaker_axis.z
+        if n0+.05<n<n1-.05:
+            point=center+speaker_axis*n
+            if rear.isInside(point,.001,False):
+                points.append({'layer_z_mm':round(layer*.2,3),'point_mm':[point.x,point.y,point.z]})
+    assert len(points)>=3,'打印功能区采样不足：'+name
+    speaker_print_witnesses[name]=points
+for index,(x0,x1,y0,y1) in enumerate(locator_bounds):
+    add_print_witnesses('locator_%d'%index,(x0+x1)/2,(y0+y1)/2,-1.8,1.4)
+for sx in (-1,1):
+    for sy in (-1,1):
+        add_print_witnesses('tape_%s_%s'%(sx,sy),sx*(SPEAKER_W/2-.4),sy*(SPEAKER_H/2-2),1,4)
+for index in range(SPEAKER_SLOT_COUNT-1):
+    x=SPEAKER_SLOT_OFFSET_X+(index-(SPEAKER_SLOT_COUNT-2)/2)*(SPEAKER_SLOT_W+SPEAKER_SLOT_WEB)
+    add_print_witnesses('grille_web_%d'%index,x,SPEAKER_SLOT_OFFSET_S,1,20)
 
 carrier_obj = add_feature(doc, "Mount_Carrier", carrier, (0.83, 0.84, 0.82))
 rear_obj = add_feature(doc, "Rear_Cover", rear, (0.66, 0.69, 0.69))
@@ -621,6 +755,7 @@ for name,shape,color in (
     ('Speaker_Tape_Reference',speaker_tape,(.65,.38,.76)),
     ('Speaker_Air_Reference',speaker_air,(.3,.75,.8)),
     ('Speaker_Wire_Reserve_Reference',speaker_wire_reserve,(.9,.45,.2)),
+    ('Speaker_Wire_Route_Reference',speaker_wire_route,(.9,.45,.2)),
     ('Speaker_Clearance_Reference',speaker_envelope,(.3,.7,.8)),
     ('Speaker_Sound_Zone_Reference',speaker_sound_zone,(.95,.72,.24)),
 ):
@@ -753,6 +888,7 @@ for travel in (0, 0.25, 0.5, 1.0, 2.0, 3.0, 4.0, 8.0, 12.0, 20.0):
     moving_speaker.translate(-N*travel)
     speaker_closing_checks.append({'travel_mm':travel,'overlap_mm3':round(sum(
         moving_speaker.common(v).Volume for v in [carrier,battery_ref,module_ref]+connector_refs+wire_refs),5)})
+assert all(v['overlap_mm3']<.01 for v in speaker_closing_checks),'喇叭随后壳开合时干涉'
 print("insertion and closing connector clearance: passed")
 # 旧通用粘贴区只是参考，新扬声器台可能占用它；单独报告而不当作实体装配失败。
 adhesive_zone_clear=adhesive_ref.common(rear).Volume < .01
@@ -809,6 +945,10 @@ metrics = {
     "cavity_volume_cm3": cavity.Volume / 1000,
     "cavity_after_carrier_cm3": outer_envelope.cut(rear).cut(carrier).common(above_floor).Volume / 1000,
     "shell_bbox_mm": [actual_box.XLength, actual_box.YLength, actual_box.ZLength],
+    "shell_depth_extension_mm":SHELL_DEPTH_EXTENSION,
+    "shell_rear_bulge_parameter_mm":SHELL_REAR_BULGE,
+    "module_vertical_raise_mm":SHELL_DEPTH_EXTENSION*COS,
+    "module_back_bottom_clearance_mm":MODULE_BOTTOM_CLEARANCE+SHELL_DEPTH_EXTENSION*COS,
     "cavity_bbox_mm": [cavity_box.XLength, cavity_box.YLength, cavity_box.ZLength],
     "sampled_side_wall_min_mm": min(wall_samples),
     "side_wall_sample_count": len(wall_samples),
@@ -827,6 +967,12 @@ metrics = {
         "tilt_deg":SPEAKER_TILT_DEG,
         "tape_thickness_mm":SPEAKER_TAPE_T,
         "tape_ring_width_mm":SPEAKER_TAPE_RING_W,
+        "tape_pattern":"四角 L 形，各臂 4 mm、宽 0.8 mm；不按整圈贴胶",
+        "tape_patch_count":len(speaker_tape_patches),
+        "tape_total_area_mm2":speaker_tape.Volume/SPEAKER_TAPE_T,
+        "locator_count":len(speaker_locators),
+        "locator_gap_mm":SPEAKER_LOCATOR_GAP,
+        "locator_wall_mm":SPEAKER_LOCATOR_T,
         "front_gap_mm":SPEAKER_FRONT_GAP,
         "wire_gap_mm":SPEAKER_WIRE_GAP,
         "side_gap_mm":SPEAKER_SIDE_GAP,
@@ -844,15 +990,19 @@ metrics = {
                   "slot_length_mm":SPEAKER_SLOT_H,"web_width_mm":SPEAKER_SLOT_WEB,
                   "removed_volumes_mm3":[round(v,4) for v in speaker_slot_volumes],
                   "through_holes_verified":all(slot.common(rear).Volume<.001 for slot in speaker_slots)},
-        "wire_route_verified":False,
+        "wire_route_verified":True,
+        "wire_route_assumed_diameter_mm":SPEAKER_CABLE_DIAMETER,
+        "wire_route_length_mm":speaker_route_length,
+        "wire_route_overlaps_mm3":speaker_route_overlaps,
+        "print_witnesses":speaker_print_witnesses,
         "maintenance_lead_requires_physical_check":True,
-        "note":"接线预留按整个矩形背面保守包络；粘贴面与胶框贴合，扬声器未计入倾覆估算；实际端子、振膜和胶框待实物确认。",
+        "note":"30×20×7 mm、短边侧出线；四角窄 L 形胶区，定位处间隙 0.3 mm，其余周边 1 mm。几何走线按 2 mm 线束检查；实际线径、弯曲半径、维护余量和角部胶区仍待实物确认，扬声器未计入倾覆估算。",
     },
     "wire_bend_requires_physical_check": True,
 }
 
 # 预览辅助网格只存在本地 archive，参考体不混入打印文件。
-preview_dir = os.path.join(SCRIPT_DIR, "archive", "preview_meshes")
+preview_dir = PREVIEW_DIR
 os.makedirs(preview_dir, exist_ok=True)
 section_shape = rear.common(Part.makeBox(100, 200, 100, App.Vector(0, -100, 0)))
 section_half=Part.makeBox(100,200,100,App.Vector(0,-100,0))
@@ -863,6 +1013,7 @@ for name, shape in (("section", section_shape), ("battery_reference", battery_re
                     ("speaker_reference",speaker_ref), ("speaker_tape",speaker_tape),
                     ("speaker_diaphragm",speaker_diaphragm), ("speaker_air",speaker_air),
                     ("speaker_wire_reserve",speaker_wire_reserve), ("speaker_envelope",speaker_envelope),
+                    ("speaker_wire_route",speaker_wire_route),
                     ("speaker_sound_zone",speaker_sound_zone),
                     ("connector_reference", Part.makeCompound(connector_refs)),
                     ("wire_reference", Part.makeCompound(wire_refs)),
@@ -874,11 +1025,13 @@ if speaker_conflicts:
     mesh=MeshPart.meshFromShape(Shape=speaker_conflicts,LinearDeflection=.1,AngularDeflection=.3)
     mesh.write(os.path.join(preview_dir,'speaker_conflicts.stl'))
 
-fit_dir=os.path.join(SCRIPT_DIR,'archive','fit_samples')
+fit_dir=FIT_DIR
 os.makedirs(fit_dir,exist_ok=True)
 samples={'nut_pocket':carrier.common(axial_box(-12,-2,-21,-7,13.8,19)),
          'guide_tongue':carrier.common(axial_box(19,24,-6,6,12.1,20.1)),
          'guide_socket':rear.common(axial_box(19,25.2,-6,6,16.5,22))}
+samples['speaker_mount']=rear.common(speaker_rect(-SPEAKER_W/2-3,SPEAKER_W/2+3,
+    -SPEAKER_H/2-3,SPEAKER_H/2+3,-2.1,8))
 for name,shape in samples.items():
     assert shape.isValid() and len(shape.Solids)==1,'试装件不连通：'+name
     shape=shape.copy()

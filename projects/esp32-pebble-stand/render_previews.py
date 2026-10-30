@@ -3,6 +3,7 @@
 import ast
 import json
 import math
+import os
 import struct
 from pathlib import Path
 
@@ -10,7 +11,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parent
-OUT = ROOT / "output"
+OUT = Path(os.environ.get('S3_OUTPUT_DIR', ROOT / 'output'))
+AUX = Path(os.environ.get('S3_PREVIEW_DIR', ROOT / 'archive' / 'preview_meshes'))
 SOURCE = ast.parse((ROOT / "stand.py").read_text(encoding="utf-8"))
 PARAMS = {}
 for node in SOURCE.body:
@@ -26,7 +28,8 @@ ANGLE = math.radians(PARAMS["TILT_DEG"])
 SIN, COS = math.sin(ANGLE), math.cos(ANGLE)
 MODULE_R = PARAMS["MODULE_R"]
 MODULE_DEPTH = PARAMS["MODULE_DEPTH"]
-PZ = PARAMS["MODULE_BOTTOM_CLEARANCE"] + MODULE_R * SIN + MODULE_DEPTH * COS
+PZ = PARAMS["MODULE_BOTTOM_CLEARANCE"] + MODULE_R * SIN + MODULE_DEPTH * COS + PARAMS['SHELL_DEPTH_EXTENSION']*COS
+PY = -PARAMS['SHELL_DEPTH_EXTENSION']*SIN
 NORMAL = (0.0, -SIN, COS)
 
 
@@ -54,14 +57,14 @@ def unit(a):
 def module_point(radius, theta, depth):
     return (
         radius * math.cos(theta),
-        radius * math.sin(theta) * COS + depth * SIN,
+        PY + radius * math.sin(theta) * COS + depth * SIN,
         PZ + radius * math.sin(theta) * SIN - depth * COS,
     )
 
 
 def module_triangles():
     triangles = []
-    front = (0.0, 0.0, PZ)
+    front = (0.0, PY, PZ)
     back = module_point(0, 0, MODULE_DEPTH)
     for i in range(96):
         a = 2 * math.pi * i / 96
@@ -82,7 +85,7 @@ def carrier_to_assembly(point):
     x, y, z = point
     s = y - PZ * SIN
     n = PARAMS["CARRIER_BACK_N"] - z
-    return (x, s * COS + n * SIN, PZ + s * SIN - n * COS)
+    return (x, PY + s * COS + n * SIN, PZ + s * SIN - n * COS)
 
 
 def read_stl(name, color, transform=None):
@@ -166,13 +169,17 @@ def render(filename, triangles, camera):
                     pixels_out[px, py] = tuple(
                         int(channel * 0.78) for channel in pixels_out[px, py]
                     )
+    if filename == 'preview_front.png':
+        exposed=sum(depths[y*width+x]!=-float('inf') and max(pixels_out[x,y])>70
+                    for y in range(width) for x in range(width))
+        assert exposed==0,'正面可见打印件像素：'+str(exposed)
     canvas.save(OUT / filename)
     print(filename)
 
 
 rear = read_stl("rear_cover.stl", (186, 194, 191))
 carrier_print = read_stl("mount_carrier.stl", (140, 153, 152))
-carrier = read_stl(ROOT / "archive" / "preview_meshes" / "carrier_reference.stl", (140, 153, 152))
+carrier = read_stl(AUX / "carrier_reference.stl", (140, 153, 152))
 module = module_triangles()
 assembled = rear + carrier + module
 render("preview_iso.png", assembled, (1.0, -1.0, 0.75))
@@ -186,7 +193,7 @@ render("preview_cover_inside.png", rear, NORMAL)
 render("preview_pocket.png", carrier_print, (0.0, 0.0, 1.0))
 
 # 辅助几何由同一参数化建模脚本导出，保持与 CAD 一致。
-aux = ROOT / "archive" / "preview_meshes"
+aux = AUX
 battery = read_stl(aux / "battery_reference.stl", (91, 168, 104))
 plugs = read_stl(aux / "connector_reference.stl", (235, 182, 65))
 wires = read_stl(aux / "wire_reference.stl", (205, 101, 65))
@@ -197,11 +204,12 @@ speaker_tape = read_stl(aux / 'speaker_tape.stl', (167,97,194))
 speaker_diaphragm = read_stl(aux / 'speaker_diaphragm.stl', (239,183,61))
 speaker_zone = read_stl(aux / 'speaker_sound_zone.stl', (239,183,61))
 speaker_wire = read_stl(aux / 'speaker_wire_reserve.stl', (225,120,60))
+speaker_route = read_stl(aux / 'speaker_wire_route.stl', (225,120,60))
 # 振膜参考面与本体端面共面，预览直接给本体前端面着色，避免重复绘面闪烁。
 speaker_pitch=math.radians(PARAMS['SPEAKER_TILT_DEG'])
 speaker_axis=(0,SIN*math.cos(speaker_pitch)+COS*math.sin(speaker_pitch),
               -COS*math.cos(speaker_pitch)+SIN*math.sin(speaker_pitch))
-speaker_face=(PARAMS['SPEAKER_OFFSET_X'],PARAMS['SPEAKER_OFFSET_S']*COS+PARAMS['SPEAKER_FRONT_N']*SIN,
+speaker_face=(PARAMS['SPEAKER_OFFSET_X'],PY+PARAMS['SPEAKER_OFFSET_S']*COS+PARAMS['SPEAKER_FRONT_N']*SIN,
               PZ+PARAMS['SPEAKER_OFFSET_S']*SIN-PARAMS['SPEAKER_FRONT_N']*COS)
 speaker=[(v,(239,183,61) if all(abs(dot(sub(p,speaker_face),speaker_axis))<.001 for p in v) else c)
          for v,c in speaker]
@@ -213,11 +221,11 @@ conflicts = read_stl(aux/'speaker_conflicts.stl',(235,38,104)) if not layout_rep
 section = read_stl(aux / "section.stl", (186, 194, 191))
 render("preview_section.png", section + carrier + battery + plugs + wires + adhesive + fasteners,
        (-1.0, -0.3, 0.3))
-render("preview_installation.png", carrier + battery + plugs + wires + speaker_body + fasteners,
+render("preview_installation.png", carrier + battery + plugs + wires + speaker_body + speaker_route + fasteners,
        tuple(-v for v in NORMAL))
-render('preview_speaker_layout.png',carrier+battery+plugs+wires+speaker_body+fasteners,
+render('preview_speaker_layout.png',carrier+battery+plugs+wires+speaker_body+speaker_route+fasteners,
        (-.65,1,-.35))
-render('preview_speaker_conflicts.png',carrier+battery+speaker_wire+conflicts,
+render('preview_speaker_conflicts.png',carrier+battery+speaker_wire+speaker_route+conflicts,
        (-.9,1,-.3))
 render('preview_speaker_rear.png',rear,(0,1,-.35))
 render('preview_grille.png',rear,tuple(-v for v in speaker_axis))

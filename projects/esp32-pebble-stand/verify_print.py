@@ -2,15 +2,17 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 import struct
 import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
+from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses
 
 ROOT = Path(__file__).resolve().parent
-OUT = ROOT / 'output'
-CACHE = ROOT / 'archive' / 'print_check'
+OUT = Path(os.environ.get('S3_OUTPUT_DIR', ROOT / 'output'))
+CACHE = Path(os.environ.get('S3_PRINT_CACHE_DIR', ROOT / 'archive' / 'print_check'))
 
 
 def main():
@@ -64,33 +66,25 @@ def main():
     for i in range(struct.unpack_from('<I', data, 80)[0]):
         values = struct.unpack_from('<12f', data, 84 + i * 50)
         vertices.extend((values[3:6], values[6:9], values[9:12]))
-    dx = box['x'] - min(v[0] for v in vertices)
-    dy = box['y'] - min(v[1] for v in vertices)
-    x = y = layer = 0
-    feature = ''
     paths = {}
+    material_paths = {}
     gcode = (cache / 'plate_1.gcode').read_text(encoding='utf-8')
+    raw_layers,support_volume=read_extrusions(gcode,0,0)
+    layers,alignment=align_extrusions(read_mesh(data),raw_layers,box)
     support_moves=0
     support_layers=set()
     model_layers=set()
-    for line in gcode.splitlines():
-        if line.startswith('; Z_HEIGHT:'):
-            layer = round(float(line.split(':')[1]), 3)
-            paths.setdefault(layer, [])
-        if line.startswith('; FEATURE:'):
-            feature = line.split(':', 1)[1].strip()
-        if not line.startswith(('G0 ', 'G1 ')):
-            continue
-        values = {k: float(v) for k, v in re.findall(r'([XYE])([-+\d.]+)', line.split(';')[0])}
-        nx, ny = values.get('X', x), values.get('Y', y)
-        if values.get('E',0)>0 and 'support' in feature.lower() and (nx!=x or ny!=y):
-            support_moves+=1
-            support_layers.add(layer)
-        if values.get('E',0)>0 and feature not in ('Custom','Skirt','Brim') and 'support' not in feature.lower() and (nx!=x or ny!=y):
-            model_layers.add(layer)
-        if values.get('E', 0) > 0 and 'wall' in feature.lower() and (nx != x or ny != y):
-            paths.setdefault(layer, []).append(((x-dx, y-dy), (nx-dx, ny-dy), feature))
-        x, y = nx, ny
+    for z,segments in layers.items():
+        paths.setdefault(z,[])
+        for a,b,feature,width in segments:
+            if 'support' in feature.lower():
+                support_moves+=1
+                support_layers.add(z)
+            else:
+                model_layers.add(z)
+                material_paths.setdefault(z,[]).append((a,b))
+                if 'wall' in feature.lower():
+                    paths[z].append((a,b,feature))
     # 支撑界面可能在本体层之间插入独立层，这些层没有本体壳壁是正常情况。
     assert paths and all(z in model_layers or z in support_layers for z in paths), '存在既无本体也无支撑的空层'
     object_paths={z:segments for z,segments in paths.items() if segments}
@@ -117,6 +111,10 @@ def main():
             probes.append({'x_mm': probe_x, 'z_mm': z, 'wall_crossings': len(crossings)})
     assert len(probes) == (0 if is_carrier else 62), '层高或测试范围发生变化，需重新定义验证截线'
     assert support_moves>0,'打印件需要支撑，但没有生成支撑路径'
+    witness_checks={}
+    if not is_carrier:
+        witnesses=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))['speaker_layout']['print_witnesses']
+        witness_checks=audit_witnesses(layers,witnesses)
     report = {'stl_sha256': hashlib.sha256(data).hexdigest(), 'slicer': 'Bambu Studio',
               'printer_profile': names[0][1], 'filament_profile': names[2][1],
               'nozzle_mm': 0.4, 'layer_height_mm': 0.2, 'wall_loops': 4,
@@ -130,6 +128,8 @@ def main():
               'min_wall_crossings': min((p['wall_crossings'] for p in probes),default=None),
               'warning_message': plate['warning_message'], 'lower_edge_probes': probes,
               'physical_print_verified': False,
+              'speaker_feature_checks':witness_checks,
+              'plate_alignment':alignment,'support_extrusion_volume_mm3':support_volume,
               'note': '参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。'}
     report_name='carrier_print_validation.json' if is_carrier else 'print_validation.json'
     (OUT / report_name).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')

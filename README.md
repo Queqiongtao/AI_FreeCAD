@@ -6,7 +6,7 @@
 
 | 项目 | 说明 | 状态 |
 | --- | --- | --- |
-| [ESP32-S3-Touch-AMOLED-1.75-B 鹅卵石底座](projects/esp32-pebble-stand/) | 40° 屏幕，加固承托架＋螺丝后壳，矩形扬声器胶粘框及出音格栅 | 试制：扬声器完整预留待调整 |
+| [ESP32-S3-Touch-AMOLED-1.75-B 鹅卵石底座](projects/esp32-pebble-stand/) | 40° 屏幕，加固承托架＋螺丝后壳，30×20×7 mm 扬声器四角胶粘、侧向定位及出音格栅 | 待实物试印、贴胶和整机装配 |
 | [微雪 ESP32-P4-WIFI6-Touch-LCD-3.4C 桌面外壳](projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/) | 两件式：承托架复用原板 M2.5 固定点＋连续后盖；喇叭独立锁盖；40°、正面完全隐藏 | 正式输出已同步，待实物试印 |
 
 ![ESP32 鹅卵石底座](projects/esp32-pebble-stand/output/preview_iso.png)
