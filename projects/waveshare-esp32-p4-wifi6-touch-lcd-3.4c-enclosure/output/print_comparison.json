@@ -1,0 +1,75 @@
+{
+  "materials": {
+    "pla": {
+      "parts": {
+        "main_shell": {
+          "baseline_stl_sha256": "81388dc45c9e16da9e67c6f2ad461e64ebbb3e03a0be2e34edc454a73aa744bf",
+          "current_stl_sha256": "ab73e8cf3e4d0d0048a800747cb8cc398de53a3a82dc050187ffe88c5844d9cd",
+          "baseline_support_mm3": 1639.3989478501364,
+          "current_support_mm3": 1616.8574879625064,
+          "reduction_percent": 1.3749831861970097,
+          "longest_unsupported_wall_mm": 1.8129999999999882,
+          "functional_core_checks_passed": true
+        },
+        "rear_cover": {
+          "baseline_stl_sha256": "326f523e991fa23fd88fba825907d3ea503c080cf348df2bf2928b0522dbd19f",
+          "current_stl_sha256": "b007fb9033176e96d4af52cfa48cd0701ef8bd397e53968ee9bcfaeeb0937142",
+          "baseline_support_mm3": 10438.593743478581,
+          "current_support_mm3": 9179.938481199812,
+          "reduction_percent": 12.057709047879205,
+          "longest_unsupported_wall_mm": 3.6000001388888956,
+          "functional_core_checks_passed": true
+        }
+      },
+      "baseline_total_support_mm3": 12077.992691328718,
+      "current_total_support_mm3": 10796.795969162318,
+      "total_reduction_percent": 10.607695789435468,
+      "identical_settings": {
+        "printer_profile": "Prusa MK3S 0.4 nozzle",
+        "nozzle_mm": 0.4,
+        "layer_height_mm": 0.2,
+        "wall_loops": 4,
+        "support_type": "normal(auto)",
+        "support_threshold_angle_deg": 45,
+        "support_top_gap_mm": 0.2,
+        "brim_width_mm": 5
+      }
+    },
+    "petg": {
+      "parts": {
+        "main_shell": {
+          "baseline_stl_sha256": "81388dc45c9e16da9e67c6f2ad461e64ebbb3e03a0be2e34edc454a73aa744bf",
+          "current_stl_sha256": "ab73e8cf3e4d0d0048a800747cb8cc398de53a3a82dc050187ffe88c5844d9cd",
+          "baseline_support_mm3": 1581.4265554552974,
+          "current_support_mm3": 1559.8414115884982,
+          "reduction_percent": 1.3649159862871296,
+          "longest_unsupported_wall_mm": 1.8129999999999882,
+          "functional_core_checks_passed": true
+        },
+        "rear_cover": {
+          "baseline_stl_sha256": "326f523e991fa23fd88fba825907d3ea503c080cf348df2bf2928b0522dbd19f",
+          "current_stl_sha256": "b007fb9033176e96d4af52cfa48cd0701ef8bd397e53968ee9bcfaeeb0937142",
+          "baseline_support_mm3": 10019.30493480165,
+          "current_support_mm3": 8851.590277416546,
+          "reduction_percent": 11.654647353122217,
+          "longest_unsupported_wall_mm": 3.6000001388888956,
+          "functional_core_checks_passed": true
+        }
+      },
+      "baseline_total_support_mm3": 11600.731490256947,
+      "current_total_support_mm3": 10411.431689005045,
+      "total_reduction_percent": 10.251938011415518,
+      "identical_settings": {
+        "printer_profile": "Prusa MK3S 0.4 nozzle",
+        "nozzle_mm": 0.4,
+        "layer_height_mm": 0.2,
+        "wall_loops": 4,
+        "support_type": "normal(auto)",
+        "support_threshold_angle_deg": 45,
+        "support_top_gap_mm": 0.24,
+        "brim_width_mm": 5
+      }
+    }
+  },
+  "physical_print_verified": false
+}

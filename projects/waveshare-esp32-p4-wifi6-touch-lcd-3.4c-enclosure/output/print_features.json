@@ -1,0 +1,684 @@
+{
+  "tilt_deg": 40.0,
+  "front_z_mm": 61.0,
+  "frame_back_n_mm": 26.0,
+  "frame_print_y_offset_mm": 39.2100441908789,
+  "features": [
+    {
+      "name": "m4_seat_0",
+      "part": "main_shell",
+      "bounds": [
+        -43.1,
+        -31.9,
+        -43.1,
+        -31.9,
+        6.4,
+        19.95
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "m4",
+        "x": -37.5,
+        "s": -37.5
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "m4_seat_1",
+      "part": "main_shell",
+      "bounds": [
+        -43.1,
+        -31.9,
+        31.9,
+        43.1,
+        6.4,
+        19.95
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "m4",
+        "x": -37.5,
+        "s": 37.5
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "m4_seat_2",
+      "part": "main_shell",
+      "bounds": [
+        31.9,
+        43.1,
+        -43.1,
+        -31.9,
+        6.4,
+        19.95
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "m4",
+        "x": 37.5,
+        "s": -37.5
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "m4_seat_3",
+      "part": "main_shell",
+      "bounds": [
+        31.9,
+        43.1,
+        31.9,
+        43.1,
+        6.4,
+        19.95
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "m4",
+        "x": 37.5,
+        "s": 37.5
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "nut_pocket_0",
+      "part": "main_shell",
+      "bounds": [
+        -27.6,
+        -16.4,
+        -41.7,
+        -28.9,
+        16.05,
+        26.01
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "m3_seat_0",
+      "part": "rear_cover",
+      "bounds": [
+        -27.7,
+        -16.3,
+        -43.7,
+        -32.3,
+        29.55,
+        34.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "nut_pocket_1",
+      "part": "main_shell",
+      "bounds": [
+        16.4,
+        27.6,
+        -41.7,
+        -28.9,
+        16.05,
+        26.01
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "m3_seat_1",
+      "part": "rear_cover",
+      "bounds": [
+        16.3,
+        27.7,
+        -43.7,
+        -32.3,
+        29.55,
+        34.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_pin_0",
+      "part": "main_shell",
+      "bounds": [
+        -47.7,
+        -42.3,
+        -20.7,
+        -15.3,
+        22.05,
+        25.8
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_base_0",
+      "part": "main_shell",
+      "bounds": [
+        -49.7,
+        -40.3,
+        -22.7,
+        -13.3,
+        19.650000000000002,
+        21.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_pressure_0",
+      "part": "rear_cover",
+      "bounds": [
+        -50.0,
+        -40.0,
+        -23.0,
+        -13.0,
+        43.150000000000006,
+        45.0
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": [
+        -45.0,
+        -18.0,
+        3.2,
+        4.5
+      ]
+    },
+    {
+      "name": "speaker_pin_1",
+      "part": "main_shell",
+      "bounds": [
+        -47.7,
+        -42.3,
+        15.3,
+        20.7,
+        22.05,
+        25.8
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_base_1",
+      "part": "main_shell",
+      "bounds": [
+        -49.7,
+        -40.3,
+        13.3,
+        22.7,
+        19.650000000000002,
+        21.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_pressure_1",
+      "part": "rear_cover",
+      "bounds": [
+        -50.0,
+        -40.0,
+        13.0,
+        23.0,
+        43.150000000000006,
+        45.0
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": [
+        -45.0,
+        18.0,
+        3.2,
+        4.5
+      ]
+    },
+    {
+      "name": "speaker_pin_2",
+      "part": "main_shell",
+      "bounds": [
+        42.3,
+        47.7,
+        -20.7,
+        -15.3,
+        22.05,
+        25.8
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_base_2",
+      "part": "main_shell",
+      "bounds": [
+        40.3,
+        49.7,
+        -22.7,
+        -13.3,
+        19.650000000000002,
+        21.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_pressure_2",
+      "part": "rear_cover",
+      "bounds": [
+        40.0,
+        50.0,
+        -23.0,
+        -13.0,
+        43.150000000000006,
+        45.0
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": [
+        45.0,
+        -18.0,
+        3.2,
+        4.5
+      ]
+    },
+    {
+      "name": "speaker_pin_3",
+      "part": "main_shell",
+      "bounds": [
+        42.3,
+        47.7,
+        15.3,
+        20.7,
+        22.05,
+        25.8
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_base_3",
+      "part": "main_shell",
+      "bounds": [
+        40.3,
+        49.7,
+        13.3,
+        22.7,
+        19.650000000000002,
+        21.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_pressure_3",
+      "part": "rear_cover",
+      "bounds": [
+        40.0,
+        50.0,
+        13.0,
+        23.0,
+        43.150000000000006,
+        45.0
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": [
+        45.0,
+        18.0,
+        3.2,
+        4.5
+      ]
+    },
+    {
+      "name": "locator_socket_0",
+      "part": "main_shell",
+      "bounds": [
+        50.8,
+        57.1,
+        -8.2,
+        8.2,
+        16.7,
+        26.01
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "slot",
+        "angle": 0
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "locator_tongue_0",
+      "part": "rear_cover",
+      "bounds": [
+        52.1,
+        56.2,
+        -4.0,
+        4.0,
+        23.1,
+        29.4
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "locator_socket_90",
+      "part": "main_shell",
+      "bounds": [
+        -8.199999999999996,
+        8.200000000000003,
+        50.8,
+        57.1,
+        16.7,
+        26.01
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "slot",
+        "angle": 90
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "locator_tongue_90",
+      "part": "rear_cover",
+      "bounds": [
+        -3.999999999999997,
+        4.0000000000000036,
+        52.1,
+        56.2,
+        23.1,
+        29.4
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "locator_socket_180",
+      "part": "main_shell",
+      "bounds": [
+        -57.1,
+        -50.8,
+        -8.199999999999992,
+        8.200000000000006,
+        16.7,
+        26.01
+      ],
+      "space": "local",
+      "cross": {
+        "kind": "slot",
+        "angle": 180
+      },
+      "contact_annulus": null
+    },
+    {
+      "name": "locator_tongue_180",
+      "part": "rear_cover",
+      "bounds": [
+        -56.2,
+        -52.1,
+        -3.999999999999994,
+        4.000000000000007,
+        23.1,
+        29.4
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_-33",
+      "part": "rear_cover",
+      "bounds": [
+        -34.65,
+        -31.35,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_-27",
+      "part": "rear_cover",
+      "bounds": [
+        -28.65,
+        -25.35,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_-21",
+      "part": "rear_cover",
+      "bounds": [
+        -22.65,
+        -19.35,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_-15",
+      "part": "rear_cover",
+      "bounds": [
+        -16.65,
+        -13.35,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_-9",
+      "part": "rear_cover",
+      "bounds": [
+        -10.65,
+        -7.35,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_-3",
+      "part": "rear_cover",
+      "bounds": [
+        -4.65,
+        -1.35,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_3",
+      "part": "rear_cover",
+      "bounds": [
+        1.35,
+        4.65,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_9",
+      "part": "rear_cover",
+      "bounds": [
+        7.35,
+        10.65,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_15",
+      "part": "rear_cover",
+      "bounds": [
+        13.35,
+        16.65,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_21",
+      "part": "rear_cover",
+      "bounds": [
+        19.35,
+        22.65,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_27",
+      "part": "rear_cover",
+      "bounds": [
+        25.35,
+        28.65,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "grille_web_33",
+      "part": "rear_cover",
+      "bounds": [
+        31.35,
+        34.65,
+        -11,
+        11,
+        48,
+        110
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "bottom_ring",
+      "part": "rear_cover",
+      "bounds": [
+        -49,
+        49,
+        -18,
+        68,
+        0,
+        0.51
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "cable_tie_bridge",
+      "part": "rear_cover",
+      "bounds": [
+        17.9,
+        28.1,
+        56.0,
+        78.0,
+        16,
+        24.1
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "top_flat",
+      "part": "rear_cover",
+      "bounds": [
+        -20,
+        20,
+        42,
+        60,
+        90.21570017343012,
+        91.72570017343013
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "outlet",
+      "part": "rear_cover",
+      "bounds": [
+        -11,
+        11,
+        40,
+        150,
+        17,
+        31
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    }
+  ],
+  "method": "关键区域取 STL 中层截面，与实际线宽扩展后的 G-code 墙线比较；不以整层存在挤出代替局部检查。"
+}

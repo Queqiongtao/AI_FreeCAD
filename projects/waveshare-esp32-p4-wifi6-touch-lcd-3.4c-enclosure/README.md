@@ -2,7 +2,7 @@
 
 适配 [微雪 ESP32-P4-WIFI6-Touch-LCD-3.4C](https://www.waveshare.net/shop/ESP32-P4-WIFI6-Touch-LCD-3.4C.htm)。屏幕相对桌面 40°，保留原厂保护板、100×45×21 mm 音箱盒；正视时打印件隐藏于 Ø115 mm 模块后方，打印件最大投影 Ø114.4 mm。
 
-**本轮打印适配审阅：模型、预览和报告在 `archive/print_review/delivery/`，局部试装件在 `archive/print_review/fit_samples/`。正式 `output/` 保留，未提交；覆盖正式输出须用户同意。下方 `output/` 图片在发布前仍为原模型。**
+**正式 `output/` 已同步已验证的最新打印适配模型、预览及报告。使用 FreeCAD 直接打开 [output/enclosure.FCStd](output/enclosure.FCStd)；打印文件为同目录的 `main_shell.stl` 和 `rear_cover.stl`。局部试装件在 `archive/print_review/fit_samples/`，原正式输出已备份到 `archive/output_backups/`。**
 
 ## 两个打印件
 
@@ -66,8 +66,10 @@
 
 本轮 PLA/PETG 四次切片通过，承托架/后盖本体分别 99/459 层，最长连续无下层搭接墙段约 1.81 mm。相比加固审阅模型，同配置两件合计支撑挤出体积：PLA 从 12.078 降至 10.797 cm³（减少 10.6%），PETG 从 11.601 降至 10.411 cm³（减少 10.3%），详见 `print_comparison.json`。支撑降低不代表实物可拆性或材料强度已经验证。
 
-![承托架切片](output/preview_main_shell_print.png)
-![后盖切片](output/preview_rear_cover_print.png)
+![承托架 PETG 切片](output/preview_main_shell_petg_print.png)
+![后盖 PETG 切片](output/preview_rear_cover_petg_print.png)
+
+PLA 参考：[承托架切片](output/preview_main_shell_pla_print.png)、[后盖切片](output/preview_rear_cover_pla_print.png)。
 
 ## 生成和验证
 
@@ -82,7 +84,7 @@ py -3.10 verify_print.py --part rear_cover --material PETG
 py -3.10 -m unittest test_print_audit.py
 ```
 
-重建覆盖固定名称输出并涉及 FreeCAD 刷新，执行前须按根 `AGENT.md` 确认覆盖和未保存状态。审阅时可用 `P4_OUTPUT_DIR`、`P4_CACHE_DIR`、`P4_FIT_DIR`、`P4_PRINT_CACHE_DIR` 分别指定归档区的输出、预览网格、试装件及切片缓存，并另开文档保留原窗口。
+重建覆盖固定名称输出并涉及 FreeCAD 刷新，执行前须按根 `AGENT.md` 确认覆盖和未保存状态，默认复用当前工程的同一文档。可用 `P4_OUTPUT_DIR`、`P4_CACHE_DIR`、`P4_FIT_DIR`、`P4_PRINT_CACHE_DIR` 分别指定输出、预览网格、试装件及切片缓存；归档区的验证成果完成后应同步正式 `output/`，核对文件哈希并刷新正式文档。只有用户明确需要对比时，才另开审阅模型。
 
 交付 FCStd、仅含两打印实体的 STEP、两个 STL、预览、`validation.json`、`fit_validation.json`、`print_features.json`，以及两件分别对应 PLA/PETG 的四份 `*_pla_print_validation.json` / `*_petg_print_validation.json`。FCStd 另有完整原厂模块、音箱、软垫、插头/走线和紧固件参考体，不混入正式 STL/STEP。
 
