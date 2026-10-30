@@ -1,10 +1,11 @@
 import math
+import os
 import struct
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent
-OUT = ROOT / "output"
-CACHE = ROOT / "archive" / "preview_meshes"
+OUT = Path(os.environ.get('P4_OUTPUT_DIR', ROOT / 'output'))
+CACHE = Path(os.environ.get('P4_CACHE_DIR', ROOT / 'archive' / 'preview_meshes'))
 NORMAL = (0, -math.sin(math.radians(40)), math.cos(math.radians(40)))
 
 def dot(a, b):
@@ -118,11 +119,13 @@ frame = read_stl('main_shell.stl', (132,151,153))
 fasteners = read_stl('fasteners.stl', (192,144,63))
 module = read_stl('module.stl', (28,32,34))
 speaker = read_stl('speaker.stl', (66,117,86))
+pads = read_stl('pads.stl', (212,160,63))
 section = read_stl('section.stl', (181,194,191))
 assembly = rear+frame+module
 render('preview_front.png', assembly, NORMAL)
 front=Image.open(OUT/'preview_front.png').convert('RGB')
-exposed=sum(pixel!=(250,250,249) and max(pixel)>60 for pixel in front.getdata())
+pixels=front.get_flattened_data() if hasattr(front,'get_flattened_data') else front.getdata()
+exposed=sum(pixel!=(250,250,249) and max(pixel)>60 for pixel in pixels)
 assert exposed==0, '正面可见打印件像素：'+str(exposed)
 render('preview_iso.png', assembly, (1,-1,0.65))
 render('preview_rear.png', assembly, (0.5,1,0.65))
@@ -130,7 +133,7 @@ render('preview_side.png', assembly, (1,0,0.1))
 render('preview_bottom.png', rear, (0,0,-1))
 render('preview_cover_inside.png', rear, NORMAL)
 render('preview_section.png', section+frame+speaker+fasteners, (-1,-0.3,0.2))
-render('preview_speaker_mount.png', frame+speaker+fasteners, tuple(-v for v in NORMAL))
+render('preview_speaker_mount.png', frame+speaker+pads+fasteners, tuple(-v for v in NORMAL))
 render('preview_fastening.png', frame+fasteners, tuple(-v for v in NORMAL))
 
 def shifted(triangles, offset):
@@ -144,9 +147,9 @@ font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',18)
 for filename, caption in (
     ('preview_front.png','沿屏幕法线正视：打印结构全部隐藏在原模块轮廓后方'),
     ('preview_section.png','剖视：绿色为音箱占位；一体定位柱与后盖压耳，底板封闭'),
-    ('preview_exploded.png','两个打印件：主壳固定模块 → 放入音箱并接线 → 套后盖、锁两颗 M3'),
-    ('preview_fastening.png','主壳背面：四处 M4 模块固定座；下方两处捕获螺母和 M3 锁盖'),
-    ('preview_speaker_mount.png','音箱安装参考：100×45×21 mm；孔距 90×36 mm；Ø5 mm 定位柱'),
+    ('preview_exploded.png','两件式：内藏承托架 → 音箱及接线 → 连续外圈后盖、两颗 M3'),
+    ('preview_fastening.png','内藏承托架：四处小头 M4 模块座；下方捕获螺母；后侧平面落床'),
+    ('preview_speaker_mount.png','音箱 100×45×21；四根 Ø5 导向柱；黄色为后盖压紧软垫'),
 ):
     canvas=Image.open(OUT/filename)
     draw=ImageDraw.Draw(canvas)
