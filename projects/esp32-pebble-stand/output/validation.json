@@ -79,10 +79,10 @@
   "mouth_max_radius_mm": 25.200000000000006,
   "axial_joint_clearance_mm": 0.3000000000000007,
   "cavity_volume_cm3": 29.075048270103544,
-  "cavity_after_carrier_cm3": 27.20563349925602,
+  "cavity_after_carrier_cm3": 27.40799359630875,
   "shell_bbox_mm": [
     50.39890053368204,
-    50.74642191267205,
+    50.746401356862904,
     37.45951847817185
   ],
   "cavity_bbox_mm": [
@@ -95,11 +95,150 @@
   "bottom_z_mm": 0.0,
   "bottom_contact_samples_passed": 72,
   "bottom_ring_width_samples_passed": 288,
-  "minimum_tip_angle_without_speaker_deg": 37.196808786624146,
+  "minimum_tip_angle_without_speaker_deg": 36.940454100733824,
   "speaker_fitted": false,
+  "generic_adhesive_area_available": true,
+  "speaker_layout": {
+    "status": "矩形扬声器与格栅试制；完整预留仍有冲突",
+    "shape": "rounded_rectangle",
+    "body_dimensions_mm": [
+      20.0,
+      15.0,
+      5.0
+    ],
+    "corner_radius_mm": 1.0,
+    "front_center_x_s_n_mm": [
+      0.0,
+      8.0,
+      33.6
+    ],
+    "tilt_deg": 20.0,
+    "tape_thickness_mm": 0.8,
+    "tape_ring_width_mm": 1.5,
+    "front_gap_mm": 1.0,
+    "wire_gap_mm": 2.0,
+    "side_gap_mm": 1.0,
+    "body_fits": true,
+    "clearance_envelope_fits": false,
+    "body_clearances_mm": {
+      "rear_cover": 0.1605,
+      "battery": 0.7364,
+      "carrier": 9.9739,
+      "module": 14.2364
+    },
+    "body_overlaps_mm3": {
+      "rear_cover": 0.0,
+      "battery": 0.0,
+      "carrier": 0.0,
+      "module": 0.0,
+      "connector_0": 0.0,
+      "connector_1": 0.0,
+      "connector_2": 0.0,
+      "connector_3": 0.0,
+      "connector_4": 0.0,
+      "connector_5": 0.0,
+      "fastener_tool_0": 0.0,
+      "fastener_tool_1": 0.0,
+      "fastener_tool_2": 0.0,
+      "fastener_tool_3": 0.0,
+      "fastener_tool_4": 0.0,
+      "fastener_tool_5": 0.0,
+      "fastener_tool_6": 0.0,
+      "fastener_tool_7": 0.0,
+      "fastener_tool_8": 0.0,
+      "fastener_tool_9": 0.0,
+      "fastener_tool_10": 0.0
+    },
+    "envelope_overlaps_mm3": {
+      "rear_cover": 2.15863,
+      "battery": 74.31625,
+      "carrier": 0.0,
+      "module": 0.0,
+      "connector_0": 0.0,
+      "connector_1": 0.0,
+      "connector_2": 0.0,
+      "connector_3": 0.0,
+      "connector_4": 0.0,
+      "connector_5": 0.0,
+      "fastener_tool_0": 0.0,
+      "fastener_tool_1": 0.0,
+      "fastener_tool_2": 0.0,
+      "fastener_tool_3": 0.0,
+      "fastener_tool_4": 0.0,
+      "fastener_tool_5": 0.0,
+      "fastener_tool_6": 0.0,
+      "fastener_tool_7": 0.0,
+      "fastener_tool_8": 0.0,
+      "fastener_tool_9": 0.0,
+      "fastener_tool_10": 0.0
+    },
+    "closing_checks": [
+      {
+        "travel_mm": 0,
+        "overlap_mm3": 74.31625
+      },
+      {
+        "travel_mm": 0.25,
+        "overlap_mm3": 51.61194
+      },
+      {
+        "travel_mm": 0.5,
+        "overlap_mm3": 32.78393
+      },
+      {
+        "travel_mm": 1.0,
+        "overlap_mm3": 7.86094
+      },
+      {
+        "travel_mm": 2.0,
+        "overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 3.0,
+        "overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 4.0,
+        "overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 8.0,
+        "overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 12.0,
+        "overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 20.0,
+        "overlap_mm3": 0.0
+      }
+    ],
+    "mounting_pad_created": true,
+    "mounting_pad_border_mm": 2.5,
+    "tape_to_shell_distance_mm": 0.0,
+    "sound_holes_created": true,
+    "grille": {
+      "slot_count": 5,
+      "slot_width_mm": 1.6,
+      "slot_length_mm": 8.0,
+      "web_width_mm": 1.6,
+      "removed_volumes_mm3": [
+        88.7289,
+        88.7788,
+        88.771,
+        88.7788,
+        88.7289
+      ],
+      "through_holes_verified": true
+    },
+    "wire_route_verified": false,
+    "maintenance_lead_requires_physical_check": true,
+    "note": "接线预留按整个矩形背面保守包络；粘贴面与胶框贴合，扬声器未计入倾覆估算；实际端子、振膜和胶框待实物确认。"
+  },
   "wire_bend_requires_physical_check": true,
   "front_wall_mesh_audit": {
-    "sample_count": 2512,
+    "sample_count": 1842,
     "minimum_mm": 2.08356,
     "lower_sample_count": 221,
     "lower_minimum_mm": 2.08913,

@@ -1,6 +1,7 @@
 """从 STL 生成静态预览；只需 Python 与 Pillow，不参与建模。"""
 
 import ast
+import json
 import math
 import struct
 from pathlib import Path
@@ -191,25 +192,63 @@ plugs = read_stl(aux / "connector_reference.stl", (235, 182, 65))
 wires = read_stl(aux / "wire_reference.stl", (205, 101, 65))
 adhesive = read_stl(aux / "adhesive_reference.stl", (77, 140, 210))
 fasteners = read_stl(aux / "fasteners.stl", (203, 150, 50))
+speaker = read_stl(aux / 'speaker_reference.stl', (65,125,190))
+speaker_tape = read_stl(aux / 'speaker_tape.stl', (167,97,194))
+speaker_diaphragm = read_stl(aux / 'speaker_diaphragm.stl', (239,183,61))
+speaker_zone = read_stl(aux / 'speaker_sound_zone.stl', (239,183,61))
+speaker_wire = read_stl(aux / 'speaker_wire_reserve.stl', (225,120,60))
+# 振膜参考面与本体端面共面，预览直接给本体前端面着色，避免重复绘面闪烁。
+speaker_pitch=math.radians(PARAMS['SPEAKER_TILT_DEG'])
+speaker_axis=(0,SIN*math.cos(speaker_pitch)+COS*math.sin(speaker_pitch),
+              -COS*math.cos(speaker_pitch)+SIN*math.sin(speaker_pitch))
+speaker_face=(PARAMS['SPEAKER_OFFSET_X'],PARAMS['SPEAKER_OFFSET_S']*COS+PARAMS['SPEAKER_FRONT_N']*SIN,
+              PZ+PARAMS['SPEAKER_OFFSET_S']*SIN-PARAMS['SPEAKER_FRONT_N']*COS)
+speaker=[(v,(239,183,61) if all(abs(dot(sub(p,speaker_face),speaker_axis))<.001 for p in v) else c)
+         for v,c in speaker]
+speaker_body = speaker + speaker_tape
+layout_report=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))['speaker_layout']
+layout_state='完整预留通过' if layout_report['clearance_envelope_fits'] else '完整预留未通过'
+body_state='本体可放入' if layout_report['body_fits'] else '本体也有冲突'
+conflicts = read_stl(aux/'speaker_conflicts.stl',(235,38,104)) if not layout_report['clearance_envelope_fits'] else []
 section = read_stl(aux / "section.stl", (186, 194, 191))
 render("preview_section.png", section + carrier + battery + plugs + wires + adhesive + fasteners,
        (-1.0, -0.3, 0.3))
-render("preview_installation.png", carrier + battery + plugs + wires + adhesive, NORMAL)
+render("preview_installation.png", carrier + battery + plugs + wires + speaker_body + fasteners,
+       tuple(-v for v in NORMAL))
+render('preview_speaker_layout.png',carrier+battery+plugs+wires+speaker_body+fasteners,
+       (-.65,1,-.35))
+render('preview_speaker_conflicts.png',carrier+battery+speaker_wire+conflicts,
+       (-.9,1,-.3))
+render('preview_speaker_rear.png',rear,(0,1,-.35))
+render('preview_grille.png',rear,tuple(-v for v in speaker_axis))
+battery_section=read_stl(aux/'battery_section.stl',(91,168,104))
+speaker_section=read_stl(aux/'speaker_section.stl',(65,125,190))
+tape_section=read_stl(aux/'speaker_tape_section.stl',(167,97,194))
+render('preview_speaker_section.png',section+battery_section+speaker_section+tape_section+conflicts,
+       (-1,0,0))
 render("preview_fastening.png",carrier+fasteners,tuple(-v for v in NORMAL))
 
 def shifted(triangles, delta):
     return [(tuple(tuple(p[i] + delta[i] for i in range(3)) for p in vertices), color)
             for vertices, color in triangles]
 
-render("preview_exploded.png", module + carrier + plugs + wires
-       + shifted(rear + battery + adhesive + fasteners, tuple(-32 * v for v in NORMAL)),
+render("preview_exploded.png", module + carrier + plugs + wires + battery
+       + shifted(rear + adhesive + fasteners + speaker_body, tuple(-32 * v for v in NORMAL)),
        (1.0, -0.6, 0.45))
 
 font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 20)
 for filename, caption in (
     ("preview_section.png", "剖视：绿色为电池尺寸参考，蓝色为通用粘贴区；非实际固定位置"),
-    ("preview_installation.png", "接线空间：黄色为两个 2P 插头，橙色为走线预留包络"),
-    ("preview_exploded.png", "装配：放螺母、固定支架 → 接线 → 止口套合 → 底部两颗 M2.5 锁紧"),
+    ("preview_installation.png", "试排：绿＝电池，蓝＝扬声器，紫＝胶层；%s，%s" % (body_state,layout_state)),
+    ("preview_exploded.png", "试排：电池位于模块侧，扬声器胶粘后壳；线长与实际型号待确认"),
+    ("preview_speaker_layout.png", "试排：电池 %g×%g×%g；扬声器 %g×%g×%g，胶厚 %g mm" %
+     (PARAMS['BATTERY_W'],PARAMS['BATTERY_H'],PARAMS['BATTERY_T'],PARAMS['SPEAKER_W'],PARAMS['SPEAKER_H'],
+      PARAMS['SPEAKER_THICKNESS'],PARAMS['SPEAKER_TAPE_T'])),
+    ("preview_speaker_conflicts.png", "粉红＝预留冲突，橙＝保守接线预留；%s" % layout_state),
+    ("preview_speaker_section.png", "中剖面：绿＝电池，蓝＝扬声器，紫＝胶层，粉红＝预留冲突"),
+    ("preview_speaker_rear.png", "后壳实际出音长孔；保留周边粘贴框、底环和锁盖结构"),
+    ("preview_grille.png", "出音格栅：%d 条 %g×%g mm 圆头孔，孔间筋 %g mm" %
+     (PARAMS['SPEAKER_SLOT_COUNT'],PARAMS['SPEAKER_SLOT_W'],PARAMS['SPEAKER_SLOT_H'],PARAMS['SPEAKER_SLOT_WEB'])),
     ("preview_fastening.png", "支架背面：宽定位舌＋加宽环，下方两个捕获螺母座；顶部让开原厂螺丝"),
 ):
     canvas = Image.open(OUT / filename)
