@@ -82,6 +82,13 @@ MIC_HOLE_ROWS = 2
 MIC_HOLE_COLUMNS = 3
 MIC_HOLE_MIN_WEB = 1.6
 MIC_HOLE_END_MARGIN = 0.3
+# 后背圆孔出音区；使用世界坐标，避免沿屏幕法线钻向底板。
+GRILLE_HOLE_DIAMETER = 3.2
+GRILLE_PITCH = 5.6
+GRILLE_ROWS = 5
+GRILLE_COLUMNS = 13
+GRILLE_BASE_Z = 36.0
+GRILLE_END_MARGIN = 0.3
 ANGLE = math.radians(TILT_DEG)
 SIN, COS = math.sin(ANGLE), math.cos(ANGLE)
 X, Z = App.Vector(1, 0, 0), App.Vector(0, 0, 1)
@@ -250,7 +257,7 @@ def down_support(profile, direction, depth, envelope, above_floor):
     return profile.extrude((direction-Z)*depth).common(envelope).common(above_floor)
 
 
-def write_print_features(microphone=None):
+def write_print_features(microphone=None,grille=None):
     """向独立切片检查器提供坐标和功能区域；以 STL 截面验证实际挤出。"""
     features=[]
     def add(name,part,bounds,space='local',cross=None,contact_annulus=None):
@@ -283,8 +290,10 @@ def write_print_features(microphone=None):
         tongue_xy=[min(p[0] for p in tongue_points),max(p[0] for p in tongue_points),
                    min(p[1] for p in tongue_points),max(p[1] for p in tongue_points)]
         add('locator_tongue_'+str(a),'rear_cover',tongue_xy+[23.1,29.4])
-    for x in range(-33,34,6):
-        add('grille_web_'+str(x),'rear_cover',[x-1.65,x+1.65,-11,11,48,110])
+    for index,hole in enumerate((grille or {}).get('holes',[])):
+        x,z=hole['center_x_z_mm']
+        add('grille_hole_'+str(index),'rear_cover',[x-2.5,x+2.5,
+            hole['wall_y_mm'][0]-.1,hole['wall_y_mm'][1]+.1,z-2.5,z+2.5],'world')
     add('bottom_ring','rear_cover',[-49,49,-18,68,0,0.51],'world')
     add('cable_tie_bridge','rear_cover',[17.9,28.1,TIE_FRONT_Y,TIE_BACK_Y,16,24.1],'world')
     top_z=FRONT_Z+SIN*OUTER_R-COS*(MOUTH_N+TOP_FLAT_DEPTH)
@@ -308,6 +317,96 @@ def cable_envelope(points, radius=1.75):
         direction=b-a
         pieces.append(Part.makeCylinder(radius,direction.Length,a,direction))
     return fuse(pieces)
+
+
+def acoustic_samples(rear,original_wall,holes,radius,prefix,margin):
+    """孔边采样必须在本体内，孔芯按开孔前壳壁分类，供实际切片独立复核。"""
+    witnesses={};air=[]
+    for index,hole in enumerate(holes):
+        x,z=hole['center_x_z_mm'];front,back=hole['wall_y_mm']
+        # 所有采样点都严格落在裁剪盒内部，精确交集不改变点的内外归属。
+        # 避免每个采样点都对包含全部声孔的完整 BRep 重建分类器。
+        clip=Part.makeBox(2*(radius+1),back-front+2*(margin+1),2*(radius+1),
+            App.Vector(x-radius-1,front-margin-1,z-radius-1))
+        local_rear=rear.common(clip)
+        local_original=original_wall.common(clip)
+        shoulders=[]
+        for layer in range(int((z-radius)/.2)+1,int((z+radius)/.2)+2):
+            height=round(layer*.2,3);sample_z=height-.1;delta=sample_z-z
+            if abs(delta)>.7*radius:continue
+            for fraction in (.25,.5,.75):
+                y=front+(back-front)*fraction
+                for side in (-1,1):
+                    point=App.Vector(x+side*(math.sqrt(radius**2-delta**2)+.4),y,sample_z)
+                    if local_rear.isInside(point,.001,False):
+                        shoulders.append({'layer_z_mm':height,'point_mm':list(point)})
+            if abs(delta)<.3:
+                count=int((back-front)/.4)+1
+                for i in range(count+1):
+                    y=front-margin+i*(back-front+2*margin)/count
+                    for offset in (-.4,0,.4):
+                        point=App.Vector(x+offset,y,sample_z)
+                        air.append({'hole':index,'layer_z_mm':height,'point_mm':list(point),
+                            'inside_original_wall':local_original.isInside(point,.001,False)})
+        assert len(shoulders)>=12,'孔周边实体采样不足：'+prefix+str(index)
+        witnesses[prefix+str(index)]=shoulders
+        if (index+1)%13==0 or index+1==len(holes):
+            print('声孔实体/孔芯采样',prefix,index+1,'/',len(holes),flush=True)
+    return witnesses,air
+
+
+def speaker_support_regions():
+    """喇叭座四处下缘需要局部强制支撑，区域随耳座参数移动。"""
+    regions=[]
+    for x,s in PINS:
+        center=pt(x,s+3.65,SPEAKER_BOSS_BACK_N-.1)
+        regions.append([center.x-7,center.x+7,center.y-3,center.y+3,center.z-1.6,center.z+1.6])
+    return regions
+
+
+def speaker_grille(rear,cavity):
+    """从后侧向内钻孔，每孔仅贯通最后一段壳壁，不贯穿前壁或底板。"""
+    original_wall=rear.copy();axis=App.Vector(0,1,0)
+    radius=GRILLE_HOLE_DIAMETER/2
+    assert GRILLE_PITCH-GRILLE_HOLE_DIAMETER>=2.4-.001
+    bores=[];holes=[]
+    for row in range(GRILLE_ROWS):
+        z=GRILLE_BASE_Z+row*GRILLE_PITCH
+        for column in range(GRILLE_COLUMNS):
+            x=(column-(GRILLE_COLUMNS-1)/2)*GRILLE_PITCH
+            segments=[]
+            probe=Part.makeCylinder(radius,150,App.Vector(x,0,z),axis)
+            for solid in probe.common(original_wall).Solids:
+                points=solid.tessellate(.01)[0]
+                segments.append((min(v.y for v in points),max(v.y for v in points)))
+            assert segments,'出音孔未碰到后壁'
+            inner,outer=max(segments,key=lambda span:span[1])
+            bore=Part.makeCylinder(radius,outer-inner+2*GRILLE_END_MARGIN,
+                App.Vector(x,inner-GRILLE_END_MARGIN,z),axis)
+            inside=Part.makeCylinder(radius,.05,App.Vector(x,inner-GRILLE_END_MARGIN,z),axis)
+            outside=Part.makeCylinder(radius,.05,App.Vector(x,outer+GRILLE_END_MARGIN-.05,z),axis)
+            assert inside.common(cavity).Volume/inside.Volume>.99,'出音孔未完整接入内腔'
+            assert outside.common(original_wall).Volume<.001,'出音孔出口仍被壳壁遮挡'
+            removed=bore.common(original_wall).Volume
+            assert removed>.1,'出音孔没有切除材料'
+            holes.append({'center_x_z_mm':[x,z],'wall_y_mm':[inner,outer],
+                'inner_y_mm':inner,'outer_y_mm':outer,'bore_length_mm':bore.BoundBox.YLength,
+                'removed_mm3':removed,'exit_connects_cavity':True,'exterior_exit_clear':True})
+            bores.append(bore)
+        print('出音孔内外端检查',row+1,'/',GRILLE_ROWS,flush=True)
+    rear=rear.cut(Part.makeCompound(bores)).removeSplitter()
+    print('出音孔布尔切除完成',len(holes),flush=True)
+    assert rear.isValid() and len(rear.Solids)==1,'出音开孔后壳体不连通'
+    assert rear.common(Part.makeCompound(bores)).Volume<.001,'出音孔未贯通'
+    witnesses,air=acoustic_samples(rear,original_wall,holes,radius,'grille_',GRILLE_END_MARGIN)
+    return rear,bores,{'count':len(holes),'rows':GRILLE_ROWS,'columns':GRILLE_COLUMNS,
+        'diameter_mm':GRILLE_HOLE_DIAMETER,'pitch_mm':GRILLE_PITCH,
+        'minimum_web_mm':GRILLE_PITCH-GRILLE_HOLE_DIAMETER,'axis_world':[0,1,0],
+        'nominal_open_area_mm2':len(holes)*math.pi*radius**2,
+        'support_enforcers':speaker_support_regions(),
+        'holes':holes,'print_witnesses':witnesses,'air_samples':air,
+        'physical_audio_verified':False,'speaker_radiating_face_verified':False,
+        'note':'后壁共腔出音，原长槽从建模源取消；实际发声面朝向及声学效果须装机核对'}
 
 
 def microphone_intake(rear,cavity):
@@ -339,35 +438,13 @@ def microphone_intake(rear,cavity):
             assert removed>.1,'拾音孔未切除壳壁'
             rear=rear.cut(bore)
             assert bore.common(rear).Volume<.001,'拾音孔未贯通'
-            holes.append({'center_x_z_mm':[x,z],'front_y_mm':front,'cavity_y_mm':back,
+            holes.append({'center_x_z_mm':[x,z],'front_y_mm':front,'cavity_y_mm':back,'wall_y_mm':[front,back],
                 'bore_length_mm':back-front+2*MIC_HOLE_END_MARGIN,'removed_mm3':removed,
                 'exit_connects_cavity':True})
             bores.append(bore)
     rear=rear.removeSplitter()
     assert rear.isValid() and len(rear.Solids)==1,'拾音开孔后后盖实体不连通'
-    witnesses={};air=[]
-    for index,hole in enumerate(holes):
-        x,z=hole['center_x_z_mm'];front=hole['front_y_mm'];back=hole['cavity_y_mm']
-        shoulders=[]
-        for layer in range(int((z-radius)/.2)+1,int((z+radius)/.2)+2):
-            height=round(layer*.2,3);sample_z=height-.1;delta=sample_z-z
-            if abs(delta)>.7*radius:continue
-            for fraction in (.25,.5,.75):
-                y=front+(back-front)*fraction
-                for side in (-1,1):
-                    point=App.Vector(x+side*(math.sqrt(radius**2-delta**2)+.4),y,sample_z)
-                    if rear.isInside(point,.001,False):
-                        shoulders.append({'layer_z_mm':height,'point_mm':list(point)})
-            if abs(delta)<.3:
-                count=int((back-front)/.4)+1
-                for i in range(count+1):
-                    y=front-MIC_HOLE_END_MARGIN+i*(back-front+2*MIC_HOLE_END_MARGIN)/count
-                    for offset in (-.4,0,.4):
-                        point=App.Vector(x+offset,y,sample_z)
-                        air.append({'hole':index,'layer_z_mm':height,'point_mm':list(point),
-                            'inside_original_wall':original_wall.isInside(point,.001,False)})
-        assert len(shoulders)>=12,'拾音孔周边实体采样不足'
-        witnesses['microphone_'+str(index)]=shoulders
+    witnesses,air=acoustic_samples(rear,original_wall,holes,radius,'microphone_',MIC_HOLE_END_MARGIN)
     return rear,bores,{'count':len(holes),'rows_per_side':MIC_HOLE_ROWS,'columns_per_side':MIC_HOLE_COLUMNS,
         'diameter_mm':MIC_HOLE_DIAMETER,'pitch_mm':MIC_HOLE_PITCH,
         'minimum_web_mm':MIC_HOLE_PITCH-MIC_HOLE_DIAMETER,
@@ -479,8 +556,6 @@ def main():
                 [Part.makeCylinder(3,110,App.Vector(x,40,z),App.Vector(0,1,0))
                  for x in (-7,7) for z in (21,27)])
     rear=rear.cut(outlet)
-    for x in range(-36,37,6):
-        rear=rear.cut(box(x-1.4,x+1.4,-12,12,48,110).common(above_floor))
     # 两柱加短横梁组成一体扎带桥，4 mm 跨距可短桥接。
     tie=fuse([Part.makeBox(3,TIE_BACK_Y-TIE_FRONT_Y,8,App.Vector(x,TIE_FRONT_Y,16)) for x in (18,25)]+
              [Part.makeBox(10,TIE_BACK_Y-TIE_FRONT_Y,2,App.Vector(18,TIE_FRONT_Y,22))]).common(envelope)
@@ -491,6 +566,7 @@ def main():
     rear=rear.common(Part.makeBox(300,300,top_z+1,App.Vector(-150,-100,-1))).removeSplitter()
     # 顶部收平后，把与前口相交的薄楔整个退后，避免留下不足 1.2 mm 的唇边。
     rear=rear.cut(box(-20,20,0,60,MOUTH_N,MOUTH_N+TOP_MOUTH_RELIEF)).removeSplitter()
+    rear,grille_bores,grille_report=speaker_grille(rear,cavity)
     rear,mic_bores,mic_report=microphone_intake(rear,cavity)
     for hole,bore in zip(mic_report['holes'],mic_bores):
         assert bore.common(main_shell).Volume<.001,'拾音孔碰承托架：'+str(hole['center_x_z_mm'])
@@ -506,7 +582,7 @@ def main():
             cyl(3,SPEAKER_EAR_FRONT_N-0.1,SPEAKER_SEAT_N+0.1,x,s)))
     speaker=fuse([speaker]+ears)
     shapes={'main_shell':main_shell,'rear_cover':rear}
-    write_print_features(mic_report)
+    write_print_features(mic_report,grille_report)
     module_heads=[cyl(MODULE_HEAD_R,MODULE_SEAT_N,MODULE_SEAT_N+MODULE_HEAD_H,x,s) for x,s in SCREWS]
     module_shafts=[cyl(1.25,MODULE_SEAT_N-MODULE_SCREW_L,MODULE_SEAT_N,x,s) for x,s in SCREWS]
     module_engagement=MODULE_THREAD_ENTRY_N-(MODULE_SEAT_N-MODULE_SCREW_L)
@@ -636,10 +712,17 @@ def main():
     mic_obstacles += [('hardware_'+str(i),shape) for i,shape in enumerate(
         module_heads+module_shafts+m3_heads+m3_shafts+nuts+speaker_hardware)]
     mic_obstacles += [('cover_tool_'+str(i),cyl(2,38,110,x,s)) for i,(x,s) in enumerate(BOLT_POINTS)]
-    for hole,bore in zip(mic_report['holes'],mic_bores):
-        overlaps={name:round(bore.common(shape).Volume,6) for name,shape in mic_obstacles}
-        assert max(overlaps.values())<.001,'拾音孔通道被内部零件挡住：'+str(overlaps)
-        hole['obstacles_overlap_mm3']=overlaps
+    acoustic_obstacles=[(name,[(solid,solid.BoundBox) for solid in obstacle.Solids])
+        for name,obstacle in mic_obstacles]
+    for report,bores in ((mic_report,mic_bores),(grille_report,grille_bores)):
+        for hole,bore in zip(report['holes'],bores):
+            overlaps={};bore_bounds=bore.BoundBox
+            for name,solids in acoustic_obstacles:
+                # 包围盒仅排除不可能相交的实体，所有候选仍做精确 BRep 布尔检查。
+                candidates=[solid for solid,bounds in solids if bore_bounds.intersect(bounds)]
+                overlaps[name]=round(bore.common(Part.makeCompound(candidates)).Volume,6) if candidates else 0.0
+            assert max(overlaps.values())<.001,'声孔通道被内部零件挡住：'+str(overlaps)
+            hole['obstacles_overlap_mm3']=overlaps
     groups={}
     for i,solid in enumerate(module.Solids):
         b=solid.BoundBox
@@ -761,7 +844,8 @@ def main():
              'speaker_mount_location':'后盖独立四支座，拆盖时喇叭随盖移动',
              'speaker_body_shape_verified':False,
              'speaker_mount_status':'中部圆耳及紧固件按确认尺寸建模；总外形扣除耳周安装操作区作为条件包络，真实箱体耳根形状及工具空间需局部试装。',
-             'microphone_hole_verified':True,'microphone_intake':mic_report,'physical_fit_verified':False}
+             'microphone_hole_verified':True,'microphone_intake':mic_report,
+             'speaker_grille_verified':True,'speaker_grille':grille_report,'physical_fit_verified':False}
     with open(os.path.join(OUT,'validation.json'),'w',encoding='utf-8') as f:
         json.dump(metrics,f,ensure_ascii=False,indent=2)
     print('全部导出完成',OUT,flush=True)

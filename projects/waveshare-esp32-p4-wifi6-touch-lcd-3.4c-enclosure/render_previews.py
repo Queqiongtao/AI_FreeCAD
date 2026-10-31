@@ -136,6 +136,7 @@ render('preview_side.png', assembly, (1,0,0.1))
 render('preview_bottom.png', rear, (0,0,-1))
 render('preview_cover_inside.png', rear, NORMAL)
 render('preview_microphones.png',rear,(0,-1,.12))
+render('preview_speaker_grille.png',rear,(0,1,.12))
 render('preview_section.png', section+frame+speaker+fasteners, (-1,-0.3,0.2))
 render('preview_speaker_mount.png', rear+speaker+speaker_hardware, NORMAL)
 render('preview_fastening.png', frame+fasteners, tuple(-v for v in NORMAL))
@@ -150,6 +151,7 @@ render('preview_exploded.png', module+frame
 font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',18)
 for filename, caption in (
     ('preview_microphones.png','P4 前下侧壁：左右各六个 Ø2 mm 拾音孔，两排三列，直通内腔'),
+    ('preview_speaker_grille.png','后背出音区：5 排 × 13 列，共 65 个 Ø3.2 mm 圆孔，孔距 5.6 mm'),
     ('preview_front.png','沿屏幕法线正视：打印件完全隐藏于模块轮廓内'),
     ('preview_section.png','剖视：绿色为条件音箱包络；中部耳独立锁在后盖，底板封闭'),
     ('preview_exploded.png','两件式：承托架固定模块；喇叭随连续后盖一起拆下'),

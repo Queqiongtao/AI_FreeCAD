@@ -45,18 +45,24 @@ def main():
             data.update({'layer_height':'0.2', 'initial_layer_print_height':'0.2',
                          'wall_loops':'4', 'wall_generator':'classic',
                          'enable_support':'1', 'support_type':'normal(auto)',
-                         'support_threshold_angle':'45', 'brim_type':'outer_only', 'brim_width':'5',
+                         'support_threshold_angle':'45',
+                         'brim_type':'outer_only', 'brim_width':'5',
                          'support_top_z_distance':'0.24' if args.material=='PETG' else '0.2'})
+            if args.part=='rear_cover' and not args.baseline:
+                data.update({'support_interface_top_layers':'3','support_interface_spacing':'0',
+                             'support_object_xy_distance':'0.2',
+                             'support_top_z_distance':'0.1'})
         path = cache / (kind+'.json')
         path.write_text(json.dumps(data), encoding='utf-8')
         settings.append(path)
     stl = OUT / (args.part+'.stl')
     slice_input=stl
-    microphone=None
+    microphone=None;grille=None
     if args.part=='rear_cover' and not args.baseline:
-        microphone=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))['microphone_intake']
+        geometry=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))
+        microphone=geometry['microphone_intake'];grille=geometry.get('speaker_grille')
         slice_input=OUT/'rear_cover_print.3mf'
-        write_rear_project(stl,microphone,slice_input)
+        write_rear_project(stl,microphone,slice_input,grille)
     result_path = cache / 'result.json'
     if result_path.exists():
         result_path.unlink()  # 仅清理本脚本产生的临时结果，防止误用旧切片。
@@ -92,6 +98,7 @@ def main():
     assert -0.201<=shortfall<0.4, '顶部偏差超过切片分辨率'  # 顶层可向上取整一层。
     support_runs=audit_support(layers)
     microphone_checks=audit_microphones(layers,microphone) if microphone else {}
+    grille_checks=audit_microphones(layers,grille) if grille else {}
     feature_checks={}
     feature_failures=[]
     if not args.baseline:
@@ -100,10 +107,15 @@ def main():
     report={'stl_sha256':hashlib.sha256(data).hexdigest(), 'slicer':'Bambu Studio',
             'slice_input':slice_input.name,'slice_input_sha256':hashlib.sha256(slice_input.read_bytes()).hexdigest(),
             'microphone_support_blocker_count':len(microphone['holes']) if microphone else 0,'microphone_checks':microphone_checks,
+            'speaker_support_blocker_count':len(grille['holes']) if grille else 0,'speaker_grille_checks':grille_checks,
+            'speaker_support_enforcer_count':len(grille.get('support_enforcers',[])) if grille else 0,
             'printer_profile':names[0][1], 'filament_profile':names[2][1],
             'nozzle_mm':0.4, 'layer_height_mm':0.2, 'wall_loops':4,'wall_generator':'classic',
             'support_type':'normal(auto)', 'support_threshold_angle_deg':45,
-            'support_top_gap_mm':0.24 if args.material=='PETG' else 0.2,
+            'support_interface_top_layers':3 if grille else None,
+            'support_interface_spacing_mm':0 if grille else None,
+            'support_object_xy_distance_mm':.2 if grille else None,
+            'support_top_gap_mm':0.1 if grille else (0.24 if args.material=='PETG' else 0.2),
             'support_extrusion_volume_mm3':support_volume,'baseline_only':args.baseline,
             'plate_alignment':alignment,
             'brim_width_mm':5, 'object_layer_count':len(model_layers),

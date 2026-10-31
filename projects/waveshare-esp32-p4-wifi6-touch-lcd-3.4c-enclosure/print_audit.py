@@ -73,21 +73,21 @@ def covered(p,index,extra):
 
 
 def audit_microphones(layers,intake):
-    """分别检查孔边实体和孔芯空隙；支撑也不能堵住拾音孔。"""
+    """检查拾音孔或出音孔的孔边实体和孔芯空隙，支撑也不能堵住真实孔道。"""
     model={z:grid([s for s in segments if 'support' not in s[2].lower()]) for z,segments in layers.items()}
     all_paths={z:grid(segments) for z,segments in layers.items()}
     support_paths={z:grid([s for s in segments if 'support' in s[2].lower()]) for z,segments in layers.items()}
     checks={}
     for name,points in intake['print_witnesses'].items():
-        assert len(points)>=12,'拾音孔边采样不足：'+name
+        assert len(points)>=12,'声孔边采样不足：'+name
         found=sum(covered(p['point_mm'],model.get(p['layer_z_mm'],([],{})),.15) for p in points)
         checks[name]={'sample_count':len(points),'coverage':found/len(points)}
-        assert found/len(points)>=.95,'拾音孔边实体没有完整切出：'+str(checks[name])
+        assert found/len(points)>=.95,'声孔边实体没有完整切出：'+name+str(checks[name])
     samples=intake['air_samples']
     assert samples and all('inside_original_wall' in p for p in samples),'空气样本缺少开孔前壳壁分类'
     air=[p for p in samples if p['inside_original_wall']]
     blocked=[p for p in air if covered(p['point_mm'],all_paths.get(p['layer_z_mm'],([],{})),.05)]
-    assert air and not blocked,'拾音孔被模型或支撑堵塞：'+str(blocked[:3])
+    assert air and not blocked,'声孔被模型或支撑堵塞：'+str(blocked[:3])
     external=[p for p in samples if not p['inside_original_wall']]
     external_support=[p for p in external if covered(p['point_mm'],
         support_paths.get(p['layer_z_mm'],([],{})),.05)]

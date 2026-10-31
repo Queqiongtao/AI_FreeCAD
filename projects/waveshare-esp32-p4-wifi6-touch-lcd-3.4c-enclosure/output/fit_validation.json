@@ -94,7 +94,7 @@
   "carrier_rear_bed_contact_area_mm2": 725.6926207476353,
   "stl_sha256": {
     "main_shell": "ca181c4f534f74ce27e619e8c96aac1a5d668b7ab45a16c49b83392f995b34cd",
-    "rear_cover": "0fbd57ddcef7648ff09960719f2b66455e63e063f6185c3b03fdf30bee6d4e9b"
+    "rear_cover": "10e864f17a30f0a46236d0e933270ddeeea34bcfbd7c9704e7a1e363414d4ba5"
   },
   "reinforcement_sections": {
     "module_seat_probe_volumes_mm3": [

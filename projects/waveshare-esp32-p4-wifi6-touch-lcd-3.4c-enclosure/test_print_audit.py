@@ -22,8 +22,10 @@ class PrintAuditTests(unittest.TestCase):
             stl=Path(directory)/'part.stl';stl.write_bytes(data)
             target=Path(directory)/'part.3mf'
             intake={'diameter_mm':2,'holes':[{'center_x_z_mm':[0,1],'front_y_mm':0,'cavity_y_mm':2}]}
-            write_rear_project(stl,intake,target);first=target.read_bytes()
-            write_rear_project(stl,intake,target)
+            grille={'diameter_mm':3.2,'holes':[{'center_x_z_mm':[0,1],'wall_y_mm':[3,5]}],
+                    'support_enforcers':[[0,1,0,1,0,1]]}
+            write_rear_project(stl,intake,target,grille);first=target.read_bytes()
+            write_rear_project(stl,intake,target,grille)
             self.assertEqual(first,target.read_bytes())
             with zipfile.ZipFile(target) as archive:
                 model=ET.fromstring(archive.read('3D/3dmodel.model'))
@@ -35,7 +37,13 @@ class PrintAuditTests(unittest.TestCase):
                 self.assertEqual(triangles,[tuple(points[i] for i in face) for face in faces])
                 config=ET.fromstring(archive.read('Metadata/model_settings.config'))
                 self.assertEqual(len(config.findall("object/part[@subtype='normal_part']")),1)
-                self.assertEqual(len(config.findall("object/part[@subtype='support_blocker']")),1)
+                self.assertEqual(len(config.findall("object/part[@subtype='support_blocker']")),2)
+                self.assertEqual(len(config.findall("object/part[@subtype='support_enforcer']")),1)
+                # 出音孔采用窄 XY 投影向上延伸，真实打印体仍只有一个。
+                speaker=model.find("m:resources/m:object[@id='3']/m:mesh/m:vertices",ns)
+                zs=[float(v.attrib['z']) for v in speaker]
+                self.assertAlmostEqual(min(zs),0)
+                self.assertAlmostEqual(max(zs),2.6)
 
     def test_microphone_support_cannot_block_air_or_replace_wall(self):
         layers={z:[((x,-1),(x,1),'Outer wall',.4) for x in (-1.4,1.4)] for z in (.2,.4,.6)}
