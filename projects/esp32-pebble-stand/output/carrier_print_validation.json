@@ -1,5 +1,5 @@
 {
-  "stl_sha256": "061cb720e96619eb2db992b0580ee92ece022161bdba39a9916ca536238fa290",
+  "stl_sha256": "76b97c88eabfe4cc74b9bd60e018dd2cc0a955101aa0ef0f76b6fdad7640c12e",
   "slicer": "Bambu Studio",
   "printer_profile": "Prusa MK3S 0.4 nozzle",
   "filament_profile": "Generic PETG @Prusa",
@@ -8,15 +8,15 @@
   "wall_loops": 4,
   "wall_generator": "classic",
   "support_enabled": true,
-  "support_extrusion_moves": 5707,
+  "support_extrusion_moves": 4647,
   "support_type": "normal(auto)",
   "support_threshold_angle_deg": 30,
   "outer_brim_width_mm": 5,
-  "layer_count": 100,
+  "layer_count": 97,
   "object_layer_count": 71,
   "wall_layer_count": 71,
   "top_shortfall_mm": 0.0,
-  "support_only_layer_count": 29,
+  "support_only_layer_count": 26,
   "lower_edge_probe_count": 0,
   "min_wall_crossings": null,
   "warning_message": "",
@@ -67,15 +67,11 @@
   "unsupported_wall_runs": [
     {
       "z_mm": 11.0,
-      "unsupported_wall_run_mm": 2.6291115388906126
+      "unsupported_wall_run_mm": 2.58898842828448
     },
     {
       "z_mm": 9.4,
-      "unsupported_wall_run_mm": 0.7881897733187262
-    },
-    {
-      "z_mm": 8.8,
-      "unsupported_wall_run_mm": 0.25613375412077966
+      "unsupported_wall_run_mm": 0.9229226189359667
     },
     {
       "z_mm": 0.4,
@@ -124,6 +120,10 @@
     {
       "z_mm": 1.644,
       "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 1.8,
+      "unsupported_wall_run_mm": 0.0
     }
   ],
   "base_transition_runs": [],
@@ -135,10 +135,10 @@
       125.00204849243164,
       83.57772123068571
     ],
-    "section_alignment_score": 0.947136563876652,
+    "section_alignment_score": 0.9420849420849421,
     "bbox_center_alignment": false,
     "bbox_dimension_error_mm": 1.9073486328125e-06
   },
-  "support_extrusion_volume_mm3": 2087.925545210719,
+  "support_extrusion_volume_mm3": 2005.124847132377,
   "note": "参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。"
 }

@@ -1,6 +1,6 @@
 """ESP32-S3-Touch-AMOLED-1.75-B 成品模块的鹅卵石桌面底座。
 
-模块背面的三颗原厂螺丝固定支架；后壳由上侧双刚性旋扣及下侧两颗 M2.5 锁紧。
+模块背面的三颗原厂螺丝固定支架；后壳由上侧双刚性旋扣及下侧两颗 M3 锁紧。
 在 FreeCAD 控制台或 freecadcmd 中运行，输出固定到 ./output/。
 """
 
@@ -98,9 +98,14 @@ FOOT_RECESS = 0.6
 GUIDES = ()  # 旧直插键不适用于旋转解锁
 GUIDE_CLEARANCE = 0.25
 GUIDE_END_N = 20.1
-LOCK_POINTS = ((-7.0, -16.0), (7.0, -16.0))
-LOCK_NUT_FRONT = 14.6
-LOCK_NUT_BACK = 16.8
+LOCK_POINTS = ((-5.0, -16.0), (5.0, -16.0))  # M3 工具井向中间避让完整底环
+LOCK_INSERT_LENGTH = 3.0
+LOCK_INSERT_OD = 4.0
+LOCK_INSERT_BORE = 3.8
+LOCK_INSERT_DEPTH = 3.4
+LOCK_SCREW_LENGTH = 6.0
+LOCK_CLEARANCE_R = 1.7
+LOCK_TOOL_R = 3.1
 LOCK_BOSS_BACK = 19.0
 LOCK_HEAD_SEAT = 21.5
 
@@ -615,9 +620,12 @@ for x,s in LOCK_POINTS:
     pad.translate(X*x)
     carrier = carrier.fuse(pad)
     carrier = carrier.fuse(connect_web(x,s,math.copysign(13.75,x),-14.7,CARRIER_LOCK_WEB_W,13.8,CARRIER_LOCK_WEB_BACK))
-    carrier = carrier.cut(axial_cylinder(1.45,13.5,19.2,x,s))
-    carrier = carrier.cut(hex_nut(x,s,LOCK_NUT_FRONT,LOCK_NUT_BACK,5.2))
-    carrier = carrier.cut(axial_box(x-3.05,x+3.05,s,s+9,LOCK_NUT_FRONT,LOCK_NUT_BACK))
+    # 后侧热熔压入，前方小孔仅供螺丝尾端避空；不再侧开槽削弱母座。
+    carrier = carrier.cut(axial_cylinder(1.65,13.5,19.2,x,s))
+    carrier = carrier.cut(axial_cylinder(LOCK_INSERT_BORE/2,
+        LOCK_BOSS_BACK-LOCK_INSERT_DEPTH,LOCK_BOSS_BACK+.1,x,s))
+    carrier = carrier.cut(Part.makeCone(LOCK_INSERT_BORE/2,
+        LOCK_INSERT_BORE/2+.3,.3,plate_point(x,s,LOCK_BOSS_BACK-.3),-N))
 
 guide_tongues = []
 for degrees,width in GUIDES:
@@ -745,12 +753,17 @@ lock_air=rounded_rectangle_face(lock_air_width,8.0,1.2,LOCK_POINTS[0][1],SHELL_M
     -N*(22.0-SHELL_MOUTH_N))
 rear=rear.cut(rotation_sweep(lock_air,-HOOK_RELEASE_DEG))
 for x,s in LOCK_POINTS:
+    # 母座内移后连接筋加长，给筋的整个旋转行程留出 0.3 mm 间隙。
+    web_air=connect_web(x,s,math.copysign(13.75,x),-14.7,
+        CARRIER_LOCK_WEB_W+.6,13.5,CARRIER_LOCK_WEB_BACK+.3)
+    rear=subtract_sweep(rear,rotation_sweep(web_air,-HOOK_RELEASE_DEG))
+for x,s in LOCK_POINTS:
     seat=axial_cylinder(3.7,19.25,LOCK_HEAD_SEAT,x,s)
     support=Part.makeBox(8,9,8,App.Vector(x-4,-2,SHELL_FLOOR_T)).common(outer_envelope)
     support=support.common(axial_box(-40,40,-40,-12.5,19.25,70))
     rear=rear.fuse(seat).fuse(support)
-    rear=rear.cut(axial_cylinder(1.45,18.8,LOCK_HEAD_SEAT+.1,x,s))
-    rear=rear.cut(axial_cylinder(2.65,LOCK_HEAD_SEAT,80,x,s))
+    rear=rear.cut(axial_cylinder(LOCK_CLEARANCE_R,18.8,LOCK_HEAD_SEAT+.1,x,s))
+    rear=rear.cut(axial_cylinder(LOCK_TOOL_R,LOCK_HEAD_SEAT,80,x,s))
     lock_seats.append(seat)
     wall_audit_zones.append(((x-4.2,x+4.2),(s-4.2,s+4.2),(13.8,80)))
 rear=rear.removeSplitter()
@@ -761,30 +774,32 @@ for lo,hi in ((7,22),(-22,-7)):
 for x,s in SCREWS_2D:
     assert carrier.common(axial_cylinder(2.0,15.5,30,x,s)).Volume<0.01,'原厂螺丝工具路径'
 
-lock_heads=[axial_cylinder(2.25,LOCK_HEAD_SEAT,LOCK_HEAD_SEAT+2.5,x,s) for x,s in LOCK_POINTS]
-lock_shafts=[axial_cylinder(1.25,LOCK_HEAD_SEAT-8,LOCK_HEAD_SEAT,x,s) for x,s in LOCK_POINTS]
-lock_nuts=[hex_nut(x,s,14.7,16.7,5.0).cut(axial_cylinder(1.25,14.6,16.8,x,s)) for x,s in LOCK_POINTS]
-lock_tools=[axial_cylinder(2.0,LOCK_HEAD_SEAT+2.5,80,x,s) for x,s in LOCK_POINTS]
+lock_heads=[axial_cylinder(2.75,LOCK_HEAD_SEAT,LOCK_HEAD_SEAT+3,x,s) for x,s in LOCK_POINTS]
+lock_shafts=[axial_cylinder(1.5,LOCK_HEAD_SEAT-LOCK_SCREW_LENGTH,LOCK_HEAD_SEAT,x,s) for x,s in LOCK_POINTS]
+lock_inserts=[axial_cylinder(LOCK_INSERT_OD/2,LOCK_BOSS_BACK-LOCK_INSERT_LENGTH,LOCK_BOSS_BACK,x,s).cut(
+    axial_cylinder(1.5,LOCK_BOSS_BACK-LOCK_INSERT_LENGTH-.1,LOCK_BOSS_BACK+.1,x,s)) for x,s in LOCK_POINTS]
+lock_tools=[axial_cylinder(2.0,LOCK_HEAD_SEAT+3,80,x,s) for x,s in LOCK_POINTS]
 print('完成止口和锁紧结构',flush=True)
 for name,shape in [('carrier',carrier),('rear',rear)]:
     print('快速实体检查',name,shape.isValid(),len(shape.Solids),flush=True)
 assert carrier.common(rear).Volume<0.01, '支架与后壳干涉'
-for hardware in lock_heads+lock_shafts+lock_nuts+lock_tools:
+for hardware in lock_heads+lock_shafts+lock_tools:
     for name,shape in [('carrier',carrier),('rear',rear)]:
         assert hardware.common(shape).Volume<0.01, name+'挡紧固件或工具'
-nut_insertion=[]
-for nut in lock_nuts:
-    for distance in (0,1,2,4,6,8,10):
-        moved=nut.copy();moved.translate(S*distance)
-        volume=moved.common(carrier).Volume
-        assert volume<0.01,'螺母无法从内侧滑入'
-        nut_insertion.append(volume)
+insert_installation=[]
+for x,s in LOCK_POINTS:
+    # 滚花与底孔的径向干涉是热熔配合，不作为刚体碰撞错误。
+    tool=axial_cylinder(2.0,LOCK_BOSS_BACK+.01,LOCK_BOSS_BACK+12,x,s)
+    volume=tool.common(carrier).Volume
+    assert volume<.01,'热熔工具轴向入口受阻'
+    insert_installation.append(volume)
+assert LOCK_HEAD_SEAT-LOCK_SCREW_LENGTH < LOCK_BOSS_BACK-LOCK_INSERT_LENGTH
 contact=carrier.distToShape(rear)[0]
 assert contact<0.0001,'轴向止挡未接触'
 bottom_band=Part.Face(ellipse_wire(0,FOOT_OUTER_RX,FOOT_OUTER_RY,FOOT_CENTER_Y)).extrude(Z*.6)
 bottom_band=bottom_band.cut(Part.Face(ellipse_wire(0,FOOT_INNER_RX,FOOT_INNER_RY,FOOT_CENTER_Y)).extrude(Z*.6))
 for x,s in LOCK_POINTS:
-    assert axial_cylinder(2.65,LOCK_HEAD_SEAT,80,x,s).common(bottom_band).Volume<0.001,'工具井切断底环'
+    assert axial_cylinder(LOCK_TOOL_R,LOCK_HEAD_SEAT,80,x,s).common(bottom_band).Volume<0.001,'工具井切断底环'
 assert min(v.z for head in lock_heads for v in head.tessellate(.05)[0])>FOOT_RECESS,'螺丝头碰桌面'
 original_heads=[axial_cylinder(2.0,15.5,17.5,x,s) for x,s in SCREWS_2D]
 for head in original_heads:
@@ -926,14 +941,14 @@ if SPEAKER_GRILLE_ENABLED:
     rear=rear.removeSplitter()
 assert rear.isValid() and len(rear.Solids)==1,'开孔后的后壳必须保持单一有效实体'
 assert all(slot.common(rear).Volume<.001 for slot in speaker_slots),'出音孔未贯通'
-assert all(speaker_pad.common(v).Volume<.01 for v in [carrier,battery_ref,module_ref]+connector_refs+wire_refs+lock_heads+lock_shafts+lock_nuts+lock_tools),'粘贴面挡住装配或工具'
+assert all(speaker_pad.common(v).Volume<.01 for v in [carrier,battery_ref,module_ref]+connector_refs+wire_refs+lock_heads+lock_shafts+lock_inserts+lock_tools),'粘贴面挡住装配或工具'
 # 格栅筋和粘贴面独立验证，普通壁厚审计不将孔边缘当成普通壳壁。
 pad_points=speaker_box(pad_w,pad_h,SPEAKER_TAPE_T,60).common(outer_envelope).tessellate(.1)[0]
 pad_local=[(v.x,(v-P).dot(S),(P-v).dot(N)) for v in pad_points]
 wall_audit_zones.append(tuple((min(v[k] for v in pad_local)-.05,max(v[k] for v in pad_local)+.05) for k in range(3)))
 speaker_obstacles = [('rear_cover',rear),('battery',battery_ref),('carrier',carrier),('module',module_ref)]
 speaker_obstacles += [('connector_%d'%i,v) for i,v in enumerate(connector_refs+connector_sweeps+wire_refs)]
-speaker_obstacles += [('fastener_tool_%d'%i,v) for i,v in enumerate(lock_heads+lock_shafts+lock_nuts+lock_tools+original_heads)]
+speaker_obstacles += [('fastener_tool_%d'%i,v) for i,v in enumerate(lock_heads+lock_shafts+lock_inserts+lock_tools+original_heads)]
 speaker_body_overlaps = {name:round(speaker_ref.common(v).Volume,5) for name,v in speaker_obstacles}
 speaker_envelope_overlaps = {name:round(speaker_envelope.common(v).Volume,5) for name,v in speaker_obstacles}
 speaker_body_fits = max(speaker_body_overlaps.values()) < .01
@@ -959,7 +974,7 @@ speaker_route_overlaps={name:round(speaker_wire_route.common(v).Volume,6)
     for name,v in [('rear',rear),('carrier',carrier),('battery',battery_ref),('module',module_ref)]}
 assert max(speaker_route_overlaps.values())<.01,'喇叭走线通道干涉：'+str(speaker_route_overlaps)
 assert speaker_wire_route.common(speaker_ref).Volume<.01,'线束通道穿过喇叭本体'
-assert all(speaker_wire_route.common(v).Volume<.01 for v in lock_heads+lock_shafts+lock_nuts+lock_tools+original_heads)
+assert all(speaker_wire_route.common(v).Volume<.01 for v in lock_heads+lock_shafts+lock_inserts+lock_tools+original_heads)
 assert speaker_wire_route.common(speaker_wire_reserve).Volume>.01
 assert speaker_wire_route.common(Part.makeCompound(wire_refs)).Volume>.01
 speaker_route_length=sum((b-a).Length for a,b in zip(speaker_route_points,speaker_route_points[1:]))
@@ -1014,7 +1029,7 @@ for prefix, shapes, color in (
         add_feature(doc, "%s_%d_Reference" % (prefix, index + 1), shape, color, False)
 add_feature(doc, "Adhesive_Area_Reference", adhesive_ref, (0.3, 0.6, 0.9), False)
 for name,shapes in [('Lock_Heads',lock_heads),('Lock_Shafts',lock_shafts),
-                    ('Lock_Nuts',lock_nuts),('Lock_Tools',lock_tools),('Original_Heads',original_heads)]:
+                    ('Lock_Inserts',lock_inserts),('Lock_Tools',lock_tools),('Original_Heads',original_heads)]:
     add_feature(doc,name+'_Reference',Part.makeCompound(shapes),(0.8,0.62,0.24),False)
 doc.recompute()
 
@@ -1136,11 +1151,11 @@ assert all(v['overlap_mm3']<.01 for v in speaker_closing_checks),'喇叭随后�
 print("insertion and closing connector clearance: passed")
 hook_motion=verify_hook_motion(carrier,rear,speaker_envelope,
     # 插入包络单独验证；开盖时只保留已经装入的插头实体及线束空间。
-    [module_ref,battery_ref]+connector_refs+wire_refs+original_heads+lock_nuts,
+    [module_ref,battery_ref]+connector_refs+wire_refs+original_heads+lock_inserts,
     upper_lugs,lock_shafts,hook_stops)
 for x,s in LOCK_POINTS:
-    bearing=axial_cylinder(2.25,LOCK_HEAD_SEAT-.05,LOCK_HEAD_SEAT,x,s).cut(
-        axial_cylinder(1.45,LOCK_HEAD_SEAT-.1,LOCK_HEAD_SEAT+.1,x,s))
+    bearing=axial_cylinder(2.75,LOCK_HEAD_SEAT-.05,LOCK_HEAD_SEAT,x,s).cut(
+        axial_cylinder(LOCK_CLEARANCE_R,LOCK_HEAD_SEAT-.1,LOCK_HEAD_SEAT+.1,x,s))
     assert bearing.cut(rear).Volume<.001,'旋转让位破坏螺丝头承压面'
 # 旧通用粘贴区只是参考，新扬声器台可能占用它；单独报告而不当作实体装配失败。
 adhesive_zone_clear=adhesive_ref.common(rear).Volume < .01
@@ -1175,20 +1190,22 @@ print("mouth maximum radius=%.4f mm" % max(mouth_radii))
 metrics = {
     "stand_front_projection_max_radius_mm": max(projection_radii),
     "front_occlusion_margin_mm": MODULE_R - max(projection_radii),
-    "locking_screws": "2 × M2.5×8 内六角圆柱头",
-    "nut_across_flats_mm":5.0,
-    "nut_pocket_across_flats_mm":5.2,
-    "nut_shoulder_mm":LOCK_BOSS_BACK-LOCK_NUT_BACK,
+    "locking_screws": "2 × M3×6 内六角圆柱头，头部 Ø5.5×3 mm",
+    "heat_set_insert":{"thread":"M3","length_mm":LOCK_INSERT_LENGTH,
+        "outer_diameter_mm":LOCK_INSERT_OD,"bore_diameter_mm":LOCK_INSERT_BORE,
+        "bore_depth_mm":LOCK_INSERT_DEPTH,"entry_chamfer_mm":.3,
+        "installation":"承托架背面轴向压入，端面齐平；先热熔再装开发板",
+        "thread_engagement_mm":LOCK_INSERT_LENGTH,
+        "screw_tip_extension_mm":LOCK_BOSS_BACK-LOCK_INSERT_LENGTH-(LOCK_HEAD_SEAT-LOCK_SCREW_LENGTH),
+        "physical_installation_verified":False},
     "guide_engagement_mm":None,
     "guide_clearance_mm":GUIDE_CLEARANCE,
     "guide_widths_mm":[v[1] for v in GUIDES],
     "guide_top_shape":"两处短承压垫和双刚性旋扣",
     "lock_points_mm":LOCK_POINTS,
-    "nut_slot_entry_width_mm":6.1,
-    "nut_slot_side_wall_mm":1.2,
-    "nut_insertion_max_overlap_mm3":max(nut_insertion),
+    "heat_tool_max_overlap_mm3":max(insert_installation),
     "axial_stop_contact_distances_mm":stop_contacts,
-    "tool_well_diameter_mm":5.3,
+    "tool_well_diameter_mm":LOCK_TOOL_R*2,
     "screw_head_seat_n_mm":LOCK_HEAD_SEAT,
     "carrier_ring_width_mm":CARRIER_OUTER_R-CARRIER_INNER_R,
     "closing_checks":closing_checks,
@@ -1298,7 +1315,7 @@ for name, shape in (("section", section_shape), ("battery_reference", battery_re
                     ("wire_reference", Part.makeCompound(wire_refs)),
                     ("carrier_reference", carrier), ("adhesive_reference", adhesive_ref),
                     ('upper_hooks',Part.makeCompound(upper_hooks)),('upper_lugs',Part.makeCompound(upper_lugs)),
-                    ("fasteners",Part.makeCompound(lock_heads+lock_shafts+lock_nuts))):
+                    ("fasteners",Part.makeCompound(lock_heads+lock_shafts+lock_inserts))):
     mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=0.1, AngularDeflection=0.3)
     mesh.write(os.path.join(preview_dir, name + ".stl"))
 if speaker_conflicts:
@@ -1307,8 +1324,7 @@ if speaker_conflicts:
 
 fit_dir=FIT_DIR
 os.makedirs(fit_dir,exist_ok=True)
-samples={'nut_pocket':carrier.common(axial_box(-12,-2,-21,-7,13.8,19)),
-         'upper_hook_carrier':carrier.common(shoulder_box(HOOK_ANGLES[0],18,24,-6,4,12.1,31)),
+samples={'upper_hook_carrier':carrier.common(shoulder_box(HOOK_ANGLES[0],18,24,-6,4,12.1,31)),
          'upper_hook_cover':rear.common(shoulder_box(HOOK_ANGLES[0],18,27,-6,5,12.4,33))}
 samples['speaker_mount']=rear.common(speaker_rect(-SPEAKER_W/2-3,SPEAKER_W/2+3,
     -SPEAKER_H/2-3,SPEAKER_H/2+3,-2.1,8))

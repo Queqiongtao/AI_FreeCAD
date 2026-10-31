@@ -1,5 +1,5 @@
 {
-  "stl_sha256": "090753154efff448917dfbe4c10567d51f4c9d5b3cd3c6db53a5f25463a86939",
+  "stl_sha256": "4ac1a1d10113f87a7bb56945f1525469bbe088c8ea30f0e67ab8e015be9fa521",
   "slicer": "Bambu Studio",
   "printer_profile": "Prusa MK3S 0.4 nozzle",
   "filament_profile": "Generic PETG @Prusa",
@@ -8,15 +8,15 @@
   "wall_loops": 4,
   "wall_generator": "classic",
   "support_enabled": true,
-  "support_extrusion_moves": 6256,
+  "support_extrusion_moves": 6654,
   "support_type": "normal(auto)",
   "support_threshold_angle_deg": 30,
   "outer_brim_width_mm": 5,
-  "layer_count": 209,
+  "layer_count": 211,
   "object_layer_count": 202,
   "wall_layer_count": 202,
   "top_shortfall_mm": 0.10784,
-  "support_only_layer_count": 7,
+  "support_only_layer_count": 9,
   "lower_edge_probe_count": 62,
   "min_wall_crossings": 6,
   "warning_message": "",
@@ -428,12 +428,12 @@
     },
     "slot_support": {
       "front_0": {
-        "support_segment_midpoints": 25,
-        "support_layers": 12,
+        "support_segment_midpoints": 31,
+        "support_layers": 13,
         "removal_physically_verified": false
       },
       "front_1": {
-        "support_segment_midpoints": 24,
+        "support_segment_midpoints": 26,
         "support_layers": 10,
         "removal_physically_verified": false
       }
@@ -446,35 +446,39 @@
     },
     {
       "z_mm": 5.0,
-      "unsupported_wall_run_mm": 2.0689398188934818
-    },
-    {
-      "z_mm": 26.8,
-      "unsupported_wall_run_mm": 1.3703840950679402
+      "unsupported_wall_run_mm": 2.068777265093828
     },
     {
       "z_mm": 5.2,
       "unsupported_wall_run_mm": 1.1698285573123983
     },
     {
+      "z_mm": 3.0,
+      "unsupported_wall_run_mm": 0.6827256348875885
+    },
+    {
       "z_mm": 8.4,
-      "unsupported_wall_run_mm": 0.5663750000000007
+      "unsupported_wall_run_mm": 0.6038214418672405
+    },
+    {
+      "z_mm": 8.6,
+      "unsupported_wall_run_mm": 0.5771111111111114
     },
     {
       "z_mm": 5.4,
-      "unsupported_wall_run_mm": 0.46402462006411044
+      "unsupported_wall_run_mm": 0.46402462006412093
     },
     {
-      "z_mm": 27.2,
-      "unsupported_wall_run_mm": 0.39223149100136306
+      "z_mm": 26.8,
+      "unsupported_wall_run_mm": 0.3825310444918113
+    },
+    {
+      "z_mm": 26.6,
+      "unsupported_wall_run_mm": 0.2225000000000037
     },
     {
       "z_mm": 21.8,
-      "unsupported_wall_run_mm": 0.23700843866833649
-    },
-    {
-      "z_mm": 8.2,
-      "unsupported_wall_run_mm": 0.2281780056072145
+      "unsupported_wall_run_mm": 0.1832511937205324
     },
     {
       "z_mm": 2.6,
@@ -482,10 +486,6 @@
     },
     {
       "z_mm": 2.8,
-      "unsupported_wall_run_mm": 0.0
-    },
-    {
-      "z_mm": 3.0,
       "unsupported_wall_run_mm": 0.0
     },
     {
@@ -512,10 +512,18 @@
     },
     {
       "z_mm": 0.8,
-      "unsupported_wall_run_mm": 0.2298352670936307
+      "unsupported_wall_run_mm": 0.2240178564311288
+    },
+    {
+      "z_mm": 0.867,
+      "unsupported_wall_run_mm": 0.0
     },
     {
       "z_mm": 1.0,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 1.133,
       "unsupported_wall_run_mm": 0.0
     },
     {
@@ -555,10 +563,10 @@
       124.99999237060547,
       88.39575672149658
     ],
-    "section_alignment_score": 0.9894050529747351,
+    "section_alignment_score": 0.9642567018683996,
     "bbox_center_alignment": false,
     "bbox_dimension_error_mm": 3.814697265625e-06
   },
-  "support_extrusion_volume_mm3": 694.0754740765028,
+  "support_extrusion_volume_mm3": 724.8706346667705,
   "note": "参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。"
 }
