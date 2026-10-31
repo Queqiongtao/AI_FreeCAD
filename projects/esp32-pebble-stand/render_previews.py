@@ -273,7 +273,7 @@ for filename, caption in (
     ("preview_speaker_rear.png", "后壳实际出音长孔；保留周边粘贴框、底环和锁盖结构"),
     ("preview_grille.png", "出音格栅：%d 条 %g×%g mm 圆头孔，孔间筋 %g mm" %
      (PARAMS['SPEAKER_SLOT_COUNT'],PARAMS['SPEAKER_SLOT_W'],PARAMS['SPEAKER_SLOT_H'],PARAMS['SPEAKER_SLOT_WEB'])),
-    ("preview_fastening.png", "支架背面：双刚性旋扣＋R1 根部圆角，下方 M3 螺丝＋热熔螺母"),
+    ("preview_fastening.png", "承托架：3.2 mm 加强梁与旋扣，R1.2 根部圆角；M3 热熔螺母"),
     ('preview_upper_hooks.png', '背面顺时针 9° 解锁，再后拉；蓝：扣头，橙：后壳钩翼'),
 ):
     canvas = Image.open(OUT / filename)

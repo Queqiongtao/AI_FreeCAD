@@ -82,6 +82,11 @@ CARRIER_OUTER_R = 22.8
 CARRIER_BOSS_R = 2.6
 CARRIER_LOCK_WEB_BACK = 17.7
 CARRIER_LOCK_WEB_W = 4.4
+UPPER_BEAM_W = 3.2
+UPPER_BEAM_S = 12.5
+UPPER_BEAM_FRONT_N = 13.9
+UPPER_BEAM_HALF_SPAN = 17.6
+UPPER_NOTCH_R = .8
 SHELL_MOUTH_N = MODULE_DEPTH + 0.3
 SHELL_PROJECTION_R = 25.2
 SHELL_INNER_R = 23.1
@@ -110,18 +115,19 @@ LOCK_BOSS_BACK = 19.0
 LOCK_HEAD_SEAT = 21.5
 
 # 肩部双刚性旋扣；不采用弹性卡扣。沿屏幕法线小角度旋转后，直线取下。
-HOOK_ANGLES = (55.0,125.5)
+HOOK_ANGLES = (61.0,135.0)
 HOOK_RELEASE_DEG = 9.0
 HOOK_PULL_MM = 50.0
-HOOK_ROOT_T = 2.4
+HOOK_ROOT_T = 3.2
 HOOK_CLEARANCE = 0.30
-HOOK_FILLET_R = 1.0
+HOOK_FILLET_R = 1.2
 HOOK_LUG_FRONT_N = 20.1
 HOOK_LUG_BACK_N = HOOK_LUG_FRONT_N+HOOK_ROOT_T
-HOOK_LUG_WIDTH = 2.4
+HOOK_LUG_WIDTH = 3.2
 HOOK_COVER_WIDTH = 4.0
-HOOK_AXIAL_OFFSET = 3.8
-HOOK_INNER_R = 20.4
+HOOK_AXIAL_OFFSETS = (3.0,9.3)  # 左侧承压面位于电池后方，避免钩翼被削成薄边
+HOOK_RADIAL_INNERS = (19.6,18.8)  # 较高的左立柱加宽径向截面
+HOOK_INNER_R = 19.6
 HOOK_OUTER_R = HOOK_INNER_R+HOOK_ROOT_T
 
 TILT = math.radians(TILT_DEG)
@@ -278,44 +284,57 @@ def subtract_sweep(shape,tool):
 
 def add_upper_hooks(frame,cover,envelope):
     hooks=[];lugs=[]
-    limit=axial_cylinder(SHELL_INNER_R,12,32)
+    limit=axial_cylinder(SHELL_INNER_R,12,40)
     g,thick=HOOK_CLEARANCE,HOOK_ROOT_T
     half=HOOK_LUG_WIDTH/2
     stem_hi=-half-2*g;stem_lo=stem_hi-thick
-    tip_lo=-half-.4;tip_hi=tip_lo+HOOK_COVER_WIDTH
+    # 加宽扣头后，钩翼入口必须仍能在 9° 时完全退出，不能沿用旧窄扣头的入口边。
+    release=math.radians(HOOK_RELEASE_DEG)
     front,back=HOOK_LUG_FRONT_N,HOOK_LUG_BACK_N
     fillet=HOOK_FILLET_R
     assert 0<fillet<=thick/2
-    for angle in HOOK_ANGLES:
-        r0,r1=HOOK_INNER_R,HOOK_OUTER_R
+    for index,angle in enumerate(HOOK_ANGLES):
+        r0,r1=HOOK_RADIAL_INNERS[index],HOOK_OUTER_R
+        offset=HOOK_AXIAL_OFFSETS[index]
+        tip_lo=half*math.cos(release)-r0*math.sin(release)+g
+        tip_hi=tip_lo+HOOK_COVER_WIDTH
         def b(r0,r1,t0,t1,n0,n1):
-            return shoulder_box(angle,r0,r1,t0,t1,n0+HOOK_AXIAL_OFFSET,n1+HOOK_AXIAL_OFFSET)
+            return shoulder_box(angle,r0,r1,t0,t1,n0+offset,n1+offset)
         # 两个支柱均位于局部负切向侧，故同一次旋转可同时退出两个挂接。
         lug=b(r0,r1,stem_lo,half,front,back).common(limit)
-        post=shoulder_box(angle,r0,r1,stem_lo,stem_hi,CARRIER_PAD_FRONT_N,front+fillet+HOOK_AXIAL_OFFSET).common(limit)
-        post=post.cut(axial_box(-30,30,-30,14.3,17.3,32))
-        lug=lug.cut(axial_box(-30,30,-30,14.3,17.3,32))
+        post=shoulder_box(angle,r0,r1,stem_lo,stem_hi,CARRIER_PAD_FRONT_N,front+fillet+offset).common(limit)
+        post=post.cut(axial_box(-30,30,-30,14.3,17.3,40))
+        lug=lug.cut(axial_box(-30,30,-30,14.3,17.3,40))
         for sx in (-CONNECTOR_X,CONNECTOR_X):
             post=post.cut(axial_box(sx-2.9,sx+2.9,14.45,20.05,12,22.4))
         # 显式圆弧补料构造 R1 内角，避免短边/圆柱裁边导致自动圆角失败。
         a=math.radians(angle)
         u=X*math.cos(a)+S*math.sin(a);v=-X*math.sin(a)+S*math.cos(a)
+        gusset=polygon_face([plate_point(0,0,n)+u*r0+v*t for t,n in
+            [(stem_hi,CARRIER_BACK_N-.6),(stem_hi+fillet,CARRIER_BACK_N-.6),
+             (stem_hi,CARRIER_BACK_N+thick)]]).extrude(u*(r1-r0)).common(limit)
         root=b(r0,r1,stem_hi,stem_hi+fillet,front-fillet,front)
         cutter=Part.makeCylinder(fillet,thick+2*g,
-            plate_point(0,0,front-fillet+HOOK_AXIAL_OFFSET)+u*(r0-g)+v*(stem_hi+fillet),u)
+            plate_point(0,0,front-fillet+offset)+u*(r0-g)+v*(stem_hi+fillet),u)
         root=root.cut(cutter).common(limit)
-        bracket=post.fuse(lug).fuse(root).removeSplitter()
+        bracket=post.fuse(lug).fuse(root).fuse(gusset).removeSplitter()
         assert bracket.isValid() and len(bracket.Solids)==1
         frame=frame.fuse(bracket)
         # 两翼、周边壳壁构成刚性扣。内侧和入口均开放，可直接清理支撑。
         hook=b(r0,27,tip_lo,tip_hi,front-g-thick,front-g).fuse(
             b(r0,27,tip_lo,tip_hi,back+g,back+g+thick)).fuse(
             b(r1+g,27,tip_lo,tip_hi,front-g-thick,back+g+thick)).common(envelope)
+        for sx in (-CONNECTOR_X,CONNECTOR_X):
+            hook=hook.cut(axial_box(sx-2.9,sx+2.9,14.45,20.05,12,front+offset))
+        # 与扣头下缘一致地截平钩翼，避免喇叭包络在钩翼上切出薄片。
+        hook=hook.cut(axial_box(-30,30,-30,14.3,17.3,40))
         air=b(r0-g,r1+g,stem_lo-g,half+g,front-g,back+g)
         # 根部圆角让位；0.3 mm 间隙不能被清理不到的封闭支撑占用。
-        post_air=shoulder_box(angle,r0-g,r1+g,stem_lo-g,stem_hi+g,CARRIER_PAD_FRONT_N-g,back+g+HOOK_AXIAL_OFFSET)
+        post_air=shoulder_box(angle,r0-g,r1+g,stem_lo-g,stem_hi+g,CARRIER_PAD_FRONT_N-g,back+g+offset)
         root_air=b(r0-g,r1+g,stem_hi+g,stem_hi+fillet+g,front-fillet-g,front+g)
-        air=air.fuse(post_air).fuse(root_air).common(axial_cylinder(23.1,14,32))
+        base_air=shoulder_box(angle,r0-g,r1+g,stem_hi-g,stem_hi+fillet+g,
+            CARRIER_BACK_N-.6-g,CARRIER_BACK_N+thick+g)
+        air=air.fuse(post_air).fuse(root_air).fuse(base_air).common(axial_cylinder(23.1,13,40))
         sweep=rotation_sweep(air,-HOOK_RELEASE_DEG)
         cover=subtract_sweep(cover,sweep)
         hook=subtract_sweep(hook,sweep)
@@ -333,6 +352,12 @@ def add_upper_hooks(frame,cover,envelope):
     for x,s in SCREWS_2D:
         head_air=axial_cylinder(2.4 if x==0 else 2.3,15.5,17.8,x,s)
         cover=subtract_sweep(cover,rotation_sweep(head_air,-HOOK_RELEASE_DEG))
+    for sx in (-CONNECTOR_X,CONNECTOR_X):
+        # 加粗前翼接近收线区，避让整个解锁行程，而不只检查锁定姿态。
+        # 避让贯通前翼厚度，不能在收线区上方留下薄台阶。
+        wire_air=axial_box(sx-1.7,sx+1.7,14.7,CONNECTOR_S+1.3,17.7,
+            max(21.3,front+min(HOOK_AXIAL_OFFSETS)))
+        cover=subtract_sweep(cover,rotation_sweep(wire_air,-HOOK_RELEASE_DEG))
     return frame.removeSplitter(),cover.removeSplitter(),hooks,lugs,stops
 
 
@@ -456,7 +481,7 @@ def export_stl(shape, filename, lay_flat=False):
     export_shape = shape.copy()
     if lay_flat:
         export_shape.Placement = App.Placement(
-            App.Vector(), App.Rotation(N, Z)
+            App.Vector(), App.Rotation(-N, Z)
         ).multiply(export_shape.Placement)
         export_shape.translate(App.Vector(0, 0, -export_shape.BoundBox.ZMin))
     mesh = MeshPart.meshFromShape(
@@ -605,12 +630,32 @@ for sx, sy in SCREWS_2D:
         plate_point(sx, sy, CARRIER_BACK_N + 0.5), N
     ))
 for sx in (-CONNECTOR_X, CONNECTOR_X):
+    # 插头缺口贯通外缘，不留下约 1 mm 的细桥；由下方加强梁承担连接载荷。
     carrier = carrier.cut(rectangle_face(
         sx - CONNECTOR_W / 2, sx + CONNECTOR_W / 2,
-        CONNECTOR_S - CONNECTOR_H / 2, CONNECTOR_S + CONNECTOR_H / 2,
+        CONNECTOR_S - CONNECTOR_H / 2, 40,
         CARRIER_BACK_N + 0.5
     ).extrude(N * (CARRIER_BACK_N - CARRIER_FRONT_N + 1.0)))
 carrier = carrier.removeSplitter()
+# 给贯通缺口的竖向棱倒圆；只减料，不侵入插头的矩形安装包络。
+notch_edges=[]
+for edge in carrier.Edges:
+    if len(edge.Vertexes)!=2:continue
+    a,b=[v.Point for v in edge.Vertexes]
+    d=b-a
+    if d.cross(N).Length>1e-6 or abs(d.Length-(CARRIER_BACK_N-CARRIER_PAD_FRONT_N))>1e-5:continue
+    center=(a+b)*.5-P
+    if center.dot(S)>19.75 and min(abs(abs(center.x)-v) for v in (CONNECTOR_X-CONNECTOR_W/2,CONNECTOR_X+CONNECTOR_W/2))<1e-5:
+        notch_edges.append(edge)
+if notch_edges:
+    carrier=carrier.makeFillet(UPPER_NOTCH_R,notch_edges)
+# 加强梁在电池前方，中央短筋从两个插头之间连接顶部原厂螺丝座。
+upper_beam=axial_box(-UPPER_BEAM_HALF_SPAN,UPPER_BEAM_HALF_SPAN,
+    UPPER_BEAM_S-UPPER_BEAM_W/2,UPPER_BEAM_S+UPPER_BEAM_W/2,
+    UPPER_BEAM_FRONT_N,CARRIER_BACK_N)
+upper_spine=axial_box(-UPPER_BEAM_W/2,UPPER_BEAM_W/2,
+    UPPER_BEAM_S,20.5,UPPER_BEAM_FRONT_N,CARRIER_BACK_N)
+carrier=carrier.fuse(upper_beam).fuse(upper_spine).removeSplitter()
 # 去掉下方无用圆弧，让出底板上方的空间；两侧下螺丝座仍由上方弧段连接。
 carrier = carrier.cut(rectangle_face(-50, 50, -60, -18, 25).extrude(N * 20)).removeSplitter()
 
@@ -769,6 +814,23 @@ for x,s in LOCK_POINTS:
 rear=rear.removeSplitter()
 carrier,rear,upper_hooks,upper_lugs,hook_stops=add_upper_hooks(carrier,rear,outer_envelope)
 guide_sockets=hook_stops
+upper_post_sections=[]
+for index,angle in enumerate(HOOK_ANGLES):
+    a=math.radians(angle)
+    u=X*math.cos(a)+S*math.sin(a);v=-X*math.sin(a)+S*math.cos(a)
+    hi=-HOOK_LUG_WIDTH/2-2*HOOK_CLEARANCE;lo=hi-HOOK_ROOT_T
+    for n in (18.0,20.0,23.0):
+        for t in (lo+.05,(lo+hi)/2,hi-.05):
+            line=Part.makeLine(plate_point(0,0,n)+u*HOOK_RADIAL_INNERS[index]+v*t,
+                plate_point(0,0,n)+u*HOOK_OUTER_R+v*t)
+            width=sum(e.Length for e in line.common(carrier.copy(True)).Edges)
+            assert width>=2.7,'旋扣立柱径向承力截面不足：'+str((angle,n,t,width))
+            upper_post_sections.append(width)
+        for r in (HOOK_RADIAL_INNERS[index]+.1,(HOOK_RADIAL_INNERS[index]+HOOK_OUTER_R)/2,HOOK_OUTER_R-.5):
+            line=Part.makeLine(plate_point(0,0,n)+u*r+v*lo,
+                plate_point(0,0,n)+u*r+v*hi)
+            width=sum(e.Length for e in line.common(carrier.copy(True)).Edges)
+            assert width>=3.19,'旋扣立柱切向承力截面不足：'+str((angle,n,r,width))
 for lo,hi in ((7,22),(-22,-7)):
     wall_audit_zones.append(((lo,hi),(13,23),(14.4,25.3)))
 for x,s in SCREWS_2D:
@@ -1273,29 +1335,51 @@ metrics = {
 
 # 旋扣切片区域随参数生成；打印坐标直接采用交付 STL 的刚体变换。
 flat=carrier.copy(True)
-flat.Placement=App.Placement(App.Vector(),App.Rotation(N,Z)).multiply(flat.Placement)
+flat.Placement=App.Placement(App.Vector(),App.Rotation(-N,Z)).multiply(flat.Placement)
 hook_frame={'origin':list(P),'up':list(S),'normal':list(N),
-            'carrier_y_origin':P.dot(S),'carrier_back_n':P.dot(N)-flat.BoundBox.ZMin,
+            'carrier_y_origin':-P.dot(S),'carrier_n_origin':P.dot(N)+flat.BoundBox.ZMin,
+            'carrier_s_sign':-1,'carrier_n_sign':1,
             'hook_r0':HOOK_INNER_R,'hook_r1':HOOK_OUTER_R,
-            'hook_front_n':HOOK_LUG_FRONT_N+HOOK_AXIAL_OFFSET,
-            'hook_back_n':HOOK_LUG_BACK_N+HOOK_AXIAL_OFFSET}
+            'hook_front_n':HOOK_LUG_FRONT_N+min(HOOK_AXIAL_OFFSETS),
+            'hook_back_n':HOOK_LUG_BACK_N+max(HOOK_AXIAL_OFFSETS)}
 hook_features={'mount_carrier':[],'rear_cover':[]}
 for i,angle in enumerate(HOOK_ANGLES):
-    r0,r1=HOOK_INNER_R,HOOK_OUTER_R
-    f,b=hook_frame['hook_front_n'],hook_frame['hook_back_n']
-    definitions=[('mount_carrier','lug',[r0,r1,-4.2,1.2,f,b],0,[r0,r1]),
-                 ('mount_carrier','post',[r0,r1,-4.2,-1.8,17.5,f],-3,[r0,r1]),
-                 ('rear_cover','front',[r0,r1,-.5,1.2,f-.3-HOOK_ROOT_T,f-.3],.5,[r0,r1]),
-                 ('rear_cover','root',[r1+.3,25.2,-.5,1.2,f-.3-HOOK_ROOT_T,b+.3+HOOK_ROOT_T],.5,[r1+.3,25.2])]
+    r0,r1=HOOK_RADIAL_INNERS[i],HOOK_OUTER_R
+    f,b=HOOK_LUG_FRONT_N+HOOK_AXIAL_OFFSETS[i],HOOK_LUG_BACK_N+HOOK_AXIAL_OFFSETS[i]
+    half=HOOK_LUG_WIDTH/2
+    stem_hi=-half-2*HOOK_CLEARANCE;stem_lo=stem_hi-HOOK_ROOT_T
+    definitions=[('mount_carrier','lug',[r0,r1,stem_lo,half,f,b],0,[r0,r1]),
+                 ('mount_carrier','post',[r0,r1,stem_lo,stem_hi,17.5,f],(stem_lo+stem_hi)/2,[r0,r1]),
+                 ('rear_cover','front',[r0,r1,-.5,half,f-HOOK_CLEARANCE-HOOK_ROOT_T,f-HOOK_CLEARANCE],.5,[r0,r1]),
+                 ('rear_cover','root',[r1+HOOK_CLEARANCE,25.2,-.5,half,f-HOOK_CLEARANCE-HOOK_ROOT_T,b+HOOK_CLEARANCE+HOOK_ROOT_T],.5,[r1+HOOK_CLEARANCE,25.2])]
     for part,kind,bounds,t,probe_r in definitions:
         hook_features[part].append({'name':kind+'_'+str(i),'kind':kind,'angle_deg':angle,
-                                    'bounds':bounds,'probe_t':t,'probe_r':probe_r})
+                                    'bounds':bounds,'probe_t':t,'probe_r':probe_r,
+                                    'slot_front_n':f-HOOK_CLEARANCE,'slot_back_n':b+HOOK_CLEARANCE})
 metrics['hook_print_frame']=hook_frame
+metrics['carrier_print_orientation']='模块固定面朝下，三处原厂固定座落床；两根立柱向上打印'
+for x in (-8,0,8):
+    hook_features['mount_carrier'].append({'name':'beam_'+str(x),'kind':'beam','angle_deg':90,
+        'bounds':[UPPER_BEAM_S-UPPER_BEAM_W/2,UPPER_BEAM_S+UPPER_BEAM_W/2,
+                  -x-.6,-x+.6,UPPER_BEAM_FRONT_N,CARRIER_BACK_N],
+        'probe_t':-x,'probe_r':[UPPER_BEAM_S-UPPER_BEAM_W/2,UPPER_BEAM_S+UPPER_BEAM_W/2]})
+hook_features['mount_carrier'].append({'name':'upper_spine','kind':'spine','angle_deg':0,
+    'bounds':[-UPPER_BEAM_W/2,UPPER_BEAM_W/2,16.7,17.3,UPPER_BEAM_FRONT_N,CARRIER_BACK_N],
+    'probe_t':17,'probe_r':[-UPPER_BEAM_W/2,UPPER_BEAM_W/2]})
 metrics['hook_print_features']=hook_features
 metrics['upper_hooks'].update({'angles_deg':list(HOOK_ANGLES),'lug_width_mm':HOOK_LUG_WIDTH,
     'hook_width_mm':HOOK_COVER_WIDTH,'root_thickness_mm':HOOK_ROOT_T,'root_fillet_mm':HOOK_FILLET_R,
     'clearance_mm':HOOK_CLEARANCE,'lug_front_n_mm':hook_frame['hook_front_n'],
-    'lug_back_n_mm':hook_frame['hook_back_n'],'bearing_faces_preserved':True})
+    'lug_back_n_mm':hook_frame['hook_back_n'],'bearing_faces_preserved':True,
+    'axial_offsets_mm':list(HOOK_AXIAL_OFFSETS),'radial_inners_mm':list(HOOK_RADIAL_INNERS)})
+metrics['upper_reinforcement']={'beam_width_mm':UPPER_BEAM_W,
+    'beam_axial_thickness_mm':CARRIER_BACK_N-UPPER_BEAM_FRONT_N,
+    'beam_center_s_mm':UPPER_BEAM_S,'beam_half_span_mm':UPPER_BEAM_HALF_SPAN,
+    'notch_corner_radius_mm':UPPER_NOTCH_R,'connector_notches_open':True,
+    'post_radial_section_min_mm':min(upper_post_sections),
+    'post_radial_section_count':len(upper_post_sections),'post_tangential_section_min_target_mm':3.19,
+    'battery_axial_gap_mm':BATTERY_FRONT_N-CARRIER_BACK_N,
+    'physical_strength_verified':False}
 
 # 预览辅助网格只存在本地 archive，参考体不混入打印文件。
 preview_dir = PREVIEW_DIR
@@ -1324,7 +1408,7 @@ if speaker_conflicts:
 
 fit_dir=FIT_DIR
 os.makedirs(fit_dir,exist_ok=True)
-samples={'upper_hook_carrier':carrier.common(shoulder_box(HOOK_ANGLES[0],18,24,-6,4,12.1,31)),
+samples={'upper_hook_carrier':carrier.common(shoulder_box(HOOK_ANGLES[0],HOOK_INNER_R-.05,24,-6,4,12.1,31)),
          'upper_hook_cover':rear.common(shoulder_box(HOOK_ANGLES[0],18,27,-6,5,12.4,33))}
 samples['speaker_mount']=rear.common(speaker_rect(-SPEAKER_W/2-3,SPEAKER_W/2+3,
     -SPEAKER_H/2-3,SPEAKER_H/2+3,-2.1,8))
@@ -1332,7 +1416,7 @@ for name,shape in samples.items():
     assert shape.isValid() and len(shape.Solids)==1,'试装件不连通：'+name
     shape=shape.copy()
     if name=='upper_hook_carrier':
-        shape.Placement=App.Placement(App.Vector(),App.Rotation(N,Z)).multiply(shape.Placement)
+        shape.Placement=App.Placement(App.Vector(),App.Rotation(-N,Z)).multiply(shape.Placement)
     elif name!='upper_hook_cover':
         shape.Placement=App.Placement(App.Vector(),App.Rotation(-N,Z)).multiply(shape.Placement)
     shape.translate(App.Vector(0,0,-min(v.z for v in shape.tessellate(.05)[0])))

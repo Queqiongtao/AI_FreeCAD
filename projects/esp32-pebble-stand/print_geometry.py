@@ -146,7 +146,8 @@ def audit_hooks(layers,triangles,features,frame,is_carrier):
     """以最终 STL 的完整承力截面核对轮廓和实际挤出，排除支撑和稀疏填充。"""
     origin,up,normal=frame['origin'],frame['up'],frame['normal']
     def local(p):
-        if is_carrier:return p[0],p[1]-frame['carrier_y_origin'],frame['carrier_back_n']-p[2]
+        if is_carrier:return (p[0],(p[1]-frame['carrier_y_origin'])*frame.get('carrier_s_sign',1),
+            frame['carrier_n_origin']+frame['carrier_n_sign']*p[2] if 'carrier_n_origin' in frame else frame['carrier_back_n']-p[2])
         delta=[p[i]-origin[i] for i in range(3)]
         return p[0],sum(delta[i]*up[i] for i in range(3)),-sum(delta[i]*normal[i] for i in range(3))
     def shoulder(p,f):
@@ -159,8 +160,8 @@ def audit_hooks(layers,triangles,features,frame,is_carrier):
         for r in (r0,r1):
             x=r*math.cos(a)-t*math.sin(a);s=r*math.sin(a)+t*math.cos(a)
             if is_carrier:
-                n=frame['carrier_back_n']-(z-.1)
-                point=(x,s+frame['carrier_y_origin'])
+                n=frame['carrier_n_origin']+frame['carrier_n_sign']*(z-.1) if 'carrier_n_origin' in frame else frame['carrier_back_n']-(z-.1)
+                point=(x,frame['carrier_y_origin']+s*frame.get('carrier_s_sign',1))
             else:
                 n=(origin[2]+up[2]*s-(z-.1))/normal[2]
                 point=(x,origin[1]+up[1]*s-normal[1]*n)
@@ -250,7 +251,7 @@ def audit_hooks(layers,triangles,features,frame,is_carrier):
                     if 'support' not in kind.lower():continue
                     p=((a[0]+b[0])/2,(a[1]+b[1])/2,z-.1)
                     r,t,n=shoulder(p,f)
-                    if frame['hook_r0']<r<frame['hook_r1'] and -.5<t<1.2 and frame['hook_front_n']-.3<n<frame['hook_back_n']+.3:
+                    if f['bounds'][0]<r<f['bounds'][1] and f['bounds'][2]<t<f['bounds'][3] and f.get('slot_front_n',frame['hook_front_n']-.3)<n<f.get('slot_back_n',frame['hook_back_n']+.3):
                         moves+=1;heights.add(z)
             support[f['name']]={'support_segment_midpoints':moves,'support_layers':len(heights),'removal_physically_verified':False}
     return {'features':reports,'slot_support':support}

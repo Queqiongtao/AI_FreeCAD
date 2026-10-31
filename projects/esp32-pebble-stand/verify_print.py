@@ -26,6 +26,8 @@ def main():
     cache = CACHE / args.part
     cache.mkdir(parents=True, exist_ok=True)
     is_carrier = args.part == 'mount_carrier'
+    # 后壳钩翼的局部窄截面采用可变线宽，避免固定线宽留下未填满的承力段。
+    wall_generator = 'classic' if is_carrier else 'arachne'
 
     def load(kind, name):
         data = json.loads((profiles / kind / (name + '.json')).read_text(encoding='utf-8-sig'))
@@ -41,7 +43,7 @@ def main():
         data = load(kind, name)
         if kind == 'process':
             data.update({'layer_height': '0.2', 'initial_layer_print_height': '0.2',
-                         'wall_loops': '4', 'wall_generator': 'classic',
+                         'wall_loops': '4', 'wall_generator': wall_generator,
                          'enable_support':'1','support_type':'normal(auto)',
                          'support_threshold_angle':'30','brim_type':'outer_only','brim_width':'5',
                          'brim_object_gap':'0'})
@@ -93,7 +95,8 @@ def main():
     # 曲面顶部小于挤出线宽的尖端可能被切片器省略；允许最多一层＋半线宽。
     top_shortfall=max(v[2] for v in vertices)-max(model_layers)
     # 二进制 STL 的 float32 高度可能比同一层高小约 0.000001 mm。
-    assert -1e-5<=top_shortfall<0.4,'本体顶部缺失超过切片分辨率'
+    # 非整层高模型允许切片器将顶层向上取整一层，不能误判为模型缺失。
+    assert -.20001<=top_shortfall<0.4,'本体顶部缺失超过切片分辨率'
     top_shortfall=max(0.0,top_shortfall)
     expected_layers=round(max(model_layers)/0.2)
     assert all(round(i*0.2,3) in model_layers for i in range(1,expected_layers+1)), '本体标准层缺少挤出路径'
@@ -129,7 +132,7 @@ def main():
     report = {'stl_sha256': hashlib.sha256(data).hexdigest(), 'slicer': 'Bambu Studio',
               'printer_profile': names[0][1], 'filament_profile': names[2][1],
               'nozzle_mm': 0.4, 'layer_height_mm': 0.2, 'wall_loops': 4,
-              'wall_generator': 'classic', 'support_enabled': True,'support_extrusion_moves':support_moves,
+              'wall_generator': wall_generator, 'support_enabled': True,'support_extrusion_moves':support_moves,
               'support_type':'normal(auto)','support_threshold_angle_deg':30,'outer_brim_width_mm':5,
               'layer_count': len(paths), 'object_layer_count':len(model_layers),
               'wall_layer_count':len(object_paths),
