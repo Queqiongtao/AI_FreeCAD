@@ -10140,7 +10140,7 @@
         8.636853699170473
       ],
       [
-        3.42406115348423,
+        3.424061153484229,
         8.959736472165062
       ]
     ],
@@ -10171,7 +10171,7 @@
   "mouth_max_radius_mm": 25.200000000000006,
   "axial_joint_clearance_mm": 0.3000000000000007,
   "cavity_volume_cm3": 37.98465025300047,
-  "cavity_after_carrier_cm3": 34.53848396128665,
+  "cavity_after_carrier_cm3": 34.905369407519714,
   "shell_bbox_mm": [
     50.39894565756643,
     61.0183043921159,
@@ -10191,7 +10191,7 @@
   "bottom_z_mm": 0.0,
   "bottom_contact_samples_passed": 72,
   "bottom_ring_width_samples_passed": 288,
-  "minimum_tip_angle_without_speaker_deg": 32.037470576124626,
+  "minimum_tip_angle_without_speaker_deg": 31.78258245773806,
   "speaker_fitted": false,
   "generic_adhesive_area_available": false,
   "speaker_layout": {
@@ -10213,7 +10213,7 @@
     "tape_ring_width_mm": 0.8,
     "tape_pattern": "四角 L 形，各臂 4 mm、宽 0.8 mm；不按整圈贴胶",
     "tape_patch_count": 4,
-    "tape_total_area_mm2": 23.039999999999427,
+    "tape_total_area_mm2": 23.039999999999402,
     "locator_count": 5,
     "locator_gap_mm": 0.3,
     "locator_wall_mm": 1.6,
@@ -10351,18 +10351,635 @@
     "tape_to_shell_distance_mm": 0.0,
     "sound_holes_created": true,
     "grille": {
-      "slot_count": 5,
-      "slot_width_mm": 1.6,
-      "slot_length_mm": 6.0,
-      "web_width_mm": 1.6,
-      "removed_volumes_mm3": [
-        23.5995,
-        23.5995,
-        23.5995,
-        23.5995,
-        23.5995
+      "pattern": "下侧弧面内两排交错、左右对称，随弧面收边；Ø2.0 水平孔，外口 Ø2.4×0.5 沉孔",
+      "hole_count": 13,
+      "hole_diameter_mm": 2.0,
+      "spot_diameter_mm": 2.4,
+      "spot_depth_mm": 0.5,
+      "rows_center_z_and_x_mm": [
+        [
+          4.8,
+          [
+            -10.8,
+            -7.2,
+            -3.6,
+            0.0,
+            3.6,
+            7.2,
+            10.8
+          ]
+        ],
+        [
+          8.1,
+          [
+            -9.0,
+            -5.4,
+            -1.8,
+            1.8,
+            5.4,
+            9.0
+          ]
+        ]
       ],
-      "through_holes_verified": true
+      "arc_drop_coefficient": 0.0025,
+      "transition_z_mm": [
+        2.0,
+        12.0
+      ],
+      "edge_margin_mm": 1.0,
+      "minimum_projected_spot_web_mm": 1.2000000000000002,
+      "full_opening_boundary_checks": [
+        {
+          "x_mm": -10.8,
+          "z_mm": 4.5084,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.43248500338413,
+            0.8241753240195034,
+            -0.36563883426842914
+          ],
+          "opening_z_bounds_mm": [
+            3.3084,
+            5.7084
+          ]
+        },
+        {
+          "x_mm": -7.2,
+          "z_mm": 4.6704,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.3150716138834374,
+            0.8720772081425383,
+            -0.37444788844804827
+          ],
+          "opening_z_bounds_mm": [
+            3.4703999999999997,
+            5.8704
+          ]
+        },
+        {
+          "x_mm": -3.6,
+          "z_mm": 4.7676,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.19147662730172182,
+            0.9042851404100659,
+            -0.3815823450196627
+          ],
+          "opening_z_bounds_mm": [
+            3.5675999999999997,
+            5.9676
+          ]
+        },
+        {
+          "x_mm": 0.0,
+          "z_mm": 4.8,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.06428189050091189,
+            0.9212605884779234,
+            -0.38359714111413695
+          ],
+          "opening_z_bounds_mm": [
+            3.5999999999999996,
+            6.0
+          ]
+        },
+        {
+          "x_mm": 3.6,
+          "z_mm": 4.7676,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            0.19147662730172166,
+            0.9042851404100658,
+            -0.3815823450196628
+          ],
+          "opening_z_bounds_mm": [
+            3.5675999999999997,
+            5.9676
+          ]
+        },
+        {
+          "x_mm": 7.2,
+          "z_mm": 4.6704,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            0.3150716138834299,
+            0.8720772081425407,
+            -0.3744478884480491
+          ],
+          "opening_z_bounds_mm": [
+            3.4703999999999997,
+            5.8704
+          ]
+        },
+        {
+          "x_mm": 10.8,
+          "z_mm": 4.5084,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            0.43248500338413354,
+            0.8241753240194986,
+            -0.3656388342684355
+          ],
+          "opening_z_bounds_mm": [
+            3.3084,
+            5.7084
+          ]
+        },
+        {
+          "x_mm": -9.0,
+          "z_mm": 7.8975,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.25622022246720666,
+            0.6921670680915964,
+            -0.6747265723597509
+          ],
+          "opening_z_bounds_mm": [
+            6.6975,
+            9.0975
+          ]
+        },
+        {
+          "x_mm": -5.4,
+          "z_mm": 8.027099999999999,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.15256199022893885,
+            0.7021105503777891,
+            -0.6955326118778209
+          ],
+          "opening_z_bounds_mm": [
+            6.827099999999999,
+            9.227099999999998
+          ]
+        },
+        {
+          "x_mm": -1.8,
+          "z_mm": 8.091899999999999,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            -0.05063536505962219,
+            0.7065754288217488,
+            -0.705823790468018
+          ],
+          "opening_z_bounds_mm": [
+            6.891899999999999,
+            9.291899999999998
+          ]
+        },
+        {
+          "x_mm": 1.8,
+          "z_mm": 8.091899999999999,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            0.05063536505962218,
+            0.7065754288217487,
+            -0.7058237904680179
+          ],
+          "opening_z_bounds_mm": [
+            6.891899999999999,
+            9.291899999999998
+          ]
+        },
+        {
+          "x_mm": 5.4,
+          "z_mm": 8.027099999999999,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            0.15256199022893874,
+            0.7021105503777891,
+            -0.6955326118778207
+          ],
+          "opening_z_bounds_mm": [
+            6.827099999999999,
+            9.227099999999998
+          ]
+        },
+        {
+          "x_mm": 9.0,
+          "z_mm": 7.8975,
+          "outside_allowed_area_mm2": 0.0,
+          "outer_normal": [
+            0.25622022246720616,
+            0.6921670680916012,
+            -0.6747265723597463
+          ],
+          "opening_z_bounds_mm": [
+            6.6975,
+            9.0975
+          ]
+        }
+      ],
+      "hole_points_x_z_mm": [
+        [
+          -10.8,
+          4.5084
+        ],
+        [
+          -7.2,
+          4.6704
+        ],
+        [
+          -3.6,
+          4.7676
+        ],
+        [
+          0.0,
+          4.8
+        ],
+        [
+          3.6,
+          4.7676
+        ],
+        [
+          7.2,
+          4.6704
+        ],
+        [
+          10.8,
+          4.5084
+        ],
+        [
+          -9.0,
+          7.8975
+        ],
+        [
+          -5.4,
+          8.027099999999999
+        ],
+        [
+          -1.8,
+          8.091899999999999
+        ],
+        [
+          1.8,
+          8.091899999999999
+        ],
+        [
+          5.4,
+          8.027099999999999
+        ],
+        [
+          9.0,
+          7.8975
+        ]
+      ],
+      "depth_range_mm": [
+        7.235,
+        8.33
+      ],
+      "outlet_z_mm": [
+        4.508,
+        4.67,
+        4.768,
+        4.8,
+        4.768,
+        4.67,
+        4.508,
+        7.897,
+        8.027,
+        8.092,
+        8.092,
+        8.027,
+        7.897
+      ],
+      "outlet_axis": "水平向后 +Y",
+      "minimum_air_gap_mm": 16.27,
+      "removed_volumes_mm3": [
+        23.7216,
+        22.3779,
+        21.8189,
+        21.5931,
+        21.819,
+        22.3785,
+        23.7215,
+        22.0134,
+        21.679,
+        22.2855,
+        22.2855,
+        21.679,
+        22.0133
+      ],
+      "through_holes_verified": true,
+      "air_witnesses": {
+        "grille_holes": [
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              -10.8,
+              29.79559423221339,
+              4.5084
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              -10.8,
+              31.878117303758923,
+              4.5084
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              -10.8,
+              33.96064037530446,
+              4.5084
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              -7.2,
+              31.88228623208657,
+              4.6704
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              -7.2,
+              33.796589570052134,
+              4.6704
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              -7.2,
+              35.710892908017705,
+              4.6704
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              -3.6,
+              33.02903613712807,
+              4.7676
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              -3.6,
+              34.866188368293095,
+              4.7676
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              -3.6,
+              36.70334059945812,
+              4.7676
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              0.0,
+              33.42712825131684,
+              4.8
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              0.0,
+              35.23594645401626,
+              4.8
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              0.0,
+              37.04476465671567,
+              4.8
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              3.6,
+              33.02903613712807,
+              4.7676
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              3.6,
+              34.866188368293095,
+              4.7676
+            ]
+          },
+          {
+            "layer_z_mm": 4.8,
+            "point_mm": [
+              3.6,
+              36.70334059945812,
+              4.7676
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              7.2,
+              31.882286232086578,
+              4.6704
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              7.2,
+              33.79658957005215,
+              4.6704
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              7.2,
+              35.71089290801771,
+              4.6704
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              10.8,
+              29.795594232213393,
+              4.5084
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              10.8,
+              31.878117303758927,
+              4.5084
+            ]
+          },
+          {
+            "layer_z_mm": 4.6,
+            "point_mm": [
+              10.8,
+              33.960640375304465,
+              4.5084
+            ]
+          },
+          {
+            "layer_z_mm": 7.8,
+            "point_mm": [
+              -9.0,
+              33.409147527286414,
+              7.8975
+            ]
+          },
+          {
+            "layer_z_mm": 7.8,
+            "point_mm": [
+              -9.0,
+              35.35477302483032,
+              7.8975
+            ]
+          },
+          {
+            "layer_z_mm": 7.8,
+            "point_mm": [
+              -9.0,
+              37.30039852237422,
+              7.8975
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              -5.4,
+              34.85377204986497,
+              8.027099999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              -5.4,
+              36.7283161474259,
+              8.027099999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              -5.4,
+              38.602860244986836,
+              8.027099999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              -1.8,
+              35.527846530066356,
+              8.091899999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              -1.8,
+              37.37822595995526,
+              8.091899999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              -1.8,
+              39.22860538984416,
+              8.091899999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              1.8,
+              35.527846530066356,
+              8.091899999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              1.8,
+              37.37822595995526,
+              8.091899999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              1.8,
+              39.22860538984416,
+              8.091899999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              5.4,
+              34.85377204986497,
+              8.027099999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              5.4,
+              36.7283161474259,
+              8.027099999999999
+            ]
+          },
+          {
+            "layer_z_mm": 8.0,
+            "point_mm": [
+              5.4,
+              38.602860244986836,
+              8.027099999999999
+            ]
+          },
+          {
+            "layer_z_mm": 7.8,
+            "point_mm": [
+              9.0,
+              33.40914752728641,
+              7.8975
+            ]
+          },
+          {
+            "layer_z_mm": 7.8,
+            "point_mm": [
+              9.0,
+              35.354773024830315,
+              7.8975
+            ]
+          },
+          {
+            "layer_z_mm": 7.8,
+            "point_mm": [
+              9.0,
+              37.30039852237422,
+              7.8975
+            ]
+          }
+        ]
+      },
+      "entire_bores_and_inlet_disks_clear": true
     },
     "wire_route_verified": true,
     "wire_route_assumed_diameter_mm": 2.0,
@@ -11208,331 +11825,189 @@
           ]
         }
       ],
-      "grille_web_0": [
+      "grille_webs": [
         {
-          "layer_z_mm": 0.8,
+          "layer_z_mm": 4.8,
           "point_mm": [
-            -4.800000000000001,
-            21.56838062269594,
-            0.7000000000000002
+            -8.746925909130919,
+            36.24009972900914,
+            4.881234493007677
           ]
         },
         {
-          "layer_z_mm": 1.0,
+          "layer_z_mm": 6.6,
           "point_mm": [
-            -4.800000000000001,
-            21.400560696460484,
-            0.9000000000000004
+            -9.584958520732016,
+            36.896837809163245,
+            6.63336963707671
           ]
         },
         {
-          "layer_z_mm": 1.2,
+          "layer_z_mm": 5.0,
           "point_mm": [
-            -4.800000000000001,
-            21.23274077022503,
-            1.0999999999999996
+            -5.246393578839582,
+            37.41356604788149,
+            5.019087258822589
           ]
         },
         {
-          "layer_z_mm": 1.4,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -4.800000000000001,
-            21.064920843989572,
-            1.2999999999999998
+            -7.872175332802555,
+            37.58342754334605,
+            6.72690931604844
           ]
         },
         {
-          "layer_z_mm": 1.6,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -4.800000000000001,
-            20.897100917754116,
-            1.5
+            -6.162467289581161,
+            38.20687391710305,
+            6.802162862439897
           ]
         },
         {
-          "layer_z_mm": 1.8,
+          "layer_z_mm": 5.0,
           "point_mm": [
-            -4.800000000000001,
-            20.72928099151866,
-            1.7000000000000002
+            -1.7485240289749802,
+            37.983510150921624,
+            5.088868008184539
           ]
         },
         {
-          "layer_z_mm": 2.0,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -4.800000000000001,
-            20.561461065283204,
-            1.9000000000000004
+            -4.363179566003239,
+            38.62906672828555,
+            6.856030104090635
           ]
         },
         {
-          "layer_z_mm": 2.2,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -4.800000000000001,
-            20.393641139047748,
-            2.0999999999999996
+            -2.654274607305003,
+            38.93004206175802,
+            6.893921809006422
           ]
         },
         {
-          "layer_z_mm": 2.4,
+          "layer_z_mm": 5.0,
           "point_mm": [
-            -4.800000000000001,
-            20.225821212812292,
-            2.3000000000000007
+            1.7485240289749802,
+            37.983510150921624,
+            5.088868008184538
           ]
         },
         {
-          "layer_z_mm": 2.6,
+          "layer_z_mm": 7.0,
           "point_mm": [
-            -4.800000000000001,
-            20.058001286576836,
-            2.4999999999999996
-          ]
-        }
-      ],
-      "grille_web_1": [
-        {
-          "layer_z_mm": 0.8,
-          "point_mm": [
-            -1.6,
-            21.56838062269594,
-            0.7000000000000002
+            -0.8543572067464477,
+            39.06954392143693,
+            6.911889049448634
           ]
         },
         {
-          "layer_z_mm": 1.0,
+          "layer_z_mm": 7.0,
           "point_mm": [
-            -1.6,
-            21.400560696460484,
-            0.9000000000000004
+            0.8543572067464477,
+            39.069543921436924,
+            6.911889049448634
           ]
         },
         {
-          "layer_z_mm": 1.2,
+          "layer_z_mm": 5.0,
           "point_mm": [
-            -1.6,
-            21.23274077022503,
-            1.0999999999999996
+            5.246393578839583,
+            37.41356604788149,
+            5.019087258822589
           ]
         },
         {
-          "layer_z_mm": 1.4,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -1.6,
-            21.064920843989572,
-            1.2999999999999998
+            2.654274607305003,
+            38.93004206175802,
+            6.893921809006422
           ]
         },
         {
-          "layer_z_mm": 1.6,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -1.6,
-            20.897100917754116,
-            1.5
+            4.363179566003239,
+            38.62906672828555,
+            6.856030104090635
           ]
         },
         {
-          "layer_z_mm": 1.8,
+          "layer_z_mm": 4.8,
           "point_mm": [
-            -1.6,
-            20.72928099151866,
-            1.7000000000000002
+            8.746925909130924,
+            36.24009972900915,
+            4.881234493007679
           ]
         },
         {
-          "layer_z_mm": 2.0,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -1.6,
-            20.561461065283204,
-            1.9000000000000004
+            6.162467289581161,
+            38.20687391710305,
+            6.802162862439897
           ]
         },
         {
-          "layer_z_mm": 2.2,
+          "layer_z_mm": 6.8,
           "point_mm": [
-            -1.6,
-            20.393641139047748,
-            2.0999999999999996
+            7.872175332802559,
+            37.583427543346055,
+            6.726909316048438
           ]
         },
         {
-          "layer_z_mm": 2.4,
+          "layer_z_mm": 6.6,
           "point_mm": [
-            -1.6,
-            20.225821212812292,
-            2.3000000000000007
+            9.584958520732014,
+            36.89683780916326,
+            6.633369637076706
           ]
         },
         {
-          "layer_z_mm": 2.6,
+          "layer_z_mm": 8.6,
           "point_mm": [
-            -1.6,
-            20.058001286576836,
-            2.4999999999999996
-          ]
-        }
-      ],
-      "grille_web_2": [
-        {
-          "layer_z_mm": 0.8,
-          "point_mm": [
-            1.6,
-            21.56838062269594,
-            0.7000000000000002
+            -6.996580419199414,
+            39.42731857834778,
+            8.50742525857908
           ]
         },
         {
-          "layer_z_mm": 1.0,
+          "layer_z_mm": 8.6,
           "point_mm": [
-            1.6,
-            21.400560696460484,
-            0.9000000000000004
+            -3.478487421812816,
+            40.34190231565511,
+            8.618775049029207
           ]
         },
         {
-          "layer_z_mm": 1.2,
+          "layer_z_mm": 8.6,
           "point_mm": [
-            1.6,
-            21.23274077022503,
-            1.0999999999999996
+            0.040472231091993015,
+            40.64322120568622,
+            8.657064904630374
           ]
         },
         {
-          "layer_z_mm": 1.4,
+          "layer_z_mm": 8.6,
           "point_mm": [
-            1.6,
-            21.064920843989572,
-            1.2999999999999998
+            3.478487421812816,
+            40.34190231565511,
+            8.618775049029207
           ]
         },
         {
-          "layer_z_mm": 1.6,
+          "layer_z_mm": 8.6,
           "point_mm": [
-            1.6,
-            20.897100917754116,
-            1.5
-          ]
-        },
-        {
-          "layer_z_mm": 1.8,
-          "point_mm": [
-            1.6,
-            20.72928099151866,
-            1.7000000000000002
-          ]
-        },
-        {
-          "layer_z_mm": 2.0,
-          "point_mm": [
-            1.6,
-            20.561461065283204,
-            1.9000000000000004
-          ]
-        },
-        {
-          "layer_z_mm": 2.2,
-          "point_mm": [
-            1.6,
-            20.393641139047748,
-            2.0999999999999996
-          ]
-        },
-        {
-          "layer_z_mm": 2.4,
-          "point_mm": [
-            1.6,
-            20.225821212812292,
-            2.3000000000000007
-          ]
-        },
-        {
-          "layer_z_mm": 2.6,
-          "point_mm": [
-            1.6,
-            20.058001286576836,
-            2.4999999999999996
-          ]
-        }
-      ],
-      "grille_web_3": [
-        {
-          "layer_z_mm": 0.8,
-          "point_mm": [
-            4.800000000000001,
-            21.56838062269594,
-            0.7000000000000002
-          ]
-        },
-        {
-          "layer_z_mm": 1.0,
-          "point_mm": [
-            4.800000000000001,
-            21.400560696460484,
-            0.9000000000000004
-          ]
-        },
-        {
-          "layer_z_mm": 1.2,
-          "point_mm": [
-            4.800000000000001,
-            21.23274077022503,
-            1.0999999999999996
-          ]
-        },
-        {
-          "layer_z_mm": 1.4,
-          "point_mm": [
-            4.800000000000001,
-            21.064920843989572,
-            1.2999999999999998
-          ]
-        },
-        {
-          "layer_z_mm": 1.6,
-          "point_mm": [
-            4.800000000000001,
-            20.897100917754116,
-            1.5
-          ]
-        },
-        {
-          "layer_z_mm": 1.8,
-          "point_mm": [
-            4.800000000000001,
-            20.72928099151866,
-            1.7000000000000002
-          ]
-        },
-        {
-          "layer_z_mm": 2.0,
-          "point_mm": [
-            4.800000000000001,
-            20.561461065283204,
-            1.9000000000000004
-          ]
-        },
-        {
-          "layer_z_mm": 2.2,
-          "point_mm": [
-            4.800000000000001,
-            20.393641139047748,
-            2.0999999999999996
-          ]
-        },
-        {
-          "layer_z_mm": 2.4,
-          "point_mm": [
-            4.800000000000001,
-            20.225821212812292,
-            2.3000000000000007
-          ]
-        },
-        {
-          "layer_z_mm": 2.6,
-          "point_mm": [
-            4.800000000000001,
-            20.058001286576836,
-            2.4999999999999996
+            6.996580419199415,
+            39.42731857834777,
+            8.50742525857908
           ]
         }
       ]
@@ -11566,6 +12041,7 @@
     "hook_front_n": 23.1,
     "hook_back_n": 32.6
   },
+  "carrier_print_orientation": "模块固定面朝下，三处原厂固定座落床；两根立柱向上打印",
   "hook_print_features": {
     "mount_carrier": [
       {
@@ -11818,7 +12294,7 @@
     "physical_strength_verified": false
   },
   "front_wall_mesh_audit": {
-    "sample_count": 1184,
+    "sample_count": 1137,
     "minimum_mm": 2.0794,
     "lower_sample_count": 126,
     "lower_minimum_mm": 2.08529,
@@ -11917,10 +12393,9 @@
     "warnings": [
       {
         "solid_index": 1,
-        "details": "BOP check found the following errors:\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\n"
+        "details": "BOP check found the following errors:\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\nError in Edge: BOPAlgo_InvalidCurveOnSurface\nError in Face: BOPAlgo_InvalidCurveOnSurface\n"
       }
     ],
     "editing_master": "stand.FCStd 和 stand.py；STEP 用于装配查看与交换"
-  },
-  "carrier_print_orientation": "模块固定面朝下，三处原厂固定座落床；两根立柱向上打印"
+  }
 }

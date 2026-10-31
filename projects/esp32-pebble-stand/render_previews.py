@@ -228,7 +228,9 @@ render('preview_speaker_layout.png',carrier+battery+plugs+wires+speaker_body+spe
 render('preview_speaker_conflicts.png',carrier+battery+speaker_wire+speaker_route+conflicts,
        (-.9,1,-.3))
 render('preview_speaker_rear.png',rear,(0,1,-.35))
-render('preview_grille.png',rear,tuple(-v for v in speaker_axis))
+render('preview_grille.png',rear,(.15,1,.25))
+render('preview_grille_side.png',rear,(1,0,0))
+render('preview_grille_bottom.png',rear,(0,.35,-1))
 battery_section=read_stl(aux/'battery_section.stl',(91,168,104))
 speaker_section=read_stl(aux/'speaker_section.stl',(65,125,190))
 tape_section=read_stl(aux/'speaker_tape_section.stl',(167,97,194))
@@ -270,9 +272,12 @@ for filename, caption in (
       PARAMS['SPEAKER_THICKNESS'],PARAMS['SPEAKER_TAPE_T'])),
     ("preview_speaker_conflicts.png", "粉红＝预留冲突，橙＝保守接线预留；%s" % layout_state),
     ("preview_speaker_section.png", "中剖面：绿＝电池，蓝＝扬声器，紫＝胶层，粉红＝预留冲突"),
-    ("preview_speaker_rear.png", "后壳实际出音长孔；保留周边粘贴框、底环和锁盖结构"),
-    ("preview_grille.png", "出音格栅：%d 条 %g×%g mm 圆头孔，孔间筋 %g mm" %
-     (PARAMS['SPEAKER_SLOT_COUNT'],PARAMS['SPEAKER_SLOT_W'],PARAMS['SPEAKER_SLOT_H'],PARAMS['SPEAKER_SLOT_WEB'])),
+    ("preview_speaker_rear.png", "后壳出音孔：仅布置在下侧弧形过渡区，两排交错、左右对称"),
+    ("preview_grille.png", "出音格栅：弧面内两排交错，%d 个 Ø%g mm 水平孔；完整外口避开背部及底面" %
+     (sum(len(xs) for z,xs in PARAMS['SPEAKER_GRILLE_ROWS']),
+      PARAMS['SPEAKER_GRILLE_HOLE_D'])),
+    ('preview_grille_side.png', '侧面：出音孔收进下侧弧面，外口距弧面安全边界至少 1 mm'),
+    ('preview_grille_bottom.png', '底面：出音孔位于弧面，完整底环和底部接触面保留'),
     ("preview_fastening.png", "承托架：3.2 mm 加强梁与旋扣，R1.2 根部圆角；M3 热熔螺母"),
     ('preview_upper_hooks.png', '背面顺时针 9° 解锁，再后拉；蓝：扣头，橙：后壳钩翼'),
 ):

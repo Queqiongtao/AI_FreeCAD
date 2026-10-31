@@ -142,6 +142,25 @@ def audit_witnesses(layers,witnesses):
     return checks
 
 
+def audit_air_witnesses(layers,witnesses):
+    """孔道空气见证点不得被本体填充；支撑覆盖单独记录，供清理验收。"""
+    body={z:grid([v for v in segments if 'support' not in v[2].lower()])
+          for z,segments in layers.items()}
+    all_segments={z:grid(segments) for z,segments in layers.items()}
+    checks={}
+    for name,points in witnesses.items():
+        assert len(points)>=3,'孔道空气采样不足：'+name
+        body_clear=sum(not covered(p['point_mm'],body.get(p['layer_z_mm'],([],{})),.15)
+                       for p in points)
+        support_clear=sum(not covered(p['point_mm'],all_segments.get(p['layer_z_mm'],([],{})),.15)
+                          for p in points)
+        body_coverage=body_clear/len(points);support_coverage=support_clear/len(points)
+        checks[name]={'sample_count':len(points),'body_air_coverage':body_coverage,
+                      'support_air_coverage':support_coverage}
+        assert body_coverage>=.95,'出音孔被本体填充：'+name+' '+str(checks[name])
+    return checks
+
+
 def audit_hooks(layers,triangles,features,frame,is_carrier):
     """以最终 STL 的完整承力截面核对轮廓和实际挤出，排除支撑和稀疏填充。"""
     origin,up,normal=frame['origin'],frame['up'],frame['normal']

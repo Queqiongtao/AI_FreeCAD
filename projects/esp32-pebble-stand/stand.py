@@ -62,12 +62,20 @@ SPEAKER_WIRE_GAP = 3.0
 SPEAKER_SIDE_GAP = 1.0
 SPEAKER_PAD_BORDER = 2.5
 SPEAKER_GRILLE_ENABLED = True
-SPEAKER_SLOT_COUNT = 5
-SPEAKER_SLOT_W = 1.6
-SPEAKER_SLOT_H = 6.0
-SPEAKER_SLOT_WEB = 1.6
-SPEAKER_SLOT_OFFSET_S = -5.8  # 声道投向底环内侧，避开连续接触带
-SPEAKER_SLOT_OFFSET_X = 1.5
+# 出音孔排在底部圆环到后壳下表面之间的过渡弧上，避开喇叭阴影。
+# 两排交错并沿弧面轻微收弧；孔数由每排横向位置决定，不强求数量。
+# 孔轴水平向后（+Y），比原来朝下好；喇叭位置不变，不加外接导音管。
+SPEAKER_GRILLE_HOLE_D = 2.0
+SPEAKER_GRILLE_SPOT_D = 2.4
+SPEAKER_GRILLE_SPOT_DEPTH = 0.5
+SPEAKER_GRILLE_OUTER_EXTRA = 2.0
+SPEAKER_GRILLE_ROWS = ((4.8, (-10.8,-7.2,-3.6,0.0,3.6,7.2,10.8)),
+                      (8.1, (-9.0,-5.4,-1.8,1.8,5.4,9.0)))
+SPEAKER_GRILLE_ARC_DROP = 0.0025  # z=排中心高度−系数×x²，两侧略低
+SPEAKER_GRILLE_TRANSITION_Z = (2.0,12.0)  # 下侧弧面内的保守高度范围，避开底面及背部
+SPEAKER_GRILLE_HALF_WIDTH = 18.0
+SPEAKER_GRILLE_EDGE_MARGIN = 1.0
+SPEAKER_GRILLE_MIN_WEB = 1.2  # 包含 Ø2.4 外口后的最小实体筋
 SPEAKER_CABLE_DIAMETER = 2.0  # 线束暂定包络，实际线径和弯曲半径需实物确认
 CONNECTOR_X = 6.5
 CONNECTOR_S = 17.25
@@ -981,28 +989,145 @@ speaker_glue_support.translate(speaker_axis*SPEAKER_TAPE_T)
 speaker_glue_support=speaker_glue_support.common(speaker_box(SPEAKER_W,SPEAKER_H,SPEAKER_TAPE_T,.05))
 assert speaker_glue_support.cut(rear).Volume<.01,'当前位置无法提供完整平整粘贴面'
 speaker_sound_zone = speaker_box(speaker_open_w,speaker_open_h,0,60).common(rear)
-speaker_slots=[]
-speaker_slot_volumes=[]
+# 音腔与主腔连通槽：只切穿喇叭粘贴框上侧中段，避免外接导音管。
+speaker_coupling_slot = speaker_rect(-5.0,5.0,8.0,12.0,-0.1,4.0)
+assert speaker_coupling_slot.common(speaker_tape).Volume<.001,'音腔连通槽切到胶层'
+assert speaker_coupling_slot.common(rear).Volume>.01,'音腔连通槽没有切到粘贴框'
+rear=rear.cut(speaker_coupling_slot).removeSplitter()
+# 水平圆孔按弧面内的两排交错布局生成；完整外口和内端分别验证。
+speaker_grille_holes=[]
+speaker_grille_spots=[]
+speaker_grille_volumes=[]
+speaker_grille_outlets=[]
+speaker_grille_ring_points=[]
 if SPEAKER_GRILLE_ENABLED:
-    assert isinstance(SPEAKER_SLOT_COUNT,int) and SPEAKER_SLOT_COUNT>0
-    assert min(SPEAKER_SLOT_W,SPEAKER_SLOT_H,SPEAKER_SLOT_WEB)>0
-    grille_span=SPEAKER_SLOT_COUNT*SPEAKER_SLOT_W+(SPEAKER_SLOT_COUNT-1)*SPEAKER_SLOT_WEB
-    assert grille_span<=speaker_open_w-1 and SPEAKER_SLOT_H<=speaker_open_h-1,'出音孔越过振膜区域或胶粘边框'
-    assert abs(SPEAKER_SLOT_OFFSET_S)+SPEAKER_SLOT_H/2<=speaker_open_h/2-.1
-    assert abs(SPEAKER_SLOT_OFFSET_X)+grille_span/2<=speaker_open_w/2-.1
-    for index in range(SPEAKER_SLOT_COUNT):
-        offset=SPEAKER_SLOT_OFFSET_X+(index-(SPEAKER_SLOT_COUNT-1)/2)*(SPEAKER_SLOT_W+SPEAKER_SLOT_WEB)
-        slot=speaker_box(SPEAKER_SLOT_W,SPEAKER_SLOT_H,0,60,SPEAKER_SLOT_W/2-.001,offset)
-        slot.translate(speaker_up*SPEAKER_SLOT_OFFSET_S)
-        assert slot.common(speaker_tape).Volume<.001
-        assert slot.common(bottom_band).Volume<.001,'出音孔切断底环'
-        speaker_slot_volumes.append(slot.common(rear).Volume)
-        assert speaker_slot_volumes[-1]>.1,'出音孔没有穿过后壳'
-        rear=rear.cut(slot)
-        speaker_slots.append(slot)
+    assert min(SPEAKER_GRILLE_HOLE_D,SPEAKER_GRILLE_SPOT_D,SPEAKER_GRILLE_SPOT_DEPTH)>0
+    hole_r=SPEAKER_GRILLE_HOLE_D/2
+    spot_r=SPEAKER_GRILLE_SPOT_D/2
+    assert spot_r>=hole_r,'外口直径不能小于通孔直径'
+    y_axis=App.Vector(0,1,0)
+    def grille_outer_point_normal(x,z):
+        """精确外包络交线取最外点，避免网格射线偶尔命中内壁。"""
+        line=Part.makeLine(App.Vector(x,80,z),App.Vector(x,-30,z))
+        piece=line.common(outer_envelope)
+        assert piece.Vertexes,'出音孔没有找到后壳外表面：'+str((x,z))
+        point=max((v.Point for v in piece.Vertexes),key=lambda p:p.y)
+        vertex=Part.Vertex(point)
+        face=min(outer_envelope.Faces,key=lambda f:f.distToShape(vertex)[0])
+        u,v=face.Surface.parameter(point)
+        normal=face.normalAt(u,v)
+        if normal.y<0:normal=-normal
+        return point,normal
+    def grille_shell_interval(x,z):
+        """沿 -Y 求最外层实体段和其后的空气间隙。"""
+        line=Part.makeLine(App.Vector(x,80,z),App.Vector(x,-30,z))
+        piece=line.common(rear)
+        raw=[]
+        for edge in piece.Edges:
+            points=[v.Point for v in edge.Vertexes]
+            if len(points)<2:continue
+            ys=sorted([p.y for p in points]);raw.append((ys[0],ys[1]))
+        raw.sort()
+        merged=[]
+        for y0,y1 in raw:
+            if merged and y0<=merged[-1][1]+.05:
+                merged[-1]=(merged[-1][0],max(merged[-1][1],y1))
+            else:
+                merged.append((y0,y1))
+        merged.sort(key=lambda interval:interval[1],reverse=True)
+        assert merged,'出音孔没有找到后壳实体：'+str((x,z))
+        outer=merged[0]
+        behind=merged[1] if len(merged)>1 else None
+        gap=outer[0]-behind[1] if behind else None
+        return outer[0],outer[1],gap
+    speaker_grille_ring_points=[(x,z-SPEAKER_GRILLE_ARC_DROP*x*x)
+                               for z,xs in SPEAKER_GRILLE_ROWS for x in xs]
+    assert all(sorted(xs)==list(xs) and list(xs)==[-x for x in reversed(xs)]
+               for z,xs in SPEAKER_GRILLE_ROWS),'每排声孔必须横向居中且左右对称'
+    grille_web_min=min(math.hypot(x-a,z-b)-SPEAKER_GRILLE_SPOT_D
+                       for i,(x,z) in enumerate(speaker_grille_ring_points)
+                       for a,b in speaker_grille_ring_points[i+1:])
+    assert grille_web_min>=SPEAKER_GRILLE_MIN_WEB-1e-6,'声孔外口之间实体筋不足'
+    zlo,zhi=SPEAKER_GRILLE_TRANSITION_Z
+    margin=SPEAKER_GRILLE_EDGE_MARGIN
+    grille_allowed=Part.makeBox(2*(SPEAKER_GRILLE_HALF_WIDTH-margin),100,zhi-zlo-2*margin,
+                               App.Vector(-SPEAKER_GRILLE_HALF_WIDTH+margin,0,zlo+margin))
+    grille_exterior=Part.makeShell(outer_envelope.Faces)
+    grille_boundary_checks=[]
+    for x,z in speaker_grille_ring_points:
+        point,normal=grille_outer_point_normal(x,z)
+        y_inner,y_outer,gap=grille_shell_interval(x,z)
+        assert abs(y_outer-point.y)<.3,'外表面点与实体段不一致：'+str((x,z))
+        if gap is not None:
+            assert gap>=2.2,'出音孔内端离喇叭/粘贴框太近：'+str((x,z,gap))
+        # 检查整个孔径，不只取轴心；内端越过最靠内的壳壁，留 0.5 mm 贯穿余量。
+        rim_intervals=[grille_shell_interval(x+hole_r*math.cos(a),z+hole_r*math.sin(a))
+                       for a in [2*math.pi*i/24 for i in range(24)]]
+        assert all(g is None or g>=2.2 for _,_,g in rim_intervals),'孔缘内侧被喇叭或胶框遮挡'
+        y_inner=min([y_inner]+[v[0] for v in rim_intervals])
+        spot=Part.makeCylinder(spot_r,SPEAKER_GRILLE_OUTER_EXTRA+SPEAKER_GRILLE_SPOT_DEPTH,
+                               App.Vector(x,y_outer-SPEAKER_GRILLE_SPOT_DEPTH,z),y_axis)
+        hole=Part.makeCylinder(hole_r,(y_outer+SPEAKER_GRILLE_OUTER_EXTRA)-(y_inner-.5),
+                               App.Vector(x,y_inner-.5,z),y_axis)
+        # 只保留真实开口面；曲面 BoundBox 可能包含裁剪前控制点，不用它代表孔口范围。
+        footprint=Part.makeCompound(grille_exterior.common(hole.fuse(spot)).Faces)
+        assert footprint.Area>.1,'声孔没有形成外表面开口'
+        assert footprint.cut(grille_allowed).Area<1e-6,'完整外口越过弧面安全边界'
+        assert z-spot_r>=zlo+margin and z+spot_r<=zhi-margin,'外口高度边界余量不足'
+        # 法向朝下确认处于下侧弧面；背部和底平面均不能作为开口表面。
+        assert -.95<normal.z<-.15,'出音孔偏离下侧弧形过渡面'
+        grille_boundary_checks.append({'x_mm':x,'z_mm':z,'opening_z_bounds_mm':
+            [z-spot_r,z+spot_r],
+            'outside_allowed_area_mm2':footprint.cut(grille_allowed).Area,
+            'outer_normal':list(normal)})
+        assert hole.common(speaker_tape).Volume<.001,'出音孔切到胶层'
+        assert hole.common(bottom_band).Volume<.001,'出音孔切断底环'
+        assert hole.common(speaker_ref).Volume<.001,'出音孔穿过喇叭本体'
+        assert hole.common(carrier).Volume<.001,'出音孔穿过承托架'
+        assert hole.common(battery_ref).Volume<.001,'出音孔穿过电池'
+        assert spot.common(speaker_tape).Volume<.001,'外口沉孔切到胶层'
+        assert spot.common(bottom_band).Volume<.001,'外口沉孔切断底环'
+        assert spot.common(rear).Volume>.01,'外口沉孔没有切到后壳'
+        before=rear.Volume
+        rear=rear.cut(hole).cut(spot)
+        removed=before-rear.Volume
+        assert removed>.1,'出音孔没有穿过后壳'
+        speaker_grille_holes.append(hole)
+        speaker_grille_spots.append(spot)
+        speaker_grille_volumes.append(removed)
+        speaker_grille_outlets.append((x,z,point,y_inner,y_outer,gap))
+        print('grille hole: x=%.2f z=%.2f opening_z=%.2f..%.2f' %
+              (x,z,z-spot_r,z+spot_r),flush=True)
     rear=rear.removeSplitter()
 assert rear.isValid() and len(rear.Solids)==1,'开孔后的后壳必须保持单一有效实体'
-assert all(slot.common(rear).Volume<.001 for slot in speaker_slots),'出音孔未贯通'
+for hole,(x,z,point,y_inner,y_outer,gap) in zip(speaker_grille_holes,speaker_grille_outlets):
+    assert hole.copy(True).common(rear.copy(True)).Volume<1e-5,'整条出音孔道有残余堵塞'
+    inlet=Part.makeCylinder(SPEAKER_GRILLE_HOLE_D/2,.05,
+                           App.Vector(x,y_inner-.45,z),App.Vector(0,1,0))
+    assert inlet.common(rear.copy(True)).Volume<1e-5,'出音孔内端未全孔径贯通'
+    assert not rear.isInside(App.Vector(x,y_inner-.4,z),.001,True),'出音孔内端未通入主腔'
+    assert not rear.isInside(App.Vector(x,(y_inner+y_outer)/2,z),.001,True),'出音孔中段被堵塞'
+    assert not rear.isInside(App.Vector(x,y_outer+.5,z),.001,True),'出音孔外端未贯通'
+# 连通槽、出音孔和沉孔是功能开口，普通壁厚采样跳过其局部包络。
+grille_audit_shapes=speaker_grille_holes+speaker_grille_spots+[speaker_coupling_slot]
+if grille_audit_shapes:
+    grille_vertices=[]
+    for shape in grille_audit_shapes:
+        grille_vertices.extend(shape.tessellate(.1)[0])
+    grille_local=[(v.x,(v-P).dot(S),(P-v).dot(N)) for v in grille_vertices]
+    wall_audit_zones.append(tuple((min(v[k] for v in grille_local)-.02,
+                                   max(v[k] for v in grille_local)+.02) for k in range(3)))
+# 孔道空气见证点：切片后不得被本体或支撑覆盖。
+grille_air_witnesses=[]
+for hole,(x,z,point,y_inner,y_outer,gap) in zip(speaker_grille_holes,speaker_grille_outlets):
+    for fraction in (.25,.5,.75):
+        sample=App.Vector(x,y_inner+(y_outer-y_inner)*fraction,z)
+        if rear.isInside(sample,.001,True):
+            continue
+        layer_z=round(round(sample.z/.2)*.2,3)
+        grille_air_witnesses.append({'layer_z_mm':layer_z,
+                                     'point_mm':[sample.x,sample.y,sample.z]})
+assert len(grille_air_witnesses)>=3,'出音孔空气见证点不足'
 assert all(speaker_pad.common(v).Volume<.01 for v in [carrier,battery_ref,module_ref]+connector_refs+wire_refs+lock_heads+lock_shafts+lock_inserts+lock_tools),'粘贴面挡住装配或工具'
 # 格栅筋和粘贴面独立验证，普通壁厚审计不将孔边缘当成普通壳壁。
 pad_points=speaker_box(pad_w,pad_h,SPEAKER_TAPE_T,60).common(outer_envelope).tessellate(.1)[0]
@@ -1060,9 +1185,22 @@ for index,(x0,x1,y0,y1) in enumerate(locator_bounds):
 for sx in (-1,1):
     for sy in (-1,1):
         add_print_witnesses('tape_%s_%s'%(sx,sy),sx*(SPEAKER_W/2-.4),sy*(SPEAKER_H/2-2),1,4)
-for index in range(SPEAKER_SLOT_COUNT-1):
-    x=SPEAKER_SLOT_OFFSET_X+(index-(SPEAKER_SLOT_COUNT-2)/2)*(SPEAKER_SLOT_W+SPEAKER_SLOT_WEB)
-    add_print_witnesses('grille_web_%d'%index,x,SPEAKER_SLOT_OFFSET_S,1,20)
+# 出音孔之间的实体筋：在真实后壳外层取点，确认切片没有把细筋省略。
+grille_web_points=[]
+def add_grille_web_witness(x,z):
+    point,normal=grille_outer_point_normal(x,z)
+    web_point=point-normal*.8
+    if not rear.isInside(web_point,.001,True):
+        return
+    layer_z=round(round(web_point.z/.2)*.2,3)
+    grille_web_points.append({'layer_z_mm':layer_z,
+                              'point_mm':[web_point.x,web_point.y,web_point.z]})
+for i,(x0,z0) in enumerate(speaker_grille_ring_points):
+    for x1,z1 in speaker_grille_ring_points[i+1:]:
+        if math.hypot(x1-x0,z1-z0)<4.5:
+            add_grille_web_witness((x0+x1)/2,(z0+z1)/2)
+assert len(grille_web_points)>=3,'出音孔间筋打印见证点不足'
+speaker_print_witnesses['grille_webs']=grille_web_points
 
 carrier_obj = add_feature(doc, "Mount_Carrier", carrier, (0.83, 0.84, 0.82))
 rear_obj = add_feature(doc, "Rear_Cover", rear, (0.66, 0.69, 0.69))
@@ -1318,10 +1456,30 @@ metrics = {
         "mounting_pad_border_mm":SPEAKER_PAD_BORDER,
         "tape_to_shell_distance_mm":round(speaker_tape.distToShape(rear)[0],5),
         "sound_holes_created":SPEAKER_GRILLE_ENABLED,
-        "grille":{"slot_count":len(speaker_slots),"slot_width_mm":SPEAKER_SLOT_W,
-                  "slot_length_mm":SPEAKER_SLOT_H,"web_width_mm":SPEAKER_SLOT_WEB,
-                  "removed_volumes_mm3":[round(v,4) for v in speaker_slot_volumes],
-                  "through_holes_verified":all(slot.common(rear).Volume<.001 for slot in speaker_slots)},
+        "grille":{"pattern":"下侧弧面内两排交错、左右对称，随弧面收边；Ø2.0 水平孔，外口 Ø2.4×0.5 沉孔",
+                  "hole_count":len(speaker_grille_holes),
+                  "hole_diameter_mm":SPEAKER_GRILLE_HOLE_D,
+                  "spot_diameter_mm":SPEAKER_GRILLE_SPOT_D,
+                  "spot_depth_mm":SPEAKER_GRILLE_SPOT_DEPTH,
+                  "rows_center_z_and_x_mm":SPEAKER_GRILLE_ROWS,
+                  "arc_drop_coefficient":SPEAKER_GRILLE_ARC_DROP,
+                  "transition_z_mm":SPEAKER_GRILLE_TRANSITION_Z,
+                  "edge_margin_mm":SPEAKER_GRILLE_EDGE_MARGIN,
+                  "minimum_projected_spot_web_mm":grille_web_min,
+                  "full_opening_boundary_checks":grille_boundary_checks,
+                  "entire_bores_and_inlet_disks_clear":True,
+                  "hole_points_x_z_mm":[[x,z] for x,z in speaker_grille_ring_points],
+                  "depth_range_mm":[round(min(v[4]-v[3] for v in speaker_grille_outlets),3),
+                                    round(max(v[4]-v[3] for v in speaker_grille_outlets),3)],
+                  "outlet_z_mm":[round(point.z,3) for x,z,point,y_inner,y_outer,gap in speaker_grille_outlets],
+                  "outlet_axis":"水平向后 +Y",
+                  "minimum_air_gap_mm":round(min(v[5] for v in speaker_grille_outlets if v[5] is not None),3),
+                  "removed_volumes_mm3":[round(v,4) for v in speaker_grille_volumes],
+                  "through_holes_verified":all(not rear.isInside(App.Vector(x,y_inner-.4,z),.001,True)
+                                               and not rear.isInside(App.Vector(x,(y_inner+y_outer)/2,z),.001,True)
+                                               and not rear.isInside(App.Vector(x,y_outer+.5,z),.001,True)
+                                               for x,z,point,y_inner,y_outer,gap in speaker_grille_outlets),
+                  "air_witnesses":{"grille_holes":grille_air_witnesses}},
         "wire_route_verified":True,
         "wire_route_assumed_diameter_mm":SPEAKER_CABLE_DIAMETER,
         "wire_route_length_mm":speaker_route_length,

@@ -1,7 +1,7 @@
 """验证自动排版校准与功能实体漏打检查，不依赖切片器。"""
 import math
 import unittest
-from print_geometry import align_extrusions, audit_witnesses, read_extrusions, audit_hooks, audit_support_runs
+from print_geometry import align_extrusions, audit_witnesses, audit_air_witnesses, read_extrusions, audit_hooks, audit_support_runs
 
 
 class PrintGeometryTests(unittest.TestCase):
@@ -30,6 +30,16 @@ class PrintGeometryTests(unittest.TestCase):
         layers,volume=read_extrusions(text,0,0)
         self.assertEqual(len(layers[.2]),3)
         self.assertAlmostEqual(volume,4*math.pi*(1.75/2)**2)
+
+    def test_air_witness_rejects_body_but_records_support(self):
+        witnesses={'hole':[{'layer_z_mm':.2,'point_mm':[x,0,.1]} for x in (1,2,3)]}
+        layers={.2:[((0,0),(4,0),'Support',.45)]}
+        result=audit_air_witnesses(layers,witnesses)['hole']
+        self.assertEqual(result['body_air_coverage'],1)
+        self.assertEqual(result['support_air_coverage'],0)
+        layers[.2].append(((0,0),(4,0),'Inner wall',.45))
+        with self.assertRaises(AssertionError):
+            audit_air_witnesses(layers,witnesses)
 
     def test_support_and_remote_paths_cannot_replace_material(self):
         witnesses={'wall':[{'layer_z_mm':.2,'point_mm':[x,0,.1]} for x in (1,2,3)]}

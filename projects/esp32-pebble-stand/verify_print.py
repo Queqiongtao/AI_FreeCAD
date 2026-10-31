@@ -8,7 +8,7 @@ import struct
 import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses, audit_hooks, audit_support_runs
+from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses, audit_air_witnesses, audit_hooks, audit_support_runs
 
 ROOT = Path(__file__).resolve().parent
 OUT = Path(os.environ.get('S3_OUTPUT_DIR', ROOT / 'output'))
@@ -28,6 +28,8 @@ def main():
     is_carrier = args.part == 'mount_carrier'
     # 后壳钩翼的局部窄截面采用可变线宽，避免固定线宽留下未填满的承力段。
     wall_generator = 'classic' if is_carrier else 'arachne'
+    # 与 README 的参考配置一致；孔内支撑单独记录并在打印后清理。
+    support_threshold_angle = 30
 
     def load(kind, name):
         data = json.loads((profiles / kind / (name + '.json')).read_text(encoding='utf-8-sig'))
@@ -45,7 +47,8 @@ def main():
             data.update({'layer_height': '0.2', 'initial_layer_print_height': '0.2',
                          'wall_loops': '4', 'wall_generator': wall_generator,
                          'enable_support':'1','support_type':'normal(auto)',
-                         'support_threshold_angle':'30','brim_type':'outer_only','brim_width':'5',
+                         'support_threshold_angle':str(support_threshold_angle),
+                         'brim_type':'outer_only','brim_width':'5',
                          'brim_object_gap':'0'})
         path = cache / (kind + '.json')
         path.write_text(json.dumps(data), encoding='utf-8')
@@ -119,10 +122,12 @@ def main():
     assert len(probes) == (0 if is_carrier else 62), '层高或测试范围发生变化，需重新定义验证截线'
     assert support_moves>0,'打印件需要支撑，但没有生成支撑路径'
     witness_checks={}
+    air_checks={}
     validation=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))
     if not is_carrier:
         witnesses=validation['speaker_layout']['print_witnesses']
         witness_checks=audit_witnesses(layers,witnesses)
+        air_checks=audit_air_witnesses(layers,validation['speaker_layout']['grille']['air_witnesses'])
     hook_checks=audit_hooks(layers,read_mesh(data),validation['hook_print_features'][args.part],
                            validation['hook_print_frame'],is_carrier)
     all_support_runs=audit_support_runs(layers)
@@ -133,7 +138,7 @@ def main():
               'printer_profile': names[0][1], 'filament_profile': names[2][1],
               'nozzle_mm': 0.4, 'layer_height_mm': 0.2, 'wall_loops': 4,
               'wall_generator': wall_generator, 'support_enabled': True,'support_extrusion_moves':support_moves,
-              'support_type':'normal(auto)','support_threshold_angle_deg':30,'outer_brim_width_mm':5,
+              'support_type':'normal(auto)','support_threshold_angle_deg':support_threshold_angle,'outer_brim_width_mm':5,
               'layer_count': len(paths), 'object_layer_count':len(model_layers),
               'wall_layer_count':len(object_paths),
               'top_shortfall_mm':round(top_shortfall,5),
@@ -143,6 +148,7 @@ def main():
               'warning_message': plate['warning_message'], 'lower_edge_probes': probes,
               'physical_print_verified': False,
               'speaker_feature_checks':witness_checks,
+              'speaker_air_checks':air_checks,
               'hook_feature_checks':hook_checks,'unsupported_wall_runs':support_runs[:15],
               'base_transition_runs':[r for r in all_support_runs if r['z_mm']<2.6] if not is_carrier else [],
               'support_run_minimum_height_mm':0 if is_carrier else 2.6,
