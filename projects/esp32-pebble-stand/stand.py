@@ -106,7 +106,6 @@ FOOT_OUTER_RX = 20.5
 FOOT_OUTER_RY = 20.0
 FOOT_INNER_RX = 15.5
 FOOT_INNER_RY = 15.0
-FOOT_RECESS = 0.6
 
 GUIDES = ()  # 旧直插键不适用于旋转解锁
 GUIDE_CLEARANCE = 0.25
@@ -773,11 +772,7 @@ for z, rx, ry, cy in inner_sections[1:-1]:
 print("regular side wall sampled minimum=%.3f mm (%d points)" % (min(wall_samples), len(wall_samples)))
 assert min(wall_samples) >= 1.95
 
-# 中央只浅凹，不打穿；外侧保留 5 mm 宽的 360 度水平接触带。
-underside_recess = Part.Face(ellipse_wire(
-    -1.0, FOOT_INNER_RX, FOOT_INNER_RY, FOOT_CENTER_Y
-)).extrude(Z * (1.0 + FOOT_RECESS))
-rear = rear.cut(underside_recess)
+# 底面整面平齐落床，不再切中央浅凹；仅保留后续生成的两个螺丝工具井。
 rear = rear.removeSplitter()
 
 # 三处定位槽的端面抵住支架，形成确定的轴向承压止挡。
@@ -870,7 +865,8 @@ bottom_band=Part.Face(ellipse_wire(0,FOOT_OUTER_RX,FOOT_OUTER_RY,FOOT_CENTER_Y))
 bottom_band=bottom_band.cut(Part.Face(ellipse_wire(0,FOOT_INNER_RX,FOOT_INNER_RY,FOOT_CENTER_Y)).extrude(Z*.6))
 for x,s in LOCK_POINTS:
     assert axial_cylinder(LOCK_TOOL_R,LOCK_HEAD_SEAT,80,x,s).common(bottom_band).Volume<0.001,'工具井切断底环'
-assert min(v.z for head in lock_heads for v in head.tessellate(.05)[0])>FOOT_RECESS,'螺丝头碰桌面'
+lock_head_table_gap=min(v.z for head in lock_heads for v in head.tessellate(.05)[0])
+assert lock_head_table_gap>.6,'螺丝头距平底桌面不足 0.6 mm'
 original_heads=[axial_cylinder(2.0,15.5,17.5,x,s) for x,s in SCREWS_2D]
 for head in original_heads:
     assert head.common(carrier).Volume+head.common(rear).Volume<.01,'原厂螺丝头无空间'
@@ -1268,6 +1264,20 @@ for inset in (0.3, 1.25, 3.75, 4.7):
         ring_width_passed += rear.isInside(point, 0.01, False)
 assert ring_width_passed == 288, '底部接触带宽度检查失败'
 
+# 验证整个底板，不只检查外周：底板外包络扣除两个工具井后必须全部保留。
+bottom_tool_cutters=Part.makeCompound([
+    axial_cylinder(LOCK_TOOL_R,LOCK_HEAD_SEAT,80,x,s) for x,s in LOCK_POINTS])
+flat_bottom_reference=outer_envelope.copy(True).common(
+    Part.makeBox(200,200,SHELL_FLOOR_T,App.Vector(-100,-100,0))).cut(bottom_tool_cutters)
+flat_bottom_missing=flat_bottom_reference.copy(True).cut(rear.copy(True)).Volume
+assert flat_bottom_reference.Volume>1000 and flat_bottom_missing<.001,'平底底板被挖空或出现内凹'
+flat_bottom_face=Part.Face(ellipse_wire(0,FOOT_OUTER_RX,FOOT_OUTER_RY,FOOT_CENTER_Y)).cut(bottom_tool_cutters)
+flat_bottom_faces=[f for f in rear.Faces if isinstance(f.Surface,Part.Plane)
+                   and abs(f.CenterOfMass.z)<1e-6 and f.normalAt(0,0).z<-.999]
+assert flat_bottom_faces,'后壳没有水平落床底面'
+flat_bottom_missing_area=flat_bottom_face.cut(Part.makeCompound(flat_bottom_faces)).Area
+assert flat_bottom_missing_area<.001,'底面没有完整平齐落床'
+
 # 以模块 50 g、电池 15 g、PETG 1.27 g/cm3 估算重心和接触椭圆切线倾覆角。
 petg_g_per_mm3 = 0.00127
 parts = (
@@ -1425,6 +1435,12 @@ metrics = {
     "bottom_z_mm": actual_box.ZMin,
     "bottom_contact_samples_passed": sum(ring_samples),
     "bottom_ring_width_samples_passed": ring_width_passed,
+    "flat_bottom":{"enabled":True,"floor_nominal_thickness_mm":SHELL_FLOOR_T,
+                   "tool_opening_count":len(LOCK_POINTS),
+                   "floor_missing_volume_mm3":flat_bottom_missing,
+                   "contact_missing_area_mm2":flat_bottom_missing_area,
+                   "contact_area_mm2":flat_bottom_face.Area,
+                   "screw_head_table_clearance_mm":lock_head_table_gap},
     "minimum_tip_angle_without_speaker_deg": min(tip_all_directions),
     "speaker_fitted": False,
     "generic_adhesive_area_available":adhesive_zone_clear,

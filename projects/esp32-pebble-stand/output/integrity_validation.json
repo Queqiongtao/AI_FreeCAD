@@ -2,16 +2,22 @@
   "Mount_Carrier": {
     "brep_detailed_check_passed": true,
     "closed_single_component_stl": true,
-    "stl_sha256": "e77cb0a9f8c21e9276f590305248946ce98301be8273535dd03b3b7c1f3cc758"
+    "stl_sha256": "72d5f38d64980c8cb2b87179fb7a47c570301e7536145ff0e48897136471a6fd"
   },
   "Rear_Cover": {
     "brep_detailed_check_passed": true,
     "closed_single_component_stl": true,
-    "stl_sha256": "7eb03a0f5cc734db1f799bd395df6dfa1236d053236b22af98d1fed7af732902"
+    "stl_sha256": "45e8fca4eb2a18e3afca86d6d5c5d131ee977bcc812cc72d9b41c7a5973733ce"
   },
   "grille": {
     "entire_bores_and_inlet_disks_clear": true,
     "hole_count": 13,
     "full_opening_boundaries_passed": true
+  },
+  "flat_bottom": {
+    "added_volume_mm3": 389.70829108289286,
+    "removed_volume_mm3": 0.0,
+    "added_outside_old_recess_mm3": 0.0,
+    "carrier_symmetric_difference_mm3": 0.0
   }
 }

@@ -1,5 +1,5 @@
 {
-  "stl_sha256": "e77cb0a9f8c21e9276f590305248946ce98301be8273535dd03b3b7c1f3cc758",
+  "stl_sha256": "72d5f38d64980c8cb2b87179fb7a47c570301e7536145ff0e48897136471a6fd",
   "slicer": "Bambu Studio",
   "printer_profile": "Prusa MK3S 0.4 nozzle",
   "filament_profile": "Generic PETG @Prusa",
@@ -24,6 +24,7 @@
   "physical_print_verified": false,
   "speaker_feature_checks": {},
   "speaker_air_checks": {},
+  "flat_bottom_checks": {},
   "hook_feature_checks": {
     "features": {
       "lug_0": {
@@ -176,6 +177,7 @@
     "bbox_center_alignment": false,
     "bbox_dimension_error_mm": 3.814697265625e-06
   },
-  "support_extrusion_volume_mm3": 1080.0256087404337,
-  "note": "参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。"
+  "support_extrusion_volume_mm3": 1080.0256808988902,
+  "note": "参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。",
+  "support_top_z_distance_mm": 0.2
 }

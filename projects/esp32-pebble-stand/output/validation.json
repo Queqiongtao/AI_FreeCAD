@@ -112,9 +112,9 @@
     "continuous_path_certified": true,
     "release_angle_deg": 9.0,
     "pull_mm": 50.0,
-    "certified_faces": 333,
-    "interval_count": 1431,
-    "distance_evaluations": 2188,
+    "certified_faces": 312,
+    "interval_count": 1419,
+    "distance_evaluations": 2206,
     "intervals": [
       [
         0,
@@ -5419,8 +5419,29 @@
         92,
         "rotate",
         0,
-        4.5,
+        2.25,
         "exact_volume_sweep"
+      ],
+      [
+        92,
+        "rotate",
+        2.25,
+        3.375,
+        "exact_volume_sweep"
+      ],
+      [
+        92,
+        "rotate",
+        3.375,
+        3.9375,
+        "distance_bound"
+      ],
+      [
+        92,
+        "rotate",
+        3.9375,
+        4.5,
+        "distance_bound"
       ],
       [
         92,
@@ -5545,8 +5566,29 @@
         92,
         "pull",
         4.6875,
+        5.078125,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        5.078125,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        5.46875,
+        5.859375,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        5.859375,
         6.25,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         92,
@@ -5559,8 +5601,43 @@
         92,
         "pull",
         12.5,
+        12.890625,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        12.890625,
+        13.28125,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        13.28125,
+        14.0625,
+        "exact_volume_sweep"
+      ],
+      [
+        92,
+        "pull",
+        14.0625,
+        14.453125,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        14.453125,
+        14.84375,
+        "distance_bound"
+      ],
+      [
+        92,
+        "pull",
+        14.84375,
         15.625,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         92,
@@ -5844,374 +5921,1270 @@
       ],
       [
         116,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        116,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        1.5625,
+        1.953125,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        1.953125,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        2.34375,
+        2.734375,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        2.734375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        3.125,
+        3.515625,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        3.515625,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        3.90625,
+        4.296875,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        4.296875,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        4.6875,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        116,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         117,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        117,
+        "pull",
+        0,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        117,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        117,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        117,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        117,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        117,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         118,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        118,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        118,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        118,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        118,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        118,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         119,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        119,
+        "pull",
+        0,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        1.5625,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        2.34375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        3.125,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        3.90625,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        4.6875,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        5.46875,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        6.25,
+        7.8125,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        7.8125,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        119,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         120,
-        "both",
+        "rotate",
+        0,
+        4.5,
+        "distance_bound"
+      ],
+      [
+        120,
+        "rotate",
+        4.5,
+        9.0,
+        "distance_bound"
+      ],
+      [
+        120,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         121,
-        "both",
+        "rotate",
         0,
+        4.5,
+        "distance_bound"
+      ],
+      [
+        121,
+        "rotate",
+        4.5,
+        9.0,
+        "distance_bound"
+      ],
+      [
+        121,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        121,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        121,
+        "pull",
+        6.25,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        121,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        121,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        121,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         122,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        122,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         123,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        123,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         124,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        124,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         125,
-        "both",
+        "rotate",
         0,
+        1.125,
+        "distance_bound"
+      ],
+      [
+        125,
+        "rotate",
+        1.125,
+        2.25,
+        "distance_bound"
+      ],
+      [
+        125,
+        "rotate",
+        2.25,
+        3.375,
+        "distance_bound"
+      ],
+      [
+        125,
+        "rotate",
+        3.375,
+        4.5,
+        "distance_bound"
+      ],
+      [
+        125,
+        "rotate",
+        4.5,
+        5.625,
+        "distance_bound"
+      ],
+      [
+        125,
+        "rotate",
+        5.625,
+        6.75,
+        "distance_bound"
+      ],
+      [
+        125,
+        "rotate",
+        6.75,
+        9.0,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        0,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        0.78125,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        1.5625,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        2.34375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        3.125,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        3.90625,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        4.6875,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        5.46875,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        6.25,
+        7.03125,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        7.03125,
+        7.8125,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        7.8125,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        125,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         126,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        126,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        126,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        126,
+        "pull",
+        6.25,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        126,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        126,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        126,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         127,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        127,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        127,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        127,
+        "pull",
+        6.25,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        127,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        127,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        127,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         128,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        128,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        128,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        128,
+        "pull",
+        6.25,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        128,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        128,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        128,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         129,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        129,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         130,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        130,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         131,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        131,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         132,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        132,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        132,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         133,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        133,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        133,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         134,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        134,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        134,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         135,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        135,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        135,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         136,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        136,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        136,
+        "pull",
+        25.0,
+        50.0,
+        "distance_bound"
+      ],
+      [
+        137,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        137,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        137,
+        "pull",
+        25.0,
+        50.0,
+        "distance_bound"
+      ],
+      [
+        138,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        138,
+        "pull",
+        0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        138,
+        "pull",
+        25.0,
+        50.0,
+        "distance_bound"
+      ],
+      [
+        139,
         "both",
         0,
         50.0,
         "conservative_box_disjoint"
       ],
       [
-        137,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        137,
-        "pull",
-        0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        137,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        137,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        137,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        137,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
-      ],
-      [
-        138,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        138,
-        "pull",
-        0,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        1.5625,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        2.34375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        3.125,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        3.90625,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        4.6875,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        5.46875,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        6.25,
-        7.8125,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        7.8125,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        138,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
-      ],
-      [
-        139,
-        "rotate",
-        0,
-        4.5,
-        "distance_bound"
-      ],
-      [
-        139,
-        "rotate",
-        4.5,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        139,
-        "pull",
+        140,
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
-      ],
-      [
-        140,
-        "rotate",
-        0,
-        4.5,
-        "distance_bound"
-      ],
-      [
-        140,
-        "rotate",
-        4.5,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        140,
-        "pull",
-        0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        140,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        140,
-        "pull",
-        6.25,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        140,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        140,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        140,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         141,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        141,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         142,
@@ -6245,148 +7218,15 @@
         144,
         "rotate",
         0,
-        1.125,
-        "distance_bound"
-      ],
-      [
-        144,
-        "rotate",
-        1.125,
-        2.25,
-        "distance_bound"
-      ],
-      [
-        144,
-        "rotate",
-        2.25,
-        3.375,
-        "distance_bound"
-      ],
-      [
-        144,
-        "rotate",
-        3.375,
-        4.5,
-        "distance_bound"
-      ],
-      [
-        144,
-        "rotate",
-        4.5,
-        5.625,
-        "distance_bound"
-      ],
-      [
-        144,
-        "rotate",
-        5.625,
-        6.75,
-        "distance_bound"
-      ],
-      [
-        144,
-        "rotate",
-        6.75,
         9.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         144,
         "pull",
         0,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        0.78125,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        1.5625,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        2.34375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        3.125,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        3.90625,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        4.6875,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        5.46875,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        6.25,
-        7.03125,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        7.03125,
-        7.8125,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        7.8125,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        144,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         145,
@@ -6399,92 +7239,22 @@
         145,
         "pull",
         0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        145,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        145,
-        "pull",
-        6.25,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        145,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        145,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        145,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         146,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         146,
         "pull",
         0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        146,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        146,
-        "pull",
-        6.25,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        146,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        146,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        146,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         147,
@@ -6497,433 +7267,83 @@
         147,
         "pull",
         0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        147,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        147,
-        "pull",
-        6.25,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        147,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        147,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        147,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         148,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         148,
         "pull",
         0,
         50.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         149,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        149,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         150,
+        "both",
+        0,
+        50.0,
+        "conservative_box_disjoint"
+      ],
+      [
+        151,
+        "both",
+        0,
+        50.0,
+        "conservative_box_disjoint"
+      ],
+      [
+        152,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
-        150,
+        152,
         "pull",
         0,
         50.0,
         "exact_volume_sweep"
       ],
       [
-        151,
-        "rotate",
+        153,
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        151,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        151,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
-        152,
-        "rotate",
+        154,
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        152,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        152,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
-      ],
-      [
-        153,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        153,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        153,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
-      ],
-      [
-        154,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        154,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        154,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         155,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         155,
         "pull",
         0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        155,
-        "pull",
-        25.0,
         50.0,
         "distance_bound"
       ],
@@ -6932,147 +7352,42 @@
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "planar_boundary_sweep"
       ],
       [
         156,
         "pull",
         0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        156,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         157,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         157,
         "pull",
         0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        157,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         158,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        158,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         159,
@@ -7083,106 +7398,197 @@
       ],
       [
         160,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        160,
+        "pull",
+        0,
+        50.0,
+        "exact_volume_sweep"
+      ],
+      [
+        161,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        161,
+        "pull",
+        0,
+        50.0,
+        "exact_volume_sweep"
+      ],
+      [
+        162,
+        "rotate",
+        0,
+        9.0,
+        "distance_bound"
+      ],
+      [
+        162,
+        "pull",
+        0,
+        50.0,
+        "exact_volume_sweep"
+      ],
+      [
+        163,
+        "rotate",
+        0,
+        9.0,
+        "distance_bound"
+      ],
+      [
+        163,
+        "pull",
+        0,
+        50.0,
+        "exact_volume_sweep"
+      ],
+      [
+        164,
         "both",
         0,
         50.0,
         "conservative_box_disjoint"
       ],
       [
-        161,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        161,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
-      ],
-      [
-        162,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        162,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
-      ],
-      [
-        163,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        163,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
-      ],
-      [
-        164,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        164,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
-      ],
-      [
         165,
         "rotate",
         0,
         9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        165,
+        "pull",
+        0,
+        3.125,
         "distance_bound"
       ],
       [
         165,
         "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
+        3.125,
+        6.25,
+        "distance_bound"
       ],
       [
-        166,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        166,
+        165,
         "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        165,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        165,
+        "pull",
+        25.0,
+        50.0,
+        "distance_bound"
+      ],
+      [
+        166,
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         167,
         "rotate",
         0,
         9.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         167,
         "pull",
         0,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        0.78125,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        1.5625,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        2.34375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        3.125,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        3.90625,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        4.6875,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        5.46875,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        167,
+        "pull",
+        25.0,
         50.0,
         "distance_bound"
       ],
@@ -7209,17 +7615,10 @@
       ],
       [
         171,
-        "rotate",
-        0,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        171,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         172,
@@ -7240,42 +7639,308 @@
         "rotate",
         0,
         9.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         174,
         "pull",
         0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        1.5625,
+        1.953125,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        1.953125,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        2.34375,
+        2.734375,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        2.734375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        3.125,
+        3.515625,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        3.515625,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        3.90625,
+        4.296875,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        4.296875,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        4.6875,
+        5.078125,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        5.078125,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        5.46875,
+        5.859375,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        5.859375,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        174,
+        "pull",
+        25.0,
         50.0,
         "distance_bound"
       ],
       [
         175,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        175,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         176,
         "rotate",
         0,
         9.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         176,
         "pull",
         0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        1.5625,
+        1.953125,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        1.953125,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        2.34375,
+        2.734375,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        2.734375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        3.125,
+        3.515625,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        3.515625,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        3.90625,
+        4.296875,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        4.296875,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        4.6875,
+        5.078125,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        5.078125,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        5.46875,
+        5.859375,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        5.859375,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        6.25,
+        7.03125,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        7.03125,
+        7.8125,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        7.8125,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        9.375,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        176,
+        "pull",
+        25.0,
         50.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         177,
@@ -7293,24 +7958,24 @@
       ],
       [
         178,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        179,
         "rotate",
         0,
         9.0,
         "exact_volume_sweep"
       ],
       [
-        179,
+        178,
         "pull",
         0,
         50.0,
         "exact_volume_sweep"
+      ],
+      [
+        179,
+        "both",
+        0,
+        50.0,
+        "conservative_box_disjoint"
       ],
       [
         180,
@@ -7345,7 +8010,7 @@
         "rotate",
         0,
         9.0,
-        "distance_bound"
+        "planar_boundary_sweep"
       ],
       [
         182,
@@ -7356,59 +8021,185 @@
       ],
       [
         183,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        184,
         "rotate",
         0,
         9.0,
         "exact_volume_sweep"
       ],
       [
-        184,
+        183,
         "pull",
         0,
+        0.390625,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        0.390625,
+        0.78125,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        0.78125,
+        1.171875,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        1.171875,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        1.5625,
+        1.953125,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        1.953125,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        2.34375,
+        2.734375,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        2.734375,
         3.125,
         "distance_bound"
       ],
       [
-        184,
+        183,
         "pull",
         3.125,
+        3.515625,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        3.515625,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        3.90625,
+        4.296875,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        4.296875,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        4.6875,
+        5.078125,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        5.078125,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        5.46875,
+        5.859375,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        5.859375,
         6.25,
         "distance_bound"
       ],
       [
-        184,
+        183,
         "pull",
         6.25,
+        7.03125,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        7.03125,
+        7.8125,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        7.8125,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        183,
+        "pull",
+        9.375,
         12.5,
         "distance_bound"
       ],
       [
-        184,
+        183,
         "pull",
         12.5,
         25.0,
         "distance_bound"
       ],
       [
-        184,
+        183,
         "pull",
         25.0,
         50.0,
         "distance_bound"
+      ],
+      [
+        184,
+        "both",
+        0,
+        50.0,
+        "conservative_box_disjoint"
       ],
       [
         185,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "planar_boundary_sweep"
+      ],
+      [
+        185,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         186,
@@ -7421,92 +8212,36 @@
         186,
         "pull",
         0,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        0.78125,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        1.5625,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        2.34375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        3.125,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        3.90625,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        4.6875,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        5.46875,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        186,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "exact_volume_sweep"
       ],
       [
         187,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        187,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         188,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        188,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         189,
@@ -7531,10 +8266,17 @@
       ],
       [
         192,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "planar_boundary_sweep"
+      ],
+      [
+        192,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         193,
@@ -7547,323 +8289,120 @@
         193,
         "pull",
         0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        1.5625,
-        1.953125,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        1.953125,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        2.34375,
-        2.734375,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        2.734375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        3.125,
-        3.515625,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        3.515625,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        3.90625,
-        4.296875,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        4.296875,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        4.6875,
-        5.078125,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        5.078125,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        5.46875,
-        5.859375,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        5.859375,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        193,
-        "pull",
-        25.0,
         50.0,
+        "exact_volume_sweep"
+      ],
+      [
+        194,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        194,
+        "pull",
+        0,
+        0.78125,
         "distance_bound"
       ],
       [
         194,
+        "pull",
+        0.78125,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        1.5625,
+        2.34375,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        2.34375,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        3.125,
+        3.90625,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        3.90625,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        4.6875,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        5.46875,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        194,
+        "pull",
+        25.0,
+        50.0,
+        "distance_bound"
+      ],
+      [
+        195,
+        "rotate",
+        0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        195,
+        "pull",
+        0,
+        50.0,
+        "exact_volume_sweep"
+      ],
+      [
+        196,
         "both",
         0,
         50.0,
         "conservative_box_disjoint"
-      ],
-      [
-        195,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        195,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        1.5625,
-        1.953125,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        1.953125,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        2.34375,
-        2.734375,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        2.734375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        3.125,
-        3.515625,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        3.515625,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        3.90625,
-        4.296875,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        4.296875,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        4.6875,
-        5.078125,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        5.078125,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        5.46875,
-        5.859375,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        5.859375,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        6.25,
-        7.03125,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        7.03125,
-        7.8125,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        7.8125,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        195,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
-      ],
-      [
-        196,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        196,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
       ],
       [
         197,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "planar_boundary_sweep"
       ],
       [
         197,
@@ -7895,24 +8434,24 @@
       ],
       [
         200,
-        "rotate",
-        0,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        200,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         201,
         "rotate",
         0,
+        4.5,
+        "distance_bound"
+      ],
+      [
+        201,
+        "rotate",
+        4.5,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         201,
@@ -7932,6 +8471,13 @@
         201,
         "pull",
         3.125,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        201,
+        "pull",
+        4.6875,
         6.25,
         "distance_bound"
       ],
@@ -8051,6 +8597,27 @@
         202,
         "pull",
         4.6875,
+        5.078125,
+        "distance_bound"
+      ],
+      [
+        202,
+        "pull",
+        5.078125,
+        5.46875,
+        "distance_bound"
+      ],
+      [
+        202,
+        "pull",
+        5.46875,
+        5.859375,
+        "distance_bound"
+      ],
+      [
+        202,
+        "pull",
+        5.859375,
         6.25,
         "distance_bound"
       ],
@@ -8058,6 +8625,27 @@
         202,
         "pull",
         6.25,
+        7.03125,
+        "distance_bound"
+      ],
+      [
+        202,
+        "pull",
+        7.03125,
+        7.8125,
+        "distance_bound"
+      ],
+      [
+        202,
+        "pull",
+        7.8125,
+        9.375,
+        "distance_bound"
+      ],
+      [
+        202,
+        "pull",
+        9.375,
         12.5,
         "distance_bound"
       ],
@@ -8080,14 +8668,42 @@
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         203,
         "pull",
         0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        203,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        203,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        203,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        203,
+        "pull",
+        25.0,
         50.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         204,
@@ -8100,15 +8716,57 @@
         204,
         "pull",
         0,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        204,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        204,
+        "pull",
+        3.125,
+        4.6875,
+        "distance_bound"
+      ],
+      [
+        204,
+        "pull",
+        4.6875,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        204,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        204,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        204,
+        "pull",
+        25.0,
         50.0,
-        "exact_volume_sweep"
+        "distance_bound"
       ],
       [
         205,
         "rotate",
         0,
         9.0,
-        "exact_volume_sweep"
+        "planar_boundary_sweep"
       ],
       [
         205,
@@ -8140,129 +8798,31 @@
       ],
       [
         209,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        209,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         210,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        210,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         211,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        211,
-        "pull",
-        0,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        0.78125,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        1.5625,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        2.34375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        3.125,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        3.90625,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        4.6875,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        5.46875,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        211,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         212,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        212,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         213,
@@ -8273,31 +8833,17 @@
       ],
       [
         214,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        214,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         215,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        215,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         216,
@@ -8308,192 +8854,24 @@
       ],
       [
         217,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        217,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         218,
-        "rotate",
-        0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        218,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         219,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        219,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        1.5625,
-        1.953125,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        1.953125,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        2.34375,
-        2.734375,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        2.734375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        3.125,
-        3.515625,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        3.515625,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        3.90625,
-        4.296875,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        4.296875,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        4.6875,
-        5.078125,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        5.078125,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        5.46875,
-        5.859375,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        5.859375,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        6.25,
-        7.03125,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        7.03125,
-        7.8125,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        7.8125,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        219,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         220,
@@ -8511,330 +8889,92 @@
       ],
       [
         222,
+        "both",
+        0,
+        50.0,
+        "conservative_box_disjoint"
+      ],
+      [
+        223,
+        "both",
+        0,
+        50.0,
+        "conservative_box_disjoint"
+      ],
+      [
+        224,
         "rotate",
         0,
-        4.5,
+        9.0,
         "exact_volume_sweep"
       ],
       [
-        222,
-        "rotate",
-        4.5,
-        6.75,
-        "distance_bound"
-      ],
-      [
-        222,
-        "rotate",
-        6.75,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        222,
+        224,
         "pull",
         0,
         1.5625,
-        "distance_bound"
-      ],
-      [
-        222,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        222,
-        "pull",
-        3.125,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        222,
-        "pull",
-        4.6875,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        222,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        222,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        222,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
-      ],
-      [
-        223,
-        "rotate",
-        0,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        223,
-        "pull",
-        0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        223,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        223,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        223,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        223,
-        "pull",
-        25.0,
-        50.0,
         "distance_bound"
       ],
       [
         224,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        224,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        224,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        224,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        224,
+        "pull",
+        25.0,
+        50.0,
+        "distance_bound"
+      ],
+      [
+        225,
         "rotate",
         0,
         9.0,
         "planar_boundary_sweep"
       ],
       [
-        224,
+        225,
         "pull",
         0,
         50.0,
         "exact_volume_sweep"
       ],
       [
-        225,
+        226,
         "rotate",
         0,
         9.0,
         "exact_volume_sweep"
       ],
       [
-        225,
-        "pull",
-        0,
-        0.390625,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        0.390625,
-        0.78125,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        0.78125,
-        1.171875,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        1.171875,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        1.5625,
-        1.953125,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        1.953125,
-        2.34375,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        2.34375,
-        2.734375,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        2.734375,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        3.125,
-        3.515625,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        3.515625,
-        3.90625,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        3.90625,
-        4.296875,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        4.296875,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        4.6875,
-        5.078125,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        5.078125,
-        5.46875,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        5.46875,
-        5.859375,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        5.859375,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        6.25,
-        7.03125,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        7.03125,
-        7.8125,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        7.8125,
-        9.375,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        9.375,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        225,
-        "pull",
-        25.0,
-        50.0,
-        "distance_bound"
-      ],
-      [
-        226,
-        "rotate",
-        0,
-        4.5,
-        "distance_bound"
-      ],
-      [
-        226,
-        "rotate",
-        4.5,
-        9.0,
-        "distance_bound"
-      ],
-      [
         226,
         "pull",
         0,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        226,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        226,
-        "pull",
-        3.125,
-        4.6875,
-        "distance_bound"
-      ],
-      [
-        226,
-        "pull",
-        4.6875,
         6.25,
         "distance_bound"
       ],
@@ -8868,17 +9008,87 @@
       ],
       [
         228,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        228,
+        "pull",
+        0,
+        1.5625,
+        "distance_bound"
+      ],
+      [
+        228,
+        "pull",
+        1.5625,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        228,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        228,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        228,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        228,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         229,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        229,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        229,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        229,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        229,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         230,
@@ -8966,10 +9176,24 @@
       ],
       [
         242,
-        "both",
+        "rotate",
+        0,
+        4.5,
+        "distance_bound"
+      ],
+      [
+        242,
+        "rotate",
+        4.5,
+        9.0,
+        "distance_bound"
+      ],
+      [
+        242,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         243,
@@ -8987,101 +9211,24 @@
       ],
       [
         245,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        245,
-        "pull",
-        0,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        245,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        245,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        245,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        245,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        245,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         246,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        246,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         247,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        247,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        247,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        247,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        247,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         248,
@@ -9092,87 +9239,17 @@
       ],
       [
         249,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        249,
-        "pull",
-        0,
-        1.5625,
-        "distance_bound"
-      ],
-      [
-        249,
-        "pull",
-        1.5625,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        249,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        249,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        249,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        249,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         250,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        250,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        250,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        250,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        250,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         251,
@@ -9260,24 +9337,10 @@
       ],
       [
         263,
-        "rotate",
-        0,
-        4.5,
-        "distance_bound"
-      ],
-      [
-        263,
-        "rotate",
-        4.5,
-        9.0,
-        "distance_bound"
-      ],
-      [
-        263,
-        "pull",
+        "both",
         0,
         50.0,
-        "exact_volume_sweep"
+        "conservative_box_disjoint"
       ],
       [
         264,
@@ -9323,87 +9386,444 @@
       ],
       [
         270,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        270,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        270,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        270,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        270,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         271,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        271,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        271,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        271,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        271,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         272,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        272,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        272,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        272,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        272,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         273,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        273,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        273,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        273,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        273,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         274,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        274,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        274,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        274,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        274,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         275,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        275,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        275,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        275,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        275,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         276,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        276,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        276,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        276,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        276,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         277,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        277,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        277,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        277,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        277,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         278,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        278,
+        "pull",
+        0,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        278,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        278,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        278,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         279,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        279,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        279,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        279,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        279,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        279,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         280,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        280,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        280,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        280,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        280,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        280,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         281,
-        "both",
+        "rotate",
         0,
+        9.0,
+        "exact_volume_sweep"
+      ],
+      [
+        281,
+        "pull",
+        0,
+        3.125,
+        "distance_bound"
+      ],
+      [
+        281,
+        "pull",
+        3.125,
+        6.25,
+        "distance_bound"
+      ],
+      [
+        281,
+        "pull",
+        6.25,
+        12.5,
+        "distance_bound"
+      ],
+      [
+        281,
+        "pull",
+        12.5,
+        25.0,
+        "distance_bound"
+      ],
+      [
+        281,
+        "pull",
+        25.0,
         50.0,
-        "conservative_box_disjoint"
+        "distance_bound"
       ],
       [
         282,
@@ -9470,444 +9890,87 @@
       ],
       [
         291,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        291,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        291,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        291,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        291,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         292,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        292,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        292,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        292,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        292,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         293,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        293,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        293,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        293,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        293,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         294,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        294,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        294,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        294,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        294,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         295,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        295,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        295,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        295,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        295,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         296,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        296,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        296,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        296,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        296,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         297,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        297,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        297,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        297,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        297,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         298,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        298,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        298,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        298,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        298,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         299,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        299,
-        "pull",
-        0,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        299,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        299,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        299,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         300,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        300,
-        "pull",
-        0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        300,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        300,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        300,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        300,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         301,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        301,
-        "pull",
-        0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        301,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        301,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        301,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        301,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         302,
-        "rotate",
+        "both",
         0,
-        9.0,
-        "exact_volume_sweep"
-      ],
-      [
-        302,
-        "pull",
-        0,
-        3.125,
-        "distance_bound"
-      ],
-      [
-        302,
-        "pull",
-        3.125,
-        6.25,
-        "distance_bound"
-      ],
-      [
-        302,
-        "pull",
-        6.25,
-        12.5,
-        "distance_bound"
-      ],
-      [
-        302,
-        "pull",
-        12.5,
-        25.0,
-        "distance_bound"
-      ],
-      [
-        302,
-        "pull",
-        25.0,
         50.0,
-        "distance_bound"
+        "conservative_box_disjoint"
       ],
       [
         303,
@@ -9946,17 +10009,31 @@
       ],
       [
         308,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "planar_boundary_sweep"
+      ],
+      [
+        308,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         309,
-        "both",
+        "rotate",
+        0,
+        9.0,
+        "planar_boundary_sweep"
+      ],
+      [
+        309,
+        "pull",
         0,
         50.0,
-        "conservative_box_disjoint"
+        "exact_volume_sweep"
       ],
       [
         310,
@@ -9971,180 +10048,19 @@
         0,
         50.0,
         "conservative_box_disjoint"
-      ],
-      [
-        312,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        313,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        314,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        315,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        316,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        317,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        318,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        319,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        320,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        321,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        322,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        323,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        324,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        325,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        326,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        327,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        328,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        329,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        329,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
-      ],
-      [
-        330,
-        "rotate",
-        0,
-        9.0,
-        "planar_boundary_sweep"
-      ],
-      [
-        330,
-        "pull",
-        0,
-        50.0,
-        "exact_volume_sweep"
-      ],
-      [
-        331,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
-      ],
-      [
-        332,
-        "both",
-        0,
-        50.0,
-        "conservative_box_disjoint"
       ]
     ],
     "retention_overlap_at_1_2_mm3": [
       [
-        3.2943926491009057,
-        8.636853699170473
+        3.294392649100906,
+        8.636853699170477
       ],
       [
-        3.424061153484229,
-        8.959736472165062
+        3.4240611534842404,
+        8.95973647216506
       ]
     ],
-    "locked_rotation_overlap_mm3": 0.7164092297749718,
+    "locked_rotation_overlap_mm3": 0.7164092297749738,
     "method": "连续精确旋转/平移扫掠；退化面采用距离和位移界；环背面接触按 n 半空间分隔",
     "physical_fit_verified": false,
     "angles_deg": [
@@ -10171,10 +10087,10 @@
   "mouth_max_radius_mm": 25.200000000000006,
   "axial_joint_clearance_mm": 0.3000000000000007,
   "cavity_volume_cm3": 37.98465025300047,
-  "cavity_after_carrier_cm3": 34.905369407519714,
+  "cavity_after_carrier_cm3": 34.90536940751685,
   "shell_bbox_mm": [
     50.39894565756643,
-    61.0183043921159,
+    61.01830439211596,
     40.52369625064777
   ],
   "shell_depth_extension_mm": 4.0,
@@ -10183,7 +10099,7 @@
   "module_back_bottom_clearance_mm": 8.164177772475911,
   "cavity_bbox_mm": [
     46.18930645593284,
-    51.1620878773352,
+    51.16208787733515,
     36.5737479984288
   ],
   "sampled_side_wall_min_mm": 2.151509557525373,
@@ -10191,7 +10107,16 @@
   "bottom_z_mm": 0.0,
   "bottom_contact_samples_passed": 72,
   "bottom_ring_width_samples_passed": 288,
-  "minimum_tip_angle_without_speaker_deg": 31.78258245773806,
+  "flat_bottom": {
+    "enabled": true,
+    "floor_nominal_thickness_mm": 2.6,
+    "tool_opening_count": 2,
+    "floor_missing_volume_mm3": 0.0,
+    "contact_missing_area_mm2": 0.0,
+    "contact_area_mm2": 1205.5553976442156,
+    "screw_head_table_clearance_mm": 3.00404304318473
+  },
+  "minimum_tip_angle_without_speaker_deg": 31.991498064943393,
   "speaker_fitted": false,
   "generic_adhesive_area_available": false,
   "speaker_layout": {
@@ -10213,7 +10138,7 @@
     "tape_ring_width_mm": 0.8,
     "tape_pattern": "四角 L 形，各臂 4 mm、宽 0.8 mm；不按整圈贴胶",
     "tape_patch_count": 4,
-    "tape_total_area_mm2": 23.039999999999402,
+    "tape_total_area_mm2": 23.039999999999427,
     "locator_count": 5,
     "locator_gap_mm": 0.3,
     "locator_wall_mm": 1.6,
@@ -10392,186 +10317,187 @@
         {
           "x_mm": -10.8,
           "z_mm": 4.5084,
+          "opening_z_bounds_mm": [
+            3.3084,
+            5.7084
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.43248500338413,
             0.8241753240195034,
             -0.36563883426842914
-          ],
-          "opening_z_bounds_mm": [
-            3.3084,
-            5.7084
           ]
         },
         {
           "x_mm": -7.2,
           "z_mm": 4.6704,
+          "opening_z_bounds_mm": [
+            3.4703999999999997,
+            5.8704
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.3150716138834374,
             0.8720772081425383,
             -0.37444788844804827
-          ],
-          "opening_z_bounds_mm": [
-            3.4703999999999997,
-            5.8704
           ]
         },
         {
           "x_mm": -3.6,
           "z_mm": 4.7676,
+          "opening_z_bounds_mm": [
+            3.5675999999999997,
+            5.9676
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.19147662730172182,
             0.9042851404100659,
             -0.3815823450196627
-          ],
-          "opening_z_bounds_mm": [
-            3.5675999999999997,
-            5.9676
           ]
         },
         {
           "x_mm": 0.0,
           "z_mm": 4.8,
+          "opening_z_bounds_mm": [
+            3.5999999999999996,
+            6.0
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.06428189050091189,
             0.9212605884779234,
             -0.38359714111413695
-          ],
-          "opening_z_bounds_mm": [
-            3.5999999999999996,
-            6.0
           ]
         },
         {
           "x_mm": 3.6,
           "z_mm": 4.7676,
+          "opening_z_bounds_mm": [
+            3.5675999999999997,
+            5.9676
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             0.19147662730172166,
             0.9042851404100658,
             -0.3815823450196628
-          ],
-          "opening_z_bounds_mm": [
-            3.5675999999999997,
-            5.9676
           ]
         },
         {
           "x_mm": 7.2,
           "z_mm": 4.6704,
+          "opening_z_bounds_mm": [
+            3.4703999999999997,
+            5.8704
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             0.3150716138834299,
             0.8720772081425407,
             -0.3744478884480491
-          ],
-          "opening_z_bounds_mm": [
-            3.4703999999999997,
-            5.8704
           ]
         },
         {
           "x_mm": 10.8,
           "z_mm": 4.5084,
+          "opening_z_bounds_mm": [
+            3.3084,
+            5.7084
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             0.43248500338413354,
             0.8241753240194986,
             -0.3656388342684355
-          ],
-          "opening_z_bounds_mm": [
-            3.3084,
-            5.7084
           ]
         },
         {
           "x_mm": -9.0,
           "z_mm": 7.8975,
+          "opening_z_bounds_mm": [
+            6.6975,
+            9.0975
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.25622022246720666,
             0.6921670680915964,
             -0.6747265723597509
-          ],
-          "opening_z_bounds_mm": [
-            6.6975,
-            9.0975
           ]
         },
         {
           "x_mm": -5.4,
           "z_mm": 8.027099999999999,
+          "opening_z_bounds_mm": [
+            6.827099999999999,
+            9.227099999999998
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.15256199022893885,
             0.7021105503777891,
             -0.6955326118778209
-          ],
-          "opening_z_bounds_mm": [
-            6.827099999999999,
-            9.227099999999998
           ]
         },
         {
           "x_mm": -1.8,
           "z_mm": 8.091899999999999,
+          "opening_z_bounds_mm": [
+            6.891899999999999,
+            9.291899999999998
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             -0.05063536505962219,
             0.7065754288217488,
             -0.705823790468018
-          ],
-          "opening_z_bounds_mm": [
-            6.891899999999999,
-            9.291899999999998
           ]
         },
         {
           "x_mm": 1.8,
           "z_mm": 8.091899999999999,
+          "opening_z_bounds_mm": [
+            6.891899999999999,
+            9.291899999999998
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             0.05063536505962218,
             0.7065754288217487,
             -0.7058237904680179
-          ],
-          "opening_z_bounds_mm": [
-            6.891899999999999,
-            9.291899999999998
           ]
         },
         {
           "x_mm": 5.4,
           "z_mm": 8.027099999999999,
+          "opening_z_bounds_mm": [
+            6.827099999999999,
+            9.227099999999998
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             0.15256199022893874,
             0.7021105503777891,
             -0.6955326118778207
-          ],
-          "opening_z_bounds_mm": [
-            6.827099999999999,
-            9.227099999999998
           ]
         },
         {
           "x_mm": 9.0,
           "z_mm": 7.8975,
+          "opening_z_bounds_mm": [
+            6.6975,
+            9.0975
+          ],
           "outside_allowed_area_mm2": 0.0,
           "outer_normal": [
             0.25622022246720616,
             0.6921670680916012,
             -0.6747265723597463
-          ],
-          "opening_z_bounds_mm": [
-            6.6975,
-            9.0975
           ]
         }
       ],
+      "entire_bores_and_inlet_disks_clear": true,
       "hole_points_x_z_mm": [
         [
           -10.8,
@@ -10978,8 +10904,7 @@
             ]
           }
         ]
-      },
-      "entire_bores_and_inlet_disks_clear": true
+      }
     },
     "wire_route_verified": true,
     "wire_route_assumed_diameter_mm": 2.0,
@@ -12294,9 +12219,9 @@
     "physical_strength_verified": false
   },
   "front_wall_mesh_audit": {
-    "sample_count": 1137,
+    "sample_count": 1102,
     "minimum_mm": 2.0794,
-    "lower_sample_count": 126,
+    "lower_sample_count": 123,
     "lower_minimum_mm": 2.08529,
     "under_2mm_count": 0,
     "excluded": "开放端面、水平底面，以及穿过已单独检查的定位槽、紧固件、喇叭胶框及定位墙包络的射线；0.01 mm 合并同一表面交点",

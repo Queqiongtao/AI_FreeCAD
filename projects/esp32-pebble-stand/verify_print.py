@@ -8,7 +8,7 @@ import struct
 import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses, audit_air_witnesses, audit_hooks, audit_support_runs
+from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses, audit_air_witnesses, audit_hooks, audit_support_runs, section, distance2, grid, covered
 
 ROOT = Path(__file__).resolve().parent
 OUT = Path(os.environ.get('S3_OUTPUT_DIR', ROOT / 'output'))
@@ -30,6 +30,8 @@ def main():
     wall_generator = 'classic' if is_carrier else 'arachne'
     # 与 README 的参考配置一致；孔内支撑单独记录并在打印后清理。
     support_threshold_angle = 30
+    # 后壳 Ø2 水平孔上缘需要更贴近的支撑；整面平底本身直接落床，不生成中央支撑。
+    support_top_z_distance = .2 if is_carrier else .1
 
     def load(kind, name):
         data = json.loads((profiles / kind / (name + '.json')).read_text(encoding='utf-8-sig'))
@@ -48,6 +50,7 @@ def main():
                          'wall_loops': '4', 'wall_generator': wall_generator,
                          'enable_support':'1','support_type':'normal(auto)',
                          'support_threshold_angle':str(support_threshold_angle),
+                         'support_top_z_distance':str(support_top_z_distance),
                          'brim_type':'outer_only','brim_width':'5',
                          'brim_object_gap':'0'})
         path = cache / (kind + '.json')
@@ -124,6 +127,31 @@ def main():
     witness_checks={}
     air_checks={}
     validation=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))
+    flat_bottom_checks={}
+    if not is_carrier and validation.get('flat_bottom',{}).get('enabled'):
+        # 从最终 STL 第一层截面取整个底面的内部采样，排除工具孔及距边界 0.8 mm 的区域。
+        # 同时核对前三层的本体和支撑，防止中央底板仍悬空或被支撑替代。
+        outline=section(read_mesh(data),.1)
+        coords=[p for segment in outline for p in segment]
+        def inside_bottom(x,y):
+            crossings=sum((a[1]>y)!=(b[1]>y) and
+                          x<a[0]+(y-a[1])*(b[0]-a[0])/(b[1]-a[1])
+                          for a,b in outline)
+            return crossings%2==1 and min(distance2((x,y),a,b) for a,b in outline)>.8**2
+        xs=range(int(min(p[0] for p in coords))+1,int(max(p[0] for p in coords)),2)
+        ys=range(int(min(p[1] for p in coords))+1,int(max(p[1] for p in coords)),2)
+        points=[(x,y) for x in xs for y in ys if inside_bottom(x,y)]
+        assert len(points)>=100,'平底首层有效采样不足'
+        witnesses={'flat_bottom':[{'layer_z_mm':z,'point_mm':[x,y,z-.1]}
+                                  for z in (.2,.4,.6) for x,y in points]}
+        flat_bottom_checks=audit_witnesses(layers,witnesses)['flat_bottom']
+        support_hits=0
+        for z in (.2,.4,.6):
+            supports=grid([v for v in layers.get(z,[]) if 'support' in v[2].lower()])
+            support_hits+=sum(covered(p,supports,.05) for p in points)
+        assert support_hits==0,'平底内部前三层仍有支撑路径'
+        flat_bottom_checks.update({'checked_layers_mm':[.2,.4,.6],
+                                   'support_hits':support_hits,'tool_openings_excluded':True})
     if not is_carrier:
         witnesses=validation['speaker_layout']['print_witnesses']
         witness_checks=audit_witnesses(layers,witnesses)
@@ -139,6 +167,7 @@ def main():
               'nozzle_mm': 0.4, 'layer_height_mm': 0.2, 'wall_loops': 4,
               'wall_generator': wall_generator, 'support_enabled': True,'support_extrusion_moves':support_moves,
               'support_type':'normal(auto)','support_threshold_angle_deg':support_threshold_angle,'outer_brim_width_mm':5,
+              'support_top_z_distance_mm':support_top_z_distance,
               'layer_count': len(paths), 'object_layer_count':len(model_layers),
               'wall_layer_count':len(object_paths),
               'top_shortfall_mm':round(top_shortfall,5),
@@ -149,6 +178,7 @@ def main():
               'physical_print_verified': False,
               'speaker_feature_checks':witness_checks,
               'speaker_air_checks':air_checks,
+              'flat_bottom_checks':flat_bottom_checks,
               'hook_feature_checks':hook_checks,'unsupported_wall_runs':support_runs[:15],
               'base_transition_runs':[r for r in all_support_runs if r['z_mm']<2.6] if not is_carrier else [],
               'support_run_minimum_height_mm':0 if is_carrier else 2.6,
@@ -162,15 +192,19 @@ def main():
     font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc', 19)
     title=('承托架' if is_carrier else '后壳')+'本体路径（普通支撑＋5 mm 外沿，图中隐藏支撑）'
     draw.text((20, 15), title, font=font, fill=(35, 40, 40))
-    heights=(0.2,1.0,2.0,3.0,5.0,7.0) if is_carrier else (3.0,5.0,7.0,9.0,11.0,13.0)
+    heights=(0.2,1.0,2.0,3.0,5.0,7.0) if is_carrier else (.2,.4,.6,3.0,7.0,13.0)
     for index, z in enumerate(heights):
         left, top = (index % 3) * 400, 55 + (index // 3) * 385
         draw.text((left + 15, top), 'Z = %.1f mm' % z, font=font, fill=(35, 40, 40))
-        for a, b, kind in paths[z]:
+        # 平底前三层连实心填充一起显示，避免只画轮廓看起来仍像中央内凹。
+        visible=[(a,b,kind) for a,b,kind,width in layers[z] if 'support' not in kind.lower()] \
+                if not is_carrier and z<=.6 else paths[z]
+        for a, b, kind in visible:
             points = [(left+200+p[0]*5.2, top+260-p[1]*5.2) for p in (a, b)]
             color = (210, 110, 35) if kind == 'Outer wall' else (48, 122, 146)
             draw.line(points, fill=color, width=2)
-        draw.text((left+15, top+340), '橙：外壁  蓝：内壁/悬垂壁', font=font, fill=(60, 65, 65))
+        legend='橙：外壁  蓝：本体（含填充）' if not is_carrier and z<=.6 else '橙：外壁  蓝：内壁/悬垂壁'
+        draw.text((left+15, top+340), legend, font=font, fill=(60, 65, 65))
     image.save(OUT / ('preview_carrier_layers.png' if is_carrier else 'preview_print_layers.png'))
     print('切片成功：%d 本体层，%d 支撑专用层，%d 条下缘截线通过' % (len(model_layers),len(support_layers-model_layers),len(probes)))
 

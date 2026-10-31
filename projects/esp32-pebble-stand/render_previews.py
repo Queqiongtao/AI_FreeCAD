@@ -277,7 +277,7 @@ for filename, caption in (
      (sum(len(xs) for z,xs in PARAMS['SPEAKER_GRILLE_ROWS']),
       PARAMS['SPEAKER_GRILLE_HOLE_D'])),
     ('preview_grille_side.png', '侧面：出音孔收进下侧弧面，外口距弧面安全边界至少 1 mm'),
-    ('preview_grille_bottom.png', '底面：出音孔位于弧面，完整底环和底部接触面保留'),
+    ('preview_grille_bottom.png', '底面：整面平齐落床，仅留两个螺丝工具孔；出音孔位于弧面'),
     ("preview_fastening.png", "承托架：3.2 mm 加强梁与旋扣，R1.2 根部圆角；M3 热熔螺母"),
     ('preview_upper_hooks.png', '背面顺时针 9° 解锁，再后拉；蓝：扣头，橙：后壳钩翼'),
 ):
