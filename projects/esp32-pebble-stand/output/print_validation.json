@@ -1,5 +1,5 @@
 {
-  "stl_sha256": "8a9c9a8202f7b5d1b7b8f4d2b9a29016ab73d035775b4bdedac1e31f186f082b",
+  "stl_sha256": "090753154efff448917dfbe4c10567d51f4c9d5b3cd3c6db53a5f25463a86939",
   "slicer": "Bambu Studio",
   "printer_profile": "Prusa MK3S 0.4 nozzle",
   "filament_profile": "Generic PETG @Prusa",
@@ -8,15 +8,15 @@
   "wall_loops": 4,
   "wall_generator": "classic",
   "support_enabled": true,
-  "support_extrusion_moves": 1042,
+  "support_extrusion_moves": 6256,
   "support_type": "normal(auto)",
   "support_threshold_angle_deg": 30,
   "outer_brim_width_mm": 5,
-  "layer_count": 253,
+  "layer_count": 209,
   "object_layer_count": 202,
   "wall_layer_count": 202,
   "top_shortfall_mm": 0.10784,
-  "support_only_layer_count": 51,
+  "support_only_layer_count": 7,
   "lower_edge_probe_count": 62,
   "min_wall_crossings": 6,
   "warning_message": "",
@@ -324,7 +324,7 @@
     {
       "x_mm": 18,
       "z_mm": 11.2,
-      "wall_crossings": 14
+      "wall_crossings": 12
     },
     {
       "x_mm": 18,
@@ -387,16 +387,178 @@
       "coverage": 1.0
     }
   },
+  "hook_feature_checks": {
+    "features": {
+      "front_0": {
+        "layer_count": 2,
+        "minimum_coverage": 1.0,
+        "minimum_material_crossings": 4,
+        "minimum_load_path_coverage": 1.0,
+        "minimum_load_path_width_mm": 2.912269366397255,
+        "crossing_probe_count": 2,
+        "short_section_count": 0
+      },
+      "root_0": {
+        "layer_count": 23,
+        "minimum_coverage": 1.0,
+        "minimum_material_crossings": 5,
+        "minimum_load_path_coverage": 0.8235294117647058,
+        "minimum_load_path_width_mm": 2.5296159150015765,
+        "crossing_probe_count": 23,
+        "short_section_count": 0
+      },
+      "front_1": {
+        "layer_count": 2,
+        "minimum_coverage": 1.0,
+        "minimum_material_crossings": 4,
+        "minimum_load_path_coverage": 1.0,
+        "minimum_load_path_width_mm": 2.7364951617418627,
+        "crossing_probe_count": 2,
+        "short_section_count": 0
+      },
+      "root_1": {
+        "layer_count": 23,
+        "minimum_coverage": 1.0,
+        "minimum_material_crossings": 3,
+        "minimum_load_path_coverage": 0.9215686274509803,
+        "minimum_load_path_width_mm": 2.5227127072094464,
+        "crossing_probe_count": 23,
+        "short_section_count": 0
+      }
+    },
+    "slot_support": {
+      "front_0": {
+        "support_segment_midpoints": 25,
+        "support_layers": 12,
+        "removal_physically_verified": false
+      },
+      "front_1": {
+        "support_segment_midpoints": 24,
+        "support_layers": 10,
+        "removal_physically_verified": false
+      }
+    }
+  },
+  "unsupported_wall_runs": [
+    {
+      "z_mm": 17.4,
+      "unsupported_wall_run_mm": 2.808000000000007
+    },
+    {
+      "z_mm": 5.0,
+      "unsupported_wall_run_mm": 2.0689398188934818
+    },
+    {
+      "z_mm": 26.8,
+      "unsupported_wall_run_mm": 1.3703840950679402
+    },
+    {
+      "z_mm": 5.2,
+      "unsupported_wall_run_mm": 1.1698285573123983
+    },
+    {
+      "z_mm": 8.4,
+      "unsupported_wall_run_mm": 0.5663750000000007
+    },
+    {
+      "z_mm": 5.4,
+      "unsupported_wall_run_mm": 0.46402462006411044
+    },
+    {
+      "z_mm": 27.2,
+      "unsupported_wall_run_mm": 0.39223149100136306
+    },
+    {
+      "z_mm": 21.8,
+      "unsupported_wall_run_mm": 0.23700843866833649
+    },
+    {
+      "z_mm": 8.2,
+      "unsupported_wall_run_mm": 0.2281780056072145
+    },
+    {
+      "z_mm": 2.6,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 2.8,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 3.0,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 3.2,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 3.4,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 3.6,
+      "unsupported_wall_run_mm": 0.0
+    }
+  ],
+  "base_transition_runs": [
+    {
+      "z_mm": 0.4,
+      "unsupported_wall_run_mm": 7.528454921463592
+    },
+    {
+      "z_mm": 0.6,
+      "unsupported_wall_run_mm": 0.26421392847465436
+    },
+    {
+      "z_mm": 0.8,
+      "unsupported_wall_run_mm": 0.2298352670936307
+    },
+    {
+      "z_mm": 1.0,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 1.2,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 1.4,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 1.6,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 1.8,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 2.0,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 2.2,
+      "unsupported_wall_run_mm": 0.0
+    },
+    {
+      "z_mm": 2.4,
+      "unsupported_wall_run_mm": 0.0
+    }
+  ],
+  "support_run_minimum_height_mm": 2.6,
+  "support_removal_physically_verified": false,
   "plate_alignment": {
     "rotation_deg": 0,
     "translation_mm": [
       124.99999237060547,
       88.39575672149658
     ],
-    "section_alignment_score": 1.0,
+    "section_alignment_score": 0.9894050529747351,
     "bbox_center_alignment": false,
     "bbox_dimension_error_mm": 3.814697265625e-06
   },
-  "support_extrusion_volume_mm3": 387.51914813691025,
+  "support_extrusion_volume_mm3": 694.0754740765028,
   "note": "参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。"
 }

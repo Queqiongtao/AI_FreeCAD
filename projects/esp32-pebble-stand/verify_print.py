@@ -8,7 +8,7 @@ import struct
 import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses
+from print_geometry import read_mesh, read_extrusions, align_extrusions, audit_witnesses, audit_hooks, audit_support_runs
 
 ROOT = Path(__file__).resolve().parent
 OUT = Path(os.environ.get('S3_OUTPUT_DIR', ROOT / 'output'))
@@ -43,7 +43,8 @@ def main():
             data.update({'layer_height': '0.2', 'initial_layer_print_height': '0.2',
                          'wall_loops': '4', 'wall_generator': 'classic',
                          'enable_support':'1','support_type':'normal(auto)',
-                         'support_threshold_angle':'30','brim_type':'outer_only','brim_width':'5'})
+                         'support_threshold_angle':'30','brim_type':'outer_only','brim_width':'5',
+                         'brim_object_gap':'0'})
         path = cache / (kind + '.json')
         path.write_text(json.dumps(data), encoding='utf-8')
         files.append(path)
@@ -69,7 +70,8 @@ def main():
     paths = {}
     material_paths = {}
     gcode = (cache / 'plate_1.gcode').read_text(encoding='utf-8')
-    raw_layers,support_volume=read_extrusions(gcode,0,0)
+    # 外沿仅作为底层支撑足迹，不计入本体或功能区挤出。
+    raw_layers,support_volume=read_extrusions(gcode,0,0,include_brim=True)
     layers,alignment=align_extrusions(read_mesh(data),raw_layers,box)
     support_moves=0
     support_layers=set()
@@ -90,7 +92,9 @@ def main():
     object_paths={z:segments for z,segments in paths.items() if segments}
     # 曲面顶部小于挤出线宽的尖端可能被切片器省略；允许最多一层＋半线宽。
     top_shortfall=max(v[2] for v in vertices)-max(model_layers)
-    assert 0<=top_shortfall<0.4,'本体顶部缺失超过切片分辨率'
+    # 二进制 STL 的 float32 高度可能比同一层高小约 0.000001 mm。
+    assert -1e-5<=top_shortfall<0.4,'本体顶部缺失超过切片分辨率'
+    top_shortfall=max(0.0,top_shortfall)
     expected_layers=round(max(model_layers)/0.2)
     assert all(round(i*0.2,3) in model_layers for i in range(1,expected_layers+1)), '本体标准层缺少挤出路径'
     assert all(round(i*0.2,3) in object_paths for i in range(1,expected_layers)), '非顶层缺少壳壁路径'
@@ -112,9 +116,16 @@ def main():
     assert len(probes) == (0 if is_carrier else 62), '层高或测试范围发生变化，需重新定义验证截线'
     assert support_moves>0,'打印件需要支撑，但没有生成支撑路径'
     witness_checks={}
+    validation=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))
     if not is_carrier:
-        witnesses=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))['speaker_layout']['print_witnesses']
+        witnesses=validation['speaker_layout']['print_witnesses']
         witness_checks=audit_witnesses(layers,witnesses)
+    hook_checks=audit_hooks(layers,read_mesh(data),validation['hook_print_features'][args.part],
+                           validation['hook_print_frame'],is_carrier)
+    all_support_runs=audit_support_runs(layers)
+    # 本次新增结构位于底板以上；既有底板的起始扩展另保留结果，不将它伪装成新增钩翼。
+    support_runs=[r for r in all_support_runs if is_carrier or r['z_mm']>=2.6]
+    assert not support_runs or support_runs[0]['unsupported_wall_run_mm']<=4.1,'连续悬空墙线超过 4.1 mm：'+str(support_runs[:3])
     report = {'stl_sha256': hashlib.sha256(data).hexdigest(), 'slicer': 'Bambu Studio',
               'printer_profile': names[0][1], 'filament_profile': names[2][1],
               'nozzle_mm': 0.4, 'layer_height_mm': 0.2, 'wall_loops': 4,
@@ -129,6 +140,10 @@ def main():
               'warning_message': plate['warning_message'], 'lower_edge_probes': probes,
               'physical_print_verified': False,
               'speaker_feature_checks':witness_checks,
+              'hook_feature_checks':hook_checks,'unsupported_wall_runs':support_runs[:15],
+              'base_transition_runs':[r for r in all_support_runs if r['z_mm']<2.6] if not is_carrier else [],
+              'support_run_minimum_height_mm':0 if is_carrier else 2.6,
+              'support_removal_physically_verified':False,
               'plate_alignment':alignment,'support_extrusion_volume_mm3':support_volume,
               'note': '参考机型切片，非用户实际机型验证；G-code 仅存本地 archive，不作为打印交付。'}
     report_name='carrier_print_validation.json' if is_carrier else 'print_validation.json'

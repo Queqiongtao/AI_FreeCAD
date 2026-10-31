@@ -1,6 +1,6 @@
 """ESP32-S3-Touch-AMOLED-1.75-B 成品模块的鹅卵石桌面底座。
 
-模块背面的三颗原厂螺丝固定加宽支架；后壳由止口定位、两颗 M2.5 锁紧。
+模块背面的三颗原厂螺丝固定支架；后壳由上侧双刚性旋扣及下侧两颗 M2.5 锁紧。
 在 FreeCAD 控制台或 freecadcmd 中运行，输出固定到 ./output/。
 """
 
@@ -27,7 +27,7 @@ TILT_DEG = 40.0
 MODULE_BOTTOM_CLEARANCE = 5.1
 SHELL_DEPTH_EXTENSION = 4.0  # 模块沿前向法线移位，竖直抬高约 3.06 mm
 SHELL_REAR_BULGE = 8.0  # 后部曲线扩展量，实际外形仍受正面投影约束
-FRONT_TRANSITION_EXTRA = 3.0  # 前口下缘只加外侧材料，保护安装让位后的斜壁
+FRONT_TRANSITION_EXTRA = 3.0  # 前口下缘加厚；底环尺寸保持，正面仍受模块轮廓裁切
 INNER_FRONT_RETREAT = 1.2  # 下缘内腔小幅后退，保证让位盲端与主内腔之间的实体厚度
 SCREWS_2D = [(0.0, 20.50), (13.75, -14.70), (-13.75, -14.70)]
 SCREW_CLEARANCE_R = 1.15  # M2 初始值，打印前用原厂螺丝核对
@@ -95,7 +95,7 @@ FOOT_INNER_RX = 15.5
 FOOT_INNER_RY = 15.0
 FOOT_RECESS = 0.6
 
-GUIDES = ((0.0, 8.0), (90.0, 8.0), (180.0, 8.0))
+GUIDES = ()  # 旧直插键不适用于旋转解锁
 GUIDE_CLEARANCE = 0.25
 GUIDE_END_N = 20.1
 LOCK_POINTS = ((-7.0, -16.0), (7.0, -16.0))
@@ -103,6 +103,21 @@ LOCK_NUT_FRONT = 14.6
 LOCK_NUT_BACK = 16.8
 LOCK_BOSS_BACK = 19.0
 LOCK_HEAD_SEAT = 21.5
+
+# 肩部双刚性旋扣；不采用弹性卡扣。沿屏幕法线小角度旋转后，直线取下。
+HOOK_ANGLES = (55.0,125.5)
+HOOK_RELEASE_DEG = 9.0
+HOOK_PULL_MM = 50.0
+HOOK_ROOT_T = 2.4
+HOOK_CLEARANCE = 0.30
+HOOK_FILLET_R = 1.0
+HOOK_LUG_FRONT_N = 20.1
+HOOK_LUG_BACK_N = HOOK_LUG_FRONT_N+HOOK_ROOT_T
+HOOK_LUG_WIDTH = 2.4
+HOOK_COVER_WIDTH = 4.0
+HOOK_AXIAL_OFFSET = 3.8
+HOOK_INNER_R = 20.4
+HOOK_OUTER_R = HOOK_INNER_R+HOOK_ROOT_T
 
 TILT = math.radians(TILT_DEG)
 SIN = math.sin(TILT)
@@ -211,6 +226,214 @@ def connect_web(x0, s0, x1, s1, width, n0, n1):
     dx, ds = -(s1-s0)/length*width/2, (x1-x0)/length*width/2
     return polygon_face([plate_point(x0+dx,s0+ds,n0),plate_point(x1+dx,s1+ds,n0),
                          plate_point(x1-dx,s1-ds,n0),plate_point(x0-dx,s0-ds,n0)]).extrude(-N*(n1-n0))
+
+
+def shoulder_box(angle,r0,r1,t0,t1,n0,n1):
+    a=math.radians(angle)
+    u=X*math.cos(a)+S*math.sin(a);v=-X*math.sin(a)+S*math.cos(a)
+    face=polygon_face([plate_point(0,0,n0)+u*r+v*t for r,t in
+                       [(r0,t0),(r1,t0),(r1,t1),(r0,t1)]])
+    return face.extrude(-N*(n1-n0))
+
+
+def hook_pose(shape,angle=0,pull=0):
+    moved=shape.copy(True);moved.rotate(P,N,angle);moved.translate(-N*pull)
+    return moved
+
+
+def rotation_sweep(shape,angle):
+    """旋转每个边界面，求实体的连续旋转包络；不用离散姿态拼接导槽。"""
+    pieces=[shape.copy(True),hook_pose(shape,angle)]
+    far=App.Vector(1000,1000,1000)
+    for face in shape.Faces:
+        swept=face.copy(True).revolve(P,N if angle>0 else -N,abs(angle))
+        if swept.isValid() and abs(swept.Volume)>1e-7:
+            if swept.isInside(far,1e-7,False):swept.reverse()
+            pieces.append(swept)
+    independent=[piece.copy(True) for piece in pieces]
+    raw=independent[0].multiFuse(independent[1:])
+    result=raw.removeSplitter()
+    for candidate in (result,raw):
+        if candidate.isValid() and len(candidate.Solids)==1:
+            try:candidate.check(True)
+            except ValueError:continue
+            return candidate
+    # 多个扫掠体相切时并集整理可能退化；保留每个有效体，逐体相减等价于减去并集。
+    result=Part.makeCompound(pieces)
+    assert result.isValid(),'连续旋转包络包含无效扫掠体'
+    return result
+
+
+def subtract_sweep(shape,tool):
+    if len(tool.Solids)==1:return shape.cut(tool)
+    result=shape
+    for solid in tool.Solids:result=result.cut(solid)
+    return result.removeSplitter()
+
+
+def add_upper_hooks(frame,cover,envelope):
+    hooks=[];lugs=[]
+    limit=axial_cylinder(SHELL_INNER_R,12,32)
+    g,thick=HOOK_CLEARANCE,HOOK_ROOT_T
+    half=HOOK_LUG_WIDTH/2
+    stem_hi=-half-2*g;stem_lo=stem_hi-thick
+    tip_lo=-half-.4;tip_hi=tip_lo+HOOK_COVER_WIDTH
+    front,back=HOOK_LUG_FRONT_N,HOOK_LUG_BACK_N
+    fillet=HOOK_FILLET_R
+    assert 0<fillet<=thick/2
+    for angle in HOOK_ANGLES:
+        r0,r1=HOOK_INNER_R,HOOK_OUTER_R
+        def b(r0,r1,t0,t1,n0,n1):
+            return shoulder_box(angle,r0,r1,t0,t1,n0+HOOK_AXIAL_OFFSET,n1+HOOK_AXIAL_OFFSET)
+        # 两个支柱均位于局部负切向侧，故同一次旋转可同时退出两个挂接。
+        lug=b(r0,r1,stem_lo,half,front,back).common(limit)
+        post=shoulder_box(angle,r0,r1,stem_lo,stem_hi,CARRIER_PAD_FRONT_N,front+fillet+HOOK_AXIAL_OFFSET).common(limit)
+        post=post.cut(axial_box(-30,30,-30,14.3,17.3,32))
+        lug=lug.cut(axial_box(-30,30,-30,14.3,17.3,32))
+        for sx in (-CONNECTOR_X,CONNECTOR_X):
+            post=post.cut(axial_box(sx-2.9,sx+2.9,14.45,20.05,12,22.4))
+        # 显式圆弧补料构造 R1 内角，避免短边/圆柱裁边导致自动圆角失败。
+        a=math.radians(angle)
+        u=X*math.cos(a)+S*math.sin(a);v=-X*math.sin(a)+S*math.cos(a)
+        root=b(r0,r1,stem_hi,stem_hi+fillet,front-fillet,front)
+        cutter=Part.makeCylinder(fillet,thick+2*g,
+            plate_point(0,0,front-fillet+HOOK_AXIAL_OFFSET)+u*(r0-g)+v*(stem_hi+fillet),u)
+        root=root.cut(cutter).common(limit)
+        bracket=post.fuse(lug).fuse(root).removeSplitter()
+        assert bracket.isValid() and len(bracket.Solids)==1
+        frame=frame.fuse(bracket)
+        # 两翼、周边壳壁构成刚性扣。内侧和入口均开放，可直接清理支撑。
+        hook=b(r0,27,tip_lo,tip_hi,front-g-thick,front-g).fuse(
+            b(r0,27,tip_lo,tip_hi,back+g,back+g+thick)).fuse(
+            b(r1+g,27,tip_lo,tip_hi,front-g-thick,back+g+thick)).common(envelope)
+        air=b(r0-g,r1+g,stem_lo-g,half+g,front-g,back+g)
+        # 根部圆角让位；0.3 mm 间隙不能被清理不到的封闭支撑占用。
+        post_air=shoulder_box(angle,r0-g,r1+g,stem_lo-g,stem_hi+g,CARRIER_PAD_FRONT_N-g,back+g+HOOK_AXIAL_OFFSET)
+        root_air=b(r0-g,r1+g,stem_hi+g,stem_hi+fillet+g,front-fillet-g,front+g)
+        air=air.fuse(post_air).fuse(root_air).common(axial_cylinder(23.1,14,32))
+        sweep=rotation_sweep(air,-HOOK_RELEASE_DEG)
+        cover=subtract_sweep(cover,sweep)
+        hook=subtract_sweep(hook,sweep)
+        cover=cover.fuse(hook)
+        hooks.append(hook);lugs.append(lug)
+    # 左右短承压垫在环背面滑动；不再使用妨碍旋转的长定位舌。
+    stops=[]
+    for angle in (0,180):
+        pad=shoulder_box(angle,20.4,24.5,-3,3,17.1,19.5).common(envelope)
+        cover=cover.fuse(pad);stops.append(pad)
+    battery_air=rounded_rectangle_face(BATTERY_W+.6,BATTERY_H+.6,BATTERY_CORNER_R,
+        BATTERY_OFFSET_S,BATTERY_FRONT_N-.3).extrude(-N*(BATTERY_T+.6))
+    battery_air.translate(X*BATTERY_OFFSET_X)
+    cover=subtract_sweep(cover,rotation_sweep(battery_air,-HOOK_RELEASE_DEG))
+    for x,s in SCREWS_2D:
+        head_air=axial_cylinder(2.4 if x==0 else 2.3,15.5,17.8,x,s)
+        cover=subtract_sweep(cover,rotation_sweep(head_air,-HOOK_RELEASE_DEG))
+    return frame.removeSplitter(),cover.removeSplitter(),hooks,lugs,stops
+
+
+def verify_hook_motion(frame,cover,speaker,parts,lugs,shafts,stops):
+    """连续旋转/平移扫掠；端面滑动接触用半空间分隔，退化面用净距界证明。"""
+    # OCC 布尔可能更新共享曲面的 p-curve/容差；运动验证不得污染交付实体。
+    frame,cover,speaker=[shape.copy(True) for shape in (frame,cover,speaker)]
+    parts=[shape.copy(True) for shape in parts]
+    lugs=[shape.copy(True) for shape in lugs]
+    shafts=[shape.copy(True) for shape in shafts]
+    stops=[shape.copy(True) for shape in stops]
+    moving=Part.makeCompound([cover,speaker])
+    fixed=Part.makeCompound([frame]+parts)
+    assert moving.common(fixed).Volume<1e-5
+    front_space=axial_box(-100,100,-100,100,SHELL_MOUTH_N,100)
+    parts=[Part.makeCompound(p.common(front_space).Solids) for p in parts]
+    parts=[p for p in parts if p.Solids]
+    fixed=Part.makeCompound([Part.makeCompound(frame.common(front_space).Solids)]+parts)
+    radial_boundary=23.1
+    radial_space=axial_cylinder(radial_boundary,SHELL_MOUTH_N-.01,100)
+    assert fixed.cut(radial_space).Volume<1e-6,'固定件超出旋转安全圆柱'
+    max_n=max((P-v).dot(N) for v in fixed.tessellate(.1)[0])
+    # 绕法线旋转不改变 n，后拉只增加 n；后方部分不可能碰到任何固定件。
+    intervals=[];evaluations=0;face_count=0
+    far=App.Vector(1000,1000,1000)
+    def certify(face,index,lo,hi,rot,obstacles,depth=0):
+        nonlocal evaluations
+        surface=face.Surface
+        if isinstance(surface,Part.Cylinder) and abs(surface.Axis.dot(N))>1-1e-8 and \
+            (surface.Center-P).cross(N).Length<1e-6 and surface.Radius>=radial_boundary-1e-7:
+            intervals.append((index,'rotate' if rot else 'pull',lo,hi,'invariant_radial_boundary'));return
+        middle=(lo+hi)/2
+        center=hook_pose(face,middle if rot else HOOK_RELEASE_DEG,0 if rot else middle)
+        b=face.BoundBox
+        radius=max((App.Vector(x,y,z)-P).Length for x in (b.XMin,b.XMax)
+                   for y in (b.YMin,b.YMax) for z in (b.ZMin,b.ZMax))
+        bound=2*radius*math.sin(math.radians(hi-lo)/4) if rot else (hi-lo)/2
+        distance=center.distToShape(obstacles)[0];evaluations+=1
+        if distance>bound+1e-5:
+            intervals.append((index,'rotate' if rot else 'pull',lo,hi,'distance_bound'));return
+        pose=hook_pose(face,lo if rot else HOOK_RELEASE_DEG,0 if rot else lo)
+        # 面在自身平面内旋转，由始末面与边界扫掠覆盖连续区域。
+        planar=rot and isinstance(surface,Part.Plane) and abs(surface.Axis.dot(N))>1-1e-8
+        if planar:
+            pieces=[pose,hook_pose(face,hi)]+[e.copy(True).revolve(P,N,hi-lo) for e in pose.Edges]
+            if all(p.isValid() and p.common(obstacles.copy(True)).Area<1e-7 for p in pieces):
+                intervals.append((index,'rotate',lo,hi,'planar_boundary_sweep'));return
+        else:
+            swept=pose.revolve(P,N,hi-lo) if rot else pose.extrude(-N*(hi-lo))
+            if swept.isValid() and swept.Faces:
+                if swept.Solids and abs(swept.Volume)>1e-8:
+                    if swept.isInside(far,1e-7,False):swept.reverse()
+                    cross=swept.common(obstacles.copy(True))
+                    if cross.Volume<1e-7:
+                        intervals.append((index,'rotate' if rot else 'pull',lo,hi,'exact_volume_sweep'));return
+                elif not swept.Solids and swept.common(obstacles.copy(True)).Area<1e-7:
+                    intervals.append((index,'rotate' if rot else 'pull',lo,hi,'exact_surface_sweep'));return
+        if evaluations%100==0:print('连续净距细分',index,lo,hi,distance,flush=True)
+        assert depth<18,'连续装拆无法证明净距：'+str((index,lo,hi,distance))
+        certify(face,index,lo,middle,rot,obstacles,depth+1)
+        certify(face,index,middle,hi,rot,obstacles,depth+1)
+    for lower,upper in ((SHELL_MOUTH_N-.001,CARRIER_BACK_N),(CARRIER_BACK_N,max_n+.1)):
+        region=axial_box(-100,100,-100,100,lower,upper)
+        source=moving
+        if lower!=CARRIER_BACK_N:
+            # 止挡属于上半空间，先去除它们，避免截平面生成没有厚度的接触翼面。
+            source=Part.makeCompound([cover.cut(Part.makeCompound(stops)),speaker])
+        bodies=[solid for solid in source.common(region).common(radial_space).Solids if solid.Volume>1e-7]
+        band=Part.makeCompound(bodies)
+        if lower==CARRIER_BACK_N:
+            # 侧止挡 n>=17.1，环背端 n<=17.1；允许端面滑动，禁止体积穿透。
+            # 取 Solids 去掉环截面上没有厚度的面，不删任何正体积固定结构。
+            fixed_frame=Part.makeCompound(frame.common(region).Solids)
+        else:fixed_frame=frame
+        obstacles=Part.makeCompound([fixed_frame]+parts)
+        for face in band.Faces:
+            # 用包含整个行程的保守局部包围盒裁剪固定件，加速精确布尔及净距。
+            local=face.copy(True)
+            local.translate(-P)
+            local.Placement=App.Placement(App.Vector(),App.Rotation(N,Z)).multiply(local.Placement)
+            bb=local.BoundBox
+            radius=max(math.hypot(x,y) for x in (bb.XMin,bb.XMax) for y in (bb.YMin,bb.YMax))
+            margin=2*radius*math.sin(math.radians(HOOK_RELEASE_DEG)/2)+.001
+            region=axial_box(bb.XMin-margin,bb.XMax+margin,bb.YMin-margin,bb.YMax+margin,
+                             -bb.ZMax-.001,-bb.ZMin+HOOK_PULL_MM+.001)
+            nearby=Part.makeCompound(obstacles.common(region).Solids)
+            if nearby.Solids:
+                certify(face,face_count,0,HOOK_RELEASE_DEG,True,nearby)
+                certify(face,face_count,0,HOOK_PULL_MM,False,nearby)
+            else:
+                intervals.append((face_count,'both',0,HOOK_PULL_MM,'conservative_box_disjoint'))
+            face_count+=1
+            if face_count%20==0:print('连续装拆已证明面',face_count,flush=True)
+    retention=[]
+    for lug in lugs:
+        volumes=[hook_pose(cover,0,t).common(lug).Volume for t in (1,2)]
+        assert min(volumes)>1,'上侧挂接没有形成足够的机械防脱交叠'
+        retention.append(volumes)
+    locked=hook_pose(cover,1).common(Part.makeCompound(shafts)).Volume
+    assert locked>.001,'螺丝未能阻止误旋转'
+    return {'continuous_path_certified':True,'release_angle_deg':HOOK_RELEASE_DEG,
+            'pull_mm':HOOK_PULL_MM,'certified_faces':face_count,'interval_count':len(intervals),
+            'distance_evaluations':evaluations,'intervals':intervals,
+            'retention_overlap_at_1_2_mm3':retention,'locked_rotation_overlap_mm3':locked,
+            'method':'连续精确旋转/平移扫掠；退化面采用距离和位移界；环背面接触按 n 半空间分隔',
+            'physical_fit_verified':False}
 
 
 def add_feature(doc, name, shape, color, visible=True):
@@ -452,7 +675,18 @@ cavity = cavity.common(projection_envelope(SHELL_PROJECTION_R-FRONT_WALL_TARGET)
 # 支架下缘为 s=-18；让位只覆盖支架实际存在的上部，保留下方斜壁。
 mount_clearance = Part.makeCylinder(SHELL_INNER_R, MOUNT_CLEARANCE_DEPTH, plate_point(0, 0, SHELL_MOUTH_N), -N)
 mount_region = rectangle_face(-40, 40, -18.4, 40, SHELL_MOUTH_N).extrude(-N*MOUNT_CLEARANCE_DEPTH)
-cavity = cavity.fuse(mount_clearance.common(mount_region).common(above_floor)).removeSplitter()
+# 原前口让位保留；旋转增量仅扫过实际环体及螺丝座包络，避免整圆柱误削中央下缘。
+ring_air=axial_cylinder(CARRIER_OUTER_R+.3,SHELL_MOUTH_N,CARRIER_BACK_N+.3).cut(
+    axial_cylinder(CARRIER_INNER_R-.3,SHELL_MOUTH_N-.1,CARRIER_BACK_N+.4))
+lower_cap=axial_box(-40,40,-40,-18.3,SHELL_MOUTH_N-.1,CARRIER_BACK_N+.4)
+# 小角度下，底部负 s 半平面的旋转并集由两个端点确定；单个圆柱保留一致的曲面参数。
+# f(角度)=s*cos(角度)+x*sin(角度) 为负时二阶导数为正，最大值只能取在端点。
+mount_sweep=ring_air.cut(lower_cap.common(hook_pose(lower_cap,-HOOK_RELEASE_DEG)))
+for sx,sy in SCREWS_2D:
+    if sx==0:continue  # 顶座始终包含在原前口圆柱让位内。
+    boss_air=axial_cylinder(CARRIER_BOSS_R,SHELL_MOUTH_N,15.8,sx,sy)
+    mount_sweep=mount_sweep.fuse(rotation_sweep(boss_air,-HOOK_RELEASE_DEG))
+cavity = cavity.fuse(mount_clearance.common(mount_region)).fuse(mount_sweep.common(above_floor)).removeSplitter()
 assert cavity.cut(outer_envelope).Volume < 0.01
 rear = rear.cut(cavity)
 print("connected cavity: solids=%d volume=%.1f mm3 bbox=%s" % (
@@ -505,10 +739,12 @@ for degrees,width in GUIDES:
     wall_audit_zones.append(tuple((min(v[k] for v in local)-.02,max(v[k] for v in local)+.02) for k in range(3)))
 
 lock_seats=[]
+# 两锁座的旋转让位连成一体，消除左右扫掠之间不足打印厚度的中央残筋。
+lock_air_width=max(x for x,s in LOCK_POINTS)-min(x for x,s in LOCK_POINTS)+8.9
+lock_air=rounded_rectangle_face(lock_air_width,8.0,1.2,LOCK_POINTS[0][1],SHELL_MOUTH_N).extrude(
+    -N*(22.0-SHELL_MOUTH_N))
+rear=rear.cut(rotation_sweep(lock_air,-HOOK_RELEASE_DEG))
 for x,s in LOCK_POINTS:
-    boss_clearance=rounded_rectangle_face(8.9,8.0,1.2,s,SHELL_MOUTH_N).extrude(-N*(19.25-SHELL_MOUTH_N))
-    boss_clearance.translate(X*x)
-    rear=rear.cut(boss_clearance)
     seat=axial_cylinder(3.7,19.25,LOCK_HEAD_SEAT,x,s)
     support=Part.makeBox(8,9,8,App.Vector(x-4,-2,SHELL_FLOOR_T)).common(outer_envelope)
     support=support.common(axial_box(-40,40,-40,-12.5,19.25,70))
@@ -518,6 +754,10 @@ for x,s in LOCK_POINTS:
     lock_seats.append(seat)
     wall_audit_zones.append(((x-4.2,x+4.2),(s-4.2,s+4.2),(13.8,80)))
 rear=rear.removeSplitter()
+carrier,rear,upper_hooks,upper_lugs,hook_stops=add_upper_hooks(carrier,rear,outer_envelope)
+guide_sockets=hook_stops
+for lo,hi in ((7,22),(-22,-7)):
+    wall_audit_zones.append(((lo,hi),(13,23),(14.4,25.3)))
 for x,s in SCREWS_2D:
     assert carrier.common(axial_cylinder(2.0,15.5,30,x,s)).Volume<0.01,'原厂螺丝工具路径'
 
@@ -625,6 +865,8 @@ speaker_wire_reserve = speaker_rect(SPEAKER_W/2,SPEAKER_W/2+SPEAKER_WIRE_GAP,
 # 贴边处允许胶层与粘贴面接触；空气间隙只覆盖实际振膜开口。
 speaker_envelope = speaker_box(SPEAKER_W+2*SPEAKER_SIDE_GAP,SPEAKER_H+2*SPEAKER_SIDE_GAP,
     -SPEAKER_THICKNESS,SPEAKER_THICKNESS).fuse(speaker_wire_reserve).fuse(speaker_air).fuse(speaker_tape)
+# 旋扣外端避让完整喇叭预留；定位墙和胶框在后续单独添加。
+rear=rear.cut(speaker_envelope).removeSplitter()
 pad_w=speaker_open_w+2*SPEAKER_PAD_BORDER
 pad_h=speaker_open_h+2*SPEAKER_PAD_BORDER
 assert SPEAKER_PAD_BORDER>=2.0,'粘贴面框宽至少 2 mm'
@@ -705,7 +947,7 @@ print('speaker envelope conflicts:',speaker_envelope_overlaps,flush=True)
 assert speaker_body_fits and speaker_layout_fits,'喇叭本体或完整安装预留存在冲突'
 # 假定 2 mm 线束的连通走线通道；末端接入已有插头收线区。
 speaker_route_points=[speaker_face+X*(SPEAKER_W/2+SPEAKER_WIRE_GAP/2)-speaker_axis*(SPEAKER_THICKNESS/2)]
-speaker_route_points += [plate_point(*v) for v in [(15,14.5,30.5),(12,15,27.5),(6.5,16.5,23.5),(6.5,16.5,20)]]
+speaker_route_points += [plate_point(*v) for v in [(15,14.3,29),(9,14.3,29),(6.5,16.5,24),(6.5,16.5,20)]]
 speaker_route_shapes=[]
 for point in speaker_route_points:
     speaker_route_shapes.append(Part.makeSphere(SPEAKER_CABLE_DIAMETER/2,point))
@@ -851,6 +1093,8 @@ print("minimum tip angle (72 directions)=%.1f" % min(tip_all_directions))
 
 assert carrier.isValid() and len(carrier.Solids) == 1
 assert rear.isValid() and len(rear.Solids) == 1
+carrier.check(True)
+rear.check(True)
 print("actual bottom", min(v.z for v in rear.tessellate(0.05)[0]))
 assert abs(min(v.z for v in rear.tessellate(0.05)[0])) < 0.01 and all(ring_samples)
 assert rear.isInside(App.Vector(0, FOOT_CENTER_Y, 1.0), 0.01, False)
@@ -870,26 +1114,34 @@ for shape in connector_sweeps + wire_refs:
     assert shape.common(battery_ref).Volume < 0.01
 closing_checks = []
 speaker_closing_checks = []
-for travel in (0, 0.25, 0.5, 1.0, 2.0, 3.0, 4.0, 8.0, 12.0, 20.0):
-    moving_cover = rear.copy()
-    moving_cover.translate(-N * travel)
+poses=[(a,0) for a in (0,1,2,3,4,6,HOOK_RELEASE_DEG)]
+poses += [(HOOK_RELEASE_DEG,t) for t in (.5,1,2,4,8,20,HOOK_PULL_MM)]
+for angle,travel in poses:
+    moving_cover=hook_pose(rear,angle,travel)
     assert all(moving_cover.common(v).Volume < 0.01 for v in connector_refs + wire_refs)
     rigid_overlap = moving_cover.common(carrier).Volume
-    print("closing travel=%.1f rigid carrier common=%.3f" % (travel, rigid_overlap))
+    print("closing angle=%.1f travel=%.1f rigid carrier common=%.3f" % (angle,travel,rigid_overlap),flush=True)
     if rigid_overlap>=0.01:
         for solid in moving_cover.common(carrier).Solids:
             c=solid.CenterOfMass-P
             print('合盖干涉位置',solid.Volume,c.x,c.dot(S),-c.dot(N),flush=True)
     assert rigid_overlap < 0.01
     assert moving_cover.common(battery_ref).Volume < 0.01
-    closing_checks.append({"travel_mm":travel,"carrier_overlap_mm3":rigid_overlap})
+    closing_checks.append({"angle_deg":angle,"travel_mm":travel,"carrier_overlap_mm3":rigid_overlap})
     # 扬声器随后壳移动，电池占位保持在模块侧；冲突记录而非伪装成通过。
-    moving_speaker=speaker_envelope.copy()
-    moving_speaker.translate(-N*travel)
-    speaker_closing_checks.append({'travel_mm':travel,'overlap_mm3':round(sum(
+    moving_speaker=hook_pose(speaker_envelope,angle,travel)
+    speaker_closing_checks.append({'angle_deg':angle,'travel_mm':travel,'overlap_mm3':round(sum(
         moving_speaker.common(v).Volume for v in [carrier,battery_ref,module_ref]+connector_refs+wire_refs),5)})
 assert all(v['overlap_mm3']<.01 for v in speaker_closing_checks),'喇叭随后壳开合时干涉'
 print("insertion and closing connector clearance: passed")
+hook_motion=verify_hook_motion(carrier,rear,speaker_envelope,
+    # 插入包络单独验证；开盖时只保留已经装入的插头实体及线束空间。
+    [module_ref,battery_ref]+connector_refs+wire_refs+original_heads+lock_nuts,
+    upper_lugs,lock_shafts,hook_stops)
+for x,s in LOCK_POINTS:
+    bearing=axial_cylinder(2.25,LOCK_HEAD_SEAT-.05,LOCK_HEAD_SEAT,x,s).cut(
+        axial_cylinder(1.45,LOCK_HEAD_SEAT-.1,LOCK_HEAD_SEAT+.1,x,s))
+    assert bearing.cut(rear).Volume<.001,'旋转让位破坏螺丝头承压面'
 # 旧通用粘贴区只是参考，新扬声器台可能占用它；单独报告而不当作实体装配失败。
 adhesive_zone_clear=adhesive_ref.common(rear).Volume < .01
 print('generic adhesive area available:',adhesive_zone_clear,flush=True)
@@ -927,10 +1179,10 @@ metrics = {
     "nut_across_flats_mm":5.0,
     "nut_pocket_across_flats_mm":5.2,
     "nut_shoulder_mm":LOCK_BOSS_BACK-LOCK_NUT_BACK,
-    "guide_engagement_mm":3.0,
+    "guide_engagement_mm":None,
     "guide_clearance_mm":GUIDE_CLEARANCE,
     "guide_widths_mm":[v[1] for v in GUIDES],
-    "guide_top_shape":"分叉式宽键，让开顶螺丝轴线",
+    "guide_top_shape":"两处短承压垫和双刚性旋扣",
     "lock_points_mm":LOCK_POINTS,
     "nut_slot_entry_width_mm":6.1,
     "nut_slot_side_wall_mm":1.2,
@@ -940,6 +1192,7 @@ metrics = {
     "screw_head_seat_n_mm":LOCK_HEAD_SEAT,
     "carrier_ring_width_mm":CARRIER_OUTER_R-CARRIER_INNER_R,
     "closing_checks":closing_checks,
+    "upper_hooks":hook_motion,
     "mouth_max_radius_mm": max(mouth_radii),
     "axial_joint_clearance_mm": SHELL_MOUTH_N - MODULE_DEPTH,
     "cavity_volume_cm3": cavity.Volume / 1000,
@@ -1001,6 +1254,32 @@ metrics = {
     "wire_bend_requires_physical_check": True,
 }
 
+# 旋扣切片区域随参数生成；打印坐标直接采用交付 STL 的刚体变换。
+flat=carrier.copy(True)
+flat.Placement=App.Placement(App.Vector(),App.Rotation(N,Z)).multiply(flat.Placement)
+hook_frame={'origin':list(P),'up':list(S),'normal':list(N),
+            'carrier_y_origin':P.dot(S),'carrier_back_n':P.dot(N)-flat.BoundBox.ZMin,
+            'hook_r0':HOOK_INNER_R,'hook_r1':HOOK_OUTER_R,
+            'hook_front_n':HOOK_LUG_FRONT_N+HOOK_AXIAL_OFFSET,
+            'hook_back_n':HOOK_LUG_BACK_N+HOOK_AXIAL_OFFSET}
+hook_features={'mount_carrier':[],'rear_cover':[]}
+for i,angle in enumerate(HOOK_ANGLES):
+    r0,r1=HOOK_INNER_R,HOOK_OUTER_R
+    f,b=hook_frame['hook_front_n'],hook_frame['hook_back_n']
+    definitions=[('mount_carrier','lug',[r0,r1,-4.2,1.2,f,b],0,[r0,r1]),
+                 ('mount_carrier','post',[r0,r1,-4.2,-1.8,17.5,f],-3,[r0,r1]),
+                 ('rear_cover','front',[r0,r1,-.5,1.2,f-.3-HOOK_ROOT_T,f-.3],.5,[r0,r1]),
+                 ('rear_cover','root',[r1+.3,25.2,-.5,1.2,f-.3-HOOK_ROOT_T,b+.3+HOOK_ROOT_T],.5,[r1+.3,25.2])]
+    for part,kind,bounds,t,probe_r in definitions:
+        hook_features[part].append({'name':kind+'_'+str(i),'kind':kind,'angle_deg':angle,
+                                    'bounds':bounds,'probe_t':t,'probe_r':probe_r})
+metrics['hook_print_frame']=hook_frame
+metrics['hook_print_features']=hook_features
+metrics['upper_hooks'].update({'angles_deg':list(HOOK_ANGLES),'lug_width_mm':HOOK_LUG_WIDTH,
+    'hook_width_mm':HOOK_COVER_WIDTH,'root_thickness_mm':HOOK_ROOT_T,'root_fillet_mm':HOOK_FILLET_R,
+    'clearance_mm':HOOK_CLEARANCE,'lug_front_n_mm':hook_frame['hook_front_n'],
+    'lug_back_n_mm':hook_frame['hook_back_n'],'bearing_faces_preserved':True})
+
 # 预览辅助网格只存在本地 archive，参考体不混入打印文件。
 preview_dir = PREVIEW_DIR
 os.makedirs(preview_dir, exist_ok=True)
@@ -1018,6 +1297,7 @@ for name, shape in (("section", section_shape), ("battery_reference", battery_re
                     ("connector_reference", Part.makeCompound(connector_refs)),
                     ("wire_reference", Part.makeCompound(wire_refs)),
                     ("carrier_reference", carrier), ("adhesive_reference", adhesive_ref),
+                    ('upper_hooks',Part.makeCompound(upper_hooks)),('upper_lugs',Part.makeCompound(upper_lugs)),
                     ("fasteners",Part.makeCompound(lock_heads+lock_shafts+lock_nuts))):
     mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=0.1, AngularDeflection=0.3)
     mesh.write(os.path.join(preview_dir, name + ".stl"))
@@ -1028,19 +1308,24 @@ if speaker_conflicts:
 fit_dir=FIT_DIR
 os.makedirs(fit_dir,exist_ok=True)
 samples={'nut_pocket':carrier.common(axial_box(-12,-2,-21,-7,13.8,19)),
-         'guide_tongue':carrier.common(axial_box(19,24,-6,6,12.1,20.1)),
-         'guide_socket':rear.common(axial_box(19,25.2,-6,6,16.5,22))}
+         'upper_hook_carrier':carrier.common(shoulder_box(HOOK_ANGLES[0],18,24,-6,4,12.1,31)),
+         'upper_hook_cover':rear.common(shoulder_box(HOOK_ANGLES[0],18,27,-6,5,12.4,33))}
 samples['speaker_mount']=rear.common(speaker_rect(-SPEAKER_W/2-3,SPEAKER_W/2+3,
     -SPEAKER_H/2-3,SPEAKER_H/2+3,-2.1,8))
 for name,shape in samples.items():
     assert shape.isValid() and len(shape.Solids)==1,'试装件不连通：'+name
     shape=shape.copy()
-    shape.Placement=App.Placement(App.Vector(),App.Rotation(-N,Z)).multiply(shape.Placement)
+    if name=='upper_hook_carrier':
+        shape.Placement=App.Placement(App.Vector(),App.Rotation(N,Z)).multiply(shape.Placement)
+    elif name!='upper_hook_cover':
+        shape.Placement=App.Placement(App.Vector(),App.Rotation(-N,Z)).multiply(shape.Placement)
     shape.translate(App.Vector(0,0,-min(v.z for v in shape.tessellate(.05)[0])))
     mesh=MeshPart.meshFromShape(Shape=shape,LinearDeflection=.05,AngularDeflection=.3,Relative=False)
     assert mesh.isSolid() and len(mesh.getSeparateComponents())==1,'试装网格不闭合：'+name
     mesh.write(os.path.join(fit_dir,name+'.stl'))
 
+carrier.check(True)
+rear.check(True)
 export_stl(carrier, "mount_carrier.stl", lay_flat=True)
 export_stl(rear, "rear_cover.stl")
 metrics['front_wall_mesh_audit'] = audit_front_wall(os.path.join(OUT_DIR,'rear_cover.stl'))
@@ -1052,6 +1337,14 @@ print("STEP: valid=%s solids=%d" % (
     step_shape.isValid(), len(step_shape.Solids)
 ))
 assert step_shape.isValid() and len(step_shape.Solids) == 2
+step_warnings=[]
+for index,solid in enumerate(step_shape.Solids):
+    try:solid.check(True)
+    except ValueError as error:
+        step_warnings.append({'solid_index':index,'details':str(error)})
+metrics['step_export_validation']={'valid':True,'solid_count':2,
+    'detailed_bop_passed':not step_warnings,'warnings':step_warnings,
+    'editing_master':'stand.FCStd 和 stand.py；STEP 用于装配查看与交换'}
 with open(os.path.join(OUT_DIR, "validation.json"), "w", encoding="utf-8") as stream:
     json.dump(metrics, stream, ensure_ascii=False, indent=2)
 configure_display(doc)

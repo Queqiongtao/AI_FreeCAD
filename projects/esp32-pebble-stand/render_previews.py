@@ -240,6 +240,22 @@ def shifted(triangles, delta):
     return [(tuple(tuple(p[i] + delta[i] for i in range(3)) for p in vertices), color)
             for vertices, color in triangles]
 
+
+def opened(triangles,angle,pull):
+    # 绕屏幕法线旋转，和 stand.py 的真实开盖动作一致。
+    a=math.radians(angle);c,s=math.cos(a),math.sin(a)
+    origin=(0,PY,PZ)
+    def move(p):
+        q=sub(p,origin);v=cross(NORMAL,q);d=dot(NORMAL,q)
+        return tuple(origin[i]+q[i]*c+v[i]*s+NORMAL[i]*d*(1-c)-NORMAL[i]*pull for i in range(3))
+    return [(tuple(move(p) for p in vertices),color) for vertices,color in triangles]
+
+
+hook_lugs=read_stl(aux/'upper_lugs.stl',(40,145,205))
+hook_wings=read_stl(aux/'upper_hooks.stl',(225,135,40))
+render('preview_upper_hooks.png',carrier+hook_lugs+opened(rear+hook_wings,PARAMS['HOOK_RELEASE_DEG'],12),
+       (-.6,-1,.7))
+
 render("preview_exploded.png", module + carrier + plugs + wires + battery
        + shifted(rear + adhesive + fasteners + speaker_body, tuple(-32 * v for v in NORMAL)),
        (1.0, -0.6, 0.45))
@@ -257,7 +273,8 @@ for filename, caption in (
     ("preview_speaker_rear.png", "后壳实际出音长孔；保留周边粘贴框、底环和锁盖结构"),
     ("preview_grille.png", "出音格栅：%d 条 %g×%g mm 圆头孔，孔间筋 %g mm" %
      (PARAMS['SPEAKER_SLOT_COUNT'],PARAMS['SPEAKER_SLOT_W'],PARAMS['SPEAKER_SLOT_H'],PARAMS['SPEAKER_SLOT_WEB'])),
-    ("preview_fastening.png", "支架背面：宽定位舌＋加宽环，下方两个捕获螺母座；顶部让开原厂螺丝"),
+    ("preview_fastening.png", "支架背面：双刚性旋扣＋R1 根部圆角，下方两颗 M2.5 锁紧"),
+    ('preview_upper_hooks.png', '背面顺时针 9° 解锁，再后拉；蓝：扣头，橙：后壳钩翼'),
 ):
     canvas = Image.open(OUT / filename)
     draw = ImageDraw.Draw(canvas)
