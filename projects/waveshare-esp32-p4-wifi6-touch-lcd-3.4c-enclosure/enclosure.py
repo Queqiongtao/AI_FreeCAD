@@ -73,6 +73,15 @@ TIE_BACK_Y = 78.0
 FOOT_RX = 48.0
 FOOT_RY = 42.0
 FOOT_CY = 25.0
+# P4 前下侧壁拾音孔，位置采用装配世界坐标，z 为离桌高度。
+MIC_HOLE_DIAMETER = 2.0
+MIC_HOLE_GROUP_X = 30.0
+MIC_HOLE_BASE_Z = 6.0
+MIC_HOLE_PITCH = 4.0
+MIC_HOLE_ROWS = 2
+MIC_HOLE_COLUMNS = 3
+MIC_HOLE_MIN_WEB = 1.6
+MIC_HOLE_END_MARGIN = 0.3
 ANGLE = math.radians(TILT_DEG)
 SIN, COS = math.sin(ANGLE), math.cos(ANGLE)
 X, Z = App.Vector(1, 0, 0), App.Vector(0, 0, 1)
@@ -241,7 +250,7 @@ def down_support(profile, direction, depth, envelope, above_floor):
     return profile.extrude((direction-Z)*depth).common(envelope).common(above_floor)
 
 
-def write_print_features():
+def write_print_features(microphone=None):
     """向独立切片检查器提供坐标和功能区域；以 STL 截面验证实际挤出。"""
     features=[]
     def add(name,part,bounds,space='local',cross=None,contact_annulus=None):
@@ -281,6 +290,10 @@ def write_print_features():
     top_z=FRONT_Z+SIN*OUTER_R-COS*(MOUTH_N+TOP_FLAT_DEPTH)
     add('top_flat','rear_cover',[-20,20,42,60,top_z-1.5,top_z+0.01],'world')
     add('outlet','rear_cover',[-11,11,40,150,17,31],'world')
+    for index,hole in enumerate((microphone or {}).get('holes',[])):
+        x,z=hole['center_x_z_mm']
+        add('microphone_'+str(index),'rear_cover',[x-2.6,x+2.6,
+            hole['front_y_mm']-.1,hole['cavity_y_mm']+.1,z-1.8,z+1.8],'world')
     data={'tilt_deg':TILT_DEG,'front_z_mm':FRONT_Z,'frame_back_n_mm':FRAME_BACK_N,
           'frame_print_y_offset_mm':FRONT_Z*SIN,'features':features,
           'method':'关键区域取 STL 中层截面，与实际线宽扩展后的 G-code 墙线比较；不以整层存在挤出代替局部检查。'}
@@ -295,6 +308,73 @@ def cable_envelope(points, radius=1.75):
         direction=b-a
         pieces.append(Part.makeCylinder(radius,direction.Length,a,direction))
     return fuse(pieces)
+
+
+def microphone_intake(rear,cavity):
+    """左右各两排三孔，只切穿第一段前壁并接入原有连通内腔。"""
+    original_wall=rear.copy()
+    axis=App.Vector(0,1,0)
+    radius=MIC_HOLE_DIAMETER/2
+    right=[(MIC_HOLE_GROUP_X+(column-(MIC_HOLE_COLUMNS-1)/2)*MIC_HOLE_PITCH,
+            MIC_HOLE_BASE_Z+row*MIC_HOLE_PITCH)
+           for row in range(MIC_HOLE_ROWS) for column in range(MIC_HOLE_COLUMNS)]
+    assert MIC_HOLE_PITCH-MIC_HOLE_DIAMETER>=MIC_HOLE_MIN_WEB
+    assert MIC_HOLE_BASE_Z-radius-FLOOR_T>=MIC_HOLE_MIN_WEB
+    bores=[];holes=[]
+    for side in (-1,1):
+        for right_x,z in right:
+            x=side*right_x
+            segments=[]
+            for solid in Part.makeCylinder(radius,200,App.Vector(x,-80,z),axis).common(rear).Solids:
+                points=solid.tessellate(.01)[0]
+                segments.append((min(v.y for v in points),max(v.y for v in points)))
+            assert segments,'拾音孔未碰到 P4 前壁'
+            front,back=min(segments)
+            bore=Part.makeCylinder(radius,back-front+2*MIC_HOLE_END_MARGIN,
+                App.Vector(x,front-MIC_HOLE_END_MARGIN,z),axis)
+            exit_disc=Part.makeCylinder(radius,.05,App.Vector(x,back+MIC_HOLE_END_MARGIN-.05,z),axis)
+            assert exit_disc.common(cavity).Volume/exit_disc.Volume>.99,'拾音孔出口没有完整进入内腔'
+            assert all(bore.distToShape(other)[0]>=MIC_HOLE_MIN_WEB-.001 for other in bores),'孔间筋不足'
+            removed=bore.common(rear).Volume
+            assert removed>.1,'拾音孔未切除壳壁'
+            rear=rear.cut(bore)
+            assert bore.common(rear).Volume<.001,'拾音孔未贯通'
+            holes.append({'center_x_z_mm':[x,z],'front_y_mm':front,'cavity_y_mm':back,
+                'bore_length_mm':back-front+2*MIC_HOLE_END_MARGIN,'removed_mm3':removed,
+                'exit_connects_cavity':True})
+            bores.append(bore)
+    rear=rear.removeSplitter()
+    assert rear.isValid() and len(rear.Solids)==1,'拾音开孔后后盖实体不连通'
+    witnesses={};air=[]
+    for index,hole in enumerate(holes):
+        x,z=hole['center_x_z_mm'];front=hole['front_y_mm'];back=hole['cavity_y_mm']
+        shoulders=[]
+        for layer in range(int((z-radius)/.2)+1,int((z+radius)/.2)+2):
+            height=round(layer*.2,3);sample_z=height-.1;delta=sample_z-z
+            if abs(delta)>.7*radius:continue
+            for fraction in (.25,.5,.75):
+                y=front+(back-front)*fraction
+                for side in (-1,1):
+                    point=App.Vector(x+side*(math.sqrt(radius**2-delta**2)+.4),y,sample_z)
+                    if rear.isInside(point,.001,False):
+                        shoulders.append({'layer_z_mm':height,'point_mm':list(point)})
+            if abs(delta)<.3:
+                count=int((back-front)/.4)+1
+                for i in range(count+1):
+                    y=front-MIC_HOLE_END_MARGIN+i*(back-front+2*MIC_HOLE_END_MARGIN)/count
+                    for offset in (-.4,0,.4):
+                        point=App.Vector(x+offset,y,sample_z)
+                        air.append({'hole':index,'layer_z_mm':height,'point_mm':list(point),
+                            'inside_original_wall':original_wall.isInside(point,.001,False)})
+        assert len(shoulders)>=12,'拾音孔周边实体采样不足'
+        witnesses['microphone_'+str(index)]=shoulders
+    return rear,bores,{'count':len(holes),'rows_per_side':MIC_HOLE_ROWS,'columns_per_side':MIC_HOLE_COLUMNS,
+        'diameter_mm':MIC_HOLE_DIAMETER,'pitch_mm':MIC_HOLE_PITCH,
+        'minimum_web_mm':MIC_HOLE_PITCH-MIC_HOLE_DIAMETER,
+        'floor_ligament_mm':MIC_HOLE_BASE_Z-radius-FLOOR_T,'axis_world':[0,1,0],
+        'holes':holes,'print_witnesses':witnesses,'air_samples':air,
+        'independent_acoustic_channels':False,'factory_microphone_coordinates_verified':False,
+        'physical_audio_verified':False,'note':'左右共腔拾音，孔道接入内腔；原厂麦克风口位置、原板遮挡及回声须装机检查'}
 
 
 def main():
@@ -411,6 +491,9 @@ def main():
     rear=rear.common(Part.makeBox(300,300,top_z+1,App.Vector(-150,-100,-1))).removeSplitter()
     # 顶部收平后，把与前口相交的薄楔整个退后，避免留下不足 1.2 mm 的唇边。
     rear=rear.cut(box(-20,20,0,60,MOUTH_N,MOUTH_N+TOP_MOUTH_RELIEF)).removeSplitter()
+    rear,mic_bores,mic_report=microphone_intake(rear,cavity)
+    for hole,bore in zip(mic_report['holes'],mic_bores):
+        assert bore.common(main_shell).Volume<.001,'拾音孔碰承托架：'+str(hole['center_x_z_mm'])
     tie_open=Part.makeBox(3.8,1.8,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,16.1))
     assert rear.common(tie_open).Volume<0.001,'扎带穿入口被壳壁堵塞'
     # 总外形参考包络不代表真实箱体。只确认四个中部圆耳；耳周操作区独立标注待试装。
@@ -423,7 +506,7 @@ def main():
             cyl(3,SPEAKER_EAR_FRONT_N-0.1,SPEAKER_SEAT_N+0.1,x,s)))
     speaker=fuse([speaker]+ears)
     shapes={'main_shell':main_shell,'rear_cover':rear}
-    write_print_features()
+    write_print_features(mic_report)
     module_heads=[cyl(MODULE_HEAD_R,MODULE_SEAT_N,MODULE_SEAT_N+MODULE_HEAD_H,x,s) for x,s in SCREWS]
     module_shafts=[cyl(1.25,MODULE_SEAT_N-MODULE_SCREW_L,MODULE_SEAT_N,x,s) for x,s in SCREWS]
     module_engagement=MODULE_THREAD_ENTRY_N-(MODULE_SEAT_N-MODULE_SCREW_L)
@@ -549,6 +632,14 @@ def main():
         else:retained.append(solid)
     assert len(removed)==4,'原厂待拆 M2.5 螺丝识别失败'
     module=Part.makeCompound(retained)
+    mic_obstacles=[('carrier',main_shell),('module',module),('speaker',speaker),('plug',plug),('wire',wire)]
+    mic_obstacles += [('hardware_'+str(i),shape) for i,shape in enumerate(
+        module_heads+module_shafts+m3_heads+m3_shafts+nuts+speaker_hardware)]
+    mic_obstacles += [('cover_tool_'+str(i),cyl(2,38,110,x,s)) for i,(x,s) in enumerate(BOLT_POINTS)]
+    for hole,bore in zip(mic_report['holes'],mic_bores):
+        overlaps={name:round(bore.common(shape).Volume,6) for name,shape in mic_obstacles}
+        assert max(overlaps.values())<.001,'拾音孔通道被内部零件挡住：'+str(overlaps)
+        hole['obstacles_overlap_mm3']=overlaps
     groups={}
     for i,solid in enumerate(module.Solids):
         b=solid.BoundBox
@@ -670,7 +761,7 @@ def main():
              'speaker_mount_location':'后盖独立四支座，拆盖时喇叭随盖移动',
              'speaker_body_shape_verified':False,
              'speaker_mount_status':'中部圆耳及紧固件按确认尺寸建模；总外形扣除耳周安装操作区作为条件包络，真实箱体耳根形状及工具空间需局部试装。',
-             'microphone_hole_verified':False,'physical_fit_verified':False}
+             'microphone_hole_verified':True,'microphone_intake':mic_report,'physical_fit_verified':False}
     with open(os.path.join(OUT,'validation.json'),'w',encoding='utf-8') as f:
         json.dump(metrics,f,ensure_ascii=False,indent=2)
     print('全部导出完成',OUT,flush=True)

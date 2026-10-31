@@ -1,10 +1,59 @@
 """验证切片核验器能识别漏打、悬空和正常斜壁搭接。"""
 import math
+import struct
+import tempfile
 import unittest
-from print_audit import audit_features, audit_support, read_extrusions, align_extrusions
+import zipfile
+import xml.etree.ElementTree as ET
+from pathlib import Path
+from print_audit import audit_features, audit_support, read_extrusions, align_extrusions, audit_microphones
+from slice_project import write_rear_project
 
 
 class PrintAuditTests(unittest.TestCase):
+    def test_slice_project_preserves_mesh_and_support_blocker(self):
+        # 共享顶点的封闭四面体；防止 3MF 退化为互不相连的独立三角面。
+        points=[(0,0,0),(2,0,0),(0,2,0),(0,0,2)]
+        faces=[(0,2,1),(0,1,3),(1,2,3),(2,0,3)]
+        data=b'\0'*80+struct.pack('<I',4)
+        for face in faces:
+            data+=struct.pack('<12fH',0,0,0,*(v for i in face for v in points[i]),0)
+        with tempfile.TemporaryDirectory() as directory:
+            stl=Path(directory)/'part.stl';stl.write_bytes(data)
+            target=Path(directory)/'part.3mf'
+            intake={'diameter_mm':2,'holes':[{'center_x_z_mm':[0,1],'front_y_mm':0,'cavity_y_mm':2}]}
+            write_rear_project(stl,intake,target);first=target.read_bytes()
+            write_rear_project(stl,intake,target)
+            self.assertEqual(first,target.read_bytes())
+            with zipfile.ZipFile(target) as archive:
+                model=ET.fromstring(archive.read('3D/3dmodel.model'))
+                ns={'m':'http://schemas.microsoft.com/3dmanufacturing/core/2015/02'}
+                mesh=model.find("m:resources/m:object[@id='1']/m:mesh",ns)
+                vertices=[tuple(float(v.attrib[k]) for k in ('x','y','z')) for v in mesh.find('m:vertices',ns)]
+                triangles=[tuple(vertices[int(t.attrib[k])] for k in ('v1','v2','v3')) for t in mesh.find('m:triangles',ns)]
+                self.assertEqual(len(vertices),4)
+                self.assertEqual(triangles,[tuple(points[i] for i in face) for face in faces])
+                config=ET.fromstring(archive.read('Metadata/model_settings.config'))
+                self.assertEqual(len(config.findall("object/part[@subtype='normal_part']")),1)
+                self.assertEqual(len(config.findall("object/part[@subtype='support_blocker']")),1)
+
+    def test_microphone_support_cannot_block_air_or_replace_wall(self):
+        layers={z:[((x,-1),(x,1),'Outer wall',.4) for x in (-1.4,1.4)] for z in (.2,.4,.6)}
+        witnesses=[{'layer_z_mm':z,'point_mm':[x,y,z-.1]}
+                   for z in layers for x in (-1.4,1.4) for y in (-.5,.5)]
+        intake={'print_witnesses':{'microphone_0':witnesses},
+                'air_samples':[{'layer_z_mm':.4,'point_mm':[0,0,.3],'inside_original_wall':True}]}
+        self.assertEqual(audit_microphones(layers,intake)['blocked_air_samples'],0)
+        blocked={z:list(paths) for z,paths in layers.items()}
+        blocked[.4].append(((0,-1),(0,1),'Support',.4))
+        with self.assertRaises(AssertionError):audit_microphones(blocked,intake)
+        intake['air_samples'].append({'layer_z_mm':.4,'point_mm':[0,3,.3],'inside_original_wall':False})
+        external={z:list(paths) for z,paths in layers.items()}
+        external[.4].append(((-1,3),(1,3),'Support',.4))
+        self.assertEqual(audit_microphones(external,intake)['external_support_sample_count'],1)
+        support_only={z:[(a,b,'Support',w) for a,b,_,w in paths] for z,paths in layers.items()}
+        with self.assertRaises(AssertionError):audit_microphones(support_only,intake)
+
     def test_rotated_asymmetric_plate(self):
         corners = [(0, 0), (5, 0), (5, 1), (2, 1), (2, 3), (0, 3)]
         triangles = []

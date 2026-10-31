@@ -9,7 +9,8 @@ import struct
 import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-from print_audit import read_mesh, read_extrusions, align_extrusions, audit_features, audit_support
+from print_audit import read_mesh, read_extrusions, align_extrusions, audit_features, audit_support, audit_microphones
+from slice_project import write_rear_project
 
 ROOT = Path(__file__).resolve().parent
 OUT = Path(os.environ.get('P4_OUTPUT_DIR', ROOT / 'output'))
@@ -50,12 +51,18 @@ def main():
         path.write_text(json.dumps(data), encoding='utf-8')
         settings.append(path)
     stl = OUT / (args.part+'.stl')
+    slice_input=stl
+    microphone=None
+    if args.part=='rear_cover' and not args.baseline:
+        microphone=json.loads((OUT/'validation.json').read_text(encoding='utf-8'))['microphone_intake']
+        slice_input=OUT/'rear_cover_print.3mf'
+        write_rear_project(stl,microphone,slice_input)
     result_path = cache / 'result.json'
     if result_path.exists():
         result_path.unlink()  # 仅清理本脚本产生的临时结果，防止误用旧切片。
     result = subprocess.run([str(slicer), '--slice','0', '--load-settings',
                              str(settings[0])+';'+str(settings[1]), '--load-filaments',
-                             str(settings[2]), '--outputdir',str(cache),str(stl)],
+                             str(settings[2]), '--outputdir',str(cache),str(slice_input)],
                             capture_output=True, timeout=120)
     assert result.returncode == 0, '切片失败：'+result.stderr.decode(errors='replace')[-1500:]
     sliced = json.loads(result_path.read_text(encoding='utf-8'))
@@ -84,12 +91,15 @@ def main():
     shortfall=max(v[2] for v in vertices)-max(model_layers)
     assert -0.201<=shortfall<0.4, '顶部偏差超过切片分辨率'  # 顶层可向上取整一层。
     support_runs=audit_support(layers)
+    microphone_checks=audit_microphones(layers,microphone) if microphone else {}
     feature_checks={}
     feature_failures=[]
     if not args.baseline:
         manifest=json.loads((OUT/'print_features.json').read_text(encoding='utf-8'))
         feature_checks,feature_failures=audit_features(triangles,layers,manifest,args.part)
     report={'stl_sha256':hashlib.sha256(data).hexdigest(), 'slicer':'Bambu Studio',
+            'slice_input':slice_input.name,'slice_input_sha256':hashlib.sha256(slice_input.read_bytes()).hexdigest(),
+            'microphone_support_blocker_count':len(microphone['holes']) if microphone else 0,'microphone_checks':microphone_checks,
             'printer_profile':names[0][1], 'filament_profile':names[2][1],
             'nozzle_mm':0.4, 'layer_height_mm':0.2, 'wall_loops':4,'wall_generator':'classic',
             'support_type':'normal(auto)', 'support_threshold_angle_deg':45,

@@ -94,8 +94,8 @@
 
 - 远程：`https://github.com/Queqiongtao/AI_FreeCAD.git`
 - 分支：`main`
-- 当前项目：`projects/esp32-pebble-stand/`
-- 当前源文件：`projects/esp32-pebble-stand/stand.py`
-- 当前输出：`projects/esp32-pebble-stand/output/`
+- 当前项目：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/`
+- 当前源文件：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/enclosure.py`
+- 当前输出：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/output/`
 - Git 作者：`queqt <467500670@qq.com>`
 - LFS：暂未启用

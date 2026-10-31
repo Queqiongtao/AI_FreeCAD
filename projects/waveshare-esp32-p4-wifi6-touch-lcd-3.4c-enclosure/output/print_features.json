@@ -742,6 +742,186 @@
       "space": "world",
       "cross": null,
       "contact_annulus": null
+    },
+    {
+      "name": "microphone_0",
+      "part": "rear_cover",
+      "bounds": [
+        -28.6,
+        -23.4,
+        -19.954453940969742,
+        -12.019852514990312,
+        4.2,
+        7.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_1",
+      "part": "rear_cover",
+      "bounds": [
+        -32.6,
+        -27.4,
+        -17.75451845342794,
+        -9.529793924680128,
+        4.2,
+        7.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_2",
+      "part": "rear_cover",
+      "bounds": [
+        -36.6,
+        -31.4,
+        -15.182469156440694,
+        -6.427484499446979,
+        4.2,
+        7.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_3",
+      "part": "rear_cover",
+      "bounds": [
+        -28.6,
+        -23.4,
+        -24.880910487905258,
+        -18.694897923860577,
+        8.2,
+        11.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_4",
+      "part": "rear_cover",
+      "bounds": [
+        -32.6,
+        -27.4,
+        -22.034808374578027,
+        -15.762645931104124,
+        8.2,
+        11.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_5",
+      "part": "rear_cover",
+      "bounds": [
+        -36.6,
+        -31.4,
+        -18.61890571760539,
+        -11.862712782298237,
+        8.2,
+        11.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_6",
+      "part": "rear_cover",
+      "bounds": [
+        23.4,
+        28.6,
+        -19.954443172842158,
+        -12.019839905720602,
+        4.2,
+        7.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_7",
+      "part": "rear_cover",
+      "bounds": [
+        27.4,
+        32.6,
+        -17.754528603754007,
+        -9.529807705940945,
+        4.2,
+        7.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_8",
+      "part": "rear_cover",
+      "bounds": [
+        31.4,
+        36.6,
+        -15.182469156711644,
+        -6.427487028855598,
+        4.2,
+        7.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_9",
+      "part": "rear_cover",
+      "bounds": [
+        23.4,
+        28.6,
+        -24.88090894378118,
+        -18.694879347072742,
+        8.2,
+        11.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_10",
+      "part": "rear_cover",
+      "bounds": [
+        27.4,
+        32.6,
+        -22.03479122916104,
+        -15.762639650868433,
+        8.2,
+        11.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "microphone_11",
+      "part": "rear_cover",
+      "bounds": [
+        31.4,
+        36.6,
+        -18.61890758356476,
+        -11.86271643001346,
+        8.2,
+        11.8
+      ],
+      "space": "world",
+      "cross": null,
+      "contact_annulus": null
     }
   ],
   "method": "关键区域取 STL 中层截面，与实际线宽扩展后的 G-code 墙线比较；不以整层存在挤出代替局部检查。"
