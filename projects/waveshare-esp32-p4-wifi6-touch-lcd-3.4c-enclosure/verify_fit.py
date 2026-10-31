@@ -116,6 +116,41 @@ def main():
             assert span>=line.Length*0.999,'喇叭螺母袋承力壁不连续'
             nut_wall_spans.append(span)
     print('加固截面通过',len(boss_spans),'固定座截线',len(slot_volumes),'前环',len(seat_volumes),'承托面',flush=True)
+    insert_wall_checks=[]
+    for x,s in BOLT_POINTS:
+        bore=cyl(LOCK_INSERT_BORE/2,LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH+.001,
+                 LOCK_INSERT_BACK_N-LOCK_INSERT_CHAMFER-.001,x,s)
+        assert frame.copy(True).common(bore).Volume<.001,'热熔直孔孔径或深度不足'
+        shoulder=cyl(LOCK_INSERT_BORE/2-.01,LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH-.3,
+                     LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH-.1,x,s).cut(
+            cyl(1.71,LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH-.4,LOCK_INSERT_BACK_N,x,s))
+        shoulder_volume=frame.copy(True).common(shoulder).Volume
+        assert shoulder_volume>=shoulder.Volume*.999,'热熔孔底部台阶缺失'
+        spans=[]
+        for n in (LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH+.1,
+                  LOCK_INSERT_BACK_N-2,LOCK_INSERT_BACK_N-1,LOCK_INSERT_BACK_N-.4):
+            for angle in range(0,360,30):
+                direction=X*math.cos(math.radians(angle))+S*math.sin(math.radians(angle))
+                origin=pt(x,s,n)
+                line=Part.makeLine(origin+direction*(LOCK_INSERT_BORE/2+.01),
+                                   origin+direction*(LOCK_BOSS_R-.01))
+                span=frame.copy(True).common(line).Length
+                assert span>=line.Length*.999 and span>=1.6,'热熔母座径向壁不连续或过薄'
+                spans.append(span)
+        for n in (LOCK_INSERT_BACK_N-.15,LOCK_INSERT_BACK_N-.01):
+            for angle in range(0,360,30):
+                direction=X*math.cos(math.radians(angle))+S*math.sin(math.radians(angle))
+                origin=pt(x,s,n)
+                line=Part.makeLine(origin+direction*(LOCK_INSERT_BORE/2+LOCK_INSERT_CHAMFER+.01),
+                                   origin+direction*(LOCK_BOSS_R-.01))
+                span=frame.copy(True).common(line).Length
+                assert span>=line.Length*.999 and span>=1.6,'热熔入口导角外围过薄'
+                spans.append(span)
+        tool=cyl(2,LOCK_INSERT_BACK_N+.01,LOCK_INSERT_BACK_N+12,x,s)
+        assert frame.copy(True).common(tool).Volume<.001,'热熔工具轴向入口被挡住'
+        insert_wall_checks.append({'center_x_s_mm':[x,s],'radial_section_count':len(spans),
+            'minimum_radial_section_mm':min(spans),'bore_clear':True,
+            'bottom_shoulder_probe_volume_mm3':shoulder_volume,'heater_access_clear':True})
     tie_open=Part.makeBox(3.8,1.8,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,16.1))
     tie_bridge=Part.makeBox(3.8,1.8,1.8,App.Vector(21.1,TIE_FRONT_Y+0.1,22.1))
     assert rear.common(tie_open).Volume<0.001,'扎带穿入口被堵塞'
@@ -129,10 +164,11 @@ def main():
                 'note':'截面连续性检查，不是有限元、极限载荷或实物强度试验。'},
             'speaker_mount_part':'rear_cover','speaker_locator_probe_volumes_mm3':locator_volumes,
             'speaker_nut_wall_probe_spans_mm':nut_wall_spans,
+            'heat_insert_wall_checks':insert_wall_checks,
             'module_head_clearance_checks':head_clearance_checks,'module_engagement_mm':MODULE_THREAD_ENTRY_N-(MODULE_SEAT_N-MODULE_SCREW_L),
             'cable_tie_opening_clear':True,'cable_tie_bridge_probe_mm3':rear.common(tie_bridge).Volume,
             'method':'从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。',
-            'limitations':'离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌和锁盖座未纳入此壁厚统计。',
+            'limitations':'离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌未纳入此壁厚统计；锁盖热熔母座另作孔径、台阶及径向截线检查。',
             'hook_sections':hook_sections,'physical_fit_verified':False}
     with open(os.path.join(OUT,'fit_validation.json'),'w',encoding='utf-8') as f:
         json.dump(report,f,ensure_ascii=False,indent=2)

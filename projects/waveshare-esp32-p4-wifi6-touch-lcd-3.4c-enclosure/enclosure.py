@@ -59,13 +59,17 @@ FIT_SIDE_CLEARANCE = 0.30
 FIT_TIP_CLEARANCE = 0.30
 FIT_LEAD = 0.6
 ELEPHANT_RELIEF = 0.3
-NUT_AF = 6.0
-NUT_FRONT_N = 20.8
-NUT_BACK_N = 23.6
-NUT_ENTRY_W = 6.2
-NUT_BOSS_R = 5.4
-NUT_ROOF_PEAK_N = 17.7
-NUT_BOSS_FRONT_N = 16.1
+LOCK_INSERT_LENGTH = 3.0
+LOCK_INSERT_OD = 4.0
+LOCK_INSERT_BORE = 3.8  # 用户指定直孔，不增加直径补偿。
+LOCK_INSERT_DEPTH = 3.4
+LOCK_INSERT_CHAMFER = 0.3
+LOCK_INSERT_BACK_N = 26.0
+LOCK_BOSS_R = 5.4
+LOCK_BOSS_FRONT_N = 16.1
+LOCK_TIP_RELIEF_FRONT_N = 18.0
+LOCK_HEAD_SEAT_N = 35.0
+LOCK_SCREW_LENGTH = 16.0
 TOP_FLAT_DEPTH = 1.6
 TOP_MOUTH_RELIEF = 0.8
 TIE_FRONT_Y = 56.0
@@ -436,7 +440,10 @@ def write_print_features(microphone=None,grille=None):
         add('module_arm_'+str(i),'main_shell',[min(x,x/r*54)-4,max(x,x/r*54)+4,
             min(s,s/r*54)-4,max(s,s/r*54)+4,MODULE_MOUNT_FRONT_N+0.05,20.45])
     for i,(x,s) in enumerate(BOLT_POINTS):
-        add('nut_pocket_'+str(i),'main_shell',[x-5.6,x+5.6,s-3.7,s+9.1,16.05,26.01])
+        add('heat_insert_boss_'+str(i),'main_shell',[x-5.5,x+5.5,s-5.5,s+5.5,
+            LOCK_BOSS_FRONT_N+.05,LOCK_INSERT_BACK_N-.05])
+        add('heat_insert_wall_'+str(i),'main_shell',[x-5.3,x+5.3,s-5.3,s+5.3,
+            LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH+.05,LOCK_INSERT_BACK_N-LOCK_INSERT_CHAMFER-.05])
         # 锁紧承压座止于 n=35；后方大头孔和斜撑的交线另由全局承托检查覆盖。
         add('m3_seat_'+str(i),'rear_cover',[x-5.7,x+5.7,s-5.7,s+5.7,29.55,34.95])
     for i,(x,s) in enumerate(PINS):
@@ -650,7 +657,8 @@ def main():
         main_parts.append(local_rectangle(x,s,-1,54.1-r,-MODULE_RIB_W/2,MODULE_RIB_W/2,
                                           MODULE_MOUNT_FRONT_N,20.5))
     for x,s in BOLT_POINTS:
-        main_parts.extend([radial_wedge(x,s,40,52.5,13.2,26,8),cyl(NUT_BOSS_R,NUT_BOSS_FRONT_N,26,x,s)])
+        main_parts.extend([radial_wedge(x,s,40,52.5,13.2,26,8),
+                           cyl(LOCK_BOSS_R,LOCK_BOSS_FRONT_N,LOCK_INSERT_BACK_N,x,s)])
     for a in (0,90,180):
         main_parts.append(locator(a,LOCATOR_BACK_INNER_R,FRAME_R,LOCATOR_BACK_WIDTH,16.8,FRAME_BACK_N).common(
             cyl(FRAME_R,16.8,FRAME_BACK_N)))
@@ -671,13 +679,13 @@ def main():
         main_shell=main_shell.cut(locator_entry(a))
         main_shell=main_shell.cut(locator_roof(a))
     for x,s in BOLT_POINTS:
-        main_shell=main_shell.cut(cyl(1.7,18,27,x,s))
-        main_shell=main_shell.cut(hex_prism(x,s,NUT_FRONT_N,NUT_BACK_N,NUT_AF))
-        # 从空腔内侧向下滑入螺母；后方留 2.4 mm 实体承压肩。
-        main_shell=main_shell.cut(box(x-NUT_ENTRY_W/2,x+NUT_ENTRY_W/2,s,s+9,NUT_FRONT_N,NUT_BACK_N))
-        roof=face([pt(x-NUT_ENTRY_W/2,s-3.6,NUT_FRONT_N),pt(x,s-3.6,NUT_ROOF_PEAK_N),
-                   pt(x+NUT_ENTRY_W/2,s-3.6,NUT_FRONT_N)]).extrude(S*12.6)
-        main_shell=main_shell.cut(roof)
+        # 背面轴向热熔，封实原六角袋、侧入口及避让屋顶，保留原有母座和外筋。
+        main_shell=main_shell.cut(cyl(1.7,LOCK_TIP_RELIEF_FRONT_N,LOCK_INSERT_BACK_N+.1,x,s))
+        main_shell=main_shell.cut(cyl(LOCK_INSERT_BORE/2,
+            LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH,LOCK_INSERT_BACK_N+.1,x,s))
+        main_shell=main_shell.cut(Part.makeCone(LOCK_INSERT_BORE/2,
+            LOCK_INSERT_BORE/2+LOCK_INSERT_CHAMFER,LOCK_INSERT_CHAMFER,
+            pt(x,s,LOCK_INSERT_BACK_N-LOCK_INSERT_CHAMFER),-N))
     relief=cyl(FRAME_R,MOUTH_N,FRAME_BACK_N-ELEPHANT_RELIEF).fuse(
         Part.makeCone(FRAME_R,FRAME_R-ELEPHANT_RELIEF,ELEPHANT_RELIEF,pt(0,0,FRAME_BACK_N-ELEPHANT_RELIEF),-N))
     main_shell=main_shell.common(relief)
@@ -759,9 +767,13 @@ def main():
         area=main_shell.common(cyl(MODULE_HEAD_R,MODULE_SEAT_N-0.02,MODULE_SEAT_N,x,s)).Volume/0.02
         assert area>=8,'M2.5 实际承压面积不足'
         module_bearing.append(area)
-    m3_heads=[cyl(2.8,35,38,x,s) for x,s in BOLT_POINTS]
-    m3_shafts=[cyl(1.5,19,35,x,s) for x,s in BOLT_POINTS]
-    nuts=[hex_prism(x,s,21.1,23.5,5.5).cut(cyl(1.5,21,24,x,s)) for x,s in BOLT_POINTS]
+    m3_heads=[cyl(2.8,LOCK_HEAD_SEAT_N,LOCK_HEAD_SEAT_N+3,x,s) for x,s in BOLT_POINTS]
+    m3_shafts=[cyl(1.5,LOCK_HEAD_SEAT_N-LOCK_SCREW_LENGTH,LOCK_HEAD_SEAT_N,x,s) for x,s in BOLT_POINTS]
+    inserts=[cyl(LOCK_INSERT_OD/2,LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH,LOCK_INSERT_BACK_N,x,s).cut(
+        cyl(1.5,LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH-.1,LOCK_INSERT_BACK_N+.1,x,s)) for x,s in BOLT_POINTS]
+    # 滚花外径与底孔之间的 0.1 mm 径向干涉属于热熔配合，不作刚体碰撞错误。
+    insert_cores=[cyl(LOCK_INSERT_BORE/2-.001,LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH,LOCK_INSERT_BACK_N,x,s).cut(
+        cyl(1.5,LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH-.1,LOCK_INSERT_BACK_N+.1,x,s)) for x,s in BOLT_POINTS]
     plug=box(-18.9,-5.9,29.2,44.2,7.5,16.5)
     wire=cable_envelope([pt(-12.4,44.2,12),pt(-12.4,38,18),pt(0,38,22),pt(0,38,45),
                          pt(0,35,50),App.Vector(0,65,24),App.Vector(0,100,24)])
@@ -823,7 +835,7 @@ def main():
         speaker_nut_checks.append(True)
     print('止挡/圆耳承压面积',stop_areas,ear_contacts,flush=True)
     assert speaker.common(wire).Volume<0.02,'线束碰音箱'
-    for hardware in module_heads+module_shafts+m3_heads+m3_shafts+nuts+speaker_hardware:
+    for hardware in module_heads+module_shafts+m3_heads+m3_shafts+insert_cores+speaker_hardware:
         for name,shape in shapes.items():
             assert shape.common(hardware).Volume<0.02,name+'碰紧固件'
     assert all(h.common(speaker).Volume<0.02 for h in speaker_hardware),'喇叭参考耳碰紧固件'
@@ -833,10 +845,23 @@ def main():
         tool=cyl(2,38,110,x,s)
         assert tool.common(rear).Volume<0.02,'M3工具路径'
         assert tool.common(main_shell).Volume+tool.common(speaker).Volume<0.02
-    for nut in nuts:
-        for distance in (0,1,2,4,6,8,10):
-            moved=nut.copy();moved.translate(S*distance)
-            assert main_shell.common(moved).Volume<0.02,'螺母装入路径'
+    insert_installation_checks=[]
+    for (x,s),insert in zip(BOLT_POINTS,inserts):
+        expected=cyl(LOCK_INSERT_OD/2,LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH,LOCK_INSERT_BACK_N,x,s).cut(
+            cyl(LOCK_INSERT_BORE/2,LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH-.1,LOCK_INSERT_BACK_N+.1,x,s))
+        overlap=insert.copy(True).common(main_shell.copy(True))
+        assert overlap.copy(True).cut(expected).Volume<.001,'热熔干涉越过滚花预期区域'
+        assert sum(insert.common(v).Volume for v in [rear,speaker,plug,wire])<.02,'热熔螺母碰周边零件'
+        tool=cyl(2.0,LOCK_INSERT_BACK_N+.01,LOCK_INSERT_BACK_N+12,x,s)
+        tool_overlap=tool.common(main_shell).Volume
+        assert tool_overlap<.001,'背面热熔工具入口受阻'
+        insert_installation_checks.append({'center_x_s_mm':[x,s],
+            'knurl_interference_volume_mm3':overlap.Volume,'heater_tool_overlap_mm3':tool_overlap})
+    lock_tip_n=LOCK_HEAD_SEAT_N-LOCK_SCREW_LENGTH
+    lock_engagement=min(LOCK_INSERT_BACK_N,LOCK_HEAD_SEAT_N)-max(
+        LOCK_INSERT_BACK_N-LOCK_INSERT_LENGTH,lock_tip_n)
+    assert lock_engagement>=LOCK_INSERT_LENGTH-.001,'锁盖螺丝未完整啮合热熔螺母'
+    assert lock_tip_n-LOCK_TIP_RELIEF_FRONT_N>=.5,'锁盖螺丝尾端顶底'
     travel_checks=[]
     poses=[(a,0) for a in (0,1,2,4,6,8,10,12,15,HOOK_OPEN_ANGLE)]
     poses += [(HOOK_OPEN_ANGLE,t) for t in (1,2,4,8,16,32,64)]
@@ -882,7 +907,7 @@ def main():
     module=Part.makeCompound(retained)
     mic_obstacles=[('carrier',main_shell),('module',module),('speaker',speaker),('plug',plug),('wire',wire)]
     mic_obstacles += [('hardware_'+str(i),shape) for i,shape in enumerate(
-        module_heads+module_shafts+m3_heads+m3_shafts+nuts+speaker_hardware)]
+        module_heads+module_shafts+m3_heads+m3_shafts+inserts+speaker_hardware)]
     mic_obstacles += [('cover_tool_'+str(i),cyl(2,38,110,x,s)) for i,(x,s) in enumerate(BOLT_POINTS)]
     acoustic_obstacles=[(name,[(solid,solid.BoundBox) for solid in obstacle.Solids])
         for name,obstacle in mic_obstacles]
@@ -928,7 +953,7 @@ def main():
     for name,shape in [('Module_Reference',module),('Speaker_Reference',speaker),
                        ('Module_M25_Heads_Reference',Part.makeCompound(module_heads)),
                        ('Module_M25_Shafts_Reference',Part.makeCompound(module_shafts)),('M3_Heads_Reference',Part.makeCompound(m3_heads)),
-                       ('M3_Shafts_Reference',Part.makeCompound(m3_shafts)),('M3_Nuts_Reference',Part.makeCompound(nuts)),
+                       ('M3_Shafts_Reference',Part.makeCompound(m3_shafts)),('M3_Heat_Inserts_Reference',Part.makeCompound(inserts)),
                        ('Speaker_Washers_Reference',Part.makeCompound(washers)),
                        ('Speaker_Ears_Reference',Part.makeCompound(ears)),
                        ('Speaker_Hardware_Reference',Part.makeCompound(speaker_hardware)),
@@ -951,13 +976,11 @@ def main():
     for name,shape in [('module',cyl(MODULE_R,0,6)),('speaker',speaker),('washers',Part.makeCompound(washers)),
                        ('speaker_hardware',Part.makeCompound(speaker_hardware)),
                        ('section',rear.common(Part.makeBox(150,250,160,App.Vector(0,-100,0)))),
-                       ('fasteners',Part.makeCompound(m3_heads+m3_shafts+nuts+module_heads+module_shafts))]:
+                       ('fasteners',Part.makeCompound(m3_heads+m3_shafts+inserts+module_heads+module_shafts))]:
         mesh_write(shape,os.path.join(CACHE,name+'.stl'))
     doc.recompute();configure_display(doc);doc.saveAs(os.path.join(OUT,'enclosure.FCStd'))
-    # 同尺寸螺母袋与止口的局部试装件，归档目录不混入正式打印件。
+    # 止口和安装位局部辅助件只归档，不增加正式打印件；热熔孔不生成试孔件。
     fit_dir=os.environ.get('P4_FIT_DIR',os.path.join(ROOT,'archive','fit_samples'));os.makedirs(fit_dir,exist_ok=True)
-    sample=main_shell.common(box(12,31,-49,-28,19,30))
-    mesh_write(sample,os.path.join(fit_dir,'nut_pocket.stl'),printing=True)
     hook_x=HOOK_RADIUS*math.cos(math.radians(HOOK_ANGLES[0]))
     for name,shape in [('upper_hook',rear),('upper_hook_socket',main_shell)]:
         sample=shape.common(box(hook_x-9,hook_x+9,HOOK_AXIS_S-6,57,13,32))
@@ -977,8 +1000,14 @@ def main():
              'seam_clearance_mm':HOOK_CLEARANCE,'locator_engagement_mm':None,'locator_side_clearance_mm':None,
              'axial_stop_pads':4,
              'axial_stop_contact_areas_mm2':stop_areas,'speaker_ear_bearing_areas_mm2':ear_contacts,
-             'rear_screw':'2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4',
-             'nut_retaining_shoulder_mm':2.4,
+             'rear_screw':'2 × M3×16 内六角圆柱头，2 × M3×3×4 热熔螺母',
+             'heat_set_insert':{'thread':'M3','length_mm':LOCK_INSERT_LENGTH,
+                 'outer_diameter_mm':LOCK_INSERT_OD,'bore_diameter_mm':LOCK_INSERT_BORE,
+                 'bore_depth_mm':LOCK_INSERT_DEPTH,'entry_chamfer_mm':LOCK_INSERT_CHAMFER,
+                 'rear_face_n_mm':LOCK_INSERT_BACK_N,'thread_engagement_mm':lock_engagement,
+                 'screw_tip_n_mm':lock_tip_n,'screw_tip_to_relief_floor_mm':lock_tip_n-LOCK_TIP_RELIEF_FRONT_N,
+                 'installation':'先热熔再装开发板；从承托架背面轴向压入，端面齐平',
+                 'installation_checks':insert_installation_checks},
              'module_screw':'4 × M2.5×6 内六角圆柱头，头径≤4.7 mm、头高≤2.5 mm',
              'module_mount_points_mm':SCREWS,'module_mount_thickness_mm':MODULE_SEAT_N-MODULE_MOUNT_FRONT_N,
              'module_engagement_mm':module_engagement,'module_tip_n_mm':MODULE_SEAT_N-MODULE_SCREW_L,
@@ -1001,13 +1030,12 @@ def main():
              'frame_radial_clearance_mm':INNER_R-FRAME_R,
              'carrier_print_bed':'后侧框架平面朝下','continuous_cover':True,
              'fdm_design':{'nozzle_mm':0.4,'materials':['PLA','PETG'],'minimum_wall_target_mm':1.2,
-                 'minimum_load_wall_target_mm':1.6,'module_mount_closed_holes':True,'nut_pocket_across_flats_mm':NUT_AF,
-                 'nut_pocket_depth_mm':NUT_BACK_N-NUT_FRONT_N,'nut_entry_width_mm':NUT_ENTRY_W,
+                 'minimum_load_wall_target_mm':1.6,'module_mount_closed_holes':True,
+                 'heat_insert_bore_mm':LOCK_INSERT_BORE,'heat_insert_bore_depth_mm':LOCK_INSERT_DEPTH,
                  'entry_lead_mm':FIT_LEAD,'bed_edge_relief_mm':ELEPHANT_RELIEF,'rear_flat_top_z_mm':top_z},
              'carrier_reinforcement':{'module_boss_radius_mm':MODULE_BOSS_R,'module_rib_width_mm':MODULE_RIB_W,
                  'locator_back_inner_radius_mm':LOCATOR_BACK_INNER_R,'locator_back_width_mm':LOCATOR_BACK_WIDTH},
              'rear_outlet_mm':[20,12],'outlet_corner_radius_mm':3,
-             'nut_insertion_travel_mm':[0,1,2,4,6,8,10],
              'cable_reference_diameter_mm':3.5,'cable_bend_radius_verified':False,
              'bottom_ring_width_samples':288,
              'assembly_travel':travel_checks,'upper_hooks':hook_motion,'cavity_cm3':cavity.Volume/1000,

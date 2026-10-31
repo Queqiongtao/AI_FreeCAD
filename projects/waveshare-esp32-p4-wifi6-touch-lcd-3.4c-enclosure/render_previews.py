@@ -167,7 +167,7 @@ for filename, caption in (
     ('preview_section.png','剖视：绿色为条件音箱包络；中部耳独立锁在后盖，底板封闭'),
     ('preview_exploded.png','两件式：承托架固定模块；喇叭随连续后盖一起拆下'),
     ('preview_opening.png','卸下两颗锁盖螺丝，下侧翻开约 18°，上钩脱离后再向后取下'),
-    ('preview_fastening.png','内藏承托架：复用原板四处 M2.5 固定点；下方普通 M3 螺母锁盖'),
+    ('preview_fastening.png','内藏承托架：原板四处 M2.5 固定；两处 M3×3×4 热熔螺母，底孔 Ø3.8'),
     ('preview_speaker_mount.png','音箱总外形 100×45×21；中部 2 mm 圆耳，四颗 M3×8 固定后盖'),
 ):
     canvas=Image.open(OUT/filename)

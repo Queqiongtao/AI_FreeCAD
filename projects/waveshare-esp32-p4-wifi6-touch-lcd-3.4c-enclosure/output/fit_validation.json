@@ -91,10 +91,10 @@
       ]
     }
   },
-  "carrier_rear_bed_contact_area_mm2": 337.00955987388767,
+  "carrier_rear_bed_contact_area_mm2": 324.7573485248875,
   "stl_sha256": {
-    "main_shell": "b79fbe369adf0eee17ebb6e636018a1280e69f567f06774ead13fabbadaf2203",
-    "rear_cover": "24b1ada004668df2a3ff8946d57daa7f0f592eb2799cfe9bfe0c6a2a63424f4c"
+    "main_shell": "709cef5cd2c8392a329a1ebe0860025fb11e30e3187649c55529b6194626e67c",
+    "rear_cover": "8d1643a5df37ec92c8b94c8042fe3a945557ae9654da9d43c9af5651fa1e7ada"
   },
   "reinforcement_sections": {
     "module_seat_probe_volumes_mm3": [
@@ -104,10 +104,10 @@
       136.09138101035194
     ],
     "module_head_bearing_areas_mm2": [
-      10.744246875276609,
-      10.744246875276614,
-      10.744246875276614,
-      10.74424687527636
+      10.744246875276803,
+      10.744246875276636,
+      10.744246875276636,
+      10.74424687527637
     ],
     "front_ring_radial_wall_mm": 2.3999999999999986,
     "front_ring_probe_volumes_mm3": [
@@ -181,6 +181,30 @@
     2.0456863804981507,
     2.0456863804981498
   ],
+  "heat_insert_wall_checks": [
+    {
+      "center_x_s_mm": [
+        -22.0,
+        -38.0
+      ],
+      "radial_section_count": 72,
+      "minimum_radial_section_mm": 3.1799999999999993,
+      "bore_clear": true,
+      "bottom_shoulder_probe_volume_mm3": 0.4071504079052344,
+      "heater_access_clear": true
+    },
+    {
+      "center_x_s_mm": [
+        22.0,
+        -38.0
+      ],
+      "radial_section_count": 72,
+      "minimum_radial_section_mm": 3.1799999999999993,
+      "bore_clear": true,
+      "bottom_shoulder_probe_volume_mm3": 0.4071504079052344,
+      "heater_access_clear": true
+    }
+  ],
   "module_head_clearance_checks": [
     true,
     true,
@@ -191,7 +215,7 @@
   "cable_tie_opening_clear": true,
   "cable_tie_bridge_probe_mm3": 12.311999999999987,
   "method": "从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。",
-  "limitations": "离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌和锁盖座未纳入此壁厚统计。",
+  "limitations": "离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌未纳入此壁厚统计；锁盖热熔母座另作孔径、台阶及径向截线检查。",
   "hook_sections": [
     {
       "pin_probe_mm3": 105.37058839772843,

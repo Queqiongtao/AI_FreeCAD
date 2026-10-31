@@ -145,15 +145,30 @@
       "contact_annulus": null
     },
     {
-      "name": "nut_pocket_0",
+      "name": "heat_insert_boss_0",
       "part": "main_shell",
       "bounds": [
-        -27.6,
-        -16.4,
-        -41.7,
-        -28.9,
-        16.05,
-        26.01
+        -27.5,
+        -16.5,
+        -43.5,
+        -32.5,
+        16.150000000000002,
+        25.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "heat_insert_wall_0",
+      "part": "main_shell",
+      "bounds": [
+        -27.3,
+        -16.7,
+        -43.3,
+        -32.7,
+        22.650000000000002,
+        25.65
       ],
       "space": "local",
       "cross": null,
@@ -175,15 +190,30 @@
       "contact_annulus": null
     },
     {
-      "name": "nut_pocket_1",
+      "name": "heat_insert_boss_1",
       "part": "main_shell",
       "bounds": [
-        16.4,
-        27.6,
-        -41.7,
-        -28.9,
-        16.05,
-        26.01
+        16.5,
+        27.5,
+        -43.5,
+        -32.5,
+        16.150000000000002,
+        25.95
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "heat_insert_wall_1",
+      "part": "main_shell",
+      "bounds": [
+        16.7,
+        27.3,
+        -43.3,
+        -32.7,
+        22.650000000000002,
+        25.65
       ],
       "space": "local",
       "cross": null,

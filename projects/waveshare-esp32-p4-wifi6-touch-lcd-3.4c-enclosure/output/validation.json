@@ -6,20 +6,20 @@
     "main_shell": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 8032.8395245422635,
+      "volume_mm3": 8356.835088308386,
       "speaker_overlap_mm3": 0.0,
       "module_overlap_mm3": 0.0,
       "mesh_closed": true,
-      "steep_overhang_mm2": 1259.8069326634823
+      "steep_overhang_mm2": 1131.729651021948
     },
     "rear_cover": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 81296.08515591532,
+      "volume_mm3": 81285.79846080948,
       "speaker_overlap_mm3": 0.0,
       "module_overlap_mm3": 0.0,
       "mesh_closed": true,
-      "steep_overhang_mm2": 2762.6681465660954
+      "steep_overhang_mm2": 2762.6681465660877
     }
   },
   "step_solids": 2,
@@ -33,19 +33,49 @@
   "locator_side_clearance_mm": null,
   "axial_stop_pads": 4,
   "axial_stop_contact_areas_mm2": [
-    11.999999999991644,
-    11.999999999992658,
-    11.999999999989685,
-    11.99999999999399
+    11.999999999997149,
+    11.99999999999351,
+    11.999999999997728,
+    11.99999999999494
   ],
   "speaker_ear_bearing_areas_mm2": [
-    35.34291735289005,
-    35.342917352889394,
-    35.34291735289005,
-    35.342917352889394
+    35.34291735289003,
+    35.34291735288955,
+    35.34291735289002,
+    35.34291735288955
   ],
-  "rear_screw": "2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4",
-  "nut_retaining_shoulder_mm": 2.4,
+  "rear_screw": "2 × M3×16 内六角圆柱头，2 × M3×3×4 热熔螺母",
+  "heat_set_insert": {
+    "thread": "M3",
+    "length_mm": 3.0,
+    "outer_diameter_mm": 4.0,
+    "bore_diameter_mm": 3.8,
+    "bore_depth_mm": 3.4,
+    "entry_chamfer_mm": 0.3,
+    "rear_face_n_mm": 26.0,
+    "thread_engagement_mm": 3.0,
+    "screw_tip_n_mm": 19.0,
+    "screw_tip_to_relief_floor_mm": 1.0,
+    "installation": "先热熔再装开发板；从承托架背面轴向压入，端面齐平",
+    "installation_checks": [
+      {
+        "center_x_s_mm": [
+          -22.0,
+          -38.0
+        ],
+        "knurl_interference_volume_mm3": 3.369881719750662,
+        "heater_tool_overlap_mm3": 0.0
+      },
+      {
+        "center_x_s_mm": [
+          22.0,
+          -38.0
+        ],
+        "knurl_interference_volume_mm3": 3.369881719750662,
+        "heater_tool_overlap_mm3": 0.0
+      }
+    ]
+  },
   "module_screw": "4 × M2.5×6 内六角圆柱头，头径≤4.7 mm、头高≤2.5 mm",
   "module_mount_points_mm": [
     [
@@ -77,10 +107,10 @@
   ],
   "module_retained_solids": 1161,
   "module_head_bearing_areas_mm2": [
-    10.744246875276609,
-    10.744246875276614,
-    10.744246875276614,
-    10.74424687527636
+    10.744246875276705,
+    10.744246875276636,
+    10.744246875276636,
+    10.744246875276371
   ],
   "module_head_clearance_diameter_mm": 5.3,
   "front_hidden_required": true,
@@ -127,9 +157,8 @@
     "minimum_wall_target_mm": 1.2,
     "minimum_load_wall_target_mm": 1.6,
     "module_mount_closed_holes": true,
-    "nut_pocket_across_flats_mm": 6.0,
-    "nut_pocket_depth_mm": 2.8000000000000007,
-    "nut_entry_width_mm": 6.2,
+    "heat_insert_bore_mm": 3.8,
+    "heat_insert_bore_depth_mm": 3.4,
     "entry_lead_mm": 0.6,
     "bed_edge_relief_mm": 0.3,
     "rear_flat_top_z_mm": 91.71570017343012
@@ -145,15 +174,6 @@
     12
   ],
   "outlet_corner_radius_mm": 3,
-  "nut_insertion_travel_mm": [
-    0,
-    1,
-    2,
-    4,
-    6,
-    8,
-    10
-  ],
   "cable_reference_diameter_mm": 3.5,
   "cable_bend_radius_verified": false,
   "bottom_ring_width_samples": 288,
@@ -1903,6 +1923,20 @@
         "phase": "rotate",
         "face": 34,
         "from": 0,
+        "to": 4.5,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 34,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 34,
+        "from": 9.0,
         "to": 18.0,
         "method": "exact_boundary_sweep"
       },
@@ -6569,31 +6603,28 @@
         "method": "face_distance_bound"
       }
     ],
-    "distance_evaluations": 1368,
+    "distance_evaluations": 1370,
     "retention_overlap_at_1_2_mm": [
       [
-        10.718694438819133,
-        37.978492265891134
+        10.718694438819178,
+        37.97849226589125
       ],
       [
-        10.718694438819137,
-        37.97849226589114
+        10.718694438819192,
+        37.9784922658913
       ]
     ],
     "module_exact_candidates": 3,
     "module_front_envelope_count": 0,
     "module_inner_envelope_count": 1158,
     "physical_fit_verified": false,
-    "method": "逐面精确旋转/平移扫掠；切向退化面采用中点距离和最大位移界；接触垫单调离开承压面。",
-    "fixed_frame_conservative_superset": true,
-    "proof_frame_volume_mm3": 8034.615586681859,
-    "actual_frame_volume_mm3": 8032.8395245422635
+    "method": "逐面精确旋转/平移扫掠；切向退化面采用中点距离和最大位移界；接触垫单调离开承压面。"
   },
-  "cavity_cm3": 526.0315558892028,
+  "cavity_cm3": 526.0315558892031,
   "estimated_module_mass_g": 220,
   "estimated_speaker_mass_g": 100,
-  "estimated_total_mass_g": 433.4477343441812,
-  "estimated_tip_angle_deg": 35.18850193291565,
+  "estimated_total_mass_g": 433.8461446073797,
+  "estimated_tip_angle_deg": 35.177855875350765,
   "speaker_actual_ear_thickness_mm": 2.0,
   "speaker_actual_ear_center_offset_mm": 10.5,
   "speaker_mount_location": "后盖独立四支座，拆盖时喇叭随盖移动",
