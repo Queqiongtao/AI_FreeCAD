@@ -148,6 +148,17 @@ def shifted(triangles, offset):
 render('preview_exploded.png', module+frame
        +shifted(speaker+speaker_hardware,tuple(-80*v for v in NORMAL))
        +shifted(rear,tuple(-80*v for v in NORMAL)),(1,-0.6,0.5))
+
+def opened(triangles):
+    a=math.radians(18);t=math.radians(40)
+    pivot=(0,57.2*math.cos(t)+6.3*math.sin(t),61+57.2*math.sin(t)-6.3*math.cos(t))
+    def turn(p):
+        x,y,z=sub(p,pivot)
+        return (x+pivot[0],y*math.cos(a)-z*math.sin(a)+pivot[1],
+                y*math.sin(a)+z*math.cos(a)+pivot[2])
+    return [(tuple(turn(p) for p in vertices),color) for vertices,color in triangles]
+
+render('preview_opening.png',module+frame+opened(rear+speaker+speaker_hardware),(1,-.15,.1))
 font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',18)
 for filename, caption in (
     ('preview_microphones.png','P4 前下侧壁：左右各六个 Ø2 mm 拾音孔，两排三列，直通内腔'),
@@ -155,6 +166,7 @@ for filename, caption in (
     ('preview_front.png','沿屏幕法线正视：打印件完全隐藏于模块轮廓内'),
     ('preview_section.png','剖视：绿色为条件音箱包络；中部耳独立锁在后盖，底板封闭'),
     ('preview_exploded.png','两件式：承托架固定模块；喇叭随连续后盖一起拆下'),
+    ('preview_opening.png','卸下两颗锁盖螺丝，下侧翻开约 18°，上钩脱离后再向后取下'),
     ('preview_fastening.png','内藏承托架：复用原板四处 M2.5 固定点；下方普通 M3 螺母锁盖'),
     ('preview_speaker_mount.png','音箱总外形 100×45×21；中部 2 mm 圆耳，四颗 M3×8 固定后盖'),
 ):

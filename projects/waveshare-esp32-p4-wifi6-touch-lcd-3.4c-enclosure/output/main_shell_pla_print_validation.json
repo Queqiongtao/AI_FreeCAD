@@ -1,6 +1,13 @@
 {
-  "stl_sha256": "ca181c4f534f74ce27e619e8c96aac1a5d668b7ab45a16c49b83392f995b34cd",
+  "stl_sha256": "b79fbe369adf0eee17ebb6e636018a1280e69f567f06774ead13fabbadaf2203",
   "slicer": "Bambu Studio",
+  "slice_input": "main_shell.stl",
+  "slice_input_sha256": "b79fbe369adf0eee17ebb6e636018a1280e69f567f06774ead13fabbadaf2203",
+  "microphone_support_blocker_count": 0,
+  "microphone_checks": {},
+  "speaker_support_blocker_count": 0,
+  "speaker_grille_checks": {},
+  "speaker_support_enforcer_count": 0,
   "printer_profile": "Prusa MK3S 0.4 nozzle",
   "filament_profile": "Generic PLA @Prusa",
   "nozzle_mm": 0.4,
@@ -9,8 +16,11 @@
   "wall_generator": "classic",
   "support_type": "normal(auto)",
   "support_threshold_angle_deg": 45,
+  "support_interface_top_layers": null,
+  "support_interface_spacing_mm": null,
+  "support_object_xy_distance_mm": null,
   "support_top_gap_mm": 0.2,
-  "support_extrusion_volume_mm3": 1796.957442207807,
+  "support_extrusion_volume_mm3": 5278.525145986888,
   "baseline_only": false,
   "plate_alignment": {
     "rotation_deg": 90,
@@ -18,13 +28,13 @@
       167.64051818847656,
       105.0
     ],
-    "section_alignment_score": 0.9706293706293706,
+    "section_alignment_score": 0.9450643776824035,
     "bbox_center_alignment": false,
     "bbox_dimension_error_mm": 0.0
   },
   "brim_width_mm": 5,
   "object_layer_count": 64,
-  "support_layer_count": 40,
+  "support_layer_count": 39,
   "top_shortfall_mm": 1.9073486257070726e-07,
   "warning_message": "",
   "physical_print_verified": false,
@@ -43,14 +53,14 @@
     },
     "module_arm_0": {
       "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_coverage": 0.997590993629052,
+      "maximum_missing_edge_run_mm": 0.118007284376354,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
+      "boundary_transition_layers": 17,
+      "tapered_edge_length_mm": 10.306074602358908,
+      "minimum_full_contour_coverage": 0.9842636716640595
     },
     "module_seat_1": {
       "layer_count": 9,
@@ -126,8 +136,8 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 1,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 16.17530679588836,
-      "minimum_full_contour_coverage": 0.963187393730822
+      "tapered_edge_length_mm": 16.175306795888407,
+      "minimum_full_contour_coverage": 0.9631216950340861
     },
     "nut_pocket_1": {
       "layer_count": 49,
@@ -137,64 +147,93 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 1,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 16.175306795888364,
-      "minimum_full_contour_coverage": 0.963187393730822
+      "tapered_edge_length_mm": 16.175306795888403,
+      "minimum_full_contour_coverage": 0.9631216950340861
     },
-    "locator_socket_0": {
-      "layer_count": 47,
-      "minimum_coverage": 0.9998468848839064,
-      "maximum_missing_edge_run_mm": 0.005620410040570789,
-      "minimum_crossing_count": 4,
-      "crossing_probe_count": 13,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
+    "cross_pin_0": {
+      "layer_count": 19,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 1,
+      "boundary_transition_layers": 0,
       "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 0.9998468848839064
+      "minimum_full_contour_coverage": 1.0
     },
-    "locator_socket_90": {
-      "layer_count": 47,
-      "minimum_coverage": 0.9998460746536624,
-      "maximum_missing_edge_run_mm": 0.0056204100405778945,
-      "minimum_crossing_count": 4,
-      "crossing_probe_count": 13,
+    "pin_post_0_-1": {
+      "layer_count": 64,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
+      "boundary_transition_layers": 0,
       "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 0.9998460746536624
+      "minimum_full_contour_coverage": 1.0
     },
-    "locator_socket_180": {
-      "layer_count": 47,
-      "minimum_coverage": 0.9998467422258888,
-      "maximum_missing_edge_run_mm": 0.005620410040570789,
-      "minimum_crossing_count": 4,
-      "crossing_probe_count": 13,
+    "pin_post_0_1": {
+      "layer_count": 64,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 1.5923936731451795,
+      "minimum_full_contour_coverage": 0.9869310602307245
+    },
+    "cross_pin_1": {
+      "layer_count": 19,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 1,
+      "boundary_transition_layers": 0,
       "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 0.9998467422258888
+      "minimum_full_contour_coverage": 1.0
+    },
+    "pin_post_1_-1": {
+      "layer_count": 64,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 0,
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 1.59239369969772,
+      "minimum_full_contour_coverage": 0.9869310596232714
+    },
+    "pin_post_1_1": {
+      "layer_count": 64,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 0,
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 0.0,
+      "minimum_full_contour_coverage": 1.0
     }
   },
   "feature_failures": [],
   "unsupported_wall_runs": [
     {
       "z_mm": 9.2,
-      "unsupported_wall_run_mm": 1.4189649949799634
-    },
-    {
-      "z_mm": 4.4,
-      "unsupported_wall_run_mm": 1.069559097255655
+      "unsupported_wall_run_mm": 3.326758126321255
     },
     {
       "z_mm": 8.2,
-      "unsupported_wall_run_mm": 0.567555555555556
-    },
-    {
-      "z_mm": 5.8,
-      "unsupported_wall_run_mm": 0.48015043938796137
+      "unsupported_wall_run_mm": 1.8129999999999882
     },
     {
       "z_mm": 0.4,
-      "unsupported_wall_run_mm": 0.4339999999999975
+      "unsupported_wall_run_mm": 1.1936502801745954
+    },
+    {
+      "z_mm": 5.8,
+      "unsupported_wall_run_mm": 0.5581019421017736
     }
   ],
   "feature_validation_passed": true,

@@ -72,10 +72,25 @@ def main():
         head_clearance_checks.append(True)
     slot_volumes=[]
     for a in (0,90,180):
-        probe=locator(a,LOCATOR_BACK_INNER_R,53.1-FIT_SIDE_CLEARANCE,8+2*FIT_SIDE_CLEARANCE,23.5,25.5)
+        probe=locator(a,52,54,6,14,16.5)
         actual=frame.common(probe).Volume
-        assert actual>=probe.Volume*0.999,'定位槽背部加强区不足'
+        assert actual>=probe.Volume*0.999,'前部承力环不连续'
         slot_volumes.append(actual)
+    hook_sections=[]
+    for a in HOOK_ANGLES:
+        x=HOOK_RADIUS*math.cos(math.radians(a))
+        pin=Part.makeCylinder(1.85,9.8,pt(x-4.9,HOOK_AXIS_S,HOOK_AXIS_N),X)
+        assert frame.common(pin).Volume>=pin.Volume*.999,'一体横销缺失'
+        root=box(x-4.8,x+4.8,HOOK_AXIS_S+1,50,26.4,29.2)
+        assert rear.common(root).Volume>=root.Volume*.999,'挂钩承力根缺失'
+        spans=[]
+        for offset in (-1.9,-1.5,-1,-.5,0):
+            line=Part.makeLine(pt(x,HOOK_AXIS_S+offset,17.3),pt(x,HOOK_AXIS_S+offset,22))
+            span=rear.common(line).Length
+            assert span>=2,'挂钩入口承力前翼过薄'
+            spans.append(span)
+        hook_sections.append({'pin_probe_mm3':pin.Volume,'root_probe_mm3':root.Volume,
+                              'retaining_tip_section_spans_mm':spans})
     seat_volumes=[]
     locator_volumes=[]
     nut_wall_spans=[]
@@ -100,7 +115,7 @@ def main():
             span=rear.common(line).Length
             assert span>=line.Length*0.999,'喇叭螺母袋承力壁不连续'
             nut_wall_spans.append(span)
-    print('加固截面通过',len(boss_spans),'固定座截线',len(slot_volumes),'槽背',len(seat_volumes),'承托面',flush=True)
+    print('加固截面通过',len(boss_spans),'固定座截线',len(slot_volumes),'前环',len(seat_volumes),'承托面',flush=True)
     tie_open=Part.makeBox(3.8,1.8,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,16.1))
     tie_bridge=Part.makeBox(3.8,1.8,1.8,App.Vector(21.1,TIE_FRONT_Y+0.1,22.1))
     assert rear.common(tie_open).Volume<0.001,'扎带穿入口被堵塞'
@@ -108,8 +123,8 @@ def main():
     report={'radial_wall_audit':wall_report,'carrier_rear_bed_contact_area_mm2':bed_area,
             'stl_sha256':{name:hashlib.sha256(Path(OUT,name+'.stl').read_bytes()).hexdigest() for name in ('main_shell','rear_cover')},
             'reinforcement_sections':{'module_seat_probe_volumes_mm3':boss_spans,'module_head_bearing_areas_mm2':bearing_areas,
-                'locator_back_thickness_mm':53.1-FIT_SIDE_CLEARANCE-LOCATOR_BACK_INNER_R,
-                'locator_back_probe_volumes_mm3':slot_volumes,'speaker_base_probe_volumes_mm3':seat_volumes,
+                'front_ring_radial_wall_mm':FRAME_R-51.9,
+                'front_ring_probe_volumes_mm3':slot_volumes,'speaker_base_probe_volumes_mm3':seat_volumes,
                 'speaker_seat_shoulder_mm':SPEAKER_NUT_FRONT_N-SPEAKER_SEAT_N,
                 'note':'截面连续性检查，不是有限元、极限载荷或实物强度试验。'},
             'speaker_mount_part':'rear_cover','speaker_locator_probe_volumes_mm3':locator_volumes,
@@ -118,7 +133,7 @@ def main():
             'cable_tie_opening_clear':True,'cable_tie_bridge_probe_mm3':rear.common(tie_bridge).Volume,
             'method':'从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。',
             'limitations':'离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌和锁盖座未纳入此壁厚统计。',
-            'physical_fit_verified':False}
+            'hook_sections':hook_sections,'physical_fit_verified':False}
     with open(os.path.join(OUT,'fit_validation.json'),'w',encoding='utf-8') as f:
         json.dump(report,f,ensure_ascii=False,indent=2)
     print('承托架后侧落床面积',bed_area,flush=True)

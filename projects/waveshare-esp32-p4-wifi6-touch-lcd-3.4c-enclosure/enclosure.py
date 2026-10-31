@@ -196,6 +196,89 @@ FRAME_BACK_N = 26.0
 BOLT_POINTS = [(-22.0,-38.0),(22.0,-38.0)]
 BOLT_SEAT_N = 35.0
 SEAM_CLEARANCE = 0.25
+HOOK_ANGLES = (70.0,110.0)
+HOOK_RADIUS = 49.5
+HOOK_AXIS_S = HOOK_RADIUS*math.sin(math.radians(HOOK_ANGLES[0]))
+HOOK_AXIS_N = 24.0
+HOOK_WIDTH = 10.0
+HOOK_ROOT_T = 3.0
+HOOK_PIN_R = 2.0
+HOOK_CLEARANCE = 0.30
+HOOK_OPEN_ANGLE = 18.0
+
+
+def upper_hook_shape(x):
+    """下开口刚性钩，圆弧导槽绕前口上缘退出，不靠弹片变形。"""
+    center=pt(x-HOOK_WIDTH/2,HOOK_AXIS_S,HOOK_AXIS_N)
+    inner=HOOK_PIN_R+HOOK_CLEARANCE;outer=inner+HOOK_ROOT_T
+    tube=Part.makeCylinder(outer,HOOK_WIDTH,center,X).cut(
+        Part.makeCylinder(inner,HOOK_WIDTH,center,X))
+    bottom=tube.common(box(x-5,x+5,HOOK_AXIS_S,HOOK_AXIS_S+outer+.1,18,31))
+    wings=fuse([box(x-5,x+5,HOOK_AXIS_S-2,HOOK_AXIS_S,HOOK_AXIS_N-outer,HOOK_AXIS_N-inner),
+                box(x-5,x+5,HOOK_AXIS_S-2,HOOK_AXIS_S,HOOK_AXIS_N+inner,HOOK_AXIS_N+outer)])
+    root=box(x-5,x+5,HOOK_AXIS_S,56,HOOK_AXIS_N+inner,HOOK_AXIS_N+outer)
+    back=box(x-8.3,x+8.3,HOOK_AXIS_S-5,HOOK_AXIS_S-.5,27,30.3)
+    stops=fuse([box(x+sign*6.8-1.5,x+sign*6.8+1.5,
+                    HOOK_AXIS_S-5,HOOK_AXIS_S-1,26,29.5) for sign in (-1,1)])
+    # 圆弧导槽会削薄入口前翼，向前补一条渐变筋，保留不少于 2 mm 的实体。
+    front_rib=face([pt(x-5,HOOK_AXIS_S-2,17.3),pt(x-5,HOOK_AXIS_S+2,18.7),
+                    pt(x-5,HOOK_AXIS_S+2,21.7),pt(x-5,HOOK_AXIS_S-2,21.7)]).extrude(X*10)
+    hook=fuse([bottom,wings,root,back,stops,front_rib]).common(cyl(OUTER_R,6.3,110))
+    # 横销相对后盖沿圆弧退出；用精确圆弧槽保证整个转动过程的间隙。
+    ds=HOOK_AXIS_S-OUTER_R;dn=HOOK_AXIS_N-MOUTH_N
+    radius=math.hypot(ds,dn);start=math.atan2(dn,ds);end=start+math.radians(HOOK_OPEN_ANGLE)
+    def q(r,a):return pt(x-5.1,OUTER_R+r*math.cos(a),MOUTH_N+r*math.sin(a))
+    ri=radius-inner;ro=radius+inner;middle=(start+end)/2
+    edges=[Part.Arc(q(ro,start),q(ro,middle),q(ro,end)).toShape(),
+           Part.makeLine(q(ro,end),q(ri,end)),
+           Part.Arc(q(ri,end),q(ri,middle),q(ri,start)).toShape(),
+           Part.makeLine(q(ri,start),q(ro,start))]
+    slot=Part.Face(Part.Wire(edges)).extrude(X*10.2)
+    for a in (start,end):slot=slot.fuse(Part.makeCylinder(inner,10.2,q(radius,a),X))
+    return hook.cut(slot)
+
+
+def hook_pose(shape,angle=0,release=0,pull=0):
+    moved=shape.copy()
+    moved.rotate(pt(0,OUTER_R,MOUTH_N),X,angle)
+    a=math.radians(angle)
+    moved.translate(-(S*math.cos(a)+N*math.sin(a))*release-N*pull)
+    return moved
+
+
+def add_upper_hooks(frame,rear):
+    """将框架与后盖改为上缘双钩配合，移除旧直插舌。"""
+    # 原直插舌和内侧止挡会妨碍转动，改由两钩下方止挡承压。
+    rear=rear.cut(locator(90,51.5,54.7,16.6,22.9,29.6))
+    for a in (0,180):
+        rear=rear.cut(locator(a,51.5,54.7,16.6,22.9,29.6))
+    # 后圈缩短，给整圈前口翻开时让路；模块安装筋和下侧螺母座保留。
+    frame=frame.cut(cyl(60,17,27).cut(cyl(51.5,16.9,27.1)))
+    hooks=[];pins=[]
+    for angle in HOOK_ANGLES:
+        x=HOOK_RADIUS*math.cos(math.radians(angle))
+        hook=upper_hook_shape(x)
+        pocket=box(x-5.3,x+5.3,HOOK_AXIS_S-6.3,60,18.4,31)
+        frame=frame.cut(pocket)
+        posts=fuse([box(x+sign*6.8-1.5,x+sign*6.8+1.5,
+                       HOOK_AXIS_S-5,56,16.8,26) for sign in (-1,1)]+
+                   [box(x+sign*6.8-1.5,x+sign*6.8+1.5,49,56,13.2,17)
+                    for sign in (-1,1)]).common(cyl(FRAME_R,13,26))
+        pin=Part.makeCylinder(HOOK_PIN_R,16.6,pt(x-8.3,HOOK_AXIS_S,HOOK_AXIS_N),X)
+        frame=frame.fuse(posts).fuse(pin)
+        rear=rear.fuse(hook)
+        hooks.append(hook);pins.append(pin)
+    return finish_hook_frame(frame),rear.removeSplitter(),hooks,pins
+
+
+def finish_hook_frame(frame):
+    """消除销底与落床面的相切退化；0.1 mm 削平仍能在首层切出销体。"""
+    for angle in HOOK_ANGLES:
+        x=HOOK_RADIUS*math.cos(math.radians(angle))
+        frame=frame.cut(box(x-5.3,x+5.3,HOOK_AXIS_S-2.1,HOOK_AXIS_S+2.1,25.9,26.1))
+    result=frame.removeSplitter()
+    assert result.isValid() and len(result.Solids)==1,'横销落床面整理失败'
+    return result
 
 
 def radial_wedge(x, s, r0, r1, front_outer, back, width):
@@ -206,6 +289,89 @@ def radial_wedge(x, s, r0, r1, front_outer, back, width):
         return pt(0,0,n)+u*r-v*width/2
     front_inner = front_outer+r1-r0
     return face([q(r0,front_inner),q(r1,front_outer),q(r1,back),q(r0,back)]).extrude(v*width)
+
+
+def verify_hook_motion(frame,rear,speaker,hardware,module,module_heads):
+    """精确扫掠覆盖连续行程，退化面以中点距离和最大位移界证明。"""
+    pivot=pt(0,OUTER_R,MOUTH_N)
+    moving=rear.copy()
+    # 四个承压垫闭合时允许接触；其整个运动的 n 下界单独解析验证。
+    for a in HOOK_ANGLES:
+        x=HOOK_RADIUS*math.cos(math.radians(a))
+        for sign in (-1,1):
+            moving=moving.cut(box(x+sign*6.8-1.5,x+sign*6.8+1.5,
+                                  HOOK_AXIS_S-5,HOOK_AXIS_S-1,26,29.5))
+    assert (OUTER_R-(HOOK_AXIS_S-1))*math.cos(math.radians(HOOK_OPEN_ANGLE)) > \
+        (29.5-MOUTH_N)*math.sin(math.radians(HOOK_OPEN_ANGLE)), '止挡翻开时未离开承压面'
+    moving=Part.makeCompound([moving,speaker,Part.makeCompound(hardware)])
+    # 曲面包围盒会过估边界，直接用越界半空间的精确交集证明。
+    assert moving.common(box(-150,150,OUTER_R+.001,200,-100,200)).Volume<.00001,'转轴上方有实体'
+    assert moving.common(box(-150,150,-200,200,-100,MOUTH_N-.001)).Volume<.00001,'前口前方有实体'
+    # n≥28 的部分在 18°时仍有 n≥26.93，整个转动/后拉过程都离开固定件 n≤26。
+    assert MOUTH_N+(28-MOUTH_N)*math.cos(math.radians(HOOK_OPEN_ANGLE))>26.9
+    moving=moving.common(box(-150,150,-150,150,MOUTH_N-.001,28))
+    # 被省略的小元件全部受半径 53 mm 的实心包络保护，绝不按名称屏蔽实体。
+    candidates=[];front_count=0;inner_count=0;module_max_n=0
+    for solid in module.Solids:
+        local=solid.copy();local.translate(-P);local.rotate(App.Vector(),X,-TILT_DEG)
+        b=local.BoundBox;module_max_n=max(module_max_n,-b.ZMin)
+        if -b.ZMin<MOUTH_N-.0001:
+            front_count+=1;continue
+        radius=max(math.hypot(x,s) for x in (b.XMin,b.XMax) for s in (b.YMin,b.YMax))
+        if radius<53:
+            inner_count+=1;continue
+        candidates.append(solid.common(box(-100,100,-100,100,MOUTH_N-.001,26)))
+    assert module_max_n<26 and all(-(v.Point-P).dot(N)<=26.001 for v in frame.Vertexes)
+    fixed=Part.makeCompound([frame]+module_heads+candidates+[cyl(53,MOUTH_N,module_max_n)])
+    print('连续装拆检查：精确模块候选',len(candidates),'前方/内部包络',front_count,inner_count,flush=True)
+    certified=[];samples=0
+    assert moving.common(fixed).Volume<.00001,'连续路径起点重叠'
+    far=App.Vector(1000,1000,1000)
+    def record(phase,index,lo,hi,method):
+        certified.append({'phase':phase,'face':index,'from':lo,'to':hi,'method':method})
+        if len(certified)%25==0:print('连续装拆包络已证明',len(certified),flush=True)
+    def interval(face,index,lo,hi,rotation,depth=0):
+        nonlocal samples
+        phase='rotate' if rotation else 'pull'
+        beginning=hook_pose(face,lo if rotation else HOOK_OPEN_ANGLE,0,0 if rotation else lo)
+        swept=beginning.revolve(pivot,X,hi-lo) if rotation else beginning.extrude(-N*(hi-lo))
+        # 面的精确旋转或拉伸扫掠覆盖连续边界；外向须修正，不能误用无限补集。
+        if swept.isValid() and abs(swept.Volume)>1e-5:
+            if swept.isInside(far,.000001,False):swept.reverse()
+            assert not swept.isInside(far,.000001,False),'扫掠体外向异常'
+            intersection=swept.common(fixed)
+            if intersection.Volume<.000001 and intersection.Area<.000001 and intersection.Length<.000001:
+                record(phase,index,lo,hi,'exact_boundary_sweep');return
+        # 退化扫掠或布尔未能证明无交集时，再用该面的严格连续距离界证明。
+        middle=(lo+hi)/2
+        pose=hook_pose(face,middle if rotation else HOOK_OPEN_ANGLE,0,0 if rotation else middle)
+        b=face.BoundBox
+        radius=max((App.Vector(x,y,z)-pivot).Length for x in (b.XMin,b.XMax)
+                   for y in (b.YMin,b.YMax) for z in (b.ZMin,b.ZMax))
+        bound=2*radius*math.sin(math.radians(hi-lo)/4) if rotation else (hi-lo)/2
+        distance=pose.distToShape(fixed)[0];samples+=1
+        if distance>bound+.00001:
+            record(phase,index,lo,hi,'face_distance_bound');return
+        assert depth<18,'连续装拆包络碰撞或净距不足：'+str((index,lo,hi))
+        middle=(lo+hi)/2
+        interval(face,index,lo,middle,rotation,depth+1)
+        interval(face,index,middle,hi,rotation,depth+1)
+    for index,face in enumerate(moving.Faces):
+        interval(face,index,0,HOOK_OPEN_ANGLE,True)
+        interval(face,index,0,64,False)
+    retention=[]
+    for a in HOOK_ANGLES:
+        x=HOOK_RADIUS*math.cos(math.radians(a))
+        pin=Part.makeCylinder(HOOK_PIN_R,16.6,pt(x-8.3,HOOK_AXIS_S,HOOK_AXIS_N),X)
+        pin=pin.common(box(x-8.4,x+8.4,HOOK_AXIS_S-2.1,HOOK_AXIS_S+2.1,21.9,25.9))
+        volumes=[hook_pose(rear,0,0,t).common(pin).Volume for t in (1,2)]
+        assert min(volumes)>1,'上侧未形成刚性防脱'
+        retention.append(volumes)
+    return {'continuous_path_certified':True,'angle_deg':HOOK_OPEN_ANGLE,'pull_mm':64,
+            'intervals':certified,'distance_evaluations':samples,'retention_overlap_at_1_2_mm':retention,
+            'module_exact_candidates':len(candidates),'module_front_envelope_count':front_count,
+            'module_inner_envelope_count':inner_count,'physical_fit_verified':False,
+            'method':'逐面精确旋转/平移扫掠；切向退化面采用中点距离和最大位移界；接触垫单调离开承压面。'}
 
 
 def locator(angle, r0, r1, width, n0, n1):
@@ -281,15 +447,15 @@ def write_print_features(microphone=None,grille=None):
         add('speaker_nut_'+str(i),'rear_cover',[x-SPEAKER_BOSS_R-0.1,x+SPEAKER_BOSS_R+0.1,
             s-SPEAKER_BOSS_R-0.1,s+SPEAKER_BOSS_R+0.1,
             SPEAKER_NUT_FRONT_N+0.05,SPEAKER_BOSS_BACK_N-0.05])
-    for a in (0,90,180):
-        c,s=math.cos(math.radians(a)),math.sin(math.radians(a))
-        points=[(r*c-t*s,r*s+t*c) for r,t in [(50.8,-8.2),(57.1,-8.2),(57.1,8.2),(50.8,8.2)]]
-        xy=[min(p[0] for p in points),max(p[0] for p in points),min(p[1] for p in points),max(p[1] for p in points)]
-        add('locator_socket_'+str(a),'main_shell',xy+[16.7,26.01],cross={'kind':'slot','angle':a})
-        tongue_points=[(r*c-t*s,r*s+t*c) for r,t in [(52.1,-4),(56.2,-4),(56.2,4),(52.1,4)]]
-        tongue_xy=[min(p[0] for p in tongue_points),max(p[0] for p in tongue_points),
-                   min(p[1] for p in tongue_points),max(p[1] for p in tongue_points)]
-        add('locator_tongue_'+str(a),'rear_cover',tongue_xy+[23.1,29.4])
+    for i,a in enumerate(HOOK_ANGLES):
+        x=HOOK_RADIUS*math.cos(math.radians(a))
+        add('upper_hook_'+str(i),'rear_cover',[x-5,x+5,HOOK_AXIS_S-2,HOOK_AXIS_S+5.3,17.3,29.3])
+        add('retaining_tip_'+str(i),'rear_cover',[x-4.9,x+4.9,HOOK_AXIS_S-1.9,HOOK_AXIS_S-.1,17.4,21.6])
+        add('hook_root_'+str(i),'rear_cover',[x-5,x+5,HOOK_AXIS_S,54,26.3,29.3])
+        add('cross_pin_'+str(i),'main_shell',[x-5,x+5,HOOK_AXIS_S-2,HOOK_AXIS_S+2,22,26])
+        for sign in (-1,1):
+            add('pin_post_'+str(i)+'_'+str(sign),'main_shell',
+                [x+sign*6.8-1.5,x+sign*6.8+1.5,HOOK_AXIS_S-5,53,13.2,26])
     for index,hole in enumerate((grille or {}).get('holes',[])):
         x,z=hole['center_x_z_mm']
         add('grille_hole_'+str(index),'rear_cover',[x-2.5,x+2.5,
@@ -566,6 +732,7 @@ def main():
     rear=rear.common(Part.makeBox(300,300,top_z+1,App.Vector(-150,-100,-1))).removeSplitter()
     # 顶部收平后，把与前口相交的薄楔整个退后，避免留下不足 1.2 mm 的唇边。
     rear=rear.cut(box(-20,20,0,60,MOUTH_N,MOUTH_N+TOP_MOUTH_RELIEF)).removeSplitter()
+    main_shell,rear,upper_hooks,upper_pins=add_upper_hooks(main_shell,rear)
     rear,grille_bores,grille_report=speaker_grille(rear,cavity)
     rear,mic_bores,mic_report=microphone_intake(rear,cavity)
     for hole,bore in zip(mic_report['holes'],mic_bores):
@@ -596,8 +763,8 @@ def main():
     m3_shafts=[cyl(1.5,19,35,x,s) for x,s in BOLT_POINTS]
     nuts=[hex_prism(x,s,21.1,23.5,5.5).cut(cyl(1.5,21,24,x,s)) for x,s in BOLT_POINTS]
     plug=box(-18.9,-5.9,29.2,44.2,7.5,16.5)
-    wire=cable_envelope([pt(-12.4,44.2,12),pt(-12.4,48,18),pt(-12.4,48,45),
-                         pt(-12.4,35,50),App.Vector(0,65,24),App.Vector(0,100,24)])
+    wire=cable_envelope([pt(-12.4,44.2,12),pt(-12.4,38,18),pt(0,38,22),pt(0,38,45),
+                         pt(0,35,50),App.Vector(0,65,24),App.Vector(0,100,24)])
     print('完成两件几何，开始快速验证',flush=True)
     checks={}
     for name,shape in shapes.items():
@@ -616,13 +783,16 @@ def main():
         c=solid.CenterOfMass-P
         print('两壳局部干涉',solid.Volume,(c.dot(X),c.dot(S),-c.dot(N)),flush=True)
     assert collision.Volume<0.02,'两壳干涉'
-    # 用 0.02 mm 虚拟压入测量三处止挡的实际接触面积，不能只统计名义台阶。
+    # 用 0.02 mm 虚拟压入测量四处止挡的实际接触面积。
     forward=rear.copy();forward.translate(N*0.02)
     stop_areas=[]
-    for a in (0,90,180):
-        area=main_shell.common(forward).common(locator(a,51.8,56.5,16,25.9,26.1)).Volume/0.02
-        assert area>12,'止挡接触不足'
-        stop_areas.append(area)
+    for a in HOOK_ANGLES:
+        x=HOOK_RADIUS*math.cos(math.radians(a))
+        for sign in (-1,1):
+            pad=box(x+sign*6.8-1.5,x+sign*6.8+1.5,HOOK_AXIS_S-5,HOOK_AXIS_S-1,25.9,26.1)
+            area=main_shell.common(forward).common(pad).Volume/0.02
+            assert area>10,'挂钩止挡接触不足'
+            stop_areas.append(area)
     washers=[]
     speaker_hardware=[]
     ear_contacts=[]
@@ -668,17 +838,19 @@ def main():
             moved=nut.copy();moved.translate(S*distance)
             assert main_shell.common(moved).Volume<0.02,'螺母装入路径'
     travel_checks=[]
-    for travel in (0,0.5,1,2,4,8,16,24,32,48,64):
-        moved=rear.copy();moved.translate(-N*travel)
-        moving_speaker=speaker.copy();moving_speaker.translate(-N*travel)
-        moving_hardware=Part.makeCompound(speaker_hardware);moving_hardware.translate(-N*travel)
+    poses=[(a,0) for a in (0,1,2,4,6,8,10,12,15,HOOK_OPEN_ANGLE)]
+    poses += [(HOOK_OPEN_ANGLE,t) for t in (1,2,4,8,16,32,64)]
+    for angle,travel in poses:
+        moved=hook_pose(rear,angle,0,travel)
+        moving_speaker=hook_pose(speaker,angle,0,travel)
+        moving_hardware=hook_pose(Part.makeCompound(speaker_hardware),angle,0,travel)
         fixed=Part.makeCompound([main_shell]+module_heads)
         overlaps={'cover_to_frame':moved.common(fixed).Volume,
                   'speaker_to_frame':moving_speaker.common(fixed).Volume,
                   'speaker_hardware_to_frame':moving_hardware.common(fixed).Volume}
-        print('合盖',travel,overlaps,flush=True)
+        print('合盖',angle,travel,overlaps,flush=True)
         assert max(overlaps.values())<0.02,'合盖行程干涉'
-        travel_checks.append({'travel_mm':travel,'overlaps_mm3':overlaps})
+        travel_checks.append({'angle_deg':angle,'travel_mm':travel,'overlaps_mm3':overlaps})
     ring_passed=sum(rear.isInside(App.Vector(45.5*math.cos(i*math.pi/36),
                   25+39.5*math.sin(i*math.pi/36),0.1),0.01,False) for i in range(72))
     assert ring_passed==72,'完整底环'
@@ -743,6 +915,7 @@ def main():
         print('完整模块干涉',name,total,flush=True)
         assert total<0.02,name+'碰模块'
         checks[name]['module_overlap_mm3']=total
+    hook_motion=verify_hook_motion(main_shell,rear,speaker,speaker_hardware,module,module_heads)
     masses=[(center(module),220),(center(speaker),100)]+[(center(v),v.Volume*0.00127) for v in shapes.values()]
     mass=sum(m for _,m in masses)
     com=sum((c*m for c,m in masses),App.Vector())/mass
@@ -785,8 +958,9 @@ def main():
     fit_dir=os.environ.get('P4_FIT_DIR',os.path.join(ROOT,'archive','fit_samples'));os.makedirs(fit_dir,exist_ok=True)
     sample=main_shell.common(box(12,31,-49,-28,19,30))
     mesh_write(sample,os.path.join(fit_dir,'nut_pocket.stl'),printing=True)
-    for name,shape in [('locator_tongue',rear),('locator_socket',main_shell)]:
-        sample=shape.common(box(51,58,-8,8,22,32))
+    hook_x=HOOK_RADIUS*math.cos(math.radians(HOOK_ANGLES[0]))
+    for name,shape in [('upper_hook',rear),('upper_hook_socket',main_shell)]:
+        sample=shape.common(box(hook_x-9,hook_x+9,HOOK_AXIS_S-6,57,13,32))
         mesh_write(sample,os.path.join(fit_dir,name+'.stl'),printing=True)
     mesh_write(rear.common(box(38,58,10,27,SPEAKER_SEAT_N-2,SPEAKER_BOSS_BACK_N+2)),
                os.path.join(fit_dir,'speaker_mount.stl'),printing=True)
@@ -800,8 +974,8 @@ def main():
              'parts':checks,'step_solids':2,'front_projection_radius_mm':max_radius,
              'front_occlusion_margin_mm':MODULE_R-max_radius,'bottom_ring_passed':ring_passed,
              'bottom_ring_width_nominal_mm':5,'bottom_plate_min_mm':2,
-             'seam_clearance_mm':FIT_TIP_CLEARANCE,'locator_engagement_mm':3,'locator_side_clearance_mm':FIT_SIDE_CLEARANCE,
-             'axial_stop_pads':3,
+             'seam_clearance_mm':HOOK_CLEARANCE,'locator_engagement_mm':None,'locator_side_clearance_mm':None,
+             'axial_stop_pads':4,
              'axial_stop_contact_areas_mm2':stop_areas,'speaker_ear_bearing_areas_mm2':ear_contacts,
              'rear_screw':'2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4',
              'nut_retaining_shoulder_mm':2.4,
@@ -836,7 +1010,7 @@ def main():
              'nut_insertion_travel_mm':[0,1,2,4,6,8,10],
              'cable_reference_diameter_mm':3.5,'cable_bend_radius_verified':False,
              'bottom_ring_width_samples':288,
-             'assembly_travel':travel_checks,'cavity_cm3':cavity.Volume/1000,
+             'assembly_travel':travel_checks,'upper_hooks':hook_motion,'cavity_cm3':cavity.Volume/1000,
              'estimated_module_mass_g':220,'estimated_speaker_mass_g':100,
              'estimated_total_mass_g':mass,'estimated_tip_angle_deg':tip,
              'speaker_actual_ear_thickness_mm':SPEAKER_EAR_T,

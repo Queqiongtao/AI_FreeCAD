@@ -6,20 +6,20 @@
     "main_shell": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 12441.679580586317,
+      "volume_mm3": 8032.8395245422635,
       "speaker_overlap_mm3": 0.0,
       "module_overlap_mm3": 0.0,
       "mesh_closed": true,
-      "steep_overhang_mm2": 684.8939863435875
+      "steep_overhang_mm2": 1259.8069326634823
     },
     "rear_cover": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 80354.85374377001,
+      "volume_mm3": 81296.08515591532,
       "speaker_overlap_mm3": 0.0,
       "module_overlap_mm3": 0.0,
       "mesh_closed": true,
-      "steep_overhang_mm2": 2360.381005567575
+      "steep_overhang_mm2": 2762.6681465660954
     }
   },
   "step_solids": 2,
@@ -29,19 +29,20 @@
   "bottom_ring_width_nominal_mm": 5,
   "bottom_plate_min_mm": 2,
   "seam_clearance_mm": 0.3,
-  "locator_engagement_mm": 3,
-  "locator_side_clearance_mm": 0.3,
-  "axial_stop_pads": 3,
+  "locator_engagement_mm": null,
+  "locator_side_clearance_mm": null,
+  "axial_stop_pads": 4,
   "axial_stop_contact_areas_mm2": [
-    15.817080112973303,
-    15.817080113280785,
-    15.817080112973814
+    11.999999999991644,
+    11.999999999992658,
+    11.999999999989685,
+    11.99999999999399
   ],
   "speaker_ear_bearing_areas_mm2": [
-    35.34291735289003,
-    35.34291735288955,
-    35.34291735289002,
-    35.34291735288955
+    35.34291735289005,
+    35.342917352889394,
+    35.34291735289005,
+    35.342917352889394
   ],
   "rear_screw": "2 × M3×16 内六角圆柱头，M3 六角螺母对边 5.5、厚 2.4",
   "nut_retaining_shoulder_mm": 2.4,
@@ -76,10 +77,10 @@
   ],
   "module_retained_solids": 1161,
   "module_head_bearing_areas_mm2": [
-    10.744246875276705,
-    10.744246875276636,
-    10.744246875276636,
-    10.744246875276371
+    10.744246875276609,
+    10.744246875276614,
+    10.744246875276614,
+    10.74424687527636
   ],
   "module_head_clearance_diameter_mm": 5.3,
   "front_hidden_required": true,
@@ -158,6 +159,7 @@
   "bottom_ring_width_samples": 288,
   "assembly_travel": [
     {
+      "angle_deg": 0,
       "travel_mm": 0,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -166,7 +168,8 @@
       }
     },
     {
-      "travel_mm": 0.5,
+      "angle_deg": 1,
+      "travel_mm": 0,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
         "speaker_to_frame": 0.0,
@@ -174,6 +177,79 @@
       }
     },
     {
+      "angle_deg": 2,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 4,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 6,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 8,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 10,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 12,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 15,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 18.0,
+      "travel_mm": 0,
+      "overlaps_mm3": {
+        "cover_to_frame": 0.0,
+        "speaker_to_frame": 0.0,
+        "speaker_hardware_to_frame": 0.0
+      }
+    },
+    {
+      "angle_deg": 18.0,
       "travel_mm": 1,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -182,6 +258,7 @@
       }
     },
     {
+      "angle_deg": 18.0,
       "travel_mm": 2,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -190,6 +267,7 @@
       }
     },
     {
+      "angle_deg": 18.0,
       "travel_mm": 4,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -198,6 +276,7 @@
       }
     },
     {
+      "angle_deg": 18.0,
       "travel_mm": 8,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -206,6 +285,7 @@
       }
     },
     {
+      "angle_deg": 18.0,
       "travel_mm": 16,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -214,14 +294,7 @@
       }
     },
     {
-      "travel_mm": 24,
-      "overlaps_mm3": {
-        "cover_to_frame": 0.0,
-        "speaker_to_frame": 0.0,
-        "speaker_hardware_to_frame": 0.0
-      }
-    },
-    {
+      "angle_deg": 18.0,
       "travel_mm": 32,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -230,14 +303,7 @@
       }
     },
     {
-      "travel_mm": 48,
-      "overlaps_mm3": {
-        "cover_to_frame": 0.0,
-        "speaker_to_frame": 0.0,
-        "speaker_hardware_to_frame": 0.0
-      }
-    },
-    {
+      "angle_deg": 18.0,
       "travel_mm": 64,
       "overlaps_mm3": {
         "cover_to_frame": 0.0,
@@ -246,11 +312,6288 @@
       }
     }
   ],
-  "cavity_cm3": 526.0315558892031,
+  "upper_hooks": {
+    "continuous_path_certified": true,
+    "angle_deg": 18.0,
+    "pull_mm": 64,
+    "intervals": [
+      {
+        "phase": "rotate",
+        "face": 0,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 0,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 1,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 1,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 2,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 2,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 3,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 3,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 4,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 4,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 5,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 5,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 6,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 6,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 7,
+        "from": 0,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 7,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 0,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 4.0,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 5.0,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 6.0,
+        "to": 7.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 7.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 8.0,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 9.0,
+        "to": 10.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 10.0,
+        "to": 12.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 12.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 16.0,
+        "to": 20.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 20.0,
+        "to": 24.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 24.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 7,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 8,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 8,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 9,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 9,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 10,
+        "from": 0,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 10,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 0,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 4.0,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 5.0,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 6.0,
+        "to": 7.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 7.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 8.0,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 9.0,
+        "to": 10.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 10.0,
+        "to": 12.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 12.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 16.0,
+        "to": 20.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 20.0,
+        "to": 24.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 24.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 10,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 11,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 11,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 12,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 12,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 13,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 13,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 14,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 14,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 15,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 15,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 16,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 16,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 17,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 17,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 18,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 18,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 19,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 19,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 20,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 20,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 21,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 21,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 22,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 22,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 22,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 22,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 23,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 23,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 24,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 24,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 25,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 25,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 26,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 26,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 0,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 0.5625,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 1.125,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 1.6875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 2.25,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 2.8125,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 3.375,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 3.9375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 4.5,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 5.0625,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 6.75,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 7.875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 9.0,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 10.125,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 11.25,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 12.375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 13.5,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 14.625,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 27,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 27,
+        "from": 0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 27,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 27,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 27,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 0,
+        "to": 0.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 0.28125,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 0.5625,
+        "to": 0.84375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 0.84375,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 1.125,
+        "to": 1.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 1.40625,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 1.6875,
+        "to": 1.96875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 1.96875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 2.25,
+        "to": 2.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 2.53125,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 2.8125,
+        "to": 3.09375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 3.09375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 3.375,
+        "to": 3.65625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 3.65625,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 3.9375,
+        "to": 4.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 4.21875,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 4.5,
+        "to": 4.78125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 4.78125,
+        "to": 4.921875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 4.921875,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.0625,
+        "to": 5.203125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.203125,
+        "to": 5.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.34375,
+        "to": 5.484375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.484375,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.625,
+        "to": 5.765625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.765625,
+        "to": 5.90625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 5.90625,
+        "to": 6.046875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.046875,
+        "to": 6.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.1875,
+        "to": 6.328125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.328125,
+        "to": 6.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.46875,
+        "to": 6.609375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.609375,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.75,
+        "to": 6.890625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 6.890625,
+        "to": 7.03125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.03125,
+        "to": 7.171875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.171875,
+        "to": 7.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.3125,
+        "to": 7.453125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.453125,
+        "to": 7.59375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.59375,
+        "to": 7.734375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.734375,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 7.875,
+        "to": 8.015625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 8.015625,
+        "to": 8.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 8.15625,
+        "to": 8.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 8.4375,
+        "to": 8.71875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 8.71875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 9.0,
+        "to": 9.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 9.28125,
+        "to": 9.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 9.5625,
+        "to": 9.84375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 9.84375,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 10.125,
+        "to": 10.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 10.40625,
+        "to": 10.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 10.6875,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 11.25,
+        "to": 11.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 11.8125,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 12.375,
+        "to": 12.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 12.9375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 13.5,
+        "to": 14.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 14.0625,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 14.625,
+        "to": 15.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 15.1875,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 28,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 28,
+        "from": 0,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 28,
+        "from": 4.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 28,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 28,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 28,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 0,
+        "to": 0.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 0.28125,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 0.5625,
+        "to": 0.84375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 0.84375,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 1.125,
+        "to": 1.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 1.40625,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 1.6875,
+        "to": 1.96875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 1.96875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 2.25,
+        "to": 2.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 2.53125,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 2.8125,
+        "to": 3.09375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 3.09375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 3.375,
+        "to": 3.65625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 3.65625,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 3.9375,
+        "to": 4.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 4.21875,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 4.5,
+        "to": 4.78125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 4.78125,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.0625,
+        "to": 5.203125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.203125,
+        "to": 5.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.34375,
+        "to": 5.484375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.484375,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.625,
+        "to": 5.765625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.765625,
+        "to": 5.90625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 5.90625,
+        "to": 6.046875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.046875,
+        "to": 6.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.1875,
+        "to": 6.328125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.328125,
+        "to": 6.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.46875,
+        "to": 6.609375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.609375,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.75,
+        "to": 6.890625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 6.890625,
+        "to": 7.03125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.03125,
+        "to": 7.171875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.171875,
+        "to": 7.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.3125,
+        "to": 7.453125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.453125,
+        "to": 7.59375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.59375,
+        "to": 7.734375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.734375,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 7.875,
+        "to": 8.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 8.15625,
+        "to": 8.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 8.4375,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 9.0,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 11.25,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 29,
+        "from": 13.5,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 29,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 30,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 30,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 31,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 31,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 32,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 32,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 33,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 33,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 34,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 34,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 35,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 35,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 36,
+        "from": 0,
+        "to": 9.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 36,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 36,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 37,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 37,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 38,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 38,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 39,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 39,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 0,
+        "to": 0.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 0.28125,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 0.5625,
+        "to": 0.84375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 0.84375,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 1.125,
+        "to": 1.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 1.40625,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 1.6875,
+        "to": 1.96875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 1.96875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 2.25,
+        "to": 2.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 2.53125,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 2.8125,
+        "to": 3.09375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 3.09375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 3.375,
+        "to": 3.65625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 3.65625,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 3.9375,
+        "to": 4.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 4.21875,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 4.5,
+        "to": 4.78125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 4.78125,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.0625,
+        "to": 5.203125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.203125,
+        "to": 5.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.34375,
+        "to": 5.484375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.484375,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.625,
+        "to": 5.765625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.765625,
+        "to": 5.90625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 5.90625,
+        "to": 6.046875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.046875,
+        "to": 6.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.1875,
+        "to": 6.328125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.328125,
+        "to": 6.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.46875,
+        "to": 6.609375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.609375,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.75,
+        "to": 6.890625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 6.890625,
+        "to": 7.03125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.03125,
+        "to": 7.171875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.171875,
+        "to": 7.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.3125,
+        "to": 7.453125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.453125,
+        "to": 7.59375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.59375,
+        "to": 7.734375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.734375,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 7.875,
+        "to": 8.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 8.15625,
+        "to": 8.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 8.4375,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 9.0,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 11.25,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 40,
+        "from": 13.5,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 40,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 0,
+        "to": 0.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 0.28125,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 0.5625,
+        "to": 0.84375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 0.84375,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 1.125,
+        "to": 1.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 1.40625,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 1.6875,
+        "to": 1.96875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 1.96875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 2.25,
+        "to": 2.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 2.53125,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 2.8125,
+        "to": 3.09375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 3.09375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 3.375,
+        "to": 3.65625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 3.65625,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 3.9375,
+        "to": 4.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 4.21875,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 4.5,
+        "to": 4.78125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 4.78125,
+        "to": 4.921875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 4.921875,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.0625,
+        "to": 5.203125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.203125,
+        "to": 5.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.34375,
+        "to": 5.484375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.484375,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.625,
+        "to": 5.765625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.765625,
+        "to": 5.90625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 5.90625,
+        "to": 6.046875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.046875,
+        "to": 6.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.1875,
+        "to": 6.328125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.328125,
+        "to": 6.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.46875,
+        "to": 6.609375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.609375,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.75,
+        "to": 6.890625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 6.890625,
+        "to": 7.03125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.03125,
+        "to": 7.171875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.171875,
+        "to": 7.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.3125,
+        "to": 7.453125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.453125,
+        "to": 7.59375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.59375,
+        "to": 7.734375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.734375,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 7.875,
+        "to": 8.015625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 8.015625,
+        "to": 8.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 8.15625,
+        "to": 8.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 8.4375,
+        "to": 8.71875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 8.71875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 9.0,
+        "to": 9.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 9.28125,
+        "to": 9.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 9.5625,
+        "to": 9.84375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 9.84375,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 10.125,
+        "to": 10.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 10.40625,
+        "to": 10.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 10.6875,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 11.25,
+        "to": 11.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 11.8125,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 12.375,
+        "to": 12.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 12.9375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 13.5,
+        "to": 14.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 14.0625,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 14.625,
+        "to": 15.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 15.1875,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 41,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 41,
+        "from": 0,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 41,
+        "from": 4.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 41,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 41,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 41,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 0,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 0.5625,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 1.125,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 1.6875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 2.25,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 2.8125,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 3.375,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 3.9375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 4.5,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 5.0625,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 6.75,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 7.875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 9.0,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 10.125,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 11.25,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 12.375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 13.5,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 14.625,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 42,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 42,
+        "from": 0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 42,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 42,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 42,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 43,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 43,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 44,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 44,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 45,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 45,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 46,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 46,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 47,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 47,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 48,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 48,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 49,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 49,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 50,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 50,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 51,
+        "from": 0,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 51,
+        "from": 2.25,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 51,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 51,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 51,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 52,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 52,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 0,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 0.5625,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 1.125,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 1.6875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 2.25,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 2.8125,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 3.375,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 3.9375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 4.5,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 5.0625,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 5.625,
+        "to": 6.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 6.1875,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 6.75,
+        "to": 7.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 7.3125,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 7.875,
+        "to": 8.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 8.4375,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 9.0,
+        "to": 9.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 9.5625,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 10.125,
+        "to": 10.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 10.6875,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 11.25,
+        "to": 11.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 11.8125,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 12.375,
+        "to": 12.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 12.9375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 13.5,
+        "to": 14.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 14.0625,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 14.625,
+        "to": 15.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 15.1875,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 15.75,
+        "to": 16.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 16.3125,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 16.875,
+        "to": 17.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 53,
+        "from": 17.4375,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 2.0,
+        "to": 2.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 2.5,
+        "to": 2.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 2.75,
+        "to": 2.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 2.875,
+        "to": 2.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 2.9375,
+        "to": 3.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.0,
+        "to": 3.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.0625,
+        "to": 3.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.125,
+        "to": 3.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.15625,
+        "to": 3.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.1875,
+        "to": 3.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.21875,
+        "to": 3.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.25,
+        "to": 3.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.28125,
+        "to": 3.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.3125,
+        "to": 3.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.34375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.375,
+        "to": 3.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.40625,
+        "to": 3.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.4375,
+        "to": 3.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.46875,
+        "to": 3.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.5,
+        "to": 3.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.53125,
+        "to": 3.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.5625,
+        "to": 3.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.625,
+        "to": 3.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.6875,
+        "to": 3.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.75,
+        "to": 3.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 3.875,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 4.0,
+        "to": 4.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 4.25,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 4.5,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 5.0,
+        "to": 5.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 5.5,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 6.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 53,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 54,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 54,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 55,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 55,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 55,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 55,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 56,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 56,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 57,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 57,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 57,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 57,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 58,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 58,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 59,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 59,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 59,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 59,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 60,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 60,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 61,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 61,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 61,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 61,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 62,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 62,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 0,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 1.125,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 2.25,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 3.375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 4.5,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 6.75,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 7.875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 9.0,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 10.125,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 11.25,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 12.375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 13.5,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 14.625,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 63,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 2.0,
+        "to": 2.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 2.5,
+        "to": 2.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 2.75,
+        "to": 2.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 2.875,
+        "to": 2.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 2.9375,
+        "to": 3.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.0,
+        "to": 3.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.0625,
+        "to": 3.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.125,
+        "to": 3.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.15625,
+        "to": 3.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.1875,
+        "to": 3.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.21875,
+        "to": 3.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.25,
+        "to": 3.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.28125,
+        "to": 3.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.3125,
+        "to": 3.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.34375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.375,
+        "to": 3.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.40625,
+        "to": 3.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.4375,
+        "to": 3.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.46875,
+        "to": 3.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.5,
+        "to": 3.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.53125,
+        "to": 3.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.5625,
+        "to": 3.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.625,
+        "to": 3.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.6875,
+        "to": 3.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.75,
+        "to": 3.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 3.875,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 4.0,
+        "to": 4.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 4.25,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 4.5,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 5.0,
+        "to": 5.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 5.5,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 6.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 63,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 64,
+        "from": 0,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 64,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 64,
+        "from": 0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 64,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 64,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 64,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 65,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 65,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 66,
+        "from": 0,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 66,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 66,
+        "from": 0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 66,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 66,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 66,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 0,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 1.125,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 2.25,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 3.375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 4.5,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 6.75,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 7.875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 9.0,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 10.125,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 11.25,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 12.375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 13.5,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 14.625,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 67,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 2.0,
+        "to": 2.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 2.5,
+        "to": 2.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 2.75,
+        "to": 2.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 2.875,
+        "to": 2.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 2.9375,
+        "to": 3.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.0,
+        "to": 3.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.0625,
+        "to": 3.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.125,
+        "to": 3.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.15625,
+        "to": 3.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.1875,
+        "to": 3.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.21875,
+        "to": 3.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.25,
+        "to": 3.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.28125,
+        "to": 3.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.3125,
+        "to": 3.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.34375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.375,
+        "to": 3.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.40625,
+        "to": 3.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.4375,
+        "to": 3.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.46875,
+        "to": 3.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.5,
+        "to": 3.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.53125,
+        "to": 3.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.5625,
+        "to": 3.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.625,
+        "to": 3.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.6875,
+        "to": 3.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.75,
+        "to": 3.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 3.875,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 4.0,
+        "to": 4.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 4.25,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 4.5,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 5.0,
+        "to": 5.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 5.5,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 6.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 67,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 68,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 68,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 69,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 69,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 69,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 69,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 70,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 70,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 71,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 71,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 71,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 71,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 72,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 72,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 73,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 73,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 73,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 73,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 74,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 74,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 75,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 75,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 75,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 75,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 76,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 76,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 0,
+        "to": 0.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 0.5625,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 1.125,
+        "to": 1.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 1.6875,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 2.25,
+        "to": 2.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 2.8125,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 3.375,
+        "to": 3.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 3.9375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 4.5,
+        "to": 5.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 5.0625,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 5.625,
+        "to": 6.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 6.1875,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 6.75,
+        "to": 7.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 7.3125,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 7.875,
+        "to": 8.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 8.4375,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 9.0,
+        "to": 9.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 9.5625,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 10.125,
+        "to": 10.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 10.6875,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 11.25,
+        "to": 11.8125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 11.8125,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 12.375,
+        "to": 12.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 12.9375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 13.5,
+        "to": 14.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 14.0625,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 14.625,
+        "to": 15.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 15.1875,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 15.75,
+        "to": 16.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 16.3125,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 16.875,
+        "to": 17.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 77,
+        "from": 17.4375,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 2.0,
+        "to": 2.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 2.5,
+        "to": 2.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 2.75,
+        "to": 2.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 2.875,
+        "to": 2.9375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 2.9375,
+        "to": 3.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.0,
+        "to": 3.0625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.0625,
+        "to": 3.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.125,
+        "to": 3.15625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.15625,
+        "to": 3.1875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.1875,
+        "to": 3.21875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.21875,
+        "to": 3.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.25,
+        "to": 3.28125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.28125,
+        "to": 3.3125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.3125,
+        "to": 3.34375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.34375,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.375,
+        "to": 3.40625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.40625,
+        "to": 3.4375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.4375,
+        "to": 3.46875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.46875,
+        "to": 3.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.5,
+        "to": 3.53125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.53125,
+        "to": 3.5625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.5625,
+        "to": 3.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.625,
+        "to": 3.6875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.6875,
+        "to": 3.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.75,
+        "to": 3.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 3.875,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 4.0,
+        "to": 4.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 4.25,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 4.5,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 5.0,
+        "to": 5.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 5.5,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 6.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 77,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 78,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 78,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 79,
+        "from": 0,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 79,
+        "from": 2.25,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 79,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 79,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 79,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 80,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 80,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 81,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 2.0,
+        "to": 2.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 2.5,
+        "to": 3.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 3.0,
+        "to": 3.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 3.5,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 4.0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 4.5,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 5.0,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 6.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 81,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 82,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 82,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 83,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 83,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 84,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 84,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 85,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 85,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 86,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 86,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 87,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 2.0,
+        "to": 2.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 2.5,
+        "to": 3.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 3.0,
+        "to": 3.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 3.5,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 4.0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 4.5,
+        "to": 5.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 5.0,
+        "to": 6.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 6.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 87,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 88,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 88,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 89,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 89,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 90,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 90,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 91,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 91,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 92,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 92,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 93,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 93,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 94,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 2.0,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 4.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 94,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 0,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 1.125,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 2.25,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 3.375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 4.5,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 6.75,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 7.875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 9.0,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 10.125,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 11.25,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 12.375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 13.5,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 14.625,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 95,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 95,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 96,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 96,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 97,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 97,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 98,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 98,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 99,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 99,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 100,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 100,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 101,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 101,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 102,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 0,
+        "to": 0.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 0.5,
+        "to": 1.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 1.0,
+        "to": 1.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 1.5,
+        "to": 2.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 2.0,
+        "to": 4.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 4.0,
+        "to": 8.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 8.0,
+        "to": 16.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 16.0,
+        "to": 32.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 102,
+        "from": 32.0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 0,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 1.125,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 2.25,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 3.375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 4.5,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 6.75,
+        "to": 7.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 7.875,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 9.0,
+        "to": 10.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 10.125,
+        "to": 11.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 11.25,
+        "to": 12.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 12.375,
+        "to": 13.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 13.5,
+        "to": 14.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 14.625,
+        "to": 15.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 15.75,
+        "to": 16.875,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 103,
+        "from": 16.875,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 103,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 104,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 104,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 105,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 105,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 106,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 106,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 107,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 107,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 108,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 108,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 109,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 109,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 110,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 110,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 111,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 111,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 112,
+        "from": 0,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 112,
+        "from": 4.5,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 112,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 112,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 113,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 113,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 114,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 114,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 115,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 115,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 116,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 116,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 117,
+        "from": 0,
+        "to": 18.0,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "pull",
+        "face": 117,
+        "from": 0,
+        "to": 64,
+        "method": "exact_boundary_sweep"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 0,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 1.125,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 2.25,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 3.375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 4.5,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 6.75,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 118,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 118,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 0,
+        "to": 1.125,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 1.125,
+        "to": 2.25,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 2.25,
+        "to": 3.375,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 3.375,
+        "to": 4.5,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 4.5,
+        "to": 5.625,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 5.625,
+        "to": 6.75,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 6.75,
+        "to": 9.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "rotate",
+        "face": 119,
+        "from": 9.0,
+        "to": 18.0,
+        "method": "face_distance_bound"
+      },
+      {
+        "phase": "pull",
+        "face": 119,
+        "from": 0,
+        "to": 64,
+        "method": "face_distance_bound"
+      }
+    ],
+    "distance_evaluations": 1368,
+    "retention_overlap_at_1_2_mm": [
+      [
+        10.718694438819133,
+        37.978492265891134
+      ],
+      [
+        10.718694438819137,
+        37.97849226589114
+      ]
+    ],
+    "module_exact_candidates": 3,
+    "module_front_envelope_count": 0,
+    "module_inner_envelope_count": 1158,
+    "physical_fit_verified": false,
+    "method": "逐面精确旋转/平移扫掠；切向退化面采用中点距离和最大位移界；接触垫单调离开承压面。",
+    "fixed_frame_conservative_superset": true,
+    "proof_frame_volume_mm3": 8034.615586681859,
+    "actual_frame_volume_mm3": 8032.8395245422635
+  },
+  "cavity_cm3": 526.0315558892028,
   "estimated_module_mass_g": 220,
   "estimated_speaker_mass_g": 100,
-  "estimated_total_mass_g": 437.85159732193256,
-  "estimated_tip_angle_deg": 35.11663322450727,
+  "estimated_total_mass_g": 433.4477343441812,
+  "estimated_tip_angle_deg": 35.18850193291565,
   "speaker_actual_ear_thickness_mm": 2.0,
   "speaker_actual_ear_center_offset_mm": 10.5,
   "speaker_mount_location": "后盖独立四支座，拆盖时喇叭随盖移动",
@@ -391,7 +6734,7 @@
           -6.527484499446978
         ],
         "bore_length_mm": 9.154984656993717,
-        "removed_mm3": 13.624719479257273,
+        "removed_mm3": 13.624719477595146,
         "exit_connects_cavity": true,
         "obstacles_overlap_mm3": {
           "carrier": 0.0,
@@ -715,7 +7058,7 @@
           -6.527487028855598
         ],
         "bore_length_mm": 9.154982127856046,
-        "removed_mm3": 13.62477456377058,
+        "removed_mm3": 13.62477456839881,
         "exit_connects_cavity": true,
         "obstacles_overlap_mm3": {
           "carrier": 0.0,
@@ -24763,6 +31106,40 @@
       0
     ],
     "nominal_open_area_mm2": 522.7610175573417,
+    "support_enforcers": [
+      [
+        -52.0,
+        -38.0,
+        11.075979019017696,
+        17.075979019017694,
+        20.30026451935802,
+        23.500264519358023
+      ],
+      [
+        -52.0,
+        -38.0,
+        38.6535789713009,
+        44.6535789713009,
+        43.44061846807343,
+        46.640618468073434
+      ],
+      [
+        38.0,
+        52.0,
+        11.075979019017696,
+        17.075979019017694,
+        20.30026451935802,
+        23.500264519358023
+      ],
+      [
+        38.0,
+        52.0,
+        38.6535789713009,
+        44.6535789713009,
+        43.44061846807343,
+        46.640618468073434
+      ]
+    ],
     "holes": [
       {
         "center_x_z_mm": [
@@ -26206,7 +32583,7 @@
         "inner_y_mm": 65.94818151275605,
         "outer_y_mm": 73.92926363003943,
         "bore_length_mm": 8.581082117283373,
-        "removed_mm3": 31.445584019594918,
+        "removed_mm3": 31.44558401498694,
         "exit_connects_cavity": true,
         "exterior_exit_clear": true,
         "obstacles_overlap_mm3": {
@@ -26261,7 +32638,7 @@
         "inner_y_mm": 71.22130660943833,
         "outer_y_mm": 76.77531216971857,
         "bore_length_mm": 6.15400556028024,
-        "removed_mm3": 25.684524127700268,
+        "removed_mm3": 25.68452413030931,
         "exit_connects_cavity": true,
         "exterior_exit_clear": true,
         "obstacles_overlap_mm3": {
@@ -26811,7 +33188,7 @@
         "inner_y_mm": 71.22132517871026,
         "outer_y_mm": 76.77532095696414,
         "bore_length_mm": 6.153995778253872,
-        "removed_mm3": 25.68448209786781,
+        "removed_mm3": 25.68448210120357,
         "exit_connects_cavity": true,
         "exterior_exit_clear": true,
         "obstacles_overlap_mm3": {
@@ -26866,7 +33243,7 @@
         "inner_y_mm": 65.94820115144225,
         "outer_y_mm": 73.92926363021067,
         "bore_length_mm": 8.581062478768416,
-        "removed_mm3": 31.447320939204232,
+        "removed_mm3": 31.447320939823385,
         "exit_connects_cavity": true,
         "exterior_exit_clear": true,
         "obstacles_overlap_mm3": {
@@ -27031,7 +33408,7 @@
         "inner_y_mm": 70.51774629655301,
         "outer_y_mm": 76.7852714221914,
         "bore_length_mm": 6.86752512563838,
-        "removed_mm3": 26.948279145978972,
+        "removed_mm3": 26.948279164447175,
         "exit_connects_cavity": true,
         "exterior_exit_clear": true,
         "obstacles_overlap_mm3": {
@@ -27471,7 +33848,7 @@
         "inner_y_mm": 70.51772168636629,
         "outer_y_mm": 76.78526334771905,
         "bore_length_mm": 6.86754166135276,
-        "removed_mm3": 26.94882552266624,
+        "removed_mm3": 26.9488255136783,
         "exit_connects_cavity": true,
         "exterior_exit_clear": true,
         "obstacles_overlap_mm3": {
@@ -46285,6 +52662,14 @@
         {
           "layer_z_mm": 47.4,
           "point_mm": [
+            31.603128057732864,
+            69.93873239082646,
+            47.3
+          ]
+        },
+        {
+          "layer_z_mm": 47.4,
+          "point_mm": [
             35.59687194226713,
             69.93873239082646,
             47.3
@@ -58773,7 +65158,7 @@
           74.29378547747882,
           36.3
         ],
-        "inside_original_wall": true
+        "inside_original_wall": false
       },
       {
         "hole": 1,
@@ -152748,41 +159133,7 @@
     ],
     "physical_audio_verified": false,
     "speaker_radiating_face_verified": false,
-    "note": "后壁共腔出音，原长槽从建模源取消；实际发声面朝向及声学效果须装机核对",
-    "support_enforcers": [
-      [
-        -52.0,
-        -38.0,
-        11.075979019017696,
-        17.075979019017694,
-        20.30026451935802,
-        23.500264519358023
-      ],
-      [
-        -52.0,
-        -38.0,
-        38.6535789713009,
-        44.6535789713009,
-        43.44061846807343,
-        46.640618468073434
-      ],
-      [
-        38.0,
-        52.0,
-        11.075979019017696,
-        17.075979019017694,
-        20.30026451935802,
-        23.500264519358023
-      ],
-      [
-        38.0,
-        52.0,
-        38.6535789713009,
-        44.6535789713009,
-        43.44061846807343,
-        46.640618468073434
-      ]
-    ]
+    "note": "后壁共腔出音，原长槽从建模源取消；实际发声面朝向及声学效果须装机核对"
   },
   "physical_fit_verified": false
 }
