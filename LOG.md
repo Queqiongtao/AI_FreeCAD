@@ -4,6 +4,13 @@
 
 ## 2026-11-01
 
+### S3 / P4：材质配色与爆炸演示视频
+- 新增共用离线渲染器 `shared/explode_render/`：`export_meshes.py` 用 `freecadcmd` 从两个 FCStd 导出装配位姿网格（P4 约 54.7 万三角面、S3 约 3.86 万），`pipeline.py` 用 FreeCAD 自带 Python 的 VTK 9.3 离屏渲染，Pillow 合成渐变背景与接触阴影，ffmpeg 编码。全程不操作 FreeCAD GUI，避免重复此前的 GUI 线程死锁。
+- 材质统一为“工业极简”：暖白外壳 `#DAD7D2`、石墨承托架 `#474C52`、拉丝钢紧固件 `#B9BDC3`、橙色泡棉胶 `#D19333`、近黑屏幕 `#1C2025`；颜色只在渲染时生效，不写回 FCStd，参考体不计入打印件。
+- 两个项目各新增 `explode.py`：按装配法线错峰展开并原路装回，10 秒 300 帧、1920×1080、30 fps，首尾同机位；相机按真实顶点透视取景并限制拉远倍数。新增 `--mode export/all`，导出参数（源 FCStd、偏差、覆写、对象清单）固化在配置里；`ffmpeg` 按 `EXPLODE_FFMPEG`→`PATH`→常见路径查找，`freecadcmd` 从解释器同目录自动定位。重放说明见 `shared/explode_render/README.md`。
+- 产物：两个项目各出 `output/preview_exploded.png`（入库，替换旧爆炸预览）以及 `output/exploded_view.mp4`、`output/exploded_view.gif`（可重放，按路径加入 `.gitignore`，本地保留）。根 `README.md` 增加渲染器文档链接，`AGENT.md` 补 `shared/` 约定并注明视频不入库。
+- 校验：`--mode all` 端到端复跑通过；ffprobe 核对 1920×1080 / 30 fps / 300 帧 / 10.0 s；首尾帧逐像素一致（可循环）；逐秒抽帧无越界。渲染耗时 P4 约 120 s、S3 约 110 s。提交：待提交，未推送。待办：如需改配色，调 `palette.py` 后重跑；视频需本地生成。
+
 ### P4 后盖增加板上Type-C直插开口
 
 - 按用户要求只修改后盖，在板上Type-C插拔方向对应壳壁增加20×14 mm通道、R2内角及0.5 mm外入口导角；沿局部+s方向（世界坐标0/cos40°/sin40°），中心x=-12.4、n=12 mm，与后盖前口连通，保留原背部20×12 mm出线孔。开口尺寸及位置参数化，不增加打印部件。

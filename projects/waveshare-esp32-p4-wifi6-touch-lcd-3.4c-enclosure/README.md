@@ -38,6 +38,18 @@
 
 ![喇叭贴胶示意](output/preview_speaker_tape.png)
 
+## 爆炸图与演示视频
+
+![爆炸装配](output/preview_exploded.png)
+
+视频与动图由渲染器按需生成本地文件，**不入库**：`output/exploded_view.mp4`（1920×1080 / 30 fps / 10 s）与 `output/exploded_view.gif`（960×540 / 15 fps）。生成方法见 [shared/explode_render/README.md](../../shared/explode_render/README.md)，在仓库根目录执行：
+
+```powershell
+& "D:\Program\FreeCAD 1.1\bin\python.exe" projects\waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure\explode.py --mode all
+```
+
+从 `enclosure.FCStd` 读取装配位姿，按装配法线错峰展开开发板、M2.5 螺丝、承托架、喇叭、胶层、后盖与 M3 锁紧件，再原路装回。材质为渲染时配色（暖白后盖、石墨承托架、拉丝钢紧固件、橙色胶层、近黑屏幕），不写回 FCStd，参考体不计入打印件数量。
+
 ## 后背出音与拾音
 
 出音孔为左右镜像两组、每组9个，共 **18个 Ø3.2 mm** 斜圆孔。局部x/s中心距5.6 mm，名义净筋2.4 mm；三排s=7.2、12.8、18.4 mm，分别只保留 |x|≥39.2、33.6、11.2 mm 的孔，最大 |x|=39.2 mm。由此形成两组渐变排列，中央留空。所有孔轴为世界坐标 `(0, sin40°, -cos40°)`，与喇叭发声面法线一致，孔口在后下过渡弧面。孔数服从完整底板、声路和胶台避让，不沿用原65孔布局。

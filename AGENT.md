@@ -15,14 +15,16 @@
 - 每个项目自包含：
   - `README.md`：项目说明
   - `<name>.py`：唯一参数化源文件
+  - `explode.py`：爆炸图配置（可选）
   - `output/`：STL / STEP / FCStd / 预览
   - `reference/`：项目相关板子图、PDF、DWG
   - `archive/`：旧版本，本地保留，Git 忽略
-- 根目录只放 `README.md`、`AGENT.md`、`LOG.md`、`.gitignore`、`.gitattributes`、`projects/`。
+- 根目录只放 `README.md`、`AGENT.md`、`LOG.md`、`.gitignore`、`.gitattributes`、`projects/`；两个项目真正共用的代码放 `shared/`。
 - 每个项目的参考文件放在自己的 `reference/`，不要放根目录。
 - 不建版本文件夹；`output/` 固定文件名，重跑覆盖。
 - `archive/` 不要删除，除非用户明确要求。
-- 两个项目真正共用的代码/资料才放根目录 `shared/`；目前不需要。
+- 两个项目真正共用的代码/资料才放根目录 `shared/`；目前只有爆炸图渲染器 `shared/explode_render/`，重放方法见其中的 `README.md`。
+- 爆炸图视频、动图属于可重放产物，不提交；静帧预览图按 `output/` 固定文件名重跑覆盖。
 
 ### 输出文件用途
 
@@ -97,5 +99,6 @@
 - 当前项目：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/`
 - 当前源文件：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/enclosure.py`
 - 当前输出：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/output/`
+- 共用渲染器：`shared/explode_render/`，重放说明见 `shared/explode_render/README.md`
 - Git 作者：`queqt <467500670@qq.com>`
 - LFS：暂未启用

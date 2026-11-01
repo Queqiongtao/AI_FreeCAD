@@ -11,3 +11,10 @@ __pycache__/
 # P4 原始资料已复制并校验至项目 reference，根目录副本仅在本地保留。
 /ESP32-P4-WIFI6-TOUCH-LCD-3_4C.pdf
 /ESP32-P4-WIFI6-TOUCH-LCD-3_4C.stp
+
+# 爆炸图视频：可重放的固定产物，本地保留，不入库。
+/projects/*/output/exploded_view.mp4
+/projects/*/output/exploded_view.gif
+
+# 切片软件导出的残留结果。
+/result.json

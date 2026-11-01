@@ -49,6 +49,18 @@
 ![接线空间](output/preview_installation.png)
 ![底部工具入口](output/preview_bottom.png)
 
+## 爆炸图与演示视频
+
+![爆炸装配](output/preview_exploded.png)
+
+视频与动图由渲染器按需生成本地文件，**不入库**：`output/exploded_view.mp4`（1920×1080 / 30 fps / 10 s）与 `output/exploded_view.gif`（960×540 / 15 fps）。生成方法见 [shared/explode_render/README.md](../../shared/explode_render/README.md)，在仓库根目录执行：
+
+```powershell
+& "D:\Program\FreeCAD 1.1\bin\python.exe" projects\esp32-pebble-stand\explode.py --mode all
+```
+
+从 `stand.FCStd` 读取装配位姿，按装配法线错峰展开开发板、电池、承托架、喇叭、胶层、后壳与锁紧螺丝，再原路装回。材质为渲染时配色（暖白外壳、石墨内部、拉丝钢紧固件、橙色胶层、近黑振膜），不写回 FCStd，参考体不计入打印件数量。
+
 ## 电池与扬声器安装
 
 扬声器总外形 **30×20×7 mm**，长边横向，30×20 mm 面出音，20 mm 短边侧出线。电池保留 36×26×8 mm、R3 的参考占位，不新建专用电池仓；电池固定面及胶层未建模，安装方式仍需实物确认。

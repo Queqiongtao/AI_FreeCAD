@@ -15,6 +15,7 @@
 
 - [AGENT.md](AGENT.md) — AI/协作者工作约定
 - [LOG.md](LOG.md) — 工作日志
+- [shared/explode_render/README.md](shared/explode_render/README.md) — 爆炸图渲染器与重放方法
 
 ## 目录约定
 
@@ -25,14 +26,19 @@
 ├─ LOG.md                        # 工作日志
 ├─ .gitignore
 ├─ .gitattributes
+├─ shared/                       # 两个项目共用的代码
+│  └─ explode_render/            # 爆炸图渲染器（含 README）
 └─ projects/
    └─ <project-slug>/
       ├─ README.md               # 项目自己的说明
       ├─ <name>.py               # 唯一参数化源文件
+      ├─ explode.py              # 爆炸图配置（可选）
       ├─ output/                 # STL / STEP / FCStd / 预览
       ├─ reference/              # 项目相关板子图、PDF、DWG
       └─ archive/                # 旧版本，本地保留，Git 忽略
 ```
+
+- 爆炸视频/动图可重放，不入库；`exploded_view.mp4`、`exploded_view.gif` 已在 `.gitignore` 里按路径排除。
 
 - 项目文件夹用小写短横线：`esp32-pebble-stand`、`desk-organizer`。
 - 文件名不带版本号；版本差异用 Git commit / tag。
