@@ -235,200 +235,90 @@
       "contact_annulus": null
     },
     {
-      "name": "speaker_locator_0",
+      "name": "speaker_long_pad_-1_0",
       "part": "rear_cover",
       "bounds": [
-        -47.9,
-        -42.1,
-        -20.9,
-        -15.1,
-        31.95,
-        33.45
+        -38.0,
+        -4.0,
+        -22.2,
+        -20.2,
+        44.55,
+        46.45
       ],
       "space": "local",
       "cross": null,
-      "contact_annulus": [
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_long_pad_-1_1",
+      "part": "rear_cover",
+      "bounds": [
+        4.0,
+        38.0,
+        -22.2,
+        -20.2,
+        44.55,
+        46.45
+      ],
+      "space": "local",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "speaker_short_pad_-1",
+      "part": "rear_cover",
+      "bounds": [
         -45.0,
-        -18.0,
-        1.7,
-        2.8
-      ]
-    },
-    {
-      "name": "speaker_seat_0",
-      "part": "rear_cover",
-      "bounds": [
-        -49.6,
-        -40.4,
-        -22.6,
-        -13.4,
-        33.55,
-        35.85
+        -42.0,
+        -12.0,
+        12.0,
+        44.55,
+        46.45
       ],
       "space": "local",
       "cross": null,
       "contact_annulus": null
     },
     {
-      "name": "speaker_nut_0",
+      "name": "speaker_long_pad_1_0",
       "part": "rear_cover",
       "bounds": [
-        -51.7,
-        -38.3,
-        -24.700000000000003,
-        -11.3,
-        35.949999999999996,
-        39.050000000000004
+        -38.0,
+        -4.0,
+        20.2,
+        22.2,
+        44.55,
+        46.45
       ],
       "space": "local",
       "cross": null,
       "contact_annulus": null
     },
     {
-      "name": "speaker_locator_1",
+      "name": "speaker_long_pad_1_1",
       "part": "rear_cover",
       "bounds": [
-        -47.9,
-        -42.1,
-        15.1,
-        20.9,
-        31.95,
-        33.45
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": [
-        -45.0,
-        18.0,
-        1.7,
-        2.8
-      ]
-    },
-    {
-      "name": "speaker_seat_1",
-      "part": "rear_cover",
-      "bounds": [
-        -49.6,
-        -40.4,
-        13.4,
-        22.6,
-        33.55,
-        35.85
+        4.0,
+        38.0,
+        20.2,
+        22.2,
+        44.55,
+        46.45
       ],
       "space": "local",
       "cross": null,
       "contact_annulus": null
     },
     {
-      "name": "speaker_nut_1",
+      "name": "speaker_short_pad_1",
       "part": "rear_cover",
       "bounds": [
-        -51.7,
-        -38.3,
-        11.3,
-        24.700000000000003,
-        35.949999999999996,
-        39.050000000000004
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "speaker_locator_2",
-      "part": "rear_cover",
-      "bounds": [
-        42.1,
-        47.9,
-        -20.9,
-        -15.1,
-        31.95,
-        33.45
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": [
+        42.0,
         45.0,
-        -18.0,
-        1.7,
-        2.8
-      ]
-    },
-    {
-      "name": "speaker_seat_2",
-      "part": "rear_cover",
-      "bounds": [
-        40.4,
-        49.6,
-        -22.6,
-        -13.4,
-        33.55,
-        35.85
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "speaker_nut_2",
-      "part": "rear_cover",
-      "bounds": [
-        38.3,
-        51.7,
-        -24.700000000000003,
-        -11.3,
-        35.949999999999996,
-        39.050000000000004
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "speaker_locator_3",
-      "part": "rear_cover",
-      "bounds": [
-        42.1,
-        47.9,
-        15.1,
-        20.9,
-        31.95,
-        33.45
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": [
-        45.0,
-        18.0,
-        1.7,
-        2.8
-      ]
-    },
-    {
-      "name": "speaker_seat_3",
-      "part": "rear_cover",
-      "bounds": [
-        40.4,
-        49.6,
-        13.4,
-        22.6,
-        33.55,
-        35.85
-      ],
-      "space": "local",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "speaker_nut_3",
-      "part": "rear_cover",
-      "bounds": [
-        38.3,
-        51.7,
-        11.3,
-        24.700000000000003,
-        35.949999999999996,
-        39.050000000000004
+        -12.0,
+        12.0,
+        44.55,
+        46.45
       ],
       "space": "local",
       "cross": null,
@@ -618,12 +508,12 @@
       "name": "grille_hole_0",
       "part": "rear_cover",
       "bounds": [
-        -36.099999999999994,
-        -31.099999999999994,
-        65.14024933710041,
-        72.5100836988701,
-        33.5,
-        38.5
+        -41.3,
+        -37.099999999999994,
+        45.739118345398865,
+        57.821240939650245,
+        3.820654503588205,
+        17.16333837489729
       ],
       "space": "world",
       "cross": null,
@@ -633,12 +523,12 @@
       "name": "grille_hole_1",
       "part": "rear_cover",
       "bounds": [
-        -30.5,
-        -25.5,
-        68.69021256432545,
-        75.33740824458312,
-        33.5,
-        38.5
+        37.099999999999994,
+        41.3,
+        45.7391448950955,
+        57.82123384309967,
+        3.8206629609278444,
+        17.16330673420094
       ],
       "space": "world",
       "cross": null,
@@ -648,12 +538,12 @@
       "name": "grille_hole_2",
       "part": "rear_cover",
       "bounds": [
-        -24.9,
-        -19.9,
-        71.43099667929582,
-        77.61533420662691,
-        33.5,
-        38.5
+        -41.3,
+        -37.099999999999994,
+        48.57950398472975,
+        58.34060578094925,
+        11.913753018521309,
+        22.490352015290025
       ],
       "space": "world",
       "cross": null,
@@ -663,12 +553,12 @@
       "name": "grille_hole_3",
       "part": "rear_cover",
       "bounds": [
-        -19.299999999999997,
-        -14.299999999999997,
-        73.36241738011927,
-        79.43696241344475,
-        33.5,
-        38.5
+        -35.699999999999996,
+        -31.499999999999993,
+        51.49640868866516,
+        62.23275742888478,
+        7.275267309172666,
+        19.014120355120046
       ],
       "space": "world",
       "cross": null,
@@ -678,12 +568,12 @@
       "name": "grille_hole_4",
       "part": "rear_cover",
       "bounds": [
-        -13.7,
-        -8.7,
-        74.73022560796961,
-        80.55375356356076,
-        33.5,
-        38.5
+        31.499999999999993,
+        35.699999999999996,
+        51.49639873320944,
+        62.23273787619055,
+        7.275290611166257,
+        19.01413221957016
       ],
       "space": "world",
       "cross": null,
@@ -693,12 +583,12 @@
       "name": "grille_hole_5",
       "part": "rear_cover",
       "bounds": [
-        -8.1,
-        -3.0999999999999996,
-        75.58220182599536,
-        81.24085840617289,
-        33.5,
-        38.5
+        37.099999999999994,
+        41.3,
+        48.579496692650714,
+        58.34058708299977,
+        11.91377530186977,
+        22.4903607056514
       ],
       "space": "world",
       "cross": null,
@@ -708,12 +598,12 @@
       "name": "grille_hole_6",
       "part": "rear_cover",
       "bounds": [
-        -2.5,
-        2.5,
-        75.94598465234947,
-        81.60109631503057,
-        33.5,
-        38.5
+        -41.3,
+        -37.099999999999994,
+        51.88336259936012,
+        60.748423581561795,
+        17.756280934747327,
+        27.26502007229926
       ],
       "space": "world",
       "cross": null,
@@ -723,12 +613,12 @@
       "name": "grille_hole_7",
       "part": "rear_cover",
       "bounds": [
-        3.0999999999999996,
-        8.1,
-        75.58217254248508,
-        81.24089065753972,
-        33.5,
-        38.5
+        -35.699999999999996,
+        -31.499999999999993,
+        54.446159253596555,
+        63.178052963696395,
+        14.860761389915961,
+        24.210797952524562
       ],
       "space": "world",
       "cross": null,
@@ -738,12 +628,12 @@
       "name": "grille_hole_8",
       "part": "rear_cover",
       "bounds": [
-        8.7,
-        13.7,
-        74.7301743635977,
-        80.55374033756766,
-        33.5,
-        38.5
+        -30.1,
+        -25.9,
+        56.53843065212077,
+        65.42858481952233,
+        12.178681965487709,
+        21.717325996651216
       ],
       "space": "world",
       "cross": null,
@@ -753,12 +643,12 @@
       "name": "grille_hole_9",
       "part": "rear_cover",
       "bounds": [
-        14.299999999999997,
-        19.299999999999997,
-        73.36239879994781,
-        79.43697112366559,
-        33.5,
-        38.5
+        -24.5,
+        -20.299999999999997,
+        58.26206119119836,
+        67.65978376806451,
+        9.519642602770137,
+        19.663183109400403
       ],
       "space": "world",
       "cross": null,
@@ -768,12 +658,12 @@
       "name": "grille_hole_10",
       "part": "rear_cover",
       "bounds": [
-        19.9,
-        24.9,
-        71.43100425875788,
-        77.61535243852632,
-        33.5,
-        38.5
+        -18.9,
+        -14.699999999999998,
+        59.63897811370776,
+        69.95087881843308,
+        6.789221845518574,
+        18.02223742029606
       ],
       "space": "world",
       "cross": null,
@@ -783,12 +673,12 @@
       "name": "grille_hole_11",
       "part": "rear_cover",
       "bounds": [
-        25.5,
-        30.5,
-        68.69019546517443,
-        75.33742579301669,
-        33.5,
-        38.5
+        -13.299999999999999,
+        -9.1,
+        60.662448476953145,
+        71.72545086086396,
+        4.674369238634329,
+        16.802512937984677
       ],
       "space": "world",
       "cross": null,
@@ -798,12 +688,12 @@
       "name": "grille_hole_12",
       "part": "rear_cover",
       "bounds": [
-        31.099999999999994,
-        36.099999999999994,
-        65.14025727738367,
-        72.51004034874543,
-        33.5,
-        38.5
+        9.1,
+        13.299999999999999,
+        60.662441452657404,
+        71.72544778596448,
+        4.6743729031568435,
+        16.80252130921436
       ],
       "space": "world",
       "cross": null,
@@ -813,12 +703,12 @@
       "name": "grille_hole_13",
       "part": "rear_cover",
       "bounds": [
-        -36.099999999999994,
-        -31.099999999999994,
-        67.79829131742582,
-        74.26249115578517,
-        39.1,
-        44.1
+        14.699999999999998,
+        18.9,
+        59.63897400657252,
+        69.95086313330258,
+        6.7892405383292065,
+        18.022242314989246
       ],
       "space": "world",
       "cross": null,
@@ -828,12 +718,12 @@
       "name": "grille_hole_14",
       "part": "rear_cover",
       "bounds": [
-        -30.5,
-        -25.5,
-        71.39833874161161,
-        77.06103633685164,
-        39.1,
-        44.1
+        20.299999999999997,
+        24.5,
+        58.26208816885952,
+        67.65975473252213,
+        9.519677205982072,
+        19.663150958675796
       ],
       "space": "world",
       "cross": null,
@@ -843,12 +733,12 @@
       "name": "grille_hole_15",
       "part": "rear_cover",
       "bounds": [
-        -24.9,
-        -19.9,
-        74.18922683162926,
-        79.29275055331443,
-        39.1,
-        44.1
+        25.9,
+        30.1,
+        56.53845999173251,
+        65.428591118339,
+        12.178674458850313,
+        21.717291031063528
       ],
       "space": "world",
       "cross": null,
@@ -858,12 +748,12 @@
       "name": "grille_hole_16",
       "part": "rear_cover",
       "bounds": [
-        -19.299999999999997,
-        -14.299999999999997,
-        76.16462249821694,
-        81.04667659243302,
-        39.1,
-        44.1
+        31.499999999999993,
+        35.699999999999996,
+        54.4461497030878,
+        63.178071336356716,
+        14.860739494232021,
+        24.210809334377682
       ],
       "space": "world",
       "cross": null,
@@ -873,717 +763,12 @@
       "name": "grille_hole_17",
       "part": "rear_cover",
       "bounds": [
-        -13.7,
-        -8.7,
-        77.57604128626211,
-        82.17591364421368,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_18",
-      "part": "rear_cover",
-      "bounds": [
-        -8.1,
-        -3.0999999999999996,
-        78.45791766899465,
-        82.77133691217513,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_19",
-      "part": "rear_cover",
-      "bounds": [
-        -2.5,
-        2.5,
-        78.82825135562656,
-        83.10718109447915,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_20",
-      "part": "rear_cover",
-      "bounds": [
-        3.0999999999999996,
-        8.1,
-        78.45788792184321,
-        82.77132646934191,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_21",
-      "part": "rear_cover",
-      "bounds": [
-        8.7,
-        13.7,
-        77.5760491170884,
-        82.17592081716583,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_22",
-      "part": "rear_cover",
-      "bounds": [
-        14.299999999999997,
-        19.299999999999997,
-        76.16462065188905,
-        81.04667569108715,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_23",
-      "part": "rear_cover",
-      "bounds": [
-        19.9,
-        24.9,
-        74.18923154661192,
-        79.29275129410875,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_24",
-      "part": "rear_cover",
-      "bounds": [
-        25.5,
-        30.5,
-        71.39831881176836,
-        77.06104409347827,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_25",
-      "part": "rear_cover",
-      "bounds": [
-        31.099999999999994,
-        36.099999999999994,
-        67.79827260358303,
-        74.26249115578528,
-        39.1,
-        44.1
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_26",
-      "part": "rear_cover",
-      "bounds": [
-        -36.099999999999994,
-        -31.099999999999994,
-        65.84818151275606,
-        74.02926363003942,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_27",
-      "part": "rear_cover",
-      "bounds": [
-        -30.5,
-        -25.5,
-        71.12130660943834,
-        76.87531216971857,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_28",
-      "part": "rear_cover",
-      "bounds": [
-        -24.9,
-        -19.9,
-        74.67301525380645,
-        79.13815873474216,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_29",
-      "part": "rear_cover",
-      "bounds": [
-        -19.299999999999997,
-        -14.299999999999997,
-        76.687378907633,
-        80.92209642793544,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_30",
-      "part": "rear_cover",
-      "bounds": [
-        -13.7,
-        -8.7,
-        78.14040663215715,
-        82.05319974564985,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_31",
-      "part": "rear_cover",
-      "bounds": [
-        -8.1,
-        -3.0999999999999996,
-        79.05108531922592,
-        82.68256678897066,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_32",
-      "part": "rear_cover",
-      "bounds": [
-        -2.5,
-        2.5,
-        79.42375360654154,
-        83.03230587050069,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_33",
-      "part": "rear_cover",
-      "bounds": [
-        3.0999999999999996,
-        8.1,
-        79.05107386520612,
-        82.68256181923152,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_34",
-      "part": "rear_cover",
-      "bounds": [
-        8.7,
-        13.7,
-        78.14043380723689,
-        82.05318705641622,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_35",
-      "part": "rear_cover",
-      "bounds": [
-        14.299999999999997,
-        19.299999999999997,
-        76.6873766703306,
-        80.92208027207276,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_36",
-      "part": "rear_cover",
-      "bounds": [
-        19.9,
-        24.9,
-        74.67300324023984,
-        79.13812541544783,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_37",
-      "part": "rear_cover",
-      "bounds": [
-        25.5,
-        30.5,
-        71.12132517871026,
-        76.87532095696413,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_38",
-      "part": "rear_cover",
-      "bounds": [
-        31.099999999999994,
-        36.099999999999994,
-        65.84820115144225,
-        74.02926363021066,
-        44.7,
-        49.7
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_39",
-      "part": "rear_cover",
-      "bounds": [
-        -36.099999999999994,
-        -31.099999999999994,
-        61.14922357669569,
-        69.40494237507225,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_40",
-      "part": "rear_cover",
-      "bounds": [
-        -30.5,
-        -25.5,
-        66.42239789152411,
-        73.85613840844667,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_41",
-      "part": "rear_cover",
-      "bounds": [
-        -24.9,
-        -19.9,
-        70.41774629655302,
-        76.8852714221914,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_42",
-      "part": "rear_cover",
-      "bounds": [
-        -19.299999999999997,
-        -14.299999999999997,
-        73.36329796790865,
-        78.76165859340601,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_43",
-      "part": "rear_cover",
-      "bounds": [
-        -13.7,
-        -8.7,
-        75.35657009500582,
-        79.88350870084572,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_44",
-      "part": "rear_cover",
-      "bounds": [
-        -8.1,
-        -3.0999999999999996,
-        76.12319015962996,
-        80.59878002965735,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_45",
-      "part": "rear_cover",
-      "bounds": [
-        -2.5,
-        2.5,
-        76.12319015962996,
-        80.96243780112587,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_46",
-      "part": "rear_cover",
-      "bounds": [
-        3.0999999999999996,
-        8.1,
-        76.12319015962996,
-        80.59876189499958,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_47",
-      "part": "rear_cover",
-      "bounds": [
-        8.7,
-        13.7,
-        75.35656822382093,
-        79.88348932774693,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_48",
-      "part": "rear_cover",
-      "bounds": [
-        14.299999999999997,
-        19.299999999999997,
-        73.36327446301834,
-        78.76168091491505,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_49",
-      "part": "rear_cover",
-      "bounds": [
-        19.9,
-        24.9,
-        70.41772168636629,
-        76.88526334771905,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_50",
-      "part": "rear_cover",
-      "bounds": [
-        25.5,
-        30.5,
-        66.42236731591606,
-        73.85618427760902,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_51",
-      "part": "rear_cover",
-      "bounds": [
-        31.099999999999994,
-        36.099999999999994,
-        61.14924321684945,
-        69.40496299876527,
-        50.3,
-        55.3
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_52",
-      "part": "rear_cover",
-      "bounds": [
-        -36.099999999999994,
-        -31.099999999999994,
-        56.4502656435704,
-        64.70598444048355,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_53",
-      "part": "rear_cover",
-      "bounds": [
-        -30.5,
-        -25.5,
-        61.72343995625697,
-        69.15718047386665,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_54",
-      "part": "rear_cover",
-      "bounds": [
-        -24.9,
-        -19.9,
-        65.7187883623594,
-        72.58640097518284,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_55",
-      "part": "rear_cover",
-      "bounds": [
-        -19.299999999999997,
-        -14.299999999999997,
-        68.66431251688812,
-        74.784005598769,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_56",
-      "part": "rear_cover",
-      "bounds": [
-        -13.7,
-        -8.7,
-        70.45800145209456,
-        75.9050540458744,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_57",
-      "part": "rear_cover",
-      "bounds": [
-        -8.1,
-        -3.0999999999999996,
-        70.52319015962996,
-        76.63629693463503,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_58",
-      "part": "rear_cover",
-      "bounds": [
-        -2.5,
-        2.5,
-        70.52319015962996,
-        76.99481813498713,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_59",
-      "part": "rear_cover",
-      "bounds": [
-        3.0999999999999996,
-        8.1,
-        70.52319015962996,
-        76.63632655135422,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_60",
-      "part": "rear_cover",
-      "bounds": [
-        8.7,
-        13.7,
-        70.45797036266185,
-        75.90505122021388,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_61",
-      "part": "rear_cover",
-      "bounds": [
-        14.299999999999997,
-        19.299999999999997,
-        68.66431652842618,
-        74.78402540208002,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_62",
-      "part": "rear_cover",
-      "bounds": [
-        19.9,
-        24.9,
-        65.718763751767,
-        72.58640241675643,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_63",
-      "part": "rear_cover",
-      "bounds": [
-        25.5,
-        30.5,
-        61.723409382562934,
-        69.15722634301657,
-        55.9,
-        60.9
-      ],
-      "space": "world",
-      "cross": null,
-      "contact_annulus": null
-    },
-    {
-      "name": "grille_hole_64",
-      "part": "rear_cover",
-      "bounds": [
-        31.099999999999994,
-        36.099999999999994,
-        56.45028528225673,
-        64.70600506419082,
-        55.9,
-        60.9
+        37.099999999999994,
+        41.3,
+        51.883366789514035,
+        60.74842692250167,
+        17.756276953170225,
+        27.265015078668274
       ],
       "space": "world",
       "cross": null,
@@ -1612,8 +797,8 @@
         28.1,
         56.0,
         78.0,
-        16,
-        24.1
+        40.0,
+        48.1
       ],
       "space": "world",
       "cross": null,
@@ -1646,6 +831,21 @@
         31
       ],
       "space": "world",
+      "cross": null,
+      "contact_annulus": null
+    },
+    {
+      "name": "usb_access_rim",
+      "part": "rear_cover",
+      "bounds": [
+        -24.4,
+        -0.40000000000000036,
+        48,
+        60,
+        6.3,
+        21.0
+      ],
+      "space": "local",
       "cross": null,
       "contact_annulus": null
     },
@@ -1806,7 +1006,7 @@
         27.4,
         32.6,
         -22.03479122916104,
-        -15.762639650868433,
+        -15.762639650868152,
         8.2,
         11.8
       ],
@@ -1821,7 +1021,7 @@
         31.4,
         36.6,
         -18.61890758356476,
-        -11.86271643001346,
+        -11.862716429736388,
         8.2,
         11.8
       ],

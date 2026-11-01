@@ -20,7 +20,7 @@
   "support_interface_spacing_mm": null,
   "support_object_xy_distance_mm": null,
   "support_top_gap_mm": 0.2,
-  "support_extrusion_volume_mm3": 4993.106244746325,
+  "support_extrusion_volume_mm3": 5029.230355437205,
   "baseline_only": false,
   "plate_alignment": {
     "rotation_deg": 90,

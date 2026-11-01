@@ -17,6 +17,22 @@ def main():
     doc=App.openDocument(os.path.join(OUT,'enclosure.FCStd'))
     rear=doc.getObject('rear_cover').Shape
     frame=doc.getObject('main_shell').Shape
+    usb_tool=usb_access_tool()
+    assert rear.common(usb_tool).Volume<.001,'Type-C后盖通道堵塞'
+    assert doc.getObject('Speaker_Reference').Shape.common(usb_tool).Volume<.001,'Type-C开口碰喇叭'
+    usb_rim_checks=[]
+    for x,n in ((USB_ACCESS_X-USB_ACCESS_WIDTH/2-.6,12),
+                (USB_ACCESS_X+USB_ACCESS_WIDTH/2+.6,12),
+                (USB_ACCESS_X-USB_ACCESS_WIDTH/2-.6,19),
+                (USB_ACCESS_X+USB_ACCESS_WIDTH/2+.6,19),
+                (USB_ACCESS_X,USB_ACCESS_N+USB_ACCESS_HEIGHT/2+.6),
+                (USB_ACCESS_X,USB_ACCESS_N+USB_ACCESS_HEIGHT/2+2)):
+        line=Part.makeLine(pt(x,60,n),pt(x,48,n))
+        segments=rear.common(line).Edges
+        assert segments,'Type-C开口旁边壳壁缺失'
+        span=max(edge.Length for edge in segments)
+        assert span>=1.6,'Type-C开口周围壳壁不足1.6 mm'
+        usb_rim_checks.append({'x_n_mm':[x,n],'wall_segment_mm':span})
     assert doc.getObject('Speaker_Pads_Reference') is None,'旧压耳软垫参考体未移除'
     wall_samples=[]
     corner_angle=math.degrees(math.atan2(SPEAKER_H/2+0.5,SPEAKER_W/2+0.5))
@@ -34,6 +50,11 @@ def main():
                 continue
             outer=max(edges,key=lambda e:(e.CenterOfMass-pt(0,0,n)).Length)
             ends=[v.Point for v in outer.Vertexes]
+            # 入口导角刻意收尖；独立六条孔旁截线验证余壁，不把孔缘当普通壁。
+            if any(usb_tool.distToShape(Part.Vertex(p))[0]<USB_ACCESS_CHAMFER+.01 for p in ends):
+                wall_samples.append({'kind':'usb_access_edge','n_mm':n,'angle_deg':angle,
+                                     'radial_segment_mm':outer.Length})
+                continue
             inner=min(ends,key=lambda p:(p-pt(0,0,n)).Length)
             x,s=(inner-P).dot(X),(inner-P).dot(S)
             kind='ordinary'
@@ -91,31 +112,47 @@ def main():
             spans.append(span)
         hook_sections.append({'pin_probe_mm3':pin.Volume,'root_probe_mm3':root.Volume,
                               'retaining_tip_section_spans_mm':spans})
-    seat_volumes=[]
-    locator_volumes=[]
-    nut_wall_spans=[]
-    for x,s in PINS:
-        probe=cyl(SPEAKER_EAR_R-0.1,SPEAKER_SEAT_N+0.02,SPEAKER_SEAT_N+0.12,x,s).cut(
-            cyl(1.71,SPEAKER_SEAT_N,SPEAKER_SEAT_N+0.2,x,s))
-        actual=rear.common(probe).Volume
-        assert actual>=probe.Volume*0.999,'喇叭承托底座不足'
-        seat_volumes.append(actual)
-        probe=cyl(PIN_R-0.01,SPEAKER_SEAT_N-1,SPEAKER_SEAT_N-0.1,x,s).cut(
-            cyl(1.71,SPEAKER_SEAT_N-1.1,SPEAKER_SEAT_N,x,s))
-        assert rear.common(probe).Volume>=probe.Volume*0.999,'喇叭定位环缺失'
-        locator_volumes.append(rear.common(probe).Volume)
-        old=cyl(2.4,SPEAKER_FRONT_N,SPEAKER_FRONT_N+3.9,x,s)
-        assert frame.common(old).Volume<0.001,'承托架残留旧喇叭柱'
-        for angle in range(0,360,30):
-            a=math.radians(angle)
-            direction=X*math.cos(a)+S*math.sin(a)
-            origin=pt(x,s,SPEAKER_NUT_FRONT_N+1)
-            line=Part.makeLine(origin+direction*(math.hypot(3,3.4)+0.01),
-                               origin+direction*(SPEAKER_BOSS_R-0.01))
-            span=rear.common(line).Length
-            assert span>=line.Length*0.999,'喇叭螺母袋承力壁不连续'
-            nut_wall_spans.append(span)
-    print('加固截面通过',len(boss_spans),'固定座截线',len(slot_volumes),'前环',len(seat_volumes),'承托面',flush=True)
+    pad_checks=[]
+    for name,x0,x1,s0,s1 in speaker_pad_rectangles():
+        probe=box(x0,x1,s0,s1,SPEAKER_PAD_N+.001,SPEAKER_PAD_N+SPEAKER_PAD_MIN_T)
+        volume=rear.common(probe).Volume
+        assert volume>=probe.Volume*.999,'胶台实体不连续或不足2 mm厚'
+        pad_checks.append({'name':name,'probe_volume_mm3':volume,
+                           'contact_area_mm2':(x1-x0)*(s1-s0)})
+    speaker=doc.getObject('Speaker_Reference').Shape
+    assert abs(speaker.Volume-SPEAKER_W*SPEAKER_H*SPEAKER_T)<.001,'喇叭不是完整保守包络'
+    assert rear.common(speaker).Volume+frame.common(speaker).Volume<.001,'完整喇叭包络碰壳'
+    # 直接复用唯一源码中的外包络构建语句，另验箱体并未被藏到外壳之外。
+    main_node=next(node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name=='main')
+    outer_nodes=[node for node in main_node.body if isinstance(node,ast.Assign)
+                 and any(isinstance(t,ast.Name) and t.id in ('sections','envelope') for t in node.targets)]
+    outer_scope=dict(scope)
+    exec(compile(ast.Module(body=outer_nodes,type_ignores=[]),str(source_path),'exec'),outer_scope)
+    clearance=box(-SPEAKER_W/2-SPEAKER_CLEARANCE,SPEAKER_W/2+SPEAKER_CLEARANCE,
+        -SPEAKER_H/2-SPEAKER_CLEARANCE,SPEAKER_H/2+SPEAKER_CLEARANCE,
+        SPEAKER_FRONT_N-SPEAKER_CLEARANCE,SPEAKER_BACK_N+SPEAKER_CLEARANCE)
+    assert clearance.cut(outer_scope['envelope']).Volume<.001,'完整箱体及间隙超出外包络'
+    assert rear.common(clearance).Volume+frame.common(clearance).Volume<.001,'完整箱体周边0.5 mm间隙不足'
+    tape=doc.getObject('Speaker_Tape_Reference').Shape
+    expected_tape=sum(c['contact_area_mm2'] for c in pad_checks)*SPEAKER_TAPE_T
+    assert abs(tape.Volume-expected_tape)<.001,'胶层参考体厚度或面积错误'
+    for name in ('Speaker_Hardware_Reference','Speaker_Washers_Reference','Speaker_Ears_Reference'):
+        assert doc.getObject(name) is None,'仍有旧喇叭紧固件参考体'
+    insertion=box(-SPEAKER_W/2-SPEAKER_CLEARANCE,SPEAKER_W/2+SPEAKER_CLEARANCE,
+        -SPEAKER_H/2-SPEAKER_CLEARANCE,SPEAKER_H/2+SPEAKER_CLEARANCE,-60,SPEAKER_BACK_N+SPEAKER_CLEARANCE)
+    assert rear.common(insertion).Volume<.001,'完整喇叭装入路径不通'
+    air=box(-40,40,-19.5,19.5,SPEAKER_BACK_N+.001,SPEAKER_BACK_N+SPEAKER_FACE_CLEARANCE)
+    assert rear.common(air).Volume<.001,'振膜前方2 mm净空不足'
+    data=json.loads(Path(OUT,'validation.json').read_text(encoding='utf-8'))
+    alignment=App.Vector(*data['speaker_grille']['axis_world']).dot(-N)
+    assert abs(alignment-1)<1e-8,'出音孔轴未对齐发声面'
+    for hole in data['speaker_grille']['holes']:
+        x,s=hole['center_x_s_mm'];n0,n1=hole['wall_n_mm']
+        bore=cyl(GRILLE_HOLE_DIAMETER/2,n0-GRILLE_END_MARGIN,n1+GRILLE_END_MARGIN,x,s)
+        assert rear.common(bore).Volume<.001,'斜出音孔道未完整贯通'
+        path=cyl(GRILLE_HOLE_DIAMETER/2,SPEAKER_BACK_N+.01,n0-GRILLE_END_MARGIN,x,s)
+        assert rear.common(path).Volume<.001,'发声面到孔内端的整条声路被挡住'
+    print('胶台实体、完整包络、装入路径及孔轴对齐检查通过',flush=True)
     insert_wall_checks=[]
     for x,s in BOLT_POINTS:
         bore=cyl(LOCK_INSERT_BORE/2,LOCK_INSERT_BACK_N-LOCK_INSERT_DEPTH+.001,
@@ -151,24 +188,39 @@ def main():
         insert_wall_checks.append({'center_x_s_mm':[x,s],'radial_section_count':len(spans),
             'minimum_radial_section_mm':min(spans),'bore_clear':True,
             'bottom_shoulder_probe_volume_mm3':shoulder_volume,'heater_access_clear':True})
-    tie_open=Part.makeBox(3.8,1.8,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,16.1))
-    tie_bridge=Part.makeBox(3.8,1.8,1.8,App.Vector(21.1,TIE_FRONT_Y+0.1,22.1))
+    tie_open=Part.makeBox(3.8,TIE_CHANNEL_DEPTH-.2,5.8,App.Vector(21.1,TIE_FRONT_Y+0.1,TIE_BASE_Z+.1))
+    tie_bridge=Part.makeBox(3.8,1.8,1.8,App.Vector(21.1,TIE_FRONT_Y+0.1,TIE_BASE_Z+6.1))
     assert rear.common(tie_open).Volume<0.001,'扎带穿入口被堵塞'
     assert rear.common(tie_bridge).Volume>=tie_bridge.Volume*0.999,'扎带横桥缺失'
+    tie_support_checks=[]
+    for x in (18,25):
+        for z in (TIE_BASE_Z-8,TIE_BASE_Z-4,TIE_BASE_Z-.5):
+            y=TIE_FRONT_Y+TIE_BASE_Z+.1-z+1
+            probe=Part.makeBox(2.8,.4,.2,App.Vector(x+.1,y,z))
+            actual=rear.common(probe).Volume
+            assert actual>=probe.Volume*.999,'扎带桥后下斜撑缺失'
+            tie_support_checks.append(actual)
     report={'radial_wall_audit':wall_report,'carrier_rear_bed_contact_area_mm2':bed_area,
+            'usb_access':{'rear_cover_channel_clear':True,'rim_wall_checks':usb_rim_checks,
+                'minimum_sampled_rim_wall_mm':min(v['wall_segment_mm'] for v in usb_rim_checks),
+                'entry_edge_samples_excluded_from_ordinary_wall':sum(v['kind']=='usb_access_edge' for v in wall_samples),
+                'carrier_modified':False,'full_plug_path_verified':False,
+                'note':'承托架保留，采用用户实物确认；仅证明后盖孔道贯通，不宣称保守插头扫掠全程零干涉。'},
             'stl_sha256':{name:hashlib.sha256(Path(OUT,name+'.stl').read_bytes()).hexdigest() for name in ('main_shell','rear_cover')},
             'reinforcement_sections':{'module_seat_probe_volumes_mm3':boss_spans,'module_head_bearing_areas_mm2':bearing_areas,
                 'front_ring_radial_wall_mm':FRAME_R-51.9,
-                'front_ring_probe_volumes_mm3':slot_volumes,'speaker_base_probe_volumes_mm3':seat_volumes,
-                'speaker_seat_shoulder_mm':SPEAKER_NUT_FRONT_N-SPEAKER_SEAT_N,
+                'front_ring_probe_volumes_mm3':slot_volumes,
                 'note':'截面连续性检查，不是有限元、极限载荷或实物强度试验。'},
-            'speaker_mount_part':'rear_cover','speaker_locator_probe_volumes_mm3':locator_volumes,
-            'speaker_nut_wall_probe_spans_mm':nut_wall_spans,
+            'speaker_mount_part':'rear_cover','speaker_pad_checks':pad_checks,
+            'speaker_full_envelope_verified':True,'speaker_insertion_path_verified':True,
+            'speaker_face_clearance_mm':SPEAKER_FACE_CLEARANCE,'speaker_grille_axis_alignment':alignment,
             'heat_insert_wall_checks':insert_wall_checks,
             'module_head_clearance_checks':head_clearance_checks,'module_engagement_mm':MODULE_THREAD_ENTRY_N-(MODULE_SEAT_N-MODULE_SCREW_L),
             'cable_tie_opening_clear':True,'cable_tie_bridge_probe_mm3':rear.common(tie_bridge).Volume,
+            'cable_tie_support_probe_volumes_mm3':tie_support_checks,
+            'cable_tie_base_z_mm':TIE_BASE_Z,'cable_tie_clear_opening_mm':[3.8,TIE_CHANNEL_DEPTH-.2,5.8],
             'method':'从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。',
-            'limitations':'离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌未纳入此壁厚统计；锁盖热熔母座另作孔径、台阶及径向截线检查。',
+            'limitations':'离散径向检查不等于全局法向最薄壁；喇叭采用完整总包络避让；格栅孔缘未纳入此径向壁厚统计；锁盖热熔母座另作孔径、台阶及径向截线检查。',
             'hook_sections':hook_sections,'physical_fit_verified':False}
     with open(os.path.join(OUT,'fit_validation.json'),'w',encoding='utf-8') as f:
         json.dump(report,f,ensure_ascii=False,indent=2)

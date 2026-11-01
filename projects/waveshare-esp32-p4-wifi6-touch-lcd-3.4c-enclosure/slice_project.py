@@ -43,8 +43,9 @@ def write_rear_project(stl, intake, target, grille=None):
             front=hole['front_y_mm']-1.6;back=hole['cavity_y_mm']+1.6
             radius=diameter/2+2.4;bottom,top=0,blocker_top
         else:
-            front,back=hole['wall_y_mm'];front-=2.4;back+=2.4
-            radius=diameter/2+1.6;bottom,top=max(0,z-diameter/2-.4),blocker_top
+            b=hole['bounds_world_mm']
+            front,back=b[2]-1.6,b[3]+1.6
+            radius=diameter/2+1.6;bottom,top=max(0,b[4]-.4),blocker_top
         # Bambu 的禁支撑块抑制接触区，短块不能阻止上方支撑柱穿孔。
         # 沿孔道的窄 XY 投影延伸到整件高度，另由实际墙线承托审计验收。
         points=[(x-radius,front,bottom),(x+radius,front,bottom),

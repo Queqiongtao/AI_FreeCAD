@@ -22,7 +22,8 @@ class PrintAuditTests(unittest.TestCase):
             stl=Path(directory)/'part.stl';stl.write_bytes(data)
             target=Path(directory)/'part.3mf'
             intake={'diameter_mm':2,'holes':[{'center_x_z_mm':[0,1],'front_y_mm':0,'cavity_y_mm':2}]}
-            grille={'diameter_mm':3.2,'holes':[{'center_x_z_mm':[0,1],'wall_y_mm':[3,5]}],
+            grille={'diameter_mm':3.2,'holes':[{'center_x_z_mm':[0,1],'wall_y_mm':[3,5],
+                    'bounds_world_mm':[-1.6,1.6,2,9,0,2]}],
                     'support_enforcers':[[0,1,0,1,0,1]]}
             write_rear_project(stl,intake,target,grille);first=target.read_bytes()
             write_rear_project(stl,intake,target,grille)
@@ -44,6 +45,10 @@ class PrintAuditTests(unittest.TestCase):
                 zs=[float(v.attrib['z']) for v in speaker]
                 self.assertAlmostEqual(min(zs),0)
                 self.assertAlmostEqual(max(zs),2.6)
+                # 斜孔必须按完整孔道投影禁支撑，不能只覆盖孔口或旧水平孔范围。
+                ys=[float(v.attrib['y']) for v in speaker]
+                self.assertAlmostEqual(min(ys),.4)
+                self.assertAlmostEqual(max(ys),10.6)
 
     def test_microphone_support_cannot_block_air_or_replace_wall(self):
         layers={z:[((x,-1),(x,1),'Outer wall',.4) for x in (-1.4,1.4)] for z in (.2,.4,.6)}

@@ -1,7 +1,7 @@
 {
   "radial_wall_audit": {
     "ordinary": {
-      "sample_count": 353,
+      "sample_count": 345,
       "minimum_radial_segment_mm": 2.0077650419987982,
       "lowest_samples": [
         {
@@ -92,9 +92,61 @@
     }
   },
   "carrier_rear_bed_contact_area_mm2": 324.7573485248875,
+  "usb_access": {
+    "rear_cover_channel_clear": true,
+    "rim_wall_checks": [
+      {
+        "x_n_mm": [
+          -23.0,
+          12
+        ],
+        "wall_segment_mm": 2.6324074364406043
+      },
+      {
+        "x_n_mm": [
+          -1.8000000000000003,
+          12
+        ],
+        "wall_segment_mm": 2.401241328460038
+      },
+      {
+        "x_n_mm": [
+          -23.0,
+          19
+        ],
+        "wall_segment_mm": 2.6324074364405874
+      },
+      {
+        "x_n_mm": [
+          -1.8000000000000003,
+          19
+        ],
+        "wall_segment_mm": 2.401241328460034
+      },
+      {
+        "x_n_mm": [
+          -12.4,
+          19.6
+        ],
+        "wall_segment_mm": 2.4611233568091917
+      },
+      {
+        "x_n_mm": [
+          -12.4,
+          21.0
+        ],
+        "wall_segment_mm": 2.883995183892905
+      }
+    ],
+    "minimum_sampled_rim_wall_mm": 2.401241328460034,
+    "entry_edge_samples_excluded_from_ordinary_wall": 0,
+    "carrier_modified": false,
+    "full_plug_path_verified": false,
+    "note": "承托架保留，采用用户实物确认；仅证明后盖孔道贯通，不宣称保守插头扫掠全程零干涉。"
+  },
   "stl_sha256": {
     "main_shell": "709cef5cd2c8392a329a1ebe0860025fb11e30e3187649c55529b6194626e67c",
-    "rear_cover": "8d1643a5df37ec92c8b94c8042fe3a945557ae9654da9d43c9af5651fa1e7ada"
+    "rear_cover": "86fa9cde4cebfc4e1f2326c0c7bf040b5260ed71118061d91b57d2a54ce649b8"
   },
   "reinforcement_sections": {
     "module_seat_probe_volumes_mm3": [
@@ -115,72 +167,45 @@
       29.99999999999995,
       29.999999999999986
     ],
-    "speaker_base_probe_volumes_mm3": [
-      5.163490269513366,
-      5.163490269513314,
-      5.163490269513366,
-      5.163490269513314
-    ],
-    "speaker_seat_shoulder_mm": 2.3999999999999986,
     "note": "截面连续性检查，不是有限元、极限载荷或实物强度试验。"
   },
   "speaker_mount_part": "rear_cover",
-  "speaker_locator_probe_volumes_mm3": [
-    13.74132626680176,
-    13.741326266801728,
-    13.74132626680176,
-    13.741326266801728
+  "speaker_pad_checks": [
+    {
+      "name": "speaker_long_pad_-1_0",
+      "probe_volume_mm3": 135.93200000000016,
+      "contact_area_mm2": 68.0
+    },
+    {
+      "name": "speaker_long_pad_-1_1",
+      "probe_volume_mm3": 135.93200000000016,
+      "contact_area_mm2": 68.0
+    },
+    {
+      "name": "speaker_short_pad_-1",
+      "probe_volume_mm3": 143.92800000000028,
+      "contact_area_mm2": 72.0
+    },
+    {
+      "name": "speaker_long_pad_1_0",
+      "probe_volume_mm3": 135.93200000000044,
+      "contact_area_mm2": 68.0
+    },
+    {
+      "name": "speaker_long_pad_1_1",
+      "probe_volume_mm3": 135.93200000000044,
+      "contact_area_mm2": 68.0
+    },
+    {
+      "name": "speaker_short_pad_1",
+      "probe_volume_mm3": 143.92800000000028,
+      "contact_area_mm2": 72.0
+    }
   ],
-  "speaker_nut_wall_probe_spans_mm": [
-    2.0456863804981538,
-    2.0456863804981418,
-    2.0456863804981493,
-    2.045686380498146,
-    2.0456863804981493,
-    2.0456863804981418,
-    2.0456863804981538,
-    2.0456863804981436,
-    2.0456863804981444,
-    2.0456863804981467,
-    2.0456863804981484,
-    2.0456863804981493,
-    2.0456863804981538,
-    2.0456863804981436,
-    2.0456863804981507,
-    2.045686380498149,
-    2.0456863804981507,
-    2.0456863804981436,
-    2.0456863804981538,
-    2.045686380498141,
-    2.0456863804981467,
-    2.045686380498149,
-    2.0456863804981507,
-    2.0456863804981498,
-    2.0456863804981538,
-    2.0456863804981418,
-    2.0456863804981493,
-    2.045686380498146,
-    2.0456863804981493,
-    2.0456863804981418,
-    2.0456863804981538,
-    2.0456863804981436,
-    2.0456863804981444,
-    2.0456863804981467,
-    2.0456863804981484,
-    2.0456863804981493,
-    2.0456863804981538,
-    2.0456863804981436,
-    2.0456863804981507,
-    2.045686380498149,
-    2.0456863804981507,
-    2.0456863804981436,
-    2.0456863804981538,
-    2.045686380498141,
-    2.0456863804981467,
-    2.045686380498149,
-    2.0456863804981507,
-    2.0456863804981498
-  ],
+  "speaker_full_envelope_verified": true,
+  "speaker_insertion_path_verified": true,
+  "speaker_face_clearance_mm": 2.0,
+  "speaker_grille_axis_alignment": 0.9999999999999999,
   "heat_insert_wall_checks": [
     {
       "center_x_s_mm": [
@@ -213,9 +238,23 @@
   ],
   "module_engagement_mm": 1.9999999999999982,
   "cable_tie_opening_clear": true,
-  "cable_tie_bridge_probe_mm3": 12.311999999999987,
+  "cable_tie_bridge_probe_mm3": 12.311999999999964,
+  "cable_tie_support_probe_volumes_mm3": [
+    0.22400000000000642,
+    0.22400000000000247,
+    0.22400000000000247,
+    0.22400000000000642,
+    0.22400000000000242,
+    0.22400000000000242
+  ],
+  "cable_tie_base_z_mm": 40.0,
+  "cable_tie_clear_opening_mm": [
+    3.8,
+    7.8,
+    5.8
+  ],
   "method": "从外向内求前圈径向实体段；9 个轴向截面、常规及螺丝/音箱角特定方位；顶部收平边缘单独分组。",
-  "limitations": "离散径向检查不等于全局法向最薄壁；箱体耳根真实形状、格栅、定位舌未纳入此壁厚统计；锁盖热熔母座另作孔径、台阶及径向截线检查。",
+  "limitations": "离散径向检查不等于全局法向最薄壁；喇叭采用完整总包络避让；格栅孔缘未纳入此径向壁厚统计；锁盖热熔母座另作孔径、台阶及径向截线检查。",
   "hook_sections": [
     {
       "pin_probe_mm3": 105.37058839772843,

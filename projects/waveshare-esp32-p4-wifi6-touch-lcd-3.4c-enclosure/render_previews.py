@@ -120,8 +120,9 @@ frame = read_stl('main_shell.stl', (132,151,153))
 fasteners = read_stl('fasteners.stl', (192,144,63))
 module = read_stl('module.stl', (28,32,34))
 speaker = read_stl('speaker.stl', (66,117,86))
-washers = read_stl('washers.stl', (212,160,63))
-speaker_hardware = read_stl('speaker_hardware.stl', (192,144,63))
+speaker_tape = read_stl('speaker_tape.stl', (225,169,72))
+speaker_faces = read_stl('speaker_faces.stl', (35,40,43))
+speaker += speaker_faces
 section = read_stl('section.stl', (181,194,191))
 assembly = rear+frame+module
 render('preview_front.png', assembly, NORMAL)
@@ -137,8 +138,10 @@ render('preview_bottom.png', rear, (0,0,-1))
 render('preview_cover_inside.png', rear, NORMAL)
 render('preview_microphones.png',rear,(0,-1,.12))
 render('preview_speaker_grille.png',rear,(0,1,.12))
+render('preview_usb_access.png',rear,(0,1,1.1))
 render('preview_section.png', section+frame+speaker+fasteners, (-1,-0.3,0.2))
-render('preview_speaker_mount.png', rear+speaker+speaker_hardware, NORMAL)
+render('preview_speaker_mount.png', rear+speaker+speaker_tape, NORMAL)
+render('preview_speaker_tape.png',speaker+speaker_tape,tuple(-v for v in NORMAL))
 render('preview_fastening.png', frame+fasteners, tuple(-v for v in NORMAL))
 
 def shifted(triangles, offset):
@@ -146,7 +149,7 @@ def shifted(triangles, offset):
             for vertices,color in triangles]
 
 render('preview_exploded.png', module+frame
-       +shifted(speaker+speaker_hardware,tuple(-80*v for v in NORMAL))
+       +shifted(speaker+speaker_tape,tuple(-80*v for v in NORMAL))
        +shifted(rear,tuple(-80*v for v in NORMAL)),(1,-0.6,0.5))
 
 def opened(triangles):
@@ -158,17 +161,18 @@ def opened(triangles):
                 y*math.sin(a)+z*math.cos(a)+pivot[2])
     return [(tuple(turn(p) for p in vertices),color) for vertices,color in triangles]
 
-render('preview_opening.png',module+frame+opened(rear+speaker+speaker_hardware),(1,-.15,.1))
+render('preview_opening.png',module+frame+opened(rear+speaker+speaker_tape),(1,-.15,.1))
 font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',18)
 for filename, caption in (
     ('preview_microphones.png','P4 前下侧壁：左右各六个 Ø2 mm 拾音孔，两排三列，直通内腔'),
-    ('preview_speaker_grille.png','后背出音区：5 排 × 13 列，共 65 个 Ø3.2 mm 圆孔，孔距 5.6 mm'),
+    ('preview_usb_access.png','Type-C对应后盖：20×14 mm直插开口，R2内角、0.5 mm入口导角；承托架不变'),
+    ('preview_speaker_grille.png','后下弧面：'+str(validation['speaker_grille']['count'])+' 个 Ø3.2 mm 斜孔，对齐喇叭发声面'),
     ('preview_front.png','沿屏幕法线正视：打印件完全隐藏于模块轮廓内'),
-    ('preview_section.png','剖视：绿色为条件音箱包络；中部耳独立锁在后盖，底板封闭'),
+    ('preview_section.png','剖视：绿色为完整箱体包络；边框贴胶，发声面朝后下方，底板封闭'),
     ('preview_exploded.png','两件式：承托架固定模块；喇叭随连续后盖一起拆下'),
     ('preview_opening.png','卸下两颗锁盖螺丝，下侧翻开约 18°，上钩脱离后再向后取下'),
     ('preview_fastening.png','内藏承托架：原板四处 M2.5 固定；两处 M3×3×4 热熔螺母，底孔 Ø3.8'),
-    ('preview_speaker_mount.png','音箱总外形 100×45×21；中部 2 mm 圆耳，四颗 M3×8 固定后盖'),
+    ('preview_speaker_mount.png','完整包络 100×45×21；1 mm泡棉胶固定边框，深色圆面为朝向示意'),
 ):
     canvas=Image.open(OUT/filename)
     draw=ImageDraw.Draw(canvas)

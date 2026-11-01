@@ -1,8 +1,8 @@
 {
-  "stl_sha256": "8d1643a5df37ec92c8b94c8042fe3a945557ae9654da9d43c9af5651fa1e7ada",
+  "stl_sha256": "86fa9cde4cebfc4e1f2326c0c7bf040b5260ed71118061d91b57d2a54ce649b8",
   "slicer": "Bambu Studio",
   "slice_input": "rear_cover_print.3mf",
-  "slice_input_sha256": "011d5932e40c52ba2deaaa27bdba61dc20124f8a082d1d74170231b02daceb49",
+  "slice_input_sha256": "2abe134e5590a14c80fc56f39f2476950c1f585f3360d0177bba5852720a6d9b",
   "microphone_support_blocker_count": 12,
   "microphone_checks": {
     "shoulder_checks": {
@@ -59,58 +59,8 @@
     "blocked_air_samples": 0,
     "includes_support_paths": true,
     "external_air_sample_count": 1114,
-    "external_support_sample_count": 23,
+    "external_support_sample_count": 18,
     "external_support_samples": [
-      {
-        "hole": 0,
-        "layer_z_mm": 5.8,
-        "point_mm": [
-          -25.6,
-          -20.15445394096974,
-          5.7
-        ],
-        "inside_original_wall": false
-      },
-      {
-        "hole": 0,
-        "layer_z_mm": 5.8,
-        "point_mm": [
-          -25.6,
-          -19.73772386967077,
-          5.7
-        ],
-        "inside_original_wall": false
-      },
-      {
-        "hole": 0,
-        "layer_z_mm": 5.8,
-        "point_mm": [
-          -25.6,
-          -19.3209937983718,
-          5.7
-        ],
-        "inside_original_wall": false
-      },
-      {
-        "hole": 0,
-        "layer_z_mm": 5.8,
-        "point_mm": [
-          -25.6,
-          -18.904263727072827,
-          5.7
-        ],
-        "inside_original_wall": false
-      },
-      {
-        "hole": 0,
-        "layer_z_mm": 5.8,
-        "point_mm": [
-          -25.6,
-          -18.487533655773856,
-          5.7
-        ],
-        "inside_original_wall": false
-      },
       {
         "hole": 0,
         "layer_z_mm": 5.8,
@@ -295,280 +245,133 @@
     "external_model_sample_count": 0,
     "classification": "开孔前壳壁内部为真实孔道；壳外及内腔孔口周边支撑另列，打印后清理"
   },
-  "speaker_support_blocker_count": 65,
+  "speaker_support_blocker_count": 18,
   "speaker_grille_checks": {
     "shoulder_checks": {
       "grille_0": {
-        "sample_count": 48,
+        "sample_count": 121,
         "coverage": 1.0
       },
       "grille_1": {
-        "sample_count": 52,
+        "sample_count": 121,
         "coverage": 1.0
       },
       "grille_2": {
-        "sample_count": 57,
+        "sample_count": 93,
         "coverage": 1.0
       },
       "grille_3": {
-        "sample_count": 57,
+        "sample_count": 102,
         "coverage": 1.0
       },
       "grille_4": {
-        "sample_count": 62,
+        "sample_count": 102,
         "coverage": 1.0
       },
       "grille_5": {
-        "sample_count": 66,
+        "sample_count": 93,
         "coverage": 1.0
       },
       "grille_6": {
-        "sample_count": 68,
+        "sample_count": 80,
         "coverage": 1.0
       },
       "grille_7": {
-        "sample_count": 66,
+        "sample_count": 84,
         "coverage": 1.0
       },
       "grille_8": {
-        "sample_count": 62,
+        "sample_count": 86,
         "coverage": 1.0
       },
       "grille_9": {
-        "sample_count": 57,
+        "sample_count": 89,
         "coverage": 1.0
       },
       "grille_10": {
-        "sample_count": 57,
+        "sample_count": 96,
         "coverage": 1.0
       },
       "grille_11": {
-        "sample_count": 52,
+        "sample_count": 105,
         "coverage": 1.0
       },
       "grille_12": {
-        "sample_count": 48,
+        "sample_count": 105,
         "coverage": 1.0
       },
       "grille_13": {
-        "sample_count": 48,
+        "sample_count": 96,
         "coverage": 1.0
       },
       "grille_14": {
-        "sample_count": 48,
+        "sample_count": 89,
         "coverage": 1.0
       },
       "grille_15": {
-        "sample_count": 55,
+        "sample_count": 86,
         "coverage": 1.0
       },
       "grille_16": {
-        "sample_count": 59,
+        "sample_count": 84,
         "coverage": 1.0
       },
       "grille_17": {
-        "sample_count": 68,
-        "coverage": 1.0
-      },
-      "grille_18": {
-        "sample_count": 72,
-        "coverage": 1.0
-      },
-      "grille_19": {
-        "sample_count": 72,
-        "coverage": 1.0
-      },
-      "grille_20": {
-        "sample_count": 72,
-        "coverage": 1.0
-      },
-      "grille_21": {
-        "sample_count": 68,
-        "coverage": 1.0
-      },
-      "grille_22": {
-        "sample_count": 59,
-        "coverage": 1.0
-      },
-      "grille_23": {
-        "sample_count": 55,
-        "coverage": 1.0
-      },
-      "grille_24": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_25": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_26": {
-        "sample_count": 36,
-        "coverage": 1.0
-      },
-      "grille_27": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_28": {
-        "sample_count": 51,
-        "coverage": 1.0
-      },
-      "grille_29": {
-        "sample_count": 53,
-        "coverage": 1.0
-      },
-      "grille_30": {
-        "sample_count": 67,
-        "coverage": 1.0
-      },
-      "grille_31": {
-        "sample_count": 72,
-        "coverage": 1.0
-      },
-      "grille_32": {
-        "sample_count": 72,
-        "coverage": 1.0
-      },
-      "grille_33": {
-        "sample_count": 72,
-        "coverage": 1.0
-      },
-      "grille_34": {
-        "sample_count": 67,
-        "coverage": 1.0
-      },
-      "grille_35": {
-        "sample_count": 53,
-        "coverage": 1.0
-      },
-      "grille_36": {
-        "sample_count": 51,
-        "coverage": 1.0
-      },
-      "grille_37": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_38": {
-        "sample_count": 37,
-        "coverage": 1.0
-      },
-      "grille_39": {
-        "sample_count": 36,
-        "coverage": 1.0
-      },
-      "grille_40": {
-        "sample_count": 40,
-        "coverage": 1.0
-      },
-      "grille_41": {
-        "sample_count": 45,
-        "coverage": 1.0
-      },
-      "grille_42": {
-        "sample_count": 44,
-        "coverage": 1.0
-      },
-      "grille_43": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_44": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_45": {
-        "sample_count": 44,
-        "coverage": 1.0
-      },
-      "grille_46": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_47": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_48": {
-        "sample_count": 44,
-        "coverage": 1.0
-      },
-      "grille_49": {
-        "sample_count": 45,
-        "coverage": 1.0
-      },
-      "grille_50": {
-        "sample_count": 40,
-        "coverage": 1.0
-      },
-      "grille_51": {
-        "sample_count": 36,
-        "coverage": 1.0
-      },
-      "grille_52": {
-        "sample_count": 36,
-        "coverage": 1.0
-      },
-      "grille_53": {
-        "sample_count": 40,
-        "coverage": 1.0
-      },
-      "grille_54": {
-        "sample_count": 45,
-        "coverage": 1.0
-      },
-      "grille_55": {
-        "sample_count": 47,
-        "coverage": 1.0
-      },
-      "grille_56": {
-        "sample_count": 43,
-        "coverage": 1.0
-      },
-      "grille_57": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_58": {
-        "sample_count": 50,
-        "coverage": 1.0
-      },
-      "grille_59": {
-        "sample_count": 48,
-        "coverage": 1.0
-      },
-      "grille_60": {
-        "sample_count": 43,
-        "coverage": 1.0
-      },
-      "grille_61": {
-        "sample_count": 47,
-        "coverage": 1.0
-      },
-      "grille_62": {
-        "sample_count": 45,
-        "coverage": 1.0
-      },
-      "grille_63": {
-        "sample_count": 40,
-        "coverage": 1.0
-      },
-      "grille_64": {
-        "sample_count": 36,
+        "sample_count": 80,
         "coverage": 1.0
       }
     },
-    "air_sample_count": 4810,
+    "air_sample_count": 2094,
     "blocked_air_samples": 0,
     "includes_support_paths": true,
-    "external_air_sample_count": 4910,
-    "external_support_sample_count": 0,
-    "external_support_samples": [],
+    "external_air_sample_count": 1396,
+    "external_support_sample_count": 4,
+    "external_support_samples": [
+      {
+        "hole": 11,
+        "layer_z_mm": 6.6,
+        "point_mm": [
+          -11.2,
+          70.1504240228757,
+          6.5
+        ],
+        "inside_original_wall": false
+      },
+      {
+        "hole": 11,
+        "layer_z_mm": 6.8,
+        "point_mm": [
+          -11.2,
+          69.98260409664023,
+          6.7
+        ],
+        "inside_original_wall": false
+      },
+      {
+        "hole": 12,
+        "layer_z_mm": 6.6,
+        "point_mm": [
+          11.2,
+          70.1504240228757,
+          6.5
+        ],
+        "inside_original_wall": false
+      },
+      {
+        "hole": 12,
+        "layer_z_mm": 6.8,
+        "point_mm": [
+          11.2,
+          69.98260409664023,
+          6.7
+        ],
+        "inside_original_wall": false
+      }
+    ],
     "external_model_sample_count": 0,
     "classification": "开孔前壳壁内部为真实孔道；壳外及内腔孔口周边支撑另列，打印后清理"
   },
-  "speaker_support_enforcer_count": 4,
+  "speaker_support_enforcer_count": 0,
   "printer_profile": "Prusa MK3S 0.4 nozzle",
   "filament_profile": "Generic PLA @Prusa",
   "nozzle_mm": 0.4,
@@ -581,21 +384,21 @@
   "support_interface_spacing_mm": 0,
   "support_object_xy_distance_mm": 0.2,
   "support_top_gap_mm": 0.1,
-  "support_extrusion_volume_mm3": 18383.40874899505,
+  "support_extrusion_volume_mm3": 13385.165495640942,
   "baseline_only": false,
   "plate_alignment": {
-    "rotation_deg": 90,
+    "rotation_deg": 0,
     "translation_mm": [
-      146.62176132202148,
-      104.9913444519043
+      124.9948844909668,
+      83.35726928710938
     ],
-    "section_alignment_score": 0.9839743589743589,
+    "section_alignment_score": 1.0,
     "bbox_center_alignment": false,
-    "bbox_dimension_error_mm": 0.024196624755859375
+    "bbox_dimension_error_mm": 0.023021697998046875
   },
   "brim_width_mm": 5,
   "object_layer_count": 459,
-  "support_layer_count": 495,
+  "support_layer_count": 416,
   "top_shortfall_mm": -0.08430175781249716,
   "warning_message": "",
   "physical_print_verified": false,
@@ -623,148 +426,82 @@
       "tapered_edge_length_mm": 9.649638800774252,
       "minimum_full_contour_coverage": 0.17727353377381852
     },
-    "speaker_locator_0": {
-      "layer_count": 23,
+    "speaker_long_pad_-1_0": {
+      "layer_count": 13,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.8781580609057462,
-      "minimum_full_contour_coverage": 0.36341136834651205
+      "tapered_edge_length_mm": 0.0,
+      "minimum_full_contour_coverage": 1.0
     },
-    "speaker_seat_0": {
-      "layer_count": 35,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 2,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 2.617601085499796,
-      "minimum_full_contour_coverage": 0.48305156572618163
-    },
-    "speaker_nut_0": {
-      "layer_count": 54,
-      "minimum_coverage": 0.9608558185455174,
-      "maximum_missing_edge_run_mm": 0.3387376368367913,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 1,
-      "boundary_transition_layers": 9,
-      "tapered_edge_length_mm": 5.278691186604346,
-      "minimum_full_contour_coverage": 0.21311186529257709
-    },
-    "speaker_locator_1": {
-      "layer_count": 22,
+    "speaker_long_pad_-1_1": {
+      "layer_count": 13,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.041514339394515924,
-      "minimum_full_contour_coverage": 0.988937231792488
+      "tapered_edge_length_mm": 0.0,
+      "minimum_full_contour_coverage": 1.0
     },
-    "speaker_seat_1": {
-      "layer_count": 35,
+    "speaker_short_pad_-1": {
+      "layer_count": 83,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 2,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 3.0311991382933323,
-      "minimum_full_contour_coverage": 0.3289340373318075
-    },
-    "speaker_nut_1": {
-      "layer_count": 53,
-      "minimum_coverage": 0.984617189760429,
-      "maximum_missing_edge_run_mm": 0.2425540544703499,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 1,
       "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 12.749321894057122,
+      "tapered_edge_length_mm": 3.000000000000007,
       "minimum_full_contour_coverage": 0.0
     },
-    "speaker_locator_2": {
-      "layer_count": 23,
+    "speaker_long_pad_1_0": {
+      "layer_count": 13,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.8781580609057462,
-      "minimum_full_contour_coverage": 0.36341136834651205
-    },
-    "speaker_seat_2": {
-      "layer_count": 35,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 2,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 2.617601085499795,
-      "minimum_full_contour_coverage": 0.48305156572618163
-    },
-    "speaker_nut_2": {
-      "layer_count": 54,
-      "minimum_coverage": 0.9608558185455174,
-      "maximum_missing_edge_run_mm": 0.3387376368367913,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 1,
-      "boundary_transition_layers": 9,
-      "tapered_edge_length_mm": 5.571492681437451,
-      "minimum_full_contour_coverage": 0.21311191642555385
-    },
-    "speaker_locator_3": {
-      "layer_count": 22,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.041514339394515924,
-      "minimum_full_contour_coverage": 0.9889372317924886
-    },
-    "speaker_seat_3": {
-      "layer_count": 35,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 2,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 3.0412689068082677,
-      "minimum_full_contour_coverage": 0.3289340373318075
-    },
-    "speaker_nut_3": {
-      "layer_count": 53,
-      "minimum_coverage": 0.984617189760429,
-      "maximum_missing_edge_run_mm": 0.2425540544703499,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 1,
       "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 13.029083581866892,
+      "tapered_edge_length_mm": 34.000000000000135,
+      "minimum_full_contour_coverage": 0.0
+    },
+    "speaker_long_pad_1_1": {
+      "layer_count": 13,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 1,
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 34.00000000000004,
+      "minimum_full_contour_coverage": 0.0
+    },
+    "speaker_short_pad_1": {
+      "layer_count": 83,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 1,
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 3.000000000000007,
       "minimum_full_contour_coverage": 0.0
     },
     "upper_hook_0": {
       "layer_count": 63,
-      "minimum_coverage": 0.9996936632245852,
-      "maximum_missing_edge_run_mm": 0.010085078654192614,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 1,
       "boundary_transition_layers": 1,
       "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 0.9996936632245852
+      "minimum_full_contour_coverage": 1.0
     },
     "retaining_tip_0": {
       "layer_count": 3,
@@ -789,13 +526,13 @@
       "minimum_full_contour_coverage": 1.0
     },
     "upper_hook_1": {
-      "layer_count": 63,
+      "layer_count": 59,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 1,
-      "boundary_transition_layers": 0,
+      "boundary_transition_layers": 2,
       "tapered_edge_length_mm": 0.0,
       "minimum_full_contour_coverage": 1.0
     },
@@ -822,719 +559,202 @@
       "minimum_full_contour_coverage": 1.0
     },
     "grille_hole_0": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 67,
+      "minimum_coverage": 0.9924139996372364,
+      "maximum_missing_edge_run_mm": 0.12202884644846122,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 6.519202796684131,
-      "minimum_full_contour_coverage": 0.9510074773680274
+      "boundary_transition_layers": 4,
+      "tapered_edge_length_mm": 33.708677782194655,
+      "minimum_full_contour_coverage": 0.8497847191436846
     },
     "grille_hole_1": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 67,
+      "minimum_coverage": 0.9930408475100347,
+      "maximum_missing_edge_run_mm": 0.0996037238448459,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.5124629535522964,
-      "minimum_full_contour_coverage": 0.9680362212241335
+      "boundary_transition_layers": 3,
+      "tapered_edge_length_mm": 34.74095559472596,
+      "minimum_full_contour_coverage": 0.851444277234806
     },
     "grille_hole_2": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 52,
+      "minimum_coverage": 0.9916332167447169,
+      "maximum_missing_edge_run_mm": 0.10139212356259625,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.9585412429356254,
-      "minimum_full_contour_coverage": 0.9871434344290225
+      "boundary_transition_layers": 3,
+      "tapered_edge_length_mm": 24.403407596749716,
+      "minimum_full_contour_coverage": 0.8686273613331171
     },
     "grille_hole_3": {
-      "layer_count": 26,
+      "layer_count": 59,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.36586075390782496,
-      "minimum_full_contour_coverage": 0.9901514226184241
+      "tapered_edge_length_mm": 20.107591102795517,
+      "minimum_full_contour_coverage": 0.8528816987905121
     },
     "grille_hole_4": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 59,
+      "minimum_coverage": 0.9973804033863204,
+      "maximum_missing_edge_run_mm": 0.032964005346582205,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.014866428951954416,
-      "minimum_full_contour_coverage": 0.9987661028491565
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 20.13537605591487,
+      "minimum_full_contour_coverage": 0.8494961623041294
     },
     "grille_hole_5": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 52,
+      "minimum_coverage": 0.9916303379026069,
+      "maximum_missing_edge_run_mm": 0.0996037238448459,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
+      "boundary_transition_layers": 3,
+      "tapered_edge_length_mm": 25.200848316662167,
+      "minimum_full_contour_coverage": 0.8723337824774571
     },
     "grille_hole_6": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 47,
+      "minimum_coverage": 0.9975494552953356,
+      "maximum_missing_edge_run_mm": 0.028599786709680376,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.06680655374063071,
-      "minimum_full_contour_coverage": 0.9962115792322895
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 20.50312479513284,
+      "minimum_full_contour_coverage": 0.8474006938650841
     },
     "grille_hole_7": {
-      "layer_count": 26,
+      "layer_count": 47,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.06011703069776898,
-      "minimum_full_contour_coverage": 0.9956423153939765
+      "tapered_edge_length_mm": 16.94575806527098,
+      "minimum_full_contour_coverage": 0.8444980253467664
     },
     "grille_hole_8": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 48,
+      "minimum_coverage": 0.9959041240127923,
+      "maximum_missing_edge_run_mm": 0.05825465388240037,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.19988246847614866,
-      "minimum_full_contour_coverage": 0.9935641231779372
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 16.014530011138984,
+      "minimum_full_contour_coverage": 0.8556079141921982
     },
     "grille_hole_9": {
-      "layer_count": 26,
+      "layer_count": 50,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.37203392702810145,
-      "minimum_full_contour_coverage": 0.9890314485644018
+      "tapered_edge_length_mm": 15.611580053595562,
+      "minimum_full_contour_coverage": 0.7938393976470577
     },
     "grille_hole_10": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9982722386077003,
-      "maximum_missing_edge_run_mm": 0.025155204808889046,
+      "layer_count": 56,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 1.4933413932175326,
-      "minimum_full_contour_coverage": 0.9842733395128257
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 16.970737896936292,
+      "minimum_full_contour_coverage": 0.7505987360091592
     },
     "grille_hole_11": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9977098993240832,
-      "maximum_missing_edge_run_mm": 0.03542816647081367,
+      "layer_count": 61,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 2.919426571185601,
-      "minimum_full_contour_coverage": 0.9732138953721458
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 16.543307384963388,
+      "minimum_full_contour_coverage": 0.7404155423247997
     },
     "grille_hole_12": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9791676484591901,
-      "maximum_missing_edge_run_mm": 0.3341484866538483,
+      "layer_count": 61,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 9.208719995879058,
-      "minimum_full_contour_coverage": 0.9311295188260648
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 17.78611530100529,
+      "minimum_full_contour_coverage": 0.7441602663872434
     },
     "grille_hole_13": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9741863571602538,
-      "maximum_missing_edge_run_mm": 0.2840037543506579,
+      "layer_count": 56,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 10.261660720647441,
-      "minimum_full_contour_coverage": 0.9000751228972823
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 17.864983778279022,
+      "minimum_full_contour_coverage": 0.7480553888470634
     },
     "grille_hole_14": {
-      "layer_count": 26,
+      "layer_count": 50,
       "minimum_coverage": 1.0,
       "maximum_missing_edge_run_mm": 0.0,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.6152942207075558,
-      "minimum_full_contour_coverage": 0.9785028191223833
+      "tapered_edge_length_mm": 16.345584450227513,
+      "minimum_full_contour_coverage": 0.8047641187325193
     },
     "grille_hole_15": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 48,
+      "minimum_coverage": 0.9994779476119,
+      "maximum_missing_edge_run_mm": 0.007764993006864418,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.192841689348425,
-      "minimum_full_contour_coverage": 0.9736152411898003
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 15.730351502295823,
+      "minimum_full_contour_coverage": 0.841624628142914
     },
     "grille_hole_16": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "layer_count": 47,
+      "minimum_coverage": 0.9968470192740606,
+      "maximum_missing_edge_run_mm": 0.032964005346582205,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.24695327510341425,
-      "minimum_full_contour_coverage": 0.9929428147293918
+      "boundary_transition_layers": 2,
+      "tapered_edge_length_mm": 15.14148024614168,
+      "minimum_full_contour_coverage": 0.8460547001400861
     },
     "grille_hole_17": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.009947724791282244,
-      "minimum_full_contour_coverage": 0.9991400861190463
-    },
-    "grille_hole_18": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
-    },
-    "grille_hole_19": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.05063912693517837,
-      "minimum_full_contour_coverage": 0.997802583008238
-    },
-    "grille_hole_20": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.08429589847945294,
-      "minimum_full_contour_coverage": 0.9961642480886966
-    },
-    "grille_hole_21": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.45965314268746643,
-      "minimum_full_contour_coverage": 0.9886520293390961
-    },
-    "grille_hole_22": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.9056081479528937,
-      "minimum_full_contour_coverage": 0.9819665044695727
-    },
-    "grille_hole_23": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.6653211200809361,
-      "minimum_full_contour_coverage": 0.9627647348003344
-    },
-    "grille_hole_24": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9806876635530162,
-      "maximum_missing_edge_run_mm": 0.28104000535175183,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 2.585495418039769,
-      "minimum_full_contour_coverage": 0.9648950102700096
-    },
-    "grille_hole_25": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9789787858916577,
-      "maximum_missing_edge_run_mm": 0.32566710586902026,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 9.519112825910751,
-      "minimum_full_contour_coverage": 0.9149805134051983
-    },
-    "grille_hole_26": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9639719064584552,
-      "maximum_missing_edge_run_mm": 0.30034849606362707,
+      "layer_count": 47,
+      "minimum_coverage": 0.9958285151416777,
+      "maximum_missing_edge_run_mm": 0.04878864133666119,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 16.450760555964514,
-      "minimum_full_contour_coverage": 0.8888846572209645
-    },
-    "grille_hole_27": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9873538764751434,
-      "maximum_missing_edge_run_mm": 0.1792879548718639,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 4.696544474802991,
-      "minimum_full_contour_coverage": 0.9133555767819145
-    },
-    "grille_hole_28": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.5255637610662577,
-      "minimum_full_contour_coverage": 0.9893248593251621
-    },
-    "grille_hole_29": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.3846212169642881,
-      "minimum_full_contour_coverage": 0.9887698386412229
-    },
-    "grille_hole_30": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 0.11698788440962582,
-      "minimum_full_contour_coverage": 0.9951021166999982
-    },
-    "grille_hole_31": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
-    },
-    "grille_hole_32": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.07247000912187362,
-      "minimum_full_contour_coverage": 0.995776899189459
-    },
-    "grille_hole_33": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.1296954636835383,
-      "minimum_full_contour_coverage": 0.9947953177502256
-    },
-    "grille_hole_34": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.18149300612122088,
-      "minimum_full_contour_coverage": 0.9936801874172307
-    },
-    "grille_hole_35": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.7062048684475406,
-      "minimum_full_contour_coverage": 0.9842351272046892
-    },
-    "grille_hole_36": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.4610302716029413,
-      "minimum_full_contour_coverage": 0.9793080794704602
-    },
-    "grille_hole_37": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9814708492674656,
-      "maximum_missing_edge_run_mm": 0.2626375236105126,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 5.932283746139897,
-      "minimum_full_contour_coverage": 0.9359592624629878
-    },
-    "grille_hole_38": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9646351611040875,
-      "maximum_missing_edge_run_mm": 0.33319488979666817,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 16.86389340462567,
-      "minimum_full_contour_coverage": 0.8883237589982131
-    },
-    "grille_hole_39": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9602738492218086,
-      "maximum_missing_edge_run_mm": 0.3289153902187447,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 16.09018527488628,
-      "minimum_full_contour_coverage": 0.8954277692194421
-    },
-    "grille_hole_40": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9641496127284876,
-      "maximum_missing_edge_run_mm": 0.34198839154974797,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 13.547150600411513,
-      "minimum_full_contour_coverage": 0.9081267864580109
-    },
-    "grille_hole_41": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 4.738508551241352,
-      "minimum_full_contour_coverage": 0.957311031532775
-    },
-    "grille_hole_42": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 0.9997095486223075,
-      "minimum_full_contour_coverage": 0.9837143407203724
-    },
-    "grille_hole_43": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.13151114612021464,
-      "minimum_full_contour_coverage": 0.9949994964471375
-    },
-    "grille_hole_44": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
-    },
-    "grille_hole_45": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.019616780116306597,
-      "minimum_full_contour_coverage": 0.998283663909429
-    },
-    "grille_hole_46": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.10232755217376052,
-      "minimum_full_contour_coverage": 0.9964418824400741
-    },
-    "grille_hole_47": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.26292748732312304,
-      "minimum_full_contour_coverage": 0.987755143915912
-    },
-    "grille_hole_48": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.6975745819108308,
-      "minimum_full_contour_coverage": 0.988361181414497
-    },
-    "grille_hole_49": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 7.358709297154884,
-      "minimum_full_contour_coverage": 0.9418430325485831
-    },
-    "grille_hole_50": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9717840113713677,
-      "maximum_missing_edge_run_mm": 0.31656886165211046,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 9.847172658162703,
-      "minimum_full_contour_coverage": 0.9352272297849091
-    },
-    "grille_hole_51": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9599942552517207,
-      "maximum_missing_edge_run_mm": 0.3384471228495409,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 16.9231038176336,
-      "minimum_full_contour_coverage": 0.9019084604194025
-    },
-    "grille_hole_52": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9613765498114338,
-      "maximum_missing_edge_run_mm": 0.3289035764039595,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 16.840404341210988,
-      "minimum_full_contour_coverage": 0.8868588797066875
-    },
-    "grille_hole_53": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9644219978320907,
-      "maximum_missing_edge_run_mm": 0.3419616185606864,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 13.012624977343718,
-      "minimum_full_contour_coverage": 0.9140826333996263
-    },
-    "grille_hole_54": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 4.375366198851022,
-      "minimum_full_contour_coverage": 0.9392072743853135
-    },
-    "grille_hole_55": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9971674211125554,
-      "maximum_missing_edge_run_mm": 0.03588048054570201,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.196870871082253,
-      "minimum_full_contour_coverage": 0.9838036287285712
-    },
-    "grille_hole_56": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.03478424193781786,
-      "minimum_full_contour_coverage": 0.9965624323698391
-    },
-    "grille_hole_57": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
-    },
-    "grille_hole_58": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.03464360204980549,
-      "minimum_full_contour_coverage": 0.9977041228231075
-    },
-    "grille_hole_59": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.05365059981528342,
-      "minimum_full_contour_coverage": 0.9960345240075207
-    },
-    "grille_hole_60": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.41695014643240713,
-      "minimum_full_contour_coverage": 0.9872205462272401
-    },
-    "grille_hole_61": {
-      "layer_count": 26,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 1.0072229988204082,
-      "minimum_full_contour_coverage": 0.97705193599374
-    },
-    "grille_hole_62": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9901959802009294,
-      "maximum_missing_edge_run_mm": 0.1291623387537064,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 6.991657613121852,
-      "minimum_full_contour_coverage": 0.9361975194459953
-    },
-    "grille_hole_63": {
-      "layer_count": 26,
-      "minimum_coverage": 0.9711636215261632,
-      "maximum_missing_edge_run_mm": 0.31645596469977544,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 9.833838524536937,
-      "minimum_full_contour_coverage": 0.9273291015772313
-    },
-    "grille_hole_64": {
-      "layer_count": 26,
-      "minimum_coverage": 0.961200659939082,
-      "maximum_missing_edge_run_mm": 0.3384352692383936,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 16.879867840002547,
-      "minimum_full_contour_coverage": 0.8924562449240695
+      "tapered_edge_length_mm": 20.128155937263738,
+      "minimum_full_contour_coverage": 0.8355236789901576
     },
     "bottom_ring": {
       "layer_count": 3,
@@ -1549,14 +769,14 @@
     },
     "cable_tie_bridge": {
       "layer_count": 41,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_coverage": 0.9999769401840604,
+      "maximum_missing_edge_run_mm": 0.0012374811172506384,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
+      "boundary_transition_layers": 1,
       "tapered_edge_length_mm": 0.0,
-      "minimum_full_contour_coverage": 1.0
+      "minimum_full_contour_coverage": 0.9999769401840604
     },
     "top_flat": {
       "layer_count": 8,
@@ -1566,8 +786,8 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 34.7971557391979,
-      "minimum_full_contour_coverage": 0.8341334154022367
+      "tapered_edge_length_mm": 16.893125674491234,
+      "minimum_full_contour_coverage": 0.8697169798897261
     },
     "outlet": {
       "layer_count": 70,
@@ -1577,8 +797,19 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 0.30763029583566237,
-      "minimum_full_contour_coverage": 0.9953304369455824
+      "tapered_edge_length_mm": 0.037700593598124464,
+      "minimum_full_contour_coverage": 0.9992202766483133
+    },
+    "usb_access_rim": {
+      "layer_count": 79,
+      "minimum_coverage": 1.0,
+      "maximum_missing_edge_run_mm": 0.0,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 1,
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 6.29326906629863,
+      "minimum_full_contour_coverage": 0.7285028002342203
     },
     "microphone_0": {
       "layer_count": 18,
@@ -1588,8 +819,8 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.6166332156246876,
-      "minimum_full_contour_coverage": 0.9787414621933486
+      "tapered_edge_length_mm": 1.858950427332214,
+      "minimum_full_contour_coverage": 0.9776604983763734
     },
     "microphone_1": {
       "layer_count": 18,
@@ -1599,30 +830,30 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 2.4076428504543292,
-      "minimum_full_contour_coverage": 0.9699973723766331
+      "tapered_edge_length_mm": 2.733884424705596,
+      "minimum_full_contour_coverage": 0.9627082959997535
     },
     "microphone_2": {
       "layer_count": 18,
-      "minimum_coverage": 0.9655943826953102,
-      "maximum_missing_edge_run_mm": 0.3301615055873517,
+      "minimum_coverage": 0.9811173726784962,
+      "maximum_missing_edge_run_mm": 0.31876111774687405,
+      "minimum_crossing_count": null,
+      "crossing_probe_count": 0,
+      "skipped_short_sections": 0,
+      "boundary_transition_layers": 1,
+      "tapered_edge_length_mm": 8.792240776008724,
+      "minimum_full_contour_coverage": 0.923812616193696
+    },
+    "microphone_3": {
+      "layer_count": 18,
+      "minimum_coverage": 0.9804622698552963,
+      "maximum_missing_edge_run_mm": 0.2900459589208623,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 9.250864317652077,
-      "minimum_full_contour_coverage": 0.9186520059168526
-    },
-    "microphone_3": {
-      "layer_count": 18,
-      "minimum_coverage": 1.0,
-      "maximum_missing_edge_run_mm": 0.0,
-      "minimum_crossing_count": null,
-      "crossing_probe_count": 0,
-      "skipped_short_sections": 0,
-      "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 3.719275159777767,
-      "minimum_full_contour_coverage": 0.9581096922298142
+      "tapered_edge_length_mm": 4.875968088829844,
+      "minimum_full_contour_coverage": 0.9446966277042486
     },
     "microphone_4": {
       "layer_count": 18,
@@ -1632,19 +863,19 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 9.411665111995685,
-      "minimum_full_contour_coverage": 0.900182045622543
+      "tapered_edge_length_mm": 8.948636300109214,
+      "minimum_full_contour_coverage": 0.9214672979582074
     },
     "microphone_5": {
       "layer_count": 18,
-      "minimum_coverage": 0.9722592831369186,
-      "maximum_missing_edge_run_mm": 0.3360882952677283,
+      "minimum_coverage": 0.9648786465034763,
+      "maximum_missing_edge_run_mm": 0.3489765607500796,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 10.650108274036928,
-      "minimum_full_contour_coverage": 0.8972565066362017
+      "boundary_transition_layers": 2,
+      "tapered_edge_length_mm": 11.000238377212309,
+      "minimum_full_contour_coverage": 0.8939219374283001
     },
     "microphone_6": {
       "layer_count": 18,
@@ -1654,8 +885,8 @@
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 0,
-      "tapered_edge_length_mm": 1.578746995914185,
-      "minimum_full_contour_coverage": 0.9721830606865867
+      "tapered_edge_length_mm": 1.4541536461270748,
+      "minimum_full_contour_coverage": 0.9778359556205908
     },
     "microphone_7": {
       "layer_count": 18,
@@ -1664,116 +895,116 @@
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 1.7724315342469257,
-      "minimum_full_contour_coverage": 0.9772333779455228
+      "boundary_transition_layers": 0,
+      "tapered_edge_length_mm": 1.5254852143947948,
+      "minimum_full_contour_coverage": 0.9697333543597186
     },
     "microphone_8": {
       "layer_count": 18,
-      "minimum_coverage": 0.964228153496517,
-      "maximum_missing_edge_run_mm": 0.3231244643647483,
+      "minimum_coverage": 0.9807518121795341,
+      "maximum_missing_edge_run_mm": 0.3136898484750346,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
-      "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 8.594779240022199,
+      "boundary_transition_layers": 2,
+      "tapered_edge_length_mm": 9.380048154393158,
       "minimum_full_contour_coverage": 0.9199448411949647
     },
     "microphone_9": {
       "layer_count": 18,
-      "minimum_coverage": 0.9823832111213403,
-      "maximum_missing_edge_run_mm": 0.2639499299246357,
+      "minimum_coverage": 0.9926964334944108,
+      "maximum_missing_edge_run_mm": 0.11393968666982097,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 1,
-      "tapered_edge_length_mm": 4.054663840624255,
-      "minimum_full_contour_coverage": 0.9393099422490709
+      "tapered_edge_length_mm": 5.142774848158288,
+      "minimum_full_contour_coverage": 0.9467824590169399
     },
     "microphone_10": {
       "layer_count": 18,
-      "minimum_coverage": 0.9591625910367368,
+      "minimum_coverage": 0.9588052134476684,
       "maximum_missing_edge_run_mm": 0.32931028611472024,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 8.517019044784563,
-      "minimum_full_contour_coverage": 0.908719854132119
+      "tapered_edge_length_mm": 8.30899741788907,
+      "minimum_full_contour_coverage": 0.9220416803882638
     },
     "microphone_11": {
       "layer_count": 18,
-      "minimum_coverage": 0.960337473230769,
+      "minimum_coverage": 0.9603376079892864,
       "maximum_missing_edge_run_mm": 0.3456228045410144,
       "minimum_crossing_count": null,
       "crossing_probe_count": 0,
       "skipped_short_sections": 0,
       "boundary_transition_layers": 2,
-      "tapered_edge_length_mm": 10.107447509651795,
-      "minimum_full_contour_coverage": 0.8980398285508021
+      "tapered_edge_length_mm": 10.086221765913974,
+      "minimum_full_contour_coverage": 0.9000785973506193
     }
   },
   "feature_failures": [],
   "unsupported_wall_runs": [
     {
       "z_mm": 78.8,
-      "unsupported_wall_run_mm": 2.1032353766528997
-    },
-    {
-      "z_mm": 54.6,
-      "unsupported_wall_run_mm": 1.292612041592737
-    },
-    {
-      "z_mm": 60.2,
-      "unsupported_wall_run_mm": 1.2487706188932253
-    },
-    {
-      "z_mm": 49.0,
-      "unsupported_wall_run_mm": 1.1929059353721543
-    },
-    {
-      "z_mm": 37.8,
-      "unsupported_wall_run_mm": 1.0488131841239543
+      "unsupported_wall_run_mm": 2.1048422730357124
     },
     {
       "z_mm": 7.2,
-      "unsupported_wall_run_mm": 0.9138677429150004
+      "unsupported_wall_run_mm": 0.9421148886028151
     },
     {
-      "z_mm": 18.4,
-      "unsupported_wall_run_mm": 0.8960005580355414
+      "z_mm": 22.8,
+      "unsupported_wall_run_mm": 0.9319134247998457
     },
     {
       "z_mm": 11.2,
-      "unsupported_wall_run_mm": 0.8868249089669713
-    },
-    {
-      "z_mm": 43.4,
-      "unsupported_wall_run_mm": 0.8455323766716375
-    },
-    {
-      "z_mm": 84.0,
-      "unsupported_wall_run_mm": 0.838552860587813
-    },
-    {
-      "z_mm": 51.6,
-      "unsupported_wall_run_mm": 0.7719131811179784
+      "unsupported_wall_run_mm": 0.88717269690217
     },
     {
       "z_mm": 7.0,
-      "unsupported_wall_run_mm": 0.6051156627115031
+      "unsupported_wall_run_mm": 0.6052765524070991
     },
     {
-      "z_mm": 54.4,
-      "unsupported_wall_run_mm": 0.6001446714865744
+      "z_mm": 17.4,
+      "unsupported_wall_run_mm": 0.5766759272659969
     },
     {
-      "z_mm": 60.0,
-      "unsupported_wall_run_mm": 0.5997977426863549
+      "z_mm": 13.6,
+      "unsupported_wall_run_mm": 0.5764350113534477
     },
     {
-      "z_mm": 48.8,
-      "unsupported_wall_run_mm": 0.4868036551820976
+      "z_mm": 14.0,
+      "unsupported_wall_run_mm": 0.5255833645075602
+    },
+    {
+      "z_mm": 11.0,
+      "unsupported_wall_run_mm": 0.48102248030726463
+    },
+    {
+      "z_mm": 19.8,
+      "unsupported_wall_run_mm": 0.47367389554730727
+    },
+    {
+      "z_mm": 15.2,
+      "unsupported_wall_run_mm": 0.39805288423586865
+    },
+    {
+      "z_mm": 52.2,
+      "unsupported_wall_run_mm": 0.2883726851758947
+    },
+    {
+      "z_mm": 84.8,
+      "unsupported_wall_run_mm": 0.2575765797669607
+    },
+    {
+      "z_mm": 17.6,
+      "unsupported_wall_run_mm": 0.21087437018280691
+    },
+    {
+      "z_mm": 34.2,
+      "unsupported_wall_run_mm": 0.20199999999999818
     }
   ],
   "feature_validation_passed": true,
