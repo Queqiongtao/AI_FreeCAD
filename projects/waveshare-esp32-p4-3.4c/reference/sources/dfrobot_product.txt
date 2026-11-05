@@ -1,0 +1,35 @@
+https://www.dfrobot.com/product-1613.html
+MP2636 Power Booster & Charger Module - DFRobot Store Community Forum Wiki Blog Learn $USD
+$USD
+EUR€
+£GBP
+. VIP
+My Account
+Order History
+VIP Benefits
+Logout TOP
+Store
+Modules
+Power Modules
+MP2636 Power Booster & Charger Module
+MP2636 Power Booster & Charger Module $8.00 SKU: DFR0446 - + Volume Discount
+$7.60 2+ items
+$7.20 10+ items
+$6.40 50+ items A compact module for single-cell Li-ion/Polymer batteries, offering integrated charging and power boost with 90% efficiency and overcharge protection. Purchase this product and earn 80 reward points, which are tied to VIP membership program. Learn More > Introduction Specification Shipping List Documents Resource Introduction In many applications, we will use lithium batteries as our power solutions. In this kind of application, the most two important things are the power boost and battery charger. These two points are a prerequisite for the system. The traditional power boost and battery charge circuit are usually divided into two separate parts, the circuit will be relatively cumbersome to build.
+The Monolithic Power Systems (MPS) MP2636 is highly-integrated, flexible switch-mode battery charger with system power path management, designed for single-cell Liion or Li-Polymer batteries used in a wide range of portable applications. It is really simple to use, once you plug a lipo battery, it will work like a power bank. When there is an external power supply from VIN, it will charge the battery automatically, and the CHG led will light up; when there is no external power, only battery on battery port, the Boost will be ON.
+Specification
+Charge mode input voltage (VIN): 4.5-6.0V
+Boost mode output voltage (VOUT): 5V
+Suitable for battery voltage: 4.2V (3.7V lithium battery full of 4.2V)
+Charge mode Maximum charge current: 2.5A
+Boost mode Maximum output current: 2.5A
+Switching frequency: 600KHz
+Charging mode efficiency:> 90%
+Boost mode efficiency:> 90%
+Support battery overcharge protection
+Temperature protection: more than 150 ℃, automatic power failure
+Size: 35 * 30mm/ 1.38 * 1.18inches
+Weight: 12g Shipping List MP2636 Power Booster & Charger Module		x1 Documents
+Schematic
+Datasheet Resource All Projects Blog Tutorial Course Media
+Projects Making a Temperature-Detecting 'Portal Gun' with Unihiker Afra Nov 22, 2023 Internet of Things - IoT IoT Projects MP2636 Power Booster & Charger Module $0.00 Add to Cart Shop Now Information About Us Warranty Terms & Conditions Shipping Payment FAQ Media & Community Partner Customer Service DFRobot Distributors Contact Us Site Map My Account Affiliates Specials Sign up for exclusive offers! Like us on Copyright © 2026 DFRobot. All rights reserved.

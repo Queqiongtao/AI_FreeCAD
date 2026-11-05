@@ -1,0 +1,603 @@
+{
+  "source_sha256": "162dbe90a741384898f18162b31cf7a8e161b30babb6816ab5745fcee4e0fa60",
+  "fcstd_sha256": "ecd88690061e0c0e0d7370a3eed5b5055e16f6f77f8ed17c6e80f27382381939",
+  "sample_count": 40,
+  "minimum_sampled_material_length_mm": 2.3754937984185673,
+  "minimum_required_mm": 2.0,
+  "passed": true,
+  "screen_transition_sample_count": 30,
+  "screen_transition_minimum_required_mm": 2.15,
+  "screen_transition_minimum_normal_wall_mm": 2.2283440581245957,
+  "screen_transition_samples": [
+    {
+      "angle_deg": 0,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581246228,
+      "passed": true
+    },
+    {
+      "angle_deg": 30,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581246245,
+      "passed": true
+    },
+    {
+      "angle_deg": 60,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581245957,
+      "passed": true
+    },
+    {
+      "angle_deg": 90,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581246343,
+      "passed": true
+    },
+    {
+      "angle_deg": 120,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.228344058124617,
+      "passed": true
+    },
+    {
+      "angle_deg": 150,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581246152,
+      "passed": true
+    },
+    {
+      "angle_deg": 180,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581246228,
+      "passed": true
+    },
+    {
+      "angle_deg": 210,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.228344058124626,
+      "passed": true
+    },
+    {
+      "angle_deg": 270,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.228344058124619,
+      "passed": true
+    },
+    {
+      "angle_deg": 330,
+      "n_mm": 18.3,
+      "normal_material_length_mm": 2.2283440581246206,
+      "passed": true
+    },
+    {
+      "angle_deg": 0,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707589,
+      "passed": true
+    },
+    {
+      "angle_deg": 30,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707624,
+      "passed": true
+    },
+    {
+      "angle_deg": 60,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707615,
+      "passed": true
+    },
+    {
+      "angle_deg": 90,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707607,
+      "passed": true
+    },
+    {
+      "angle_deg": 120,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707623,
+      "passed": true
+    },
+    {
+      "angle_deg": 150,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707624,
+      "passed": true
+    },
+    {
+      "angle_deg": 180,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 4.308131845707582,
+      "passed": true
+    },
+    {
+      "angle_deg": 210,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 2.228344058124615,
+      "passed": true
+    },
+    {
+      "angle_deg": 270,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 2.228344058124619,
+      "passed": true
+    },
+    {
+      "angle_deg": 330,
+      "n_mm": 20.3,
+      "normal_material_length_mm": 2.2283440581252654,
+      "passed": true
+    },
+    {
+      "angle_deg": 0,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.44650547656607,
+      "passed": true
+    },
+    {
+      "angle_deg": 30,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.446505476566072,
+      "passed": true
+    },
+    {
+      "angle_deg": 60,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.44650547656612,
+      "passed": true
+    },
+    {
+      "angle_deg": 90,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.446505476566127,
+      "passed": true
+    },
+    {
+      "angle_deg": 120,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.446505476566073,
+      "passed": true
+    },
+    {
+      "angle_deg": 150,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.44650547656608,
+      "passed": true
+    },
+    {
+      "angle_deg": 180,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 3.446505476566058,
+      "passed": true
+    },
+    {
+      "angle_deg": 210,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 2.22834405812462,
+      "passed": true
+    },
+    {
+      "angle_deg": 270,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 2.2283440581246263,
+      "passed": true
+    },
+    {
+      "angle_deg": 330,
+      "n_mm": 22.3,
+      "normal_material_length_mm": 2.228344058124626,
+      "passed": true
+    }
+  ],
+  "internal_mic_pocket_front_panel_samples": [
+    {
+      "angle_deg": 240,
+      "n_mm": 18.3,
+      "front_panel_material_length_mm": 2.5000000000000244,
+      "passed": true,
+      "classification": "内部麦克风装配口袋，核对其前方真实外面板"
+    },
+    {
+      "angle_deg": 300,
+      "n_mm": 18.3,
+      "front_panel_material_length_mm": 2.500000000000021,
+      "passed": true,
+      "classification": "内部麦克风装配口袋，核对其前方真实外面板"
+    },
+    {
+      "angle_deg": 240,
+      "n_mm": 20.3,
+      "front_panel_material_length_mm": 2.500000000000021,
+      "passed": true,
+      "classification": "内部麦克风装配口袋，核对其前方真实外面板"
+    },
+    {
+      "angle_deg": 300,
+      "n_mm": 20.3,
+      "front_panel_material_length_mm": 2.5000000000000213,
+      "passed": true,
+      "classification": "内部麦克风装配口袋，核对其前方真实外面板"
+    },
+    {
+      "angle_deg": 240,
+      "n_mm": 22.3,
+      "front_panel_material_length_mm": 2.5000000000000044,
+      "passed": true,
+      "classification": "内部麦克风装配口袋，核对其前方真实外面板"
+    },
+    {
+      "angle_deg": 300,
+      "n_mm": 22.3,
+      "front_panel_material_length_mm": 2.500000000000008,
+      "passed": true,
+      "classification": "内部麦克风装配口袋，核对其前方真实外面板"
+    }
+  ],
+  "samples": [
+    {
+      "local_x_s_n_mm": [
+        -48.88395680847327,
+        -95,
+        20
+      ],
+      "normal_material_length_mm": 4.597831316640848,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        48.88395680847327,
+        -95,
+        20
+      ],
+      "normal_material_length_mm": 4.5978313166408125,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -48.88395680847327,
+        -95,
+        35
+      ],
+      "normal_material_length_mm": 7.490536407933675,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        48.88395680847327,
+        -95,
+        35
+      ],
+      "normal_material_length_mm": 7.490536407933639,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -51.25683408465625,
+        -80,
+        20
+      ],
+      "normal_material_length_mm": 2.3754937984185887,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        51.25683408465625,
+        -80,
+        20
+      ],
+      "normal_material_length_mm": 2.3754937984185673,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -51.25683408465625,
+        -80,
+        35
+      ],
+      "normal_material_length_mm": 2.375493798418589,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        51.25683408465625,
+        -80,
+        35
+      ],
+      "normal_material_length_mm": 2.3754937984185673,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -51.25683408465625,
+        -80,
+        50
+      ],
+      "normal_material_length_mm": 2.3754937984185895,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        51.25683408465625,
+        -80,
+        50
+      ],
+      "normal_material_length_mm": 2.3754937984185673,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -53.77675790033754,
+        -60,
+        20
+      ],
+      "normal_material_length_mm": 2.3862464959138725,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        53.77675790033754,
+        -60,
+        20
+      ],
+      "normal_material_length_mm": 2.3862464959138503,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -53.77675790033754,
+        -60,
+        35
+      ],
+      "normal_material_length_mm": 2.3862464959138725,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        53.77675790033754,
+        -60,
+        35
+      ],
+      "normal_material_length_mm": 2.386246495913844,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -53.77675790033754,
+        -60,
+        50
+      ],
+      "normal_material_length_mm": 2.3862464959138654,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        53.77675790033754,
+        -60,
+        50
+      ],
+      "normal_material_length_mm": 2.386246495913844,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -53.77675790033754,
+        -60,
+        65
+      ],
+      "normal_material_length_mm": 2.386246495913865,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        53.77675790033754,
+        -60,
+        65
+      ],
+      "normal_material_length_mm": 2.386246495913843,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -53.77675790033754,
+        -60,
+        80
+      ],
+      "normal_material_length_mm": 2.386246495913879,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        53.77675790033754,
+        -60,
+        80
+      ],
+      "normal_material_length_mm": 2.3862464959138507,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -56.195931084079575,
+        -30,
+        20
+      ],
+      "normal_material_length_mm": 4.846281868427097,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        56.195931084079575,
+        -30,
+        20
+      ],
+      "normal_material_length_mm": 4.846281868427068,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -56.195931084079575,
+        -30,
+        35
+      ],
+      "normal_material_length_mm": 2.3965690872759704,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        56.195931084079575,
+        -30,
+        35
+      ],
+      "normal_material_length_mm": 2.396569087275942,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -56.195931084079575,
+        -30,
+        50
+      ],
+      "normal_material_length_mm": 2.396569087275977,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        56.195931084079575,
+        -30,
+        50
+      ],
+      "normal_material_length_mm": 2.396569087275949,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -56.195931084079575,
+        -30,
+        65
+      ],
+      "normal_material_length_mm": 2.39656908727597,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        56.195931084079575,
+        -30,
+        65
+      ],
+      "normal_material_length_mm": 2.396569087275942,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -57.0,
+        0,
+        20
+      ],
+      "normal_material_length_mm": 3.39999999999997,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        57.0,
+        0,
+        20
+      ],
+      "normal_material_length_mm": 3.3999999999999773,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -57.0,
+        0,
+        35
+      ],
+      "normal_material_length_mm": 2.399999999999956,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        57.0,
+        0,
+        35
+      ],
+      "normal_material_length_mm": 2.399999999999963,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -57.0,
+        0,
+        50
+      ],
+      "normal_material_length_mm": 2.399999999999956,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        57.0,
+        0,
+        50
+      ],
+      "normal_material_length_mm": 2.399999999999963,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -51.22499389946279,
+        25,
+        20
+      ],
+      "normal_material_length_mm": 3.3999999999999977,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        51.22499389946279,
+        25,
+        20
+      ],
+      "normal_material_length_mm": 3.4000000000000306,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -51.22499389946279,
+        25,
+        35
+      ],
+      "normal_material_length_mm": 8.00000000000002,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        51.22499389946279,
+        25,
+        35
+      ],
+      "normal_material_length_mm": 8.00000000000002,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        -34.9857113690718,
+        45,
+        20
+      ],
+      "normal_material_length_mm": 3.4000000000000288,
+      "passed": true
+    },
+    {
+      "local_x_s_n_mm": [
+        34.9857113690718,
+        45,
+        20
+      ],
+      "normal_material_length_mm": 3.4000000000000288,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "仅普通侧壁有限法向截线；不包含前缘、底板、孔、槽及所有曲面极值",
+    "筋和支座可增加截线材料长度；不将结果解释为全局最小壁厚"
+  ]
+}

@@ -18,3 +18,7 @@ __pycache__/
 
 # 切片软件导出的残留结果。
 /result.json
+
+# 新P4项目保留用户原始根目录副本；唯一跟踪参考放在reference/。
+/projects/waveshare-esp32-p4-3.4c/ESP32-P4-WIFI6-TOUCH-LCD-3_4C.stp
+/projects/waveshare-esp32-p4-3.4c/output/*_console.log

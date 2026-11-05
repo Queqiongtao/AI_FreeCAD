@@ -1,0 +1,149 @@
+https://www.adafruit.com/product/328
+Lithium Ion Polymer Battery - 3.7v 2500mAh : Adafruit Industries, Unique & fun DIY electronics and kits 📮🇺🇸📦🇺🇸Election Day Was Tuesday, November 3 and Adafruit votes! some orders may be delayed 📮🇺🇸📦🇺🇸 Skip Navigation
+Shop
+Learn
+Blog
+Forums
+IO
+LIVE!
+AdaBox Sign In Shopping cart, 0 items. toggle menu Search Shopping cart, 0 items.
+Sign In | Create Account
+New Products
+Featured Products
+Gift Ideas
+Circuit Playground
+Feather
+Raspberry Pi
+Arduino
+LEDs
+All Categories
+Support
+Shipping & Returns
+About Us
+Products
+Products navigation
+Shop Categories view all categories
+Arduino
+CircuitPython
+Circuit Playground
+Feather
+STEMMA / STEMMA QT
+LCDs & Displays
+Raspberry Pi
+RP2040 / Pico
+Accessories
+Batteries
+Books
+Breakout Boards
+Cables
+Components & Parts
+Development Boards
+E-Ink / ThinkInk
+Gift Certificates
+Kits & Projects
+LEDs
+Mechanical Keyboards
+Neopixels
+Power
+Prototyping
+Robotics & CNC
+Sensors
+Tools
+Wearables
+Wireless
+Clearance Sale
+New Products view all New Products
+Adafruit Si5351C 8 Channel TCXO Clock Generator - 2.5KHz-200MHz
+$14.95
+Adafruit RV-8803 High Accuracy Real Time Clock Breakout Board
+$10.95
+NeoPixel Ring - 12 x 5050 WWA with Integrated Drivers
+$8.95
+Adafruit TMF8806 Time of Flight Distance Sensor - 10mm to 5m
+$12.50
+Featured Products view all Featured Products
+Adafruit BMP581 I2C or SPI Temperature and Pressure Sensor
+$9.95
+Adafruit STSPIN220 Stepper Motor Driver Breakout Board
+$6.50
+Adafruit TPS61169 Constant Current Boost Converter for LEDs
+$4.50
+Adafruit Sparkle Motion Stick + Enclosure Kit
+$19.95
+Gift Ideas
+What's New Search Power / LiIon & LiPoly / Batteries / Lithium Ion Polymer Battery - 3.7v 2500mAh
+Lithium Ion Polymer Battery - 3.7v 2500mAh Product ID: 328 $14.95
+Product Images and Video Play video: Lithium Battery Shipping Restrictions Play video: LiPo Longevity - Collin’s Lab Notes #adafruit #collinslabnotes Play video: Beware of Bad Lipos - Collin’s Lab Notes #adafruit #collinslabnotes
+Qty Discount
+1-9 $14.95
+10-99 $13.46
+100+ $11.96 In stock Add to Cart There are multiple versions of this item. Please select one from the options below:
+3.7V 100mAh							 ($5.95) 3.7V 150mAh							 ($5.95) 3.7V 350mAh							 ($6.95) 3.7V 350mAh with Short Cable							 ($5.95) 3.7V 400mAh Ideal For Feather							 ($6.95) 3.7V 420mAh with Short Cable							 ($6.95) 3.7V 500mAh							 ($7.95)							 -- out of stock - notify me 3.7V 1200mAh							 ($9.95) 3.7V 2000mAh							 ($12.50) 3.7V 2200mAh							 ($9.95) 3.7V 2500mAh 3.7V 4400mAh							 ($19.95) 3.7V 6600mAh							 ($24.50) 3.7V 10050mAh (10 Ah)							 ($29.95)
+Qty Discount
+1-9 $14.95
+10-99 $13.46
+100+ $11.96 In stock Add to Wishlist
+Description
+Lithium-ion polymer (also known as 'lipo' or 'lipoly') batteries are thin, light, and powerful. The output ranges from 4.2V when completely charged to 3.7V. This battery has a capacity of 2500mAh for a total of about 10 Wh. If you need a smaller battery, we also have a 1200mAh model
+The batteries come pre-attached with a genuine 2-pin JST-PH connector as shown and include the necessary protection circuitry. Because they have a genuine JST connector, not a knock-off, the cable won't snag or get stuck in a matching JST jack, they click in and out smoothly.
+The included protection circuitry keeps the battery voltage from going too high (over-charging) or low (over-use) which means that the battery will cut out when completely dead at ~2.8V. It will also protect against output shorts. However, even with this protection, it is very important that you only use a LiIon/LiPoly constant-voltage/constant-current charger to recharge them and at a rate of 1200mA or less.
+Like most lipos, the batteries we sell do not have thermistors built-in. This is why we suggest charging at 1/2C or even less - 1200mA max in this case. Even 500mA is a good charge rate, which is how much you can get from a USB port.
+Additional safety notes: Do not use a NiMH/NiCad/lead-acid charger! Also, do not abuse these batteries, do not short, bend, crush, or puncture. Never charge or use unattended. Always inspect batteries and surrounding circuitry constantly for any damage, loose wiring, or the possibility of short circuits. Polarity matches all Adafruit LiPoly/LiIon chargers and boards, other brands may have reverse polarity and can destroy your battery. As with all Lithium-ion polymer batteries and with any power source - they should be used by experts who are comfortable working with power supplies.
+Play video: Beware of Bad Lipos - Collin’s Lab Notes #adafruit #collinslabnotes
+Play video: LiPo Longevity - Collin’s Lab Notes #adafruit #collinslabnotes
+Play video: Lithium Battery Shipping Restrictions
+Technical Details
+Revision History:
+As of July 26th, 2022 - The end of the JST cable is now taped sideways to the top of the battery to avoid accidental rips.
+Specifications:
+Weight: 50g
+Size: 1.9" x 2.3" x 0.29" (50mm x 60mm x 7.3mm)
+Output: 2500mAh at 3.7V nominal
+Diagram
+UN38.3 Report
+Datasheet
+Drop Test Report
+MSDS Report
+Learn LED Harness Bra Rock a bunch of NeoPixels with this custom lightweight wearable! Bluetooth LE MIDI Controller Wireless MIDI Adafruit IO Basics: ESP8266 + Arduino Get your project online fast with ESP8266, Arduino, & Adafruit IO! UV Brush Cleaner Quickly dry and sanitize brushes! See All Guides
+May We Also Suggest…
+PowerBoost 500 Charger - Rechargeable 5V Lipo USB Boost @ 500mA+
+Lithium Ion Polymer Battery Ideal For Feathers - 3.7V 400mAh
+JST PH 2-Pin Cable – Male Header 200mm
+Lithium Ion Battery Pack - 3.7V 4400mAh
+Lithium Ion Cylindrical Battery - 3.7v 2200mAh
+Lithium Ion Polymer Battery - 3.7V 350mAh
+Lithium Ion Polymer Battery - 3.7v 100mAh
+Lithium Ion Battery Pack - 3.7V 6600mAh
+Lithium Ion Polymer Battery - 3.7v 150mAh
+Lithium Ion Battery - 3.7V 2000mAh
+Lithium Ion Polymer Battery - 3.7v 1200mAh
+Lithium Ion Polymer Battery - 3.7v 500mAh
+Distributors
+Mouser Electronics United States
+Little Bird Electronics Australia
+ABRA Electronics Canada
+DigiKey Electronics United States
+MicroCenter United States
+See our Distributors page for a complete list of distributors.
+Lithium Ion Polymer Battery - 3.7v 2500mAh Product ID: 328 $14.95 There are multiple versions of this item. Please select one from the options below:
+3.7V 100mAh							 ($5.95) 3.7V 150mAh							 ($5.95) 3.7V 350mAh							 ($6.95) 3.7V 350mAh with Short Cable							 ($5.95) 3.7V 400mAh Ideal For Feather							 ($6.95) 3.7V 420mAh with Short Cable							 ($6.95) 3.7V 500mAh							 ($7.95)							 -- out of stock - notify me 3.7V 1200mAh							 ($9.95) 3.7V 2000mAh							 ($12.50) 3.7V 2200mAh							 ($9.95) 3.7V 2500mAh 3.7V 4400mAh							 ($19.95) 3.7V 6600mAh							 ($24.50) 3.7V 10050mAh (10 Ah)							 ($29.95) In stock Order now to ship today Add to Cart
+Qty Discount
+1-9 $14.95
+10-99 $13.46
+100+ $11.96 Add to Wishlist
+Description
+Technical Details
+Contact Us
+Tech Support Forums
+FAQs
+Shipping & Returns
+Freebies
+Terms of Service
+Privacy & Legal
+Website Accessibility
+About Us
+Press
+Educators
+Distributors
+Jobs
+Gift Cards “ Life's most persistent and urgent question is, What are you doing for others?” Martin Luther King, Jr. A Minority and Woman-owned Business Enterprise (M/WBE) × Create New Wishlist Name Description Create Wishlist

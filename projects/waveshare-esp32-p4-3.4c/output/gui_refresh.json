@@ -1,0 +1,8 @@
+{
+  "document_path": "D:/Project/FreeCAD_AI_Test/projects/waveshare-esp32-p4-3.4c/output/enclosure.FCStd",
+  "gui_refreshed": false,
+  "rpc_available": false,
+  "computer_use_stopped_by_user": true,
+  "status": "用户按Esc停止窗口操作，未继续控制界面；不宣称新工程已显示",
+  "reopen_instructions": "在FreeCAD中打开document_path；如已有工程包含未保存修改，请先另存，不要直接丢弃"
+}

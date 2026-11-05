@@ -1,0 +1,111 @@
+{
+  "schema": "p4-desktop-battery-eight-part-1",
+  "part": "battery_tray",
+  "material": "PETG",
+  "reference_slice_passed": true,
+  "verification_source_sha256": {
+    "verify_print.py": "d5ff0e41c34c2057c826d9347785f3a55c3d9c46dc827b5f5fd18ffb1d996787",
+    "print_audit.py": "a5238288d1772ec0928cdb1a0a6bd7ea03f2c4fc86f246194890511a1a8f447b"
+  },
+  "stl_sha256": "0eb09e3e822b10342295f2e7724336f0629e90cc65bd305d9805f080e8479655",
+  "gcode_sha256": "803aff151b232338bf2944dd28a85d430bafa0fe9ae52503a4328114f20705d1",
+  "cache": "archive\\redesign_slices\\20261106-002457-630389\\battery_tray",
+  "slice_input_sha256": "697fa73b00154b10063d54c587df9028e3a750e234767a3cb2de73b663ad0e0b",
+  "slice_input_translation_mm": [
+    125,
+    105,
+    0
+  ],
+  "profile": [
+    [
+      "machine",
+      "Prusa MK3S 0.4 nozzle"
+    ],
+    [
+      "process",
+      "0.20mm Standard @MK3S"
+    ],
+    [
+      "filament",
+      "Generic PETG @Prusa"
+    ]
+  ],
+  "nozzle_mm": 0.4,
+  "layer_height_mm": 0.2,
+  "wall_loops": 6,
+  "infill_percent": 30,
+  "support_enabled": true,
+  "model_layer_count": 97,
+  "continuous_model_layers": true,
+  "top_shortfall_mm": -3.8146972514141453e-07,
+  "support_volume_mm3": 3394.7383750353606,
+  "alignment": {
+    "rotation_deg": 0,
+    "translation_mm": [
+      124.99999618530273,
+      105.0
+    ],
+    "section_alignment_score": 1.0,
+    "bbox_center_alignment": false,
+    "bbox_dimension_error_mm": 7.62939453125e-06
+  },
+  "warning": "",
+  "physical_print_verified": false,
+  "unsupported_wall_runs": [
+    {
+      "z_mm": 2.6,
+      "unsupported_wall_run_mm": 2.044000000000011
+    },
+    {
+      "z_mm": 2.8,
+      "unsupported_wall_run_mm": 0.5846153846153842
+    },
+    {
+      "z_mm": 17.2,
+      "unsupported_wall_run_mm": 0.29999999999999993
+    }
+  ],
+  "contour_audit": {
+    "minimum_coverage": 1.0,
+    "sections": [
+      {
+        "z_mm": 0.6,
+        "coverage": 1.0,
+        "contour_length_mm": 436.3212385202818
+      },
+      {
+        "z_mm": 1.8,
+        "coverage": 1.0,
+        "contour_length_mm": 436.32123852028144
+      },
+      {
+        "z_mm": 4.2,
+        "coverage": 1.0,
+        "contour_length_mm": 217.60000610351443
+      },
+      {
+        "z_mm": 7.8,
+        "coverage": 1.0,
+        "contour_length_mm": 29.60000610351569
+      },
+      {
+        "z_mm": 11.4,
+        "coverage": 1.0,
+        "contour_length_mm": 29.600006103515618
+      },
+      {
+        "z_mm": 14.8,
+        "coverage": 1.0,
+        "contour_length_mm": 29.600006103515593
+      },
+      {
+        "z_mm": 18.0,
+        "coverage": 1.0,
+        "contour_length_mm": 369.2000083923356
+      }
+    ],
+    "method": "7个代表层，按截面轮廓长度加权，0.3mm采样，对照全部本体挤出足迹"
+  },
+  "functional_section_coverage_verified": false,
+  "note": "托盘允许可移除支撑，其余件关闭支撑；检查连续层、墙线承托与代表截面，仍需实物试印。"
+}

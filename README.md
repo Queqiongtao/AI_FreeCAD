@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | [ESP32-S3-Touch-AMOLED-1.75-B 鹅卵石底座](projects/esp32-pebble-stand/) | 40° 屏幕，整面平底，上侧双刚性旋扣＋下侧两螺丝，30×20×7 mm 扬声器四角胶粘、侧向定位及下侧弧面内交错双排 13 个 Ø2 出音孔 | 待实物试印、孔内支撑清理、贴胶和整机装配 |
 | [微雪 ESP32-P4-WIFI6-Touch-LCD-3.4C 桌面外壳](projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/) | 两件式：原板 M2.5 固定承托架，后盖上侧双刚性钩＋下侧两螺丝（M3×3×4 热熔螺母、Ø3.8 底孔）；喇叭边框泡棉胶固定、18 个斜出音孔、左右各六孔拾音、20×14 mm Type-C直插口；40°、正面隐藏 | 待实物试印与声音测试 |
+| [P4 柔和一体桌面控制器](projects/waveshare-esp32-p4-3.4c/) | 60°原厂圆屏、0.8mm浅台阶收口、120.4mm屏周、封闭顶部与深灰维护后盖；八件式，含独立电池/电源托盘，PETG制造 | 独立工程候选：电池供电、声学与实物测试未冻结；旧两件式保持独立 |
 
 ![ESP32 鹅卵石底座](projects/esp32-pebble-stand/output/preview_iso.png)
 

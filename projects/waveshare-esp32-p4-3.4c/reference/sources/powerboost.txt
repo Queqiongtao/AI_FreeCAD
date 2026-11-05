@@ -1,0 +1,177 @@
+https://www.adafruit.com/product/2465
+PowerBoost 1000 Charger - Rechargeable 5V Lipo USB Boost @ 1A [1000C] : Adafruit Industries, Unique & fun DIY electronics and kits 📮🇺🇸📦🇺🇸Election Day Was Tuesday, November 3 and Adafruit votes! some orders may be delayed 📮🇺🇸📦🇺🇸 Skip Navigation
+Shop
+Learn
+Blog
+Forums
+IO
+LIVE!
+AdaBox Sign In Shopping cart, 0 items. toggle menu Search Shopping cart, 0 items.
+Sign In | Create Account
+New Products
+Featured Products
+Gift Ideas
+Circuit Playground
+Feather
+Raspberry Pi
+Arduino
+LEDs
+All Categories
+Support
+Shipping & Returns
+About Us
+Products
+Products navigation
+Shop Categories view all categories
+Arduino
+CircuitPython
+Circuit Playground
+Feather
+STEMMA / STEMMA QT
+LCDs & Displays
+Raspberry Pi
+RP2040 / Pico
+Accessories
+Batteries
+Books
+Breakout Boards
+Cables
+Components & Parts
+Development Boards
+E-Ink / ThinkInk
+Gift Certificates
+Kits & Projects
+LEDs
+Mechanical Keyboards
+Neopixels
+Power
+Prototyping
+Robotics & CNC
+Sensors
+Tools
+Wearables
+Wireless
+Clearance Sale
+New Products view all New Products
+Adafruit Si5351C 8 Channel TCXO Clock Generator - 2.5KHz-200MHz
+$14.95
+Adafruit RV-8803 High Accuracy Real Time Clock Breakout Board
+$10.95
+NeoPixel Ring - 12 x 5050 WWA with Integrated Drivers
+$8.95
+Adafruit TMF8806 Time of Flight Distance Sensor - 10mm to 5m
+$12.50
+Featured Products view all Featured Products
+Adafruit BMP581 I2C or SPI Temperature and Pressure Sensor
+$9.95
+Adafruit STSPIN220 Stepper Motor Driver Breakout Board
+$6.50
+Adafruit TPS61169 Constant Current Boost Converter for LEDs
+$4.50
+Adafruit Sparkle Motion Stick + Enclosure Kit
+$19.95
+Gift Ideas
+What's New Search Power / USB Battery Packs / PowerBoost 1000 Charger - Rechargeable 5V Lipo USB Boost @ 1A
+PowerBoost 1000 Charger - Rechargeable 5V Lipo USB Boost @ 1A - 1000C Product ID: 2465 $19.95
+Product Images and Video Play video: New Products 4/22/2015 Play video: JP’s Product Pick of the Week 8/31/21 PowerBoost 1000C @adafruit @johnedgarpark #adafruit
+Qty Discount
+1-9 $19.95
+10-99 $17.96
+100+ $15.96 72 in stock Add to Cart Also include 1 x 5V 2.5A Switching Power Supply with 20AWG MicroUSB Cable ($ 8.25 )
+Also include 1 x Micro B USB 2-Way Y Splitter Cable ($ 2.95 )
+Qty Discount
+1-9 $19.95
+10-99 $17.96
+100+ $15.96 72 in stock Add to Wishlist
+Description
+PowerBoost 1000C is the perfect power supply for your portable project! With a built-in load-sharing battery charger circuit, you'll be able to keep your power-hungry project running even while recharging the battery! This little DC/DC boost converter module can be powered by any 3.7V LiIon/LiPoly battery, and convert the battery output to 5.2V DC for running your 5V projects.
+If you dont need the 1A battery charger, smart load-sharing, or 1A iOS resistors, check out the Powerboost 500C
+Like our popular 5V 1A USB wall adapter , we tweaked the output to be 5.2V instead of a straight-up 5.0V so that there's a little bit of 'headroom' for long cables, high draw, the addition of a diode on the output if you wish, etc. The 5.2V is safe for all 5V-powered electronics like Arduino, Raspberry Pi, or Beagle Bone while preventing icky brown-outs during high current draw because of USB cable resistance.
+The PowerBoost 1000C has at the heart a TPS61090 boost converter from TI . This boost converter chip has some really nice extras such as low battery detection, 2A internal switch, synchronous conversion, excellent efficiency, and 700KHz high-frequency operation. Check out these specs!
+Synchronous operation means you can disconnect the output completely by connecting the ENable pin to ground. This will completely turn off the output
+2A internal switch (~2.5A peak limiting) means you can get 1000mA+ from a 3.7V LiPoly/LiIon battery. Just make sure your battery can handle it!
+Low battery indicator LED lights up red when the voltage dips below 3.2V, optimized for LiPo/LiIon battery usage
+Onboard 1000mA charge-rate 'iOS' data resistors. Solder in the USB connector and you can plug in any iPad, iPhone or iPod for 1000mA charge rate.
+Full breakout for battery in, control pins and power out
+90%+ operating efficiency in most cases (see datasheet for efficiency graphs), and low quiescent current: 5mA when enabled and power LED is on, 20uA when disabled (power and low batt LED are off)
+To make this even more useful, we stuck a smart load-sharing Lipoly charger on the other side. The charger circuitry is powered from a microUSB jack, and will recharge any 3.7V/4.2V LiIon or LiPoly battery at 1000mA max rate. There's two LEDs for monitoring the charge rate, a yellow one tells you its working, a green one lights up when its done.
+Since the built-in battery charger has load-sharing, it will automatically switch over to the USB power when available, instead of continuously charging/draining the battery. This is more efficient, and lets you charge-and-boost at the same time without any interruption on the output so its fine for use as a "UPS" (un-interruptable power supply). Please note that this board is designed to be used only with a LiPoly attached, it won't work without a battery.
+Just be aware that the charge rate is 1000mA max, and there's some inefficiency during the boosting stage, so make super sure that the USB adapter you're using to charge with is high quality, can supply 2A and has thick power wires . This one from Adafruit is ideal and has been tested , lower quality ones will not act well due to the voltage drop on the wires or droop on the power supply. This is especially true if you're actually drawing 1000mA out of the PowerBoost 1000C, the MCP73871 maxes out at 1.8A . You do have to always have a LiPo plugged into manage the load spikes, it's not optional!
+This charger-booster is great for powering your robot, Arduino project, single-board-computer such as Raspberry Pi or BeagleBone! Each order comes with one fully assembled and tested PCB and a loose USB A jack. If you are powering your project from USB, solder the USB A jack in (a 3-minute soldering task). If you would like to use a terminal block, pick up a 3.5mm 2pin block here and solder to the output spot where the USB jack would go. Or don't solder anything in for a more compact power pack.
+If you're trying to figure out how much current your project is using, check out the CHARGER DOCTOR !
+You may get an off-white or black JST connector.
+Play video: JP’s Product Pick of the Week 8/31/21 PowerBoost 1000C @adafruit @johnedgarpark #adafruit
+Play video: New Products 4/22/2015
+Technical Details
+Dimensions (assembled with USB-A): 23mm x 45mm x 10mm / 0.9" x 1.8" x 0.4"
+Weight: 6g
+Datasheets, schematic, EagleCAD PCB files, and Fritzing object available in the product tutorial
+Revision History:
+As of November 27, 2023 – we've updated this PCB with Adafruit Pinguin to make a lovely and legible silkscreen
+Learn Primary Guide:                 Adafruit Powerboost 1000C A powerful rechargeable battery pack with load-share 7" Mini PC 3D Print a Portabile Mini PC Sparkle Motion Dance Shoes Music sync'd light-up platform heels to slay in Portable 5in Monitor with HDMI 3D Printed Case for 5in Display See All Guides
+May We Also Suggest…
+5V 2.5A Switching Power Supply with 20AWG MicroUSB Cable
+Adafruit Micro Lipo - USB LiIon/LiPoly charger - v2 - v2
+Lithium Ion Battery Pack - 3.7V 6600mAh
+Lithium Ion Cylindrical Battery - 3.7v 2200mAh
+Lithium Ion Polymer Battery - 3.7v 1200mAh
+Lithium Ion Polymer Battery - 3.7v 2500mAh
+PowerBoost 500 Basic - 5V USB Boost @ 500mA from 1.8V+
+PowerBoost 500 Charger - Rechargeable 5V Lipo USB Boost @ 500mA+
+USB / DC / Solar Lithium Ion/Polymer charger - Rev C - Rev C
+USB Battery Pack for Raspberry Pi - 10000mAh - 2 x 5V outputs
+Micro B USB 2-Way Y Splitter Cable
+USB Voltage Meter with OLED Display
+Distributors
+Mouser Electronics United States
+BuyaPi.ca Canada
+Deryuantech Taiwan
+Canada Robotix Canada
+VCTEC KOREA South Korea
+Electrokit Sweden AB Sweden
+NTREX, Inc.- Devicemart South Korea
+BricoGeek Spain
+BerryBase Germany
+Pimoroni United Kingdom
+Sengoku Densyo Co., Ltd. Japan
+Jameco United States
+Core Electronics Australia
+CR Cibernetica Costa Rica
+ROBU.IN India
+Little Bird Electronics Australia
+Opencircuit Netherlands
+Lee's Electronics Canada
+Kiwi Electronics Netherlands
+Makersify United Kingdom
+The Pi Hut United Kingdom
+DigiKey Electronics United States
+3DMakerWorld, Inc. United States
+MicroCenter United States
+ABRA Electronics Canada
+Electronics123.com, Inc. United States
+Paradisetronic.com Germany
+Eckstein Komponente Germany
+PiShop.us United States
+See our Distributors page for a complete list of distributors.
+PowerBoost 1000 Charger - Rechargeable 5V Lipo USB Boost @ 1A - 1000C Product ID: 2465 $19.95 72 in stock Order now to ship today Add to Cart Also include 1 x 5V 2.5A Switching Power Supply with 20AWG MicroUSB Cable ($ 8.25 )
+Also include 1 x Micro B USB 2-Way Y Splitter Cable ($ 2.95 )
+Qty Discount
+1-9 $19.95
+10-99 $17.96
+100+ $15.96 Add to Wishlist
+Description
+Technical Details
+Contact Us
+Tech Support Forums
+FAQs
+Shipping & Returns
+Freebies
+Terms of Service
+Privacy & Legal
+Website Accessibility
+About Us
+Press
+Educators
+Distributors
+Jobs
+Gift Cards “ Being good in business is the most fascinating kind of art. Making money is art and working is art and good business is the best art.” Andy Warhol A Minority and Woman-owned Business Enterprise (M/WBE) × Create New Wishlist Name Description Create Wishlist

@@ -33,6 +33,8 @@
 - **FreeCAD 工程（FCStd）**：用于在 FreeCAD 中查看完整工程，可包含隐藏的开发板、紧固件等参考体；参考体不计入打印部件数量。
 - 每个项目的 README 和交付说明必须列明实际打印部件数量、每件名称及对应文件名、装配文件名和用途，不能只笼统列出扩展名。
 - P4 项目示例：打印 2 件，`main_shell.stl` 为内藏承托架、`rear_cover.stl` 为后盖；`enclosure.step` 是这两件的装配文件，`enclosure.FCStd` 是包含参考体的 FreeCAD 工程。后续设计变化时须同步更新部件数量和文件说明。
+- 新独立P4控制器项目为 `projects/waveshare-esp32-p4-3.4c/`，不要与旧两件式输出混用。用户确认桌面显示控制兼容语音、固定60°、USB加约1小时电池、0.4mm喷嘴/PETG/至少180mm热床，重新设计外观。八个打印件为主体、后盖、承板、左右各一组导音槽与盖片、电池托盘，均在该项目 `output/trials/`。仅托盘启用可移除支撑，其余七件关闭支撑；本项目要求PETG参考验证。八件STEP仅含打印件，FCStd含隐藏硬件。供电与声音硬件未冻结，`--release`必须拒绝；不能把RTC电池座当作主电池接口，也不能将充电限流、续航或实物测试标成已验证。
+- 新项目屏周已获用户授权扩至120.4mm：原屏位置不动，主壳一体包覆，屏面高出0.8mm、单边间隙0.3mm；顶部USB槽封闭。此授权仅适用于新八件式，不改变旧两件式设计。前麦左右各一个Ø3mm，保留35.4mm候选声路并待实测，不凭示意布局冻结声口。用户先前按Esc停止窗口操作，本轮明确保持不操作GUI。
 
 ## 3. 工作流程
 
@@ -96,9 +98,10 @@
 
 - 远程：`https://github.com/Queqiongtao/AI_FreeCAD.git`
 - 分支：`main`
-- 当前项目：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/`
-- 当前源文件：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/enclosure.py`
-- 当前输出：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/output/`
+- 当前项目：`projects/waveshare-esp32-p4-3.4c/`（独立八件式控制器候选）
+- 当前源文件：`projects/waveshare-esp32-p4-3.4c/enclosure.py`
+- 当前输出：`projects/waveshare-esp32-p4-3.4c/output/`
+- 旧两件式：`projects/waveshare-esp32-p4-wifi6-touch-lcd-3.4c-enclosure/`，保留原两件式源码与输出。
 - 共用渲染器：`shared/explode_render/`，重放说明见 `shared/explode_render/README.md`
 - Git 作者：`queqt <467500670@qq.com>`
 - LFS：暂未启用

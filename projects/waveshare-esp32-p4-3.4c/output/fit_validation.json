@@ -1,0 +1,1340 @@
+{
+  "schema": "p4-desktop-battery-eight-part-1",
+  "checks": {
+    "source_hash": {
+      "passed": true,
+      "detail": "报告绑定建模源码"
+    },
+    "prototype_gate": {
+      "passed": true,
+      "detail": "原型不得被标记为正式打印通过"
+    },
+    "hash_enclosure.FCStd": {
+      "passed": true,
+      "detail": "ecd88690061e0c0e0d7370a3eed5b5055e16f6f77f8ed17c6e80f27382381939"
+    },
+    "hash_enclosure.step": {
+      "passed": true,
+      "detail": "5f5f40a5b7f23d3d84e79d7497f1e72e3c1396be1acd97a615dff8057bb77e1a"
+    },
+    "main_body_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "main_body_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "main_body_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "main_body_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "main_body_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 140857.60300954655,
+        "mesh_mm3": 140746.703125
+      }
+    },
+    "main_body_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          120.4000015258789,
+          156.5685272216797
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "rear_cover_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "rear_cover_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "rear_cover_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "rear_cover_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "rear_cover_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 46952.78495819359,
+        "mesh_mm3": 46937.60546875
+      }
+    },
+    "rear_cover_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          114.0,
+          139.6356430053711
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "board_carrier_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "board_carrier_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "board_carrier_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "board_carrier_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "board_carrier_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 13478.547081711406,
+        "mesh_mm3": 13473.0400390625
+      }
+    },
+    "board_carrier_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          108.59643936157227,
+          93.29557800292969
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "mic_left_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "mic_left_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "mic_left_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "mic_left_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "mic_left_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 2903.1916970237717,
+        "mesh_mm3": 2903.261474609375
+      }
+    },
+    "mic_left_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          14.0,
+          26.0
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "mic_left_lid_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "mic_left_lid_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "mic_left_lid_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "mic_left_lid_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "mic_left_lid_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 558.0715064906012,
+        "mesh_mm3": 558.0847778320312
+      }
+    },
+    "mic_left_lid_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          14.0,
+          26.0
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "mic_right_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "mic_right_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "mic_right_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "mic_right_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "mic_right_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 2903.191697023771,
+        "mesh_mm3": 2903.261474609375
+      }
+    },
+    "mic_right_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          14.0,
+          26.0
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "mic_right_lid_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "mic_right_lid_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "mic_right_lid_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "mic_right_lid_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "mic_right_lid_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 558.0715064906012,
+        "mesh_mm3": 558.0848999023438
+      }
+    },
+    "mic_right_lid_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          14.0,
+          26.0
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "battery_tray_strict_bop": {
+      "passed": true,
+      "detail": "严格BOP通过"
+    },
+    "battery_tray_solid": {
+      "passed": true,
+      "detail": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "battery_tray_mesh": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1,
+        "zmin": 0.0
+      }
+    },
+    "battery_tray_mesh_hash": {
+      "passed": true,
+      "detail": "打印试样绑定本次STL"
+    },
+    "battery_tray_mesh_volume": {
+      "passed": true,
+      "detail": {
+        "brep_mm3": 13317.65565341881,
+        "mesh_mm3": 13317.6923828125
+      }
+    },
+    "battery_tray_bed_size": {
+      "passed": true,
+      "detail": {
+        "print_xy_mm": [
+          80.5999984741211,
+          58.0
+        ],
+        "minimum_bed_mm": 180
+      }
+    },
+    "main_body__rear_cover": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__board_carrier": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__mic_left": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__mic_left_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__mic_right": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__mic_right_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__board_carrier": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__mic_left": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__mic_left_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__mic_right": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__mic_right_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__mic_left": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__mic_left_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__mic_right": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__mic_right_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__mic_left_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__mic_right": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__mic_right_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__mic_right": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__mic_right_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right__mic_right_lid": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_lid__battery_tray": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "carrier_joint_0": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0000000000000004,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.5,
+        "insert_engagement_mm": 3.0,
+        "cover_required": false
+      }
+    },
+    "carrier_joint_1": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.5,
+        "insert_engagement_mm": 3.0,
+        "cover_required": false
+      }
+    },
+    "carrier_joint_2": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0000000000000004,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.5,
+        "insert_engagement_mm": 3.0,
+        "cover_required": false
+      }
+    },
+    "carrier_joint_3": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.5,
+        "insert_engagement_mm": 3.0,
+        "cover_required": false
+      }
+    },
+    "cover_joint_0": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          0.9999999999999996,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.0,
+        "insert_engagement_mm": 3.0,
+        "hard_stop_y_mm": 44.0
+      }
+    },
+    "cover_joint_1": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          0.9999999999999996,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.0,
+        "insert_engagement_mm": 3.0,
+        "hard_stop_y_mm": 44.0
+      }
+    },
+    "cover_joint_2": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.0,
+        "insert_engagement_mm": 3.0,
+        "hard_stop_y_mm": 44.0
+      }
+    },
+    "cover_joint_3": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.0,
+        "insert_engagement_mm": 3.0,
+        "hard_stop_y_mm": 44.0
+      }
+    },
+    "cover_joint_4": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.0,
+        "insert_engagement_mm": 3.0,
+        "hard_stop_y_mm": 44.0
+      }
+    },
+    "cover_joint_5": {
+      "passed": true,
+      "detail": {
+        "bearing_coverage": [
+          1.0,
+          1.0
+        ],
+        "screw_bottom_clearance_mm": 1.0,
+        "insert_engagement_mm": 3.0,
+        "hard_stop_y_mm": 44.0
+      }
+    },
+    "no_added_front_bezel": {
+      "passed": true,
+      "detail": "原屏投影内不增加压框；周围侧壁可以向前包覆"
+    },
+    "screen_radial_gap": {
+      "passed": true,
+      "detail": {
+        "sample_count": 72,
+        "minimum_mm": 0.30000000000000426,
+        "maximum_mm": 0.3000000000000256,
+        "nominal_mm": 0.3
+      }
+    },
+    "screen_proud": {
+      "passed": true,
+      "detail": {
+        "sample_count": 72,
+        "minimum_mm": 0.7999999999999948,
+        "maximum_mm": 0.8000000000000341,
+        "nominal_mm": 0.8
+      }
+    },
+    "screen_wrap_wall": {
+      "passed": true,
+      "detail": {
+        "sample_count": 72,
+        "minimum_radial_wall_mm": 2.399999999999992
+      }
+    },
+    "top_old_usb_slot_closed": {
+      "passed": true,
+      "detail": {
+        "restored_material_lengths_mm": [
+          1.8,
+          1.800000000000009,
+          1.8000000000000047
+        ]
+      }
+    },
+    "module_retained": {
+      "passed": true,
+      "detail": {
+        "retained_solids": 1161
+      }
+    },
+    "main_body_module": {
+      "passed": true,
+      "detail": []
+    },
+    "main_body_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover_module": {
+      "passed": true,
+      "detail": []
+    },
+    "rear_cover_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier_module": {
+      "passed": true,
+      "detail": []
+    },
+    "board_carrier_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_module": {
+      "passed": true,
+      "detail": []
+    },
+    "mic_left_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid_module": {
+      "passed": true,
+      "detail": []
+    },
+    "mic_left_lid_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_module": {
+      "passed": true,
+      "detail": []
+    },
+    "mic_right_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_lid_module": {
+      "passed": true,
+      "detail": []
+    },
+    "mic_right_lid_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "battery_tray_module": {
+      "passed": true,
+      "detail": []
+    },
+    "battery_tray_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "left_mic_path": {
+      "passed": true,
+      "detail": {
+        "main_body": 0.0,
+        "rear_cover": 0.0,
+        "board_carrier": 0.0,
+        "mic_left": 0.0,
+        "mic_left_lid": 0.0,
+        "mic_right": 0.0,
+        "mic_right_lid": 0.0,
+        "battery_tray": 0.0
+      }
+    },
+    "right_mic_path": {
+      "passed": true,
+      "detail": {
+        "main_body": 0.0,
+        "rear_cover": 0.0,
+        "board_carrier": 0.0,
+        "mic_left": 0.0,
+        "mic_left_lid": 0.0,
+        "mic_right": 0.0,
+        "mic_right_lid": 0.0,
+        "battery_tray": 0.0
+      }
+    },
+    "main_body__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_lid__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "battery_tray__Battery_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Battery_Envelope_module": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Battery_Envelope_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_lid__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "battery_tray__Battery_Keepout": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Battery_Keepout_module": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Battery_Keepout_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_lid__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "battery_tray__Power_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Power_Envelope_module": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Power_Envelope_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "main_body__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "rear_cover__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "board_carrier__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_left_lid__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "mic_right_lid__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "battery_tray__Switch_Envelope": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Switch_Envelope_module": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Switch_Envelope_speaker": {
+      "passed": true,
+      "detail": {
+        "overlap_mm3": 0.0
+      }
+    },
+    "Battery_Keepout__Power_Envelope": {
+      "passed": true,
+      "detail": "电池余量、供电模块及开关互不侵入"
+    },
+    "Battery_Keepout__Switch_Envelope": {
+      "passed": true,
+      "detail": "电池余量、供电模块及开关互不侵入"
+    },
+    "Power_Envelope__Switch_Envelope": {
+      "passed": true,
+      "detail": "电池余量、供电模块及开关互不侵入"
+    },
+    "tray_joint_0": {
+      "passed": true,
+      "detail": {
+        "seat_coverage": 1.0,
+        "screw": "M3×6",
+        "insert_length_mm": 3
+      }
+    },
+    "tray_joint_1": {
+      "passed": true,
+      "detail": {
+        "seat_coverage": 1.0,
+        "screw": "M3×6",
+        "insert_length_mm": 3
+      }
+    },
+    "tray_joint_2": {
+      "passed": true,
+      "detail": {
+        "seat_coverage": 1.0,
+        "screw": "M3×6",
+        "insert_length_mm": 3
+      }
+    },
+    "tray_joint_3": {
+      "passed": true,
+      "detail": {
+        "seat_coverage": 1.0,
+        "screw": "M3×6",
+        "insert_length_mm": 3
+      }
+    },
+    "tray_rearward_removal": {
+      "passed": true,
+      "detail": []
+    },
+    "rear_usb_opening": {
+      "passed": true,
+      "detail": "后部USB预留口贯通"
+    },
+    "rear_switch_opening": {
+      "passed": true,
+      "detail": "后下部开关预留口贯通"
+    },
+    "mic_symmetry": {
+      "passed": true,
+      "detail": {
+        "left_mm": 35.4,
+        "right_mm": 35.4
+      }
+    },
+    "mic_separate": {
+      "passed": true,
+      "detail": "左右预留声道彼此不连通；与实际麦克风的耦合仍待校准"
+    },
+    "step_count": {
+      "passed": true,
+      "detail": 8
+    },
+    "step_volume": {
+      "passed": true,
+      "detail": {
+        "brep_raw_absolute_difference_mm3": 6.580046071932884,
+        "compensated_mesh_difference_mm3": 0.02208699733830599,
+        "tolerance": "max(0.05mm³,1ppm)",
+        "method": "逐件双精度补偿网格体积；另核对两个精度和双向布尔差"
+      }
+    },
+    "step_individual_volumes": {
+      "passed": true,
+      "detail": {
+        "main_body": {
+          "brep_raw_volume_difference_mm3": 5.155616124335211,
+          "compensated_mesh_volume_mm3": [
+            140841.64167692268,
+            140841.66384654073
+          ],
+          "volume_differences_at_004_002_mm3": [
+            0.021679166005924344,
+            0.02216961805243045
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "rear_cover": {
+          "brep_raw_volume_difference_mm3": 2.9965958674438298e-06,
+          "compensated_mesh_volume_mm3": [
+            46950.12318758184,
+            46950.12318739567
+          ],
+          "volume_differences_at_004_002_mm3": [
+            -1.862208591774106e-07,
+            -1.8616992747411132e-07
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "board_carrier": {
+          "brep_raw_volume_difference_mm3": 5.260517355054617e-09,
+          "compensated_mesh_volume_mm3": [
+            13478.194675107532,
+            13478.19457678505
+          ],
+          "volume_differences_at_004_002_mm3": [
+            -9.832248179009184e-05,
+            -9.832248179009184e-05
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "mic_left": {
+          "brep_raw_volume_difference_mm3": 1.9190338207408786e-10,
+          "compensated_mesh_volume_mm3": [
+            2903.196213114712,
+            2903.196214530274
+          ],
+          "volume_differences_at_004_002_mm3": [
+            1.4155621101963334e-06,
+            1.4155621101963334e-06
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "mic_left_lid": {
+          "brep_raw_volume_difference_mm3": 9.297309588873759e-10,
+          "compensated_mesh_volume_mm3": [
+            558.0721025572376,
+            558.0721090811613
+          ],
+          "volume_differences_at_004_002_mm3": [
+            6.523923730128445e-06,
+            6.523923730128445e-06
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "mic_right": {
+          "brep_raw_volume_difference_mm3": 1.9235812942497432e-10,
+          "compensated_mesh_volume_mm3": [
+            2903.1962103657706,
+            2903.196211727956
+          ],
+          "volume_differences_at_004_002_mm3": [
+            1.3621852303913329e-06,
+            1.3621852303913329e-06
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "mic_right_lid": {
+          "brep_raw_volume_difference_mm3": 9.297309588873759e-10,
+          "compensated_mesh_volume_mm3": [
+            558.0721010186818,
+            558.0721076049501
+          ],
+          "volume_differences_at_004_002_mm3": [
+            6.586268341379764e-06,
+            6.586268341379764e-06
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        "battery_tray": {
+          "brep_raw_volume_difference_mm3": -1.8189894035458565e-12,
+          "compensated_mesh_volume_mm3": [
+            13317.656336630089,
+            13317.656336630087
+          ],
+          "volume_differences_at_004_002_mm3": [
+            -1.8189894035458565e-12,
+            -1.8189894035458565e-12
+          ],
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        }
+      }
+    },
+    "step_individual_bounds": {
+      "passed": true,
+      "detail": {
+        "maximum_error_mm": 5.996980689815246e-11,
+        "tolerance_mm": 0.0001
+      }
+    },
+    "step_solids_valid": {
+      "passed": true,
+      "detail": "八件STEP实体回读有效"
+    },
+    "sample_speaker_grille": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_carrier_joint": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_15_hole": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_15_pin": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_20_hole": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_20_pin": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_25_hole": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_25_pin": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_30_hole": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_30_pin": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_35_hole": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_35_pin": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_40_hole": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    },
+    "sample_fit_40_pin": {
+      "passed": true,
+      "detail": {
+        "closed": true,
+        "components": 1
+      }
+    }
+  },
+  "failures": [],
+  "production_ready": false,
+  "physical_tests_executed": false,
+  "assembly_bbox_mm": [
+    120.40000020000002,
+    95.20000012049235,
+    156.5847295078235
+  ],
+  "passed": true,
+  "limitations": [
+    "本报告只验证几何；真实参考切片另见print_validation.json，打印、声学、重心与温升待实测",
+    "麦克风位置为用户授权预留，声口朝向、密封接触和实际电路板声路未确认",
+    "扬声器仅完整包络，安装耳、音腔性能和USB线束须选型校准",
+    "供电模块高度、实际固定孔、充电限流及电池放电倍率未实物确认；不代表续航已达标",
+    "维护行程每3mm采样，不等于连续碰撞数学证明；软线束需拔插或留维护长度",
+    "常规实体有效性不等于严格BOP曲面检查或全局最薄壁验证"
+  ],
+  "hashes": {
+    "source": "162dbe90a741384898f18162b31cf7a8e161b30babb6816ab5745fcee4e0fa60",
+    "step": "5f5f40a5b7f23d3d84e79d7497f1e72e3c1396be1acd97a615dff8057bb77e1a",
+    "fcstd": "ecd88690061e0c0e0d7370a3eed5b5055e16f6f77f8ed17c6e80f27382381939"
+  }
+}

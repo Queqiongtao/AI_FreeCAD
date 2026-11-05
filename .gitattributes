@@ -5,3 +5,8 @@
 *.dwg binary
 *.pdf binary
 *.png binary
+
+# 保留新 P4 项目验证报告所绑定的原始字节。
+/projects/waveshare-esp32-p4-3.4c/**/*.py -text
+/projects/waveshare-esp32-p4-3.4c/**/*.json -text
+/projects/waveshare-esp32-p4-3.4c/reference/sources/*.txt -text

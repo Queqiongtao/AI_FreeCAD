@@ -1,0 +1,32 @@
+[
+  {
+    "stage": "fit",
+    "returncode": 0,
+    "log": "fit_console.log"
+  },
+  {
+    "stage": "walls",
+    "returncode": 0,
+    "log": "walls_console.log"
+  },
+  {
+    "stage": "slice",
+    "returncode": 0,
+    "log": "slice_console.log"
+  },
+  {
+    "stage": "render",
+    "returncode": 0,
+    "log": "render_console.log"
+  },
+  {
+    "stage": "unit",
+    "returncode": 0,
+    "log": "unit_console.log"
+  },
+  {
+    "stage": "readiness",
+    "returncode": 0,
+    "log": "readiness_console.log"
+  }
+]

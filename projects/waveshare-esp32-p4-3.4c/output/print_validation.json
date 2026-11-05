@@ -1,0 +1,49 @@
+{
+  "schema": "p4-desktop-battery-eight-part-1",
+  "reference_slicing_verified": true,
+  "reports": {
+    "main_body_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "70b20fc3a83d7069382dae2a1b3d8f366c4b45bf7b7e9113ed85d34420fab80d"
+    },
+    "rear_cover_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "7c505bbc2d5818947db6860c53fa561f6636f12538e03ba2c8984977791c97de"
+    },
+    "board_carrier_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "1888025119cad4f3502af780ff420fa6e0d94b85b2918a63a6b24405ba9bc4ac"
+    },
+    "mic_left_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "a63fbdaba7ef73fa5bcb20b3d7631a9e2500c2632451d2605c638635595c68fe"
+    },
+    "mic_left_lid_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "fe242915511c55378f16c9b3a717c6c68aca04957868a138ab8689887b923acd"
+    },
+    "mic_right_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "9bca3fbee5a041acd0a2417574cd0e3f06bf36f2072d907d8884eef0a20a1bf2"
+    },
+    "mic_right_lid_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "421a60cffdc1edba5929e0f989e2f0caacd3678fe0bd088ee0e6c4705b9fb93a"
+    },
+    "battery_tray_petg_print_validation.json": {
+      "passed": true,
+      "sha256": "54d69dac1eec099fd67b69022fdd221adccdaa45bdcd3138ce5ecd8f77e0c578"
+    }
+  },
+  "missing": [],
+  "supports_disabled_for_all": false,
+  "support_parts": [
+    "battery_tray"
+  ],
+  "required_materials": [
+    "PETG"
+  ],
+  "physical_print_verified": false,
+  "functional_section_coverage_verified": false,
+  "production_ready": false
+}

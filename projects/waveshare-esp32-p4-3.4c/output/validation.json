@@ -1,0 +1,596 @@
+{
+  "schema": "p4-desktop-battery-eight-part-1",
+  "parameters": {
+    "tilt_deg": 60.0,
+    "head_center": [
+      0,
+      -10,
+      105.0
+    ],
+    "head_radius": 57.0,
+    "front_n": 9.9,
+    "rear_y": 44.0,
+    "front_y": -48.0,
+    "wall": 2.4,
+    "floor_t": 2.6,
+    "fit_clearance": 0.3,
+    "carrier_front_n": 18.2,
+    "carrier_t": 4.0,
+    "cover_t": 3.2,
+    "boss_radius": 5.0,
+    "rear_flange_extra": 3.0,
+    "seal_groove_depth": 0.4,
+    "seal_stock_t": 0.5,
+    "mic_x": 30.0,
+    "mic_s": -43.0,
+    "mic_interface_n": 12.3,
+    "mic_outlet_s": -61.0,
+    "mic_bore_r": 1.5,
+    "mic_body_w": 14.0,
+    "mic_body_depth": 9.0,
+    "mic_lid_t": 1.6,
+    "mic_lid_gasket_t": 0.2,
+    "mic_pilot_dia": 1.6,
+    "gasket_thickness": 0.8,
+    "speaker_width": 50.0,
+    "speaker_depth": 18.0,
+    "speaker_height": 25.0,
+    "speaker_face_y": 42.2,
+    "speaker_bottom": 25.0,
+    "speaker_impedance_ohm": 8,
+    "speaker_rating_w": 2.0,
+    "battery_width": 60.0,
+    "battery_depth": 50.0,
+    "battery_height": 7.3,
+    "battery_capacity_mah": 2500.0,
+    "battery_bottom": 9.4,
+    "power_width": 38.0,
+    "power_depth": 33.0,
+    "power_height": 14.0,
+    "power_bottom": 25.4,
+    "power_center_y": -3.5,
+    "tray_bottom": 6.0,
+    "tray_t": 2.4,
+    "waist_reduction": 9.0,
+    "screen_radius": 57.5,
+    "screen_radial_gap": 0.3,
+    "screen_proud": 0.8,
+    "screen_wrap_end_n": 16.3,
+    "screen_transition_length": 8.0,
+    "screen_edge_break": 0.3
+  },
+  "readiness": {
+    "status": "engineering_candidate_not_frozen",
+    "production_ready": false,
+    "hardware_frozen": false,
+    "physical_tests_executed": false,
+    "pending": [
+      "电池放电能力及充放电模块限流、电源切换实测",
+      "左右声口坐标、朝向及密封校准",
+      "实际扬声器、USB延长座、开关及线束确认",
+      "PETG试印、配合及五次装拆",
+      "60分钟续航、播放唤醒/AEC、3N稳定、运行和充电温升"
+    ]
+  },
+  "features": {
+    "mic_left": {
+      "interface_x_s_n_mm": [
+        -30.0,
+        -43.0,
+        12.3
+      ],
+      "channel_section_mm": [
+        3.0,
+        3.0
+      ],
+      "nominal_path_length_mm": 35.4,
+      "actual_port_verified": false,
+      "outlet_x_s_n_mm": [
+        -30.0,
+        -61.0,
+        9.9
+      ],
+      "closure": "两颗M2×5盖片自攻螺丝，另两颗M2×12夹紧槽体到主体前壁；软垫及浅导孔待试印校准"
+    },
+    "mic_right": {
+      "interface_x_s_n_mm": [
+        30.0,
+        -43.0,
+        12.3
+      ],
+      "channel_section_mm": [
+        3.0,
+        3.0
+      ],
+      "nominal_path_length_mm": 35.4,
+      "actual_port_verified": false,
+      "outlet_x_s_n_mm": [
+        30.0,
+        -61.0,
+        9.9
+      ],
+      "closure": "两颗M2×5盖片自攻螺丝，另两颗M2×12夹紧槽体到主体前壁；软垫及浅导孔待试印校准"
+    },
+    "screen_wrap": {
+      "screen_proud_mm": 0.8,
+      "inner_diameter_mm": 115.6,
+      "outer_diameter_mm": 120.39999999999999,
+      "radial_clearance_mm": 0.3,
+      "wall_mm": 2.4,
+      "edge_break_mm": 0.3,
+      "wrap_end_n_mm": 16.3,
+      "transition_end_n_mm": 24.3,
+      "top_usb_slot": false,
+      "geometry_note": "原屏和承板不移动；仅主壳一体侧壁向前包覆，不遮盖玻璃"
+    },
+    "structure": {
+      "carrier_t_mm": 4.0,
+      "cover_t_mm": 3.2,
+      "boss_diameter_mm": 10.0,
+      "carrier_mounts": [
+        {
+          "x_s_mm": [
+            -43,
+            -24
+          ],
+          "seat_n_mm": 22.2,
+          "insert_n_mm": [
+            22.4,
+            25.4
+          ],
+          "screw": "M3×8圆头螺丝＋0.5mm垫片",
+          "tip_n_mm": 25.7,
+          "hole_bottom_n_mm": 27.2
+        },
+        {
+          "x_s_mm": [
+            -43,
+            24
+          ],
+          "seat_n_mm": 22.2,
+          "insert_n_mm": [
+            22.4,
+            25.4
+          ],
+          "screw": "M3×8圆头螺丝＋0.5mm垫片",
+          "tip_n_mm": 25.7,
+          "hole_bottom_n_mm": 27.2
+        },
+        {
+          "x_s_mm": [
+            43,
+            -24
+          ],
+          "seat_n_mm": 22.2,
+          "insert_n_mm": [
+            22.4,
+            25.4
+          ],
+          "screw": "M3×8圆头螺丝＋0.5mm垫片",
+          "tip_n_mm": 25.7,
+          "hole_bottom_n_mm": 27.2
+        },
+        {
+          "x_s_mm": [
+            43,
+            24
+          ],
+          "seat_n_mm": 22.2,
+          "insert_n_mm": [
+            22.4,
+            25.4
+          ],
+          "screw": "M3×8圆头螺丝＋0.5mm垫片",
+          "tip_n_mm": 25.7,
+          "hole_bottom_n_mm": 27.2
+        }
+      ],
+      "cover_mounts_x_z_mm": [
+        [
+          -35,
+          118
+        ],
+        [
+          35,
+          118
+        ],
+        [
+          -44,
+          72
+        ],
+        [
+          44,
+          72
+        ],
+        [
+          -41,
+          18
+        ],
+        [
+          41,
+          18
+        ]
+      ],
+      "carrier_independent_of_cover": true,
+      "rear_hard_seat_y_mm": 44.0,
+      "seal_stock_mm": 0.5,
+      "seal_compressed_mm": 0.4,
+      "cover_screw": "M3×8沉头螺丝，3.2mm盖厚，3mm热熔螺母；计入0.2mm头部下沉后孔底余量1.0mm",
+      "frame_added_to_display_front": false
+    },
+    "speaker": {
+      "envelope_mm": [
+        50.0,
+        18.0,
+        25.0
+      ],
+      "face_direction_world": [
+        0,
+        1,
+        0
+      ],
+      "impedance_ohm": 8,
+      "rating_w": 2.0,
+      "model": null,
+      "mounting": "50×18×25mm独立音腔模块占位，背盖四个安装预留；实际固定耳、隔振垫待选型"
+    },
+    "grille": {
+      "count": 55,
+      "opening_mm": [
+        3,
+        4
+      ],
+      "open_area_mm2": 330,
+      "minimum_web_mm": 1.4
+    },
+    "battery": {
+      "candidate": "Adafruit 328，3.7V 2500mAh，60×50×7.3mm",
+      "capacity_mah": 2500.0,
+      "physical_model_confirmed": false,
+      "swelling_clearance_mm": 1.5,
+      "mount": "1mm软垫＋两条松弛织带，四颗M3×6独立锁托盘",
+      "runtime_target_minutes": 60,
+      "measured_power_w": null,
+      "runtime_verified": false,
+      "energy_budget": {
+        "nominal_wh": 9.25,
+        "assumed_efficiency": 0.85,
+        "reserved_fraction": 0.2,
+        "one_hour_max_average_load_w": 6.29
+      }
+    },
+    "power": {
+      "candidate": "DFRobot DFR0446 / MP2636，PCB 35×30mm",
+      "reserved_envelope_mm": [
+        38.0,
+        33.0,
+        14.0
+      ],
+      "supply": "USB外接电源→充电/电源路径模块→P4 USB供电口；禁止双源直接并联",
+      "charge_current_limit_a": 1.0,
+      "charge_current_setting_verified": false,
+      "battery_discharge_rating_verified": false,
+      "seamless_transfer_verified": false
+    },
+    "module": {
+      "source_solids": 1165,
+      "removed_original_screws": [
+        1161,
+        1162,
+        1163,
+        1164
+      ],
+      "retained_solids": 1161,
+      "source_sha256": "8d8edbd7b1cc4e50df4222db091ece4a8ef970e74b43e767b43c53fc01ce30ec"
+    }
+  },
+  "parts": {
+    "mic_left": {
+      "closed": true,
+      "components": 1,
+      "triangles": 3072,
+      "sha256": "6aec0606011e2cbb50b1942d48a60c77be6491283f8cc2e0423c1ee932e487a9",
+      "bbox_mm": [
+        14.0,
+        26.0,
+        9.0
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2903.19169702377,
+      "orientation": "入口侧平面贴床，敞口槽朝上"
+    },
+    "mic_left_lid": {
+      "closed": true,
+      "components": 1,
+      "triangles": 2044,
+      "sha256": "a698b9c99844409e5e5ffbd3bbff890e64d11161090d2da17fde1ca9f95e0968",
+      "bbox_mm": [
+        14.0,
+        26.0,
+        1.600000023841858
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 558.0715064906015,
+      "orientation": "平面贴床"
+    },
+    "mic_right": {
+      "closed": true,
+      "components": 1,
+      "triangles": 3072,
+      "sha256": "014968ae60e7392f0ee6f4417f68af2d97b6f7e2bf302a45e6f7e3bf9ae27d40",
+      "bbox_mm": [
+        14.0,
+        26.0,
+        9.0
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2903.19169702377,
+      "orientation": "同左导音槽"
+    },
+    "mic_right_lid": {
+      "closed": true,
+      "components": 1,
+      "triangles": 2044,
+      "sha256": "e0ea912db65d368170ca5810c52a1a43590843e750094e1d96cde27fdc410d19",
+      "bbox_mm": [
+        14.0,
+        26.0,
+        1.600000023841858
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 558.0715064906015,
+      "orientation": "平面贴床"
+    },
+    "main_body": {
+      "closed": true,
+      "components": 1,
+      "triangles": 46322,
+      "sha256": "34569eb28de367bdb64350162983e1eb05174cf219b6aad452fbeb05d85d24a9",
+      "bbox_mm": [
+        120.4000015258789,
+        156.5685272216797,
+        92.0
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 140857.60300954684,
+      "orientation": "后开口共面加强边贴床，向机身正面生长"
+    },
+    "board_carrier": {
+      "closed": true,
+      "components": 1,
+      "triangles": 10660,
+      "sha256": "09a8396aa62542d3c4a625950f7e4d348ce5727627a047168b2b8a956c0ffb1f",
+      "bbox_mm": [
+        108.59643936157227,
+        93.29557800292969,
+        7.099999904632568
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 13478.5470817114,
+      "orientation": "共面背面贴床，安装柱朝上"
+    },
+    "rear_cover": {
+      "closed": true,
+      "components": 1,
+      "triangles": 22140,
+      "sha256": "d211b98c2f596c3d00536576970507959e1180c748021fc15d7eb3ec7d39ca88",
+      "bbox_mm": [
+        114.0,
+        139.6356430053711,
+        12.19999885559082
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 46952.78495819321,
+      "orientation": "外背面贴床，定位边、加强筋朝上"
+    },
+    "battery_tray": {
+      "closed": true,
+      "components": 1,
+      "triangles": 2332,
+      "sha256": "0eb09e3e822b10342295f2e7724336f0629e90cc65bd305d9805f080e8479655",
+      "bbox_mm": [
+        80.5999984741211,
+        58.0,
+        19.399999618530273
+      ],
+      "print_z_min_mm": 0.0,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 13317.65565341881,
+      "orientation": "底面贴床，电源平台使用可移除支撑；从两侧清理"
+    }
+  },
+  "samples": {
+    "speaker_grille": {
+      "closed": true,
+      "components": 1,
+      "triangles": 1140,
+      "sha256": "91485140556aa90e6ca545ca65097565bcd34ea50cb023a314d39294958b8d5c",
+      "bbox_mm": [
+        52.0,
+        42.0,
+        3.299999952316284
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "carrier_joint": {
+      "closed": true,
+      "components": 1,
+      "triangles": 2084,
+      "sha256": "ed2958586ab282e64527b71f17f7e215cc8cdfe36731c2bae0384974bec62c8b",
+      "bbox_mm": [
+        18.0,
+        17.5243558883667,
+        16.35307502746582
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_15_hole": {
+      "closed": true,
+      "components": 1,
+      "triangles": 520,
+      "sha256": "eb516ed62d2ca378121089cd0ed6be3fd7eb5612b05c02245d102d59cd0b05e3",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        4.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_15_pin": {
+      "closed": true,
+      "components": 1,
+      "triangles": 516,
+      "sha256": "bd62dcac71d706c3460938809f738c26ecaef625212c2637cdae1f3e8b67a8ae",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        6.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_20_hole": {
+      "closed": true,
+      "components": 1,
+      "triangles": 520,
+      "sha256": "27257e075de1b8a2dad4f0919f0d54643a5611a82db86389ab331840c549d4ed",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        4.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_20_pin": {
+      "closed": true,
+      "components": 1,
+      "triangles": 516,
+      "sha256": "bd62dcac71d706c3460938809f738c26ecaef625212c2637cdae1f3e8b67a8ae",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        6.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_25_hole": {
+      "closed": true,
+      "components": 1,
+      "triangles": 520,
+      "sha256": "41511be99de12f1e2e2107bc512f3454bd06714f37bd51f744498828661e9af2",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        4.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_25_pin": {
+      "closed": true,
+      "components": 1,
+      "triangles": 516,
+      "sha256": "bd62dcac71d706c3460938809f738c26ecaef625212c2637cdae1f3e8b67a8ae",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        6.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_30_hole": {
+      "closed": true,
+      "components": 1,
+      "triangles": 520,
+      "sha256": "f2131ab8fb2b3939d2a2742d4ff7ccf24a369ef5730b3b0cd5a7cb0962dcb01f",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        4.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_30_pin": {
+      "closed": true,
+      "components": 1,
+      "triangles": 516,
+      "sha256": "bd62dcac71d706c3460938809f738c26ecaef625212c2637cdae1f3e8b67a8ae",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        6.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_35_hole": {
+      "closed": true,
+      "components": 1,
+      "triangles": 520,
+      "sha256": "f1eb8b548e845e6200c771f09a0f6914e26e7e7f7d1b14f7f8803771f7f274df",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        4.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_35_pin": {
+      "closed": true,
+      "components": 1,
+      "triangles": 516,
+      "sha256": "bd62dcac71d706c3460938809f738c26ecaef625212c2637cdae1f3e8b67a8ae",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        6.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_40_hole": {
+      "closed": true,
+      "components": 1,
+      "triangles": 520,
+      "sha256": "ef625109b7db1974b43f54362c5c61f11b0bfd512d2606955475066da0be6575",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        4.0
+      ],
+      "print_z_min_mm": 0.0
+    },
+    "fit_40_pin": {
+      "closed": true,
+      "components": 1,
+      "triangles": 516,
+      "sha256": "bd62dcac71d706c3460938809f738c26ecaef625212c2637cdae1f3e8b67a8ae",
+      "bbox_mm": [
+        12.0,
+        12.0,
+        6.0
+      ],
+      "print_z_min_mm": 0.0
+    }
+  },
+  "source_sha256": "162dbe90a741384898f18162b31cf7a8e161b30babb6816ab5745fcee4e0fa60",
+  "fit_verified": true,
+  "slicing_verified": true,
+  "physical_fit_verified": false,
+  "artifacts": {
+    "enclosure.FCStd": "ecd88690061e0c0e0d7370a3eed5b5055e16f6f77f8ed17c6e80f27382381939",
+    "enclosure.step": "5f5f40a5b7f23d3d84e79d7497f1e72e3c1396be1acd97a615dff8057bb77e1a"
+  },
+  "reference_slicing_verified": true
+}

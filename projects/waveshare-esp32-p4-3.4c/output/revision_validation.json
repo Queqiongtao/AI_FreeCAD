@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "only_reprint": [
+    "main_body"
+  ],
+  "parts": {
+    "main_body": {
+      "removed_mm3": 0.0,
+      "added_mm3": 19581.88375505369,
+      "unchanged": false
+    },
+    "rear_cover": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    },
+    "board_carrier": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    },
+    "mic_left": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    },
+    "mic_left_lid": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    },
+    "mic_right": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    },
+    "mic_right_lid": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    },
+    "battery_tray": {
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "unchanged": true
+    }
+  },
+  "reference_geometry_and_position_unchanged": {
+    "Module_Reference": true,
+    "Display_Visual": true
+  },
+  "lower_body_below_z40_difference_mm3": 0.0,
+  "baseline_fcstd_sha256": "e90207073ce2c8a005c11aa4f005016c70fbfcf8338adb39ec516b18edf8c176",
+  "fcstd_sha256": "ecd88690061e0c0e0d7370a3eed5b5055e16f6f77f8ed17c6e80f27382381939",
+  "source_sha256": "162dbe90a741384898f18162b31cf7a8e161b30babb6816ab5745fcee4e0fa60",
+  "note": "仅与本次修复前备份比较，不代表实物配合已通过。"
+}
